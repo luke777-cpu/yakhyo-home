@@ -7,10 +7,11 @@ import { url } from '../lib/url';
  * 여기 목록을 보는 편이 어떤 페이지가 있는지 알기 쉽다.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const [concepts, graphs, diary] = await Promise.all([
+  const [concepts, graphs, diary, learn] = await Promise.all([
     getCollection('understand'),
     getCollection('graphs'),
     getCollection('diary'),
+    getCollection('learn'),
   ]);
   const paths = [
     '/',
@@ -23,6 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...diary.map((d) => `/diary/${d.id}/`),
     ...concepts.map((c) => `/understand/${c.id}/`),
     ...graphs.map((g) => `/graphs/${g.id}/`),
+    ...learn.map((l) => `/learn/${l.id}/`),
   ];
 
   const base = site ?? new URL('http://localhost');

@@ -32,21 +32,21 @@
     "category": "class",
     "title": "왜 기록해야 하는가",
     "summary": "기억에 의존한 설명과 기록이 남은 설명은 진료실에서 다르게 읽힙니다.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "output-scale",
     "category": "class",
     "title": "출력이라는 표현을 쓰는 이유",
     "summary": "상태를 두 가지로 나누는 대신 변화의 정도로 기록하는 방식에 대해.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "read-one-day",
     "category": "graph-reading",
     "title": "하루 곡선을 처음 읽어 보기",
     "summary": "복용 시점과 곡선을 겹쳐 놓고 무엇부터 보면 되는지.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "why-late-on",
@@ -67,7 +67,7 @@
     "category": "questions",
     "title": "진료 전에 무엇을 정리해 갈까",
     "summary": "짧은 진료 시간에 전달하기 좋은 형태로 기록을 추리는 방법.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "levodopa-basics",
@@ -81,34 +81,6 @@
     "category": "neuroanatomy",
     "title": "움직임을 만드는 회로",
     "summary": "기저핵과 운동 회로에 대한 아주 짧은 소개.",
-    "status": "preparing"
-  },
-  {
-    "slug": "irregular-days",
-    "category": "class",
-    "title": "약효가 들쭉날쭉한 날",
-    "summary": "같은 약을 같은 시각에 먹었는데 날마다 다르게 느껴질 때 무엇을 함께 볼까.",
-    "status": "preparing"
-  },
-  {
-    "slug": "meals-and-onset",
-    "category": "class",
-    "title": "식사와 약효 변화",
-    "summary": "복용과 식사의 시간 간격이 곡선의 어느 부분과 관련되는지.",
-    "status": "preparing"
-  },
-  {
-    "slug": "sleep-and-next-day",
-    "category": "class",
-    "title": "수면과 다음날 약효",
-    "summary": "밤사이의 일이 다음날 아침 구간에 어떻게 남는지.",
-    "status": "preparing"
-  },
-  {
-    "slug": "constipation-and-delay",
-    "category": "class",
-    "title": "변비와 약효 지연",
-    "summary": "위와 장의 움직임이 흡수 시점과 어떻게 이어지는지.",
     "status": "preparing"
   }
 ]
