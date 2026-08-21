@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import Callout from '../../components/Callout.astro';
+import { url } from '../../lib/url';
+import updates from '../../data/story-updates.json';
+---
+<BaseLayout
+  title="이야기"
+  description="약효일지를 왜 만들었고 어떤 원칙으로 기록을 설계했는지, 그리고 앞으로 어떤 방향으로 이어갈지에 대한 기록입니다."
+>
+  <PageHead
+    crumb="이야기"
+    title="왜 이것을 만들었나"
+    lead="약효일지는 진료실에서 반복해서 마주친 한 가지 어려움에서 출발했습니다 — 하루의 변화를 말로 옮기는 일이 생각보다 훨씬 어렵다는 것."
+  />
+
+  <div class="container">
+    <div class="prose">
+      <h2>말로 옮기기 어려운 것</h2>
+      <p>
+        "요즘 어떠세요"라는 질문에 정확히 답하기는 쉽지 않습니다.
+        기억에 남는 것은 대개 가장 힘들었던 순간과 가장 좋았던 순간이고, 그 사이의 시간은 흐려집니다.
+        약을 먹은 시각과 몸이 달라진 시각의 간격처럼, 정작 중요한 정보일수록 기억에 잘 남지 않습니다.
+      </p>
+      <p>
+        기록이 있으면 이야기가 달라집니다. 같은 이야기를 하더라도 "오후가 힘들다"와
+        "세 번째 복용 뒤에는 곡선이 예전만큼 올라오지 않는다"는 전혀 다른 정보를 담습니다.
+      </p>
+
+      <h2>기록의 원칙</h2>
+      <p>
+        약효일지를 만들면서 지키려고 한 것이 몇 가지 있습니다.
+      </p>
+      <ul>
+        <li><strong>판단을 강요하지 않는다.</strong> 지금이 켜진 상태인지 꺼진 상태인지 고르게 하지 않고, 어느 정도인지만 남기게 합니다.</li>
+        <li><strong>해석을 대신하지 않는다.</strong> 기록을 보고 무엇을 해야 하는지 앱이 결정하지 않습니다. 약의 종류·용량·복용 시간에 대한 판단은 치료진의 몫입니다.</li>
+        <li><strong>기록이 사용자의 것으로 남는다.</strong> 기록은 기기 안에 남고, 언제든 내보낼 수 있습니다.</li>
+        <li><strong>없는 것을 지어내지 않는다.</strong> 근거가 없는 곡선이나 예측을 만들어 보여주지 않습니다.</li>
+      </ul>
+
+      <h2>이 홈페이지가 하는 일</h2>
+      <p>
+        앱만으로는 부족한 부분이 있었습니다. 그래프를 봐도 어디를 봐야 하는지 모르겠다는 이야기,
+        진료실에서 들은 단어가 무슨 뜻인지 모르겠다는 이야기가 반복해서 돌아왔습니다.
+      </p>
+      <p>
+        이 사이트는 그 자리를 메우기 위한 곳입니다.
+        약효 변동을 설명하는 용어를 정리하고, 곡선의 어디를 보아야 하는지를 그림과 함께 설명하고,
+        기록을 진료에 어떻게 가져갈지를 다룹니다.
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">업데이트 기록</h2>
+      <ol class="timeline" style="margin-top: var(--sp-6)" aria-label="업데이트 기록">
+        {updates.items.map((u) => (
+          <li class="timeline__item">
+            <span class="timeline__time">{u.date}</span>
+            <span class="timeline__label">
+              {u.title}
+              <span class="timeline__note">{u.body}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <Callout tone="plain">
+        <p class="callout__title">앞으로</p>
+        <p>
+          약효 이해하기와 그래프 읽기의 나머지 글을 채우고, 사용자 질문과 설문 결과를 정리해 올릴 예정입니다.
+          기록을 바탕으로 한 분석 기능은 재현성이 확인된 부분부터 천천히 다룹니다.
+        </p>
+        <p style="margin-top: var(--sp-4)">
+          <a class="link-arrow" href={url('/understand/')}>약효 이해하기 →</a>
+        </p>
+      </Callout>
+    </div>
+  </div>
+</BaseLayout>

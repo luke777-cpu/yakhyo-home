@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import Section from '../../components/Section.astro';
+import VideoCard from '../../components/VideoCard.astro';
+import TocList from '../../components/TocList.astro';
+import categories from '../../data/learn-categories.json';
+import articles from '../../data/articles.json';
+import videos from '../../data/videos.json';
+
+const byCategory = categories
+  .filter((c) => c.slug !== 'video')
+  .map((c) => ({
+    ...c,
+    items: articles
+      .filter((a) => a.category === c.slug)
+      .map((a) => ({ title: a.title, summary: a.summary, href: null, status: a.status as 'published' | 'preparing' })),
+  }))
+  .filter((c) => c.items.length > 0);
+---
+<BaseLayout
+  title="배우기"
+  description="3분 약효교실, 실제 그래프 읽기, 사용자 질문, 파킨슨 약리학, 신경해부학 — 약효 변동을 이해하는 데 필요한 배경 지식을 모았습니다."
+>
+  <PageHead
+    crumb="배우기"
+    title="배우기"
+    lead="약효 변동을 이해하는 데 필요한 내용을 주제별로 모읍니다. 짧게 읽는 글과 영상이 함께 올라갑니다."
+  />
+
+  <div class="container">
+    {byCategory.map((c) => (
+      <section style="margin-top: var(--sp-16)">
+        <h2 class="section__title">{c.title}</h2>
+        <p class="section__lead">{c.summary}</p>
+        <div style="margin-top: var(--sp-6)">
+          <TocList items={c.items} numbered={false} />
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <Section title="영상" lead="같은 내용을 영상으로 보고 싶을 때." class="section--top">
+    <div class="grid grid--3">
+      {videos.items.map((v) => (
+        <VideoCard youtubeId={v.youtubeId} title={v.title} summary={v.summary} publishedAt={v.publishedAt} />
+      ))}
+    </div>
+  </Section>
+</BaseLayout>

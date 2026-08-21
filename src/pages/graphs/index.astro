@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import DayCurve from '../../components/DayCurve.astro';
+import Callout from '../../components/Callout.astro';
+import patterns from '../../data/graph-patterns.json';
+import type { CurveData } from '../../lib/curve';
+
+const curves = import.meta.glob<{ default: CurveData }>('../../data/curves/*.json', { eager: true });
+const items = patterns.map((p) => ({
+  ...p,
+  data: curves[`../../data/curves/${p.curve}.json`]?.default,
+}));
+---
+<BaseLayout
+  title="그래프 읽기"
+  description="하루 곡선에서 무엇을 보아야 하는지 — 올라오는 지점, 최고점의 높이, 내려오는 기울기, 하루 전체의 반복을 모양별로 정리했습니다."
+>
+  <PageHead
+    crumb="그래프 읽기"
+    title="곡선의 어디를 보아야 할까"
+    lead="같은 하루라도 어디를 보느냐에 따라 다른 것이 보입니다. 아래는 기록에서 자주 나타나는 모양들입니다."
+  />
+
+  <div class="container">
+    <Callout tone="plain" class="prose-width">
+      <p>
+        모든 곡선은 교육을 위해 만든 예시입니다. 특정 약이나 용량의 반응을 나타내지 않으며,
+        어떤 모양이 좋고 나쁜지를 뜻하지도 않습니다. 점선이 있는 그림에서 점선은 비교를 위한 참고 곡선입니다.
+      </p>
+    </Callout>
+
+    <div class="grid grid--3" style="margin-top: var(--sp-12)">
+      {items.map((p) => (
+        <article class={`card ${p.status === 'published' ? '' : 'card--pending'}`}>
+          {p.data && (
+            <DayCurve curve={p.data} variant="mini" bare title={`${p.title} — 예시 곡선`} />
+          )}
+          <h2 class="card__title" style="margin-top: var(--sp-3)">{p.title}</h2>
+          <p class="card__desc">{p.summary}</p>
+          <p class="card__foot"><span class="badge">준비 중</span></p>
+        </article>
+      ))}
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      각 모양을 자세히 다루는 글은 준비 중입니다. 페이지마다 그래프 → 짧은 설명 → 무엇을 기록해야 하는가 순서로 정리할 예정입니다.
+    </p>
+  </div>
+</BaseLayout>

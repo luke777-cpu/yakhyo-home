@@ -1,0 +1,30 @@
+import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
+import { url } from '../lib/url';
+
+/**
+ * sitemap을 직접 만든다. 이 정도 규모에서는 통합 패키지를 넣는 것보다
+ * 여기 목록을 보는 편이 어떤 페이지가 있는지 알기 쉽다.
+ */
+export const GET: APIRoute = async ({ site }) => {
+  const concepts = await getCollection('understand');
+  const paths = [
+    '/',
+    '/diary/',
+    '/understand/',
+    '/graphs/',
+    '/learn/',
+    '/story/',
+    '/start/',
+    ...concepts.map((c) => `/understand/${c.id}/`),
+  ];
+
+  const base = site ?? new URL('http://localhost');
+  const body = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${paths.map((p) => `  <url><loc>${new URL(url(p), base).toString()}</loc></url>`).join('\n')}
+</urlset>
+`;
+
+  return new Response(body, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
+};

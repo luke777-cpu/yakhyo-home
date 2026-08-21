@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import TocList from '../../components/TocList.astro';
+import Callout from '../../components/Callout.astro';
+import { url } from '../../lib/url';
+import concepts from '../../data/concepts.json';
+
+const items = concepts.map((c) => ({
+  title: c.title,
+  term: c.term,
+  summary: c.summary,
+  href: url(`/understand/${c.slug}/`),
+  status: c.status as 'published' | 'preparing',
+}));
+const ready = items.filter((i) => i.status === 'published').length;
+---
+<BaseLayout
+  title="약효 이해하기"
+  description="ON, OFF, Delayed ON, Wearing-off처럼 파킨슨 약효 변동을 설명할 때 쓰는 용어를, 그래프의 어느 부분을 가리키는지와 함께 정리했습니다."
+>
+  <PageHead
+    crumb="약효 이해하기"
+    title="약효 변동을 부르는 이름들"
+    lead="진료실에서 오가는 말들이 실제로는 그래프의 어느 부분을 가리키는지 정리했습니다. 모든 글은 같은 순서로 쓰여 있습니다 — 한 줄 정의, 그래프로 보면, 흔히 쓰는 표현, 함께 이야기되는 요인, 기록할 것, 치료진과 상의할 때 보여줄 항목."
+  />
+
+  <div class="container">
+    <Callout tone="plain" class="prose-width">
+      <p>
+        여기 있는 용어는 상태를 두 가지로 나누기 위한 것이 아닙니다.
+        약효는 켜지고 꺼지기보다 오르내립니다. 이름은 그 오르내림의 특정 부분을 짧게 부르기 위한 도구입니다.
+      </p>
+    </Callout>
+
+    <div style="margin-top: var(--sp-12)">
+      <TocList items={items} />
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      현재 {ready}개의 글이 공개되어 있고 나머지는 준비 중입니다. 준비되는 대로 하나씩 올라갑니다.
+    </p>
+  </div>
+</BaseLayout>
