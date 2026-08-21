@@ -2,6 +2,10 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+const related = z
+  .array(z.object({ label: z.string(), href: z.string().nullable(), note: z.string().optional() }))
+  .default([]);
+
 /**
  * "약효 이해하기" 개념 글.
  * 모든 글이 같은 구조를 갖도록 스키마로 강제한다. 항목이 빠지면 빌드가 실패하므로
@@ -28,9 +32,49 @@ const understand = defineCollection({
     /** 6. 치료진에게 보여줄 때 중요한 정보 */
     forVisit: z.array(z.string()).default([]),
     /** 7. 관련 글 */
-    related: z.array(z.object({ label: z.string(), href: z.string().nullable(), note: z.string().optional() })).default([]),
+    related,
     order: z.number().default(99),
   }),
 });
 
-export const collections = { understand };
+/**
+ * "그래프 읽기" 글.
+ * 구성은 세 단계로 고정한다 — 그래프 → 짧은 설명 → 무엇을 기록해야 하는가.
+ */
+const graphs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/graphs' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** 한 줄 요약 */
+    lead: z.string(),
+    curve: z.string(),
+    curveTitle: z.string(),
+    curveCaption: z.string().optional(),
+    /** 곡선의 어디를 보는가 */
+    look: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    /** 무엇을 기록해야 하는가 */
+    record: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    related,
+    order: z.number().default(99),
+  }),
+});
+
+/** "약효일지" 사용법 글. */
+const diary = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/diary' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    lead: z.string(),
+    /** 순서대로 따라 하는 단계 */
+    steps: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    /** 알아두면 좋은 것 */
+    notes: z.array(z.string()).default([]),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    related,
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { understand, graphs, diary };

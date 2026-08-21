@@ -1,0 +1,89 @@
+---
+/**
+ * "그래프 읽기" 글의 공통 틀.
+ * 순서는 모든 글에서 동일하다 — 그래프 → 짧은 설명 → 어디를 보는가 → 무엇을 기록하는가.
+ * 개념 페이지(ConceptLayout)와 같은 구성 요소만 쓰고 새로운 표현을 만들지 않는다.
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import DayCurve from '../components/DayCurve.astro';
+import Callout from '../components/Callout.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+import type { CurveData } from '../lib/curve';
+
+interface Props {
+  data: {
+    title: string;
+    description: string;
+    lead: string;
+    curveTitle: string;
+    curveCaption?: string;
+    look: { title: string; detail: string }[];
+    record: { title: string; detail: string }[];
+    related: { label: string; href: string | null; note?: string }[];
+  };
+  curve: CurveData;
+}
+
+const { data, curve } = Astro.props;
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+---
+<BaseLayout title={data.title} description={data.description}>
+  <PageHead crumb="그래프 읽기" crumbHref={url('/graphs/')} title={data.title} lead={data.lead} />
+
+  <div class="container">
+    <section class="concept__section" style="margin-top: 0" aria-labelledby="s-graph">
+      <h2 id="s-graph">그래프</h2>
+      <DayCurve curve={curve} variant="full" title={data.curveTitle} caption={data.curveCaption} />
+      <div class="prose" style="margin-top: var(--sp-8)">
+        <slot />
+      </div>
+    </section>
+
+    {data.look.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-look">
+        <h2 id="s-look">어디를 보나요</h2>
+        <ul class="checklist">
+          {data.look.map((l) => (
+            <li>
+              <strong>{l.title}</strong>
+              <span>{l.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {data.record.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-record">
+        <h2 id="s-record">이 모양이 보일 때 함께 기록하면 도움이 되는 정보</h2>
+        <ul class="checklist">
+          {data.record.map((r) => (
+            <li>
+              <strong>{r.title}</strong>
+              <span>{r.detail}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="graph__caption" style="margin-top: var(--sp-4); max-width: var(--w-prose)">
+          곡선의 모양은 상황을 설명하기 위한 자료입니다. 약의 종류·용량·복용 시간에 대한 판단은 담당 치료진과 상의해 주세요.
+        </p>
+      </section>
+    )}
+
+    {related.length > 0 && <RelatedContent items={related} />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">기록 시작하기</h2>
+      <Callout tone="plain">
+        <p class="callout__title">내 곡선으로 확인해 보려면</p>
+        <p>며칠치 기록이 쌓이면 같은 자리를 내 그래프에서도 찾아볼 수 있습니다.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/start/')}>약효일지 시작하기</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</BaseLayout>

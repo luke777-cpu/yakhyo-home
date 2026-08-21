@@ -1,9 +1,9 @@
 [
-  { "slug": "start", "title": "처음 시작하기", "summary": "앱을 처음 열었을 때 무엇부터 하면 되는지 순서대로 안내합니다.", "status": "preparing" },
-  { "slug": "output", "title": "출력 기록법", "summary": "지금 몸이 어느 정도로 움직이는지를 기록으로 남기는 방법입니다.", "status": "preparing" },
-  { "slug": "medication", "title": "약 복용 기록", "summary": "무엇을 언제 먹었는지 남기면 곡선과 겹쳐 볼 수 있습니다.", "status": "preparing" },
+  { "slug": "start", "title": "처음 시작하기", "summary": "앱을 처음 열었을 때 무엇부터 하면 되는지 순서대로 안내합니다.", "status": "published" },
+  { "slug": "output", "title": "출력 기록법", "summary": "지금 몸이 어느 정도로 움직이는지를 기록으로 남기는 방법입니다.", "status": "published" },
+  { "slug": "medication", "title": "약 복용 기록", "summary": "무엇을 언제 먹었는지 남기면 곡선과 겹쳐 볼 수 있습니다.", "status": "published" },
   { "slug": "events", "title": "이벤트 기록", "summary": "식사, 운동, 이상운동처럼 곡선에 영향을 줄 수 있는 일을 표시합니다.", "status": "preparing" },
-  { "slug": "graph", "title": "그래프 보기", "summary": "기록이 하루 곡선으로 어떻게 그려지는지 살펴봅니다.", "status": "preparing" },
+  { "slug": "graph", "title": "그래프 보기", "summary": "기록이 하루 곡선으로 어떻게 그려지는지 살펴봅니다.", "status": "published" },
   { "slug": "phs", "title": "PHS / 보고서", "summary": "기록을 진료에 가져갈 수 있는 형태로 정리하는 기능입니다.", "status": "preparing" },
   { "slug": "backup", "title": "백업 및 복원", "summary": "기록을 잃지 않도록 내보내고 다시 불러오는 방법입니다.", "status": "preparing" },
   { "slug": "faq", "title": "자주 묻는 질문", "summary": "기록을 시작하면서 가장 많이 나오는 질문을 모았습니다.", "status": "preparing" }

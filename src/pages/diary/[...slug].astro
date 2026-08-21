@@ -1,0 +1,15 @@
+---
+import { getCollection, render } from 'astro:content';
+import DiaryLayout from '../../layouts/DiaryLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('diary');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<DiaryLayout data={entry.data}>
+  <Content />
+</DiaryLayout>

@@ -41,13 +41,13 @@ related:
     href: null
     note: 늦게라도 올라오는 경우와 구분해서 봅니다
   - label: 충분히 올라오지 않는 경우 (Incomplete ON)
-    href: null
+    href: /understand/incomplete-on/
     note: 올라오는 시점이 아니라 높이가 문제인 경우
   - label: 아침의 낮은 출력 (Morning OFF)
     href: null
     note: 첫 복용에서 자주 함께 이야기됩니다
   - label: 그래프 읽기 — 늦게 올라오는 모양
-    href: /graphs/
+    href: /graphs/delayed-rise/
     note: 곡선의 어느 부분을 보는지
 ---
 

@@ -1,0 +1,84 @@
+---
+/**
+ * "약효일지" 사용법 글의 공통 틀.
+ * 처음 쓰는 사람이 위에서 아래로 한 번에 읽도록 순서를 고정한다 —
+ * 설명 → 순서대로 하기 → 알아두면 좋은 것 → 자주 묻는 것.
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Callout from '../components/Callout.astro';
+import FAQ from '../components/FAQ.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  data: {
+    title: string;
+    description: string;
+    lead: string;
+    steps: { title: string; detail: string }[];
+    notes: string[];
+    faq: { q: string; a: string }[];
+    related: { label: string; href: string | null; note?: string }[];
+  };
+}
+
+const { data } = Astro.props;
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+---
+<BaseLayout title={data.title} description={data.description}>
+  <PageHead crumb="약효일지" crumbHref={url('/diary/')} title={data.title} lead={data.lead} />
+
+  <div class="container">
+    <div class="prose">
+      <slot />
+    </div>
+
+    {data.steps.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-steps">
+        <h2 id="s-steps">순서대로 하기</h2>
+        <ol class="checklist">
+          {data.steps.map((s) => (
+            <li>
+              <strong>{s.title}</strong>
+              <span>{s.detail}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {data.notes.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-notes">
+        <h2 id="s-notes">알아두면 좋은 것</h2>
+        <Callout>
+          <ul>
+            {data.notes.map((n) => <li>{n}</li>)}
+          </ul>
+        </Callout>
+      </section>
+    )}
+
+    {data.faq.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-faq">
+        <h2 id="s-faq">자주 묻는 것</h2>
+        <div style="max-width: var(--w-prose)">
+          <FAQ items={data.faq} />
+        </div>
+      </section>
+    )}
+
+    {related.length > 0 && <RelatedContent items={related} />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">기록 시작하기</h2>
+      <Callout tone="plain">
+        <p>읽는 것보다 한 번 해 보는 편이 빠릅니다.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/start/')}>약효일지 시작하기</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</BaseLayout>

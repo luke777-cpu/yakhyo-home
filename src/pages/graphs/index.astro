@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHead from '../../components/PageHead.astro';
 import DayCurve from '../../components/DayCurve.astro';
 import Callout from '../../components/Callout.astro';
+import { url } from '../../lib/url';
 import patterns from '../../data/graph-patterns.json';
 import type { CurveData } from '../../lib/curve';
 
@@ -31,20 +32,24 @@ const items = patterns.map((p) => ({
     </Callout>
 
     <div class="grid grid--3" style="margin-top: var(--sp-12)">
-      {items.map((p) => (
-        <article class={`card ${p.status === 'published' ? '' : 'card--pending'}`}>
-          {p.data && (
-            <DayCurve curve={p.data} variant="mini" bare title={`${p.title} — 예시 곡선`} />
-          )}
-          <h2 class="card__title" style="margin-top: var(--sp-3)">{p.title}</h2>
-          <p class="card__desc">{p.summary}</p>
-          <p class="card__foot"><span class="badge">준비 중</span></p>
-        </article>
-      ))}
+      {items.map((p) => {
+        const ready = p.status === 'published';
+        const Tag = ready ? 'a' : 'article';
+        return (
+          <Tag class={`card ${ready ? '' : 'card--pending'}`} href={ready ? url(`/graphs/${p.slug}/`) : undefined}>
+            {p.data && (
+              <DayCurve curve={p.data} variant="mini" bare title={`${p.title} — 예시 곡선`} />
+            )}
+            <h2 class="card__title" style="margin-top: var(--sp-3)">{p.title}</h2>
+            <p class="card__desc">{p.summary}</p>
+            {!ready && <p class="card__foot"><span class="badge">준비 중</span></p>}
+          </Tag>
+        );
+      })}
     </div>
 
     <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
-      각 모양을 자세히 다루는 글은 준비 중입니다. 페이지마다 그래프 → 짧은 설명 → 무엇을 기록해야 하는가 순서로 정리할 예정입니다.
+      각 글은 그래프 → 짧은 설명 → 무엇을 기록해야 하는가 순서로 정리되어 있습니다. 나머지 모양은 준비 중입니다.
     </p>
   </div>
 </BaseLayout>

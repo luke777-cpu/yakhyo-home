@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import GraphLayout from '../../layouts/GraphLayout.astro';
+import type { CurveData } from '../../lib/curve';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('graphs');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const curves = import.meta.glob<{ default: CurveData }>('../../data/curves/*.json', { eager: true });
+const curve = curves[`../../data/curves/${entry.data.curve}.json`]!.default;
+---
+<GraphLayout data={entry.data} curve={curve}>
+  <Content />
+</GraphLayout>
