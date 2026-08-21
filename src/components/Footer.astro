@@ -1,0 +1,49 @@
+---
+import nav from '../data/nav.json';
+import links from '../data/links.json';
+import { url } from '../lib/url';
+import { SITE, MEDICAL_NOTICE } from '../lib/site';
+
+const year = 2026;
+const external = [
+  links.app ? { href: links.app, label: '약효일지 앱 열기' } : null,
+  links.playStore ? { href: links.playStore, label: 'Google Play' } : null,
+  links.youtube ? { href: links.youtube, label: 'YouTube 채널' } : null,
+].filter(Boolean) as { href: string; label: string }[];
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__title">{SITE.name}</p>
+        <p>{SITE.tagline}</p>
+      </div>
+
+      <nav aria-label="사이트 메뉴">
+        <p class="footer__title">둘러보기</p>
+        <ul class="footer__list">
+          {nav.map((item) => (
+            <li><a href={url(item.href)}>{item.label}</a></li>
+          ))}
+          <li><a href={url('/start/')}>시작하기</a></li>
+        </ul>
+      </nav>
+
+      {external.length > 0 && (
+        <div>
+          <p class="footer__title">바깥 링크</p>
+          <ul class="footer__list">
+            {external.map((item) => (
+              <li><a href={item.href} rel="noopener" target="_blank">{item.label}<span class="sr-only">(새 창)</span></a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__notice">{MEDICAL_NOTICE}</p>
+      <p>© {year} {SITE.name}</p>
+    </div>
+  </div>
+</footer>

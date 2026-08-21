@@ -1,0 +1,35 @@
+---
+/**
+ * YouTube 영상 카드. API를 쓰지 않고 data/videos.json을 손으로 관리한다.
+ * youtubeId가 비어 있으면 링크를 걸지 않고 "준비 중"으로만 표시한다.
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  youtubeId: string | null;
+  title: string;
+  summary?: string;
+  publishedAt?: string | null;
+}
+const { youtubeId, title, summary, publishedAt } = Astro.props;
+const href = youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null;
+const thumb = youtubeId ? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg` : null;
+---
+<article class="card">
+  {href ? (
+    <a class="video__thumb" href={href} rel="noopener" target="_blank" aria-label={`${title} — YouTube에서 보기 (새 창)`}>
+      <img src={thumb} alt="" width="480" height="270" loading="lazy" decoding="async" />
+      <span class="video__play"><Icon name="play" size={44} /></span>
+    </a>
+  ) : (
+    <span class="video__thumb" aria-hidden="true"></span>
+  )}
+
+  <h3 class="card__title">
+    {href
+      ? <a href={href} rel="noopener" target="_blank">{title}<span class="sr-only">(새 창)</span></a>
+      : title}
+  </h3>
+  {summary && <p class="card__desc">{summary}</p>}
+  <p class="card__foot">{publishedAt ?? '준비 중'}</p>
+</article>

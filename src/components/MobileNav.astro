@@ -1,0 +1,41 @@
+---
+import nav from '../data/nav.json';
+import { url, isActive } from '../lib/url';
+import { SITE } from '../lib/site';
+import Icon from './Icon.astro';
+
+const here = Astro.url.pathname;
+---
+<div class="mobilenav" id="mobile-nav" data-nav-panel hidden>
+  <div class="container mobilenav__top">
+    <a class="header__brand" href={url('/')}>
+      <Icon name="mark" size={22} class="header__mark" />
+      {SITE.name}
+    </a>
+    <button class="mobilenav__close" type="button" data-nav-close>
+      <Icon name="close" size={24} />
+      <span class="sr-only">메뉴 닫기</span>
+    </button>
+  </div>
+
+  <div class="container mobilenav__body">
+    <a class="btn btn--primary btn--block mobilenav__cta" href={url('/start/')}>약효일지 시작하기</a>
+    <nav aria-label="주요 메뉴">
+      <ul class="mobilenav__list">
+        {nav.map((item) => (
+          <li>
+            <a
+              class="mobilenav__link"
+              href={url(item.href)}
+              aria-current={isActive(here, item.href) ? 'true' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  import '../scripts/navigation';
+</script>

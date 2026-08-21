@@ -1,0 +1,38 @@
+---
+/**
+ * index 페이지의 목록. 아직 글이 없는 항목은 링크 대신 "준비 중"으로 표시한다.
+ * 링크처럼 보이는데 눌리지 않는 상태를 만들지 않기 위한 구분이다.
+ */
+interface Item {
+  title: string;
+  term?: string | null;
+  summary?: string;
+  href?: string | null;
+  status?: 'published' | 'preparing';
+}
+interface Props { items: Item[]; numbered?: boolean; }
+const { items, numbered = true } = Astro.props;
+---
+<ol class="toc" style={numbered ? undefined : 'list-style:none'}>
+  {items.map((item, i) => {
+    const ready = item.status !== 'preparing' && item.href;
+    const Tag = ready ? 'a' : 'div';
+    return (
+      <li class={`toc__item ${ready ? '' : 'toc__item--pending'}`}>
+        <Tag class="toc__link" href={ready ? item.href : undefined}>
+          {numbered && <span class="toc__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>}
+          <span>
+            <span class="toc__title">
+              {item.title}
+              {item.term && <span class="toc__term"> · {item.term}</span>}
+            </span>
+            {item.summary && <span class="toc__desc">{item.summary}</span>}
+          </span>
+          {ready
+            ? <span class="toc__state" aria-hidden="true">→</span>
+            : <span class="badge">준비 중</span>}
+        </Tag>
+      </li>
+    );
+  })}
+</ol>

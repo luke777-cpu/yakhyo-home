@@ -1,0 +1,14 @@
+---
+interface Props { crumb?: string; crumbHref?: string; title: string; lead?: string; }
+const { crumb, crumbHref, title, lead } = Astro.props;
+---
+<div class="pagehead">
+  <div class="container">
+    {crumb && (crumbHref
+      ? <a class="pagehead__crumb" href={crumbHref}>{crumb}</a>
+      : <span class="pagehead__crumb">{crumb}</span>)}
+    <h1 class="pagehead__title">{title}</h1>
+    {lead && <p class="pagehead__lead">{lead}</p>}
+    <slot />
+  </div>
+</div>

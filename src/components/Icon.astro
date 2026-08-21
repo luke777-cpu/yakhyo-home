@@ -1,0 +1,30 @@
+---
+/** 아이콘은 인라인 SVG로만 쓴다. 의료 십자가 같은 상징은 쓰지 않는다. */
+interface Props { name: 'menu' | 'close' | 'arrow-right' | 'arrow-up-right' | 'plus' | 'play' | 'mark'; size?: number; class?: string; }
+const { name, size = 20, class: className = '' } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+  close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  'arrow-right': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'arrow-up-right': '<path d="M7 17L17 7M8 7h9v9"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  play: '<path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/>',
+  // 로고 자리 표시 — 오르내리는 하루 곡선을 그대로 쓴다
+  mark: '<path d="M2 17c3 0 3.5-9 6.5-9S12 20 15 20s3.5-13 7-13"/>',
+};
+---
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  set:html={paths[name]}
+/>

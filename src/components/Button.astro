@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+  block?: boolean;
+  external?: boolean;
+  class?: string;
+}
+const { href, variant = 'primary', block = false, external = false, class: className = '' } = Astro.props;
+const rel = external ? 'noopener' : undefined;
+const target = external ? '_blank' : undefined;
+---
+<a
+  class={`btn btn--${variant} ${block ? 'btn--block' : ''} ${className}`}
+  href={href}
+  rel={rel}
+  target={target}
+>
+  <slot />
+  {external && <span class="sr-only">(새 창)</span>}
+</a>

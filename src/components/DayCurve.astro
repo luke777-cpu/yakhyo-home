@@ -1,0 +1,189 @@
+---
+/**
+ * 하루 곡선 그래프
+ *
+ * 이 사이트의 핵심 시각 언어. 원칙은 세 가지다.
+ *  1) hover 없이도 읽힌다 — 필요한 라벨은 모두 그림 안에 그려 넣는다.
+ *  2) 모바일에서도 읽힌다 — 좁은 화면용과 넓은 화면용 두 벌을 그려 하나만 보여준다.
+ *     (하나의 SVG를 축소하면 글자가 같이 작아져 읽을 수 없다.)
+ *  3) 색으로 상태를 단정하지 않는다 — 곡선과 복용 시점만 구분하고, 판단은 글로 적는다.
+ */
+import { makeScales, toArea, toLine, timeTicks, describe, nextGraphId, type Box, type CurveData } from '../lib/curve';
+
+interface Props {
+  curve: CurveData;
+  /** full: 라벨까지 모두 / compact: 라벨 없이 곡선 중심 / mini: 목록 카드용 작은 미리보기 */
+  variant?: 'full' | 'compact' | 'mini';
+  title: string;
+  desc?: string;
+  caption?: string;
+  doseLabels?: boolean;
+  legend?: boolean;
+  bare?: boolean;
+  class?: string;
+}
+
+const {
+  curve,
+  variant = 'full',
+  title,
+  desc,
+  caption,
+  doseLabels = variant === 'full',
+  legend = variant !== 'mini',
+  bare = false,
+  class: className = '',
+} = Astro.props;
+
+const uid = nextGraphId();
+const hasReference = Array.isArray(curve.reference) && curve.reference.length > 0;
+const showMarks = variant === 'full' && curve.marks.length > 0;
+const description = desc ?? describe(curve);
+
+/** 화면 폭별 상자 규격. 글자 크기는 각 상자 안에서 읽히도록 따로 정한다. */
+const BOXES: Record<string, Box & { fs: { tick: number; axis: number; dose: number; mark: number; time: number }; sw: { line: number; dot: number } }> = {
+  narrow: {
+    W: 360, H: 276, padT: 34, padL: 8, padR: 34, plotH: 186, doseLane: 24, tickLane: 24,
+    fs: { tick: 14, axis: 12.5, dose: 14, mark: 14.5, time: 13 },
+    sw: { line: 2.6, dot: 4.6 },
+  },
+  wide: {
+    W: 620, H: 300, padT: 38, padL: 10, padR: 40, plotH: 198, doseLane: 26, tickLane: 26,
+    fs: { tick: 13, axis: 12, dose: 13, mark: 13.5, time: 12 },
+    sw: { line: 2.4, dot: 4.4 },
+  },
+  mini: {
+    W: 300, H: 108, padT: 8, padL: 4, padR: 4, plotH: 84, doseLane: 0, tickLane: 10, sw: { line: 2.6, dot: 3 },
+    fs: { tick: 0, axis: 0, dose: 0, mark: 0, time: 0 },
+  },
+};
+
+const ticks = timeTicks(curve.window);
+
+function build(key: 'narrow' | 'wide' | 'mini') {
+  const box = BOXES[key];
+  const s = makeScales(box, curve.window);
+  return {
+    box,
+    s,
+    area: toArea(curve.points, s.x, s.y, s.axisY),
+    line: toLine(curve.points, s.x, s.y),
+    ref: hasReference ? toLine(curve.reference as number[][], s.x, s.y) : null,
+    grid: [25, 50, 75, 100].map((v) => s.y(v)),
+    doseLaneY: s.axisY + box.doseLane - 7,
+    tickY: s.axisY + box.doseLane + box.tickLane - 8,
+  };
+}
+
+const views = variant === 'mini' ? [build('mini')] : [build('narrow'), build('wide')];
+const viewClass = variant === 'mini' ? ['graph__svg'] : ['graph__svg graph__svg--narrow', 'graph__svg graph__svg--wide'];
+
+/** 라벨이 그림 밖으로 나가지 않도록 정렬을 바꾼다 */
+function anchorFor(x: number, box: Box) {
+  if (x < box.W * 0.16) return { anchor: 'start', tx: box.padL };
+  if (x > box.W - box.W * 0.16) return { anchor: 'end', tx: box.W - box.padR };
+  return { anchor: 'middle', tx: x };
+}
+---
+
+<figure class={`graph ${bare ? 'graph--bare' : ''} ${variant === 'mini' ? 'graph--mini' : ''} ${className}`}>
+  {views.map((v, vi) => (
+    <svg
+      class={viewClass[vi]}
+      viewBox={`0 0 ${v.box.W} ${v.box.H}`}
+      role="img"
+      aria-labelledby={`${uid}-t-${vi} ${uid}-d-${vi}`}
+    >
+      <title id={`${uid}-t-${vi}`}>{title}</title>
+      <desc id={`${uid}-d-${vi}`}>{description}</desc>
+
+      {/* 가로 격자 */}
+      {v.grid.map((gy) => (
+        <line class="g-grid" x1={v.box.padL} y1={gy} x2={v.box.W - v.box.padR} y2={gy} stroke-width={variant === 'mini' ? 1 : 1} />
+      ))}
+
+      {/* 약 복용 시점의 세로 안내선 */}
+      {curve.doses.map((d) => (
+        <line class="g-dose-line" x1={v.s.x(d.t)} y1={v.s.topY} x2={v.s.x(d.t)} y2={v.s.axisY} />
+      ))}
+
+      {/* 참고 곡선 (비교용) */}
+      {v.ref && <path class="g-line g-line--reference" d={v.ref} stroke-width={v.box.sw.line - 0.4} />}
+
+      {/* 출력 곡선 */}
+      <path class="g-area" d={v.area} />
+      <path class="g-line" d={v.line} stroke-width={v.box.sw.line} />
+
+      {/* 기준선 */}
+      <line class="g-axis" x1={v.box.padL} y1={v.s.axisY} x2={v.box.W - v.box.padR} y2={v.s.axisY} />
+
+      {/* 세로축은 눈금값 대신 높낮이만 표시한다 */}
+      {variant !== 'mini' && (
+        <g>
+          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.y(100) + 4} font-size={v.box.fs.axis}>높음</text>
+          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.axisY} font-size={v.box.fs.axis}>낮음</text>
+        </g>
+      )}
+
+      {/* 복용 시점 표시 */}
+      {curve.doses.map((d) => (
+        <g>
+          <polygon
+            class="g-dose-mark"
+            points={`${v.s.x(d.t) - 5},${v.s.axisY + 6} ${v.s.x(d.t) + 5},${v.s.axisY + 6} ${v.s.x(d.t)},${v.s.axisY - 1}`}
+          />
+          {doseLabels && (
+            <text class="g-dose-text" x={v.s.x(d.t)} y={v.doseLaneY} text-anchor="middle" font-size={v.box.fs.dose}>
+              {d.time}
+            </text>
+          )}
+        </g>
+      ))}
+
+      {/* 시간축 */}
+      {variant !== 'mini' &&
+        ticks.map((t) => (
+          <text
+            class={`g-tick ${t.major ? '' : 'g-tick--minor'}`}
+            x={v.s.x(t.t)}
+            y={v.tickY}
+            text-anchor="middle"
+            font-size={v.box.fs.tick}
+          >
+            {t.label}
+          </text>
+        ))}
+
+      {/* 곡선 위의 지점 설명 */}
+      {showMarks &&
+        curve.marks.map((m) => {
+          const mx = v.s.x(m.t);
+          const my = v.s.y(m.v);
+          const a = anchorFor(mx, v.box);
+          const labelY = Math.max(v.box.fs.mark + 2, my - v.box.fs.mark - 12);
+          return (
+            <g>
+              <line class="g-mark-line" x1={mx} y1={my} x2={mx} y2={labelY + 4} />
+              <circle class="g-mark-dot" cx={mx} cy={my} r={v.box.sw.dot} stroke-width={v.box.sw.line} />
+              <text class="g-mark-text" x={a.tx} y={labelY - v.box.fs.time - 1} text-anchor={a.anchor} font-size={v.box.fs.mark}>
+                {m.label}
+              </text>
+              <text class="g-mark-time" x={a.tx} y={labelY} text-anchor={a.anchor} font-size={v.box.fs.time}>
+                {m.time}
+              </text>
+            </g>
+          );
+        })}
+    </svg>
+  ))}
+
+  {legend && (
+    <ul class="graph__legend">
+      <li><span class="graph__swatch" aria-hidden="true"></span>출력 변화</li>
+      {hasReference && <li><span class="graph__swatch graph__swatch--reference" aria-hidden="true"></span>비교용 참고 곡선</li>}
+      {curve.doses.length > 0 && <li><span class="graph__swatch graph__swatch--dose" aria-hidden="true"></span>약 복용 시점</li>}
+    </ul>
+  )}
+
+  {caption && <figcaption class="graph__caption">{caption}</figcaption>}
+</figure>

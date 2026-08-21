@@ -1,0 +1,15 @@
+---
+interface Props { items: { time: string; label: string; note?: string | null }[]; label: string; }
+const { items, label } = Astro.props;
+---
+<ol class="timeline" aria-label={label}>
+  {items.map((item) => (
+    <li class="timeline__item">
+      <span class="timeline__time">{item.time}</span>
+      <span class="timeline__label">
+        {item.label}
+        {item.note && <span class="timeline__note">{item.note}</span>}
+      </span>
+    </li>
+  ))}
+</ol>

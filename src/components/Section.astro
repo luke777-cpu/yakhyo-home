@@ -1,0 +1,25 @@
+---
+interface Props {
+  title?: string;
+  eyebrow?: string;
+  lead?: string;
+  sunken?: boolean;
+  id?: string;
+  headingLevel?: 2 | 3;
+  class?: string;
+}
+const { title, eyebrow, lead, sunken = false, id, headingLevel = 2, class: className = '' } = Astro.props;
+const H = `h${headingLevel}` as 'h2' | 'h3';
+---
+<section class={`section ${sunken ? 'section--sunken' : ''} ${className}`} id={id}>
+  <div class="container">
+    {(title || eyebrow || lead) && (
+      <div class="section__head">
+        {eyebrow && <span class="section__eyebrow">{eyebrow}</span>}
+        {title && <H class="section__title">{title}</H>}
+        {lead && <p class="section__lead">{lead}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>
