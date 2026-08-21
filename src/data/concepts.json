@@ -42,7 +42,7 @@
   {
     "slug": "freezing", "term": "Freezing", "title": "보행 동결",
     "summary": "걸음을 시작하기 어렵거나 걷던 중 발이 바닥에 붙은 것처럼 멈추는 현상입니다.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "morning-off", "term": "Morning OFF", "title": "아침의 낮은 출력",
