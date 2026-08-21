@@ -60,8 +60,18 @@ const BOXES: Record<string, Box & { fs: { tick: number; axis: number; dose: numb
 
 const ticks = timeTicks(curve.window);
 
+/**
+ * compact은 곡선 위 라벨이 없으므로 위쪽 여백이 덜 필요하다.
+ * 좁은 화면에서만 상자를 낮춰(276 → 240, 약 13% 감소) 첫 화면이 덜 길어지게 한다.
+ * 넓은 화면 규격은 그대로 둔다.
+ */
+const NARROW_COMPACT = { padT: 22, plotH: 162, H: 240 };
+
 function build(key: 'narrow' | 'wide' | 'mini') {
-  const box = BOXES[key];
+  const box =
+    key === 'narrow' && variant === 'compact'
+      ? { ...BOXES.narrow, ...NARROW_COMPACT }
+      : BOXES[key];
   const s = makeScales(box, curve.window);
   return {
     box,

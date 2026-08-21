@@ -1,0 +1,34 @@
+---
+/**
+ * 브랜드 워드마크.
+ * 기호는 이 사이트가 다루는 것 자체 — 오르내리는 하루 곡선과 복용 시점 — 을 그린다.
+ * 의료 십자가 같은 기성 상징은 쓰지 않는다.
+ */
+import { SITE } from '../lib/site';
+
+interface Props { size?: number }
+const { size = 28 } = Astro.props;
+---
+<span class="wordmark">
+  <svg
+    class="wordmark__mark"
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <rect width="32" height="32" rx="9" fill="var(--c-primary-soft)" />
+    <path
+      d="M5.5 23.5C8.6 23.5 8.4 9.5 12.4 9.5C16.4 9.5 15.8 20.5 19.4 20.5C22.6 20.5 22.6 13.5 26.5 13.5"
+      fill="none"
+      stroke="var(--c-primary)"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <circle cx="9.6" cy="25.8" r="1.7" fill="var(--g-dose)" />
+    <circle cx="20.4" cy="25.8" r="1.7" fill="var(--g-dose)" />
+  </svg>
+  <span class="wordmark__text">{SITE.name}</span>
+</span>

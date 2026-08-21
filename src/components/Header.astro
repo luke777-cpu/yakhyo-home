@@ -1,8 +1,8 @@
 ---
 import nav from '../data/nav.json';
 import { url, isActive } from '../lib/url';
-import { SITE } from '../lib/site';
 import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
 import MobileNav from './MobileNav.astro';
 
 const here = Astro.url.pathname;
@@ -10,8 +10,7 @@ const here = Astro.url.pathname;
 <header class="header">
   <div class="container header__inner">
     <a class="header__brand" href={url('/')}>
-      <Icon name="mark" size={22} class="header__mark" />
-      {SITE.name}
+      <Wordmark />
     </a>
 
     <nav class="header__nav" aria-label="주요 메뉴">

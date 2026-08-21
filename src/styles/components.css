@@ -84,18 +84,26 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  gap: var(--sp-2);
-  font-weight: 700;
-  font-size: 1.0625rem;
-  letter-spacing: -0.02em;
+  gap: 0.5625rem;
   text-decoration: none;
   color: var(--c-text);
 }
-.header__mark {
-  display: block;
-  width: 22px;
-  height: 22px;
-  color: var(--c-primary);
+.header__brand:hover .wordmark__text { color: var(--c-primary); }
+
+/* 워드마크 — 기호와 글자를 하나의 덩어리로 묶는다 */
+.wordmark { display: inline-flex; align-items: center; gap: 0.5625rem; }
+.wordmark__mark { display: block; flex: none; }
+.wordmark__text {
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  /* 기호의 시각적 중심과 글자 중심을 맞춘다 */
+  transform: translateY(0.5px);
+  transition: color 0.15s ease;
+}
+@media (min-width: 1024px) {
+  .wordmark__text { font-size: 1.1875rem; }
 }
 .header__nav { display: none; }
 .header__cta { display: none; }
@@ -126,7 +134,7 @@
   .header__link {
     display: inline-flex;
     align-items: center;
-    height: 40px;
+    height: var(--tap);
     padding: 0 var(--sp-3);
     border-radius: var(--radius);
     font-size: var(--fs-sm);
@@ -251,7 +259,7 @@ a.card:hover { border-color: var(--c-primary-border); }
 .card__desc {
   font-size: var(--fs-sm);
   color: var(--c-text-2);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 .card__foot {
   margin-top: auto;
@@ -283,8 +291,8 @@ a.card:hover { border-color: var(--c-primary-border); }
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-4);
-  min-height: 60px;
-  padding: var(--sp-3) 0;
+  min-height: 68px;
+  padding: var(--sp-4) 0;
   border-bottom: 1px solid var(--c-line);
   text-decoration: none;
 }
@@ -292,10 +300,10 @@ a.card:hover { border-color: var(--c-primary-border); }
 .rowlink__text { font-weight: 500; }
 .rowlink__hint {
   display: block;
-  font-size: var(--fs-caption);
+  font-size: var(--fs-sm);
   font-weight: 400;
   color: var(--c-text-3);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .rowlink__arrow { flex: none; color: var(--c-text-3); }
 .rowlink:hover .rowlink__text { color: var(--c-primary); }
@@ -309,6 +317,56 @@ a.card:hover { border-color: var(--c-primary-border); }
     column-gap: var(--sp-12);
   }
   .rowlink-list--2col > li:nth-child(2) .rowlink { border-top: 1px solid var(--c-line); }
+}
+
+/* --- 용어 목록 -----------------------------------------------------------
+   카드를 반복해 늘어놓는 대신 쓰는 텍스트형 배치.
+   경계는 실선 하나로만 만들고 배경이나 그림자를 두지 않는다. */
+.termlist {
+  list-style: none;
+  border-bottom: 1px solid var(--c-line);
+}
+.termlist__item { border-top: 1px solid var(--c-line); }
+.termlist__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--sp-4);
+  padding-block: var(--sp-6);
+  text-decoration: none;
+}
+.termlist__term {
+  display: block;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-primary);
+  margin-bottom: var(--sp-1);
+}
+.termlist__title {
+  display: block;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.termlist__desc {
+  display: block;
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--c-text-2);
+  max-width: 34em;
+}
+a.termlist__row:hover .termlist__title { color: var(--c-primary); }
+.termlist__state { flex: none; color: var(--c-text-3); font-size: var(--fs-sm); }
+.termlist__item--pending .termlist__title { color: var(--c-text-2); }
+
+@media (min-width: 768px) {
+  .termlist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-16);
+  }
 }
 
 /* --- 콜아웃 -------------------------------------------------------------- */
@@ -353,7 +411,7 @@ a.card:hover { border-color: var(--c-primary-border); }
   font-variant-numeric: tabular-nums;
 }
 .step__title { font-size: var(--fs-h3); margin-bottom: var(--sp-1); }
-.step__desc { color: var(--c-text-2); font-size: var(--fs-sm); }
+.step__desc { color: var(--c-text-2); font-size: var(--fs-sm); line-height: 1.7; }
 @media (min-width: 768px) {
   .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-8); }
 }
@@ -362,9 +420,9 @@ a.card:hover { border-color: var(--c-primary-border); }
 .timeline { list-style: none; }
 .timeline__item {
   display: grid;
-  grid-template-columns: 4.5rem 1fr;
+  grid-template-columns: 4.75rem 1fr;
   gap: var(--sp-4);
-  padding-block: var(--sp-3);
+  padding-block: var(--sp-4);
   border-bottom: 1px solid var(--c-line);
 }
 .timeline__item:first-child { border-top: 1px solid var(--c-line); }
@@ -374,12 +432,13 @@ a.card:hover { border-color: var(--c-primary-border); }
   font-size: var(--fs-sm);
   color: var(--c-text-2);
 }
-.timeline__label { font-size: var(--fs-sm); }
+.timeline__label { font-size: var(--fs-body); font-weight: 500; }
 .timeline__note {
   display: block;
-  font-size: var(--fs-caption);
+  font-size: var(--fs-sm);
+  font-weight: 400;
   color: var(--c-text-3);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 /* --- FAQ ----------------------------------------------------------------- */
@@ -434,11 +493,15 @@ a.card:hover { border-color: var(--c-primary-border); }
 }
 
 /* --- 페이지 머리 --------------------------------------------------------- */
-.pagehead { padding-block: var(--sp-12) var(--sp-8); }
+.pagehead { padding-block: var(--sp-8) var(--sp-12); }
+/* 빵부스러기는 문장 안의 링크가 아니라 단독 이동 수단이므로 누를 면적을 확보한다 */
 .pagehead__crumb {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
   font-size: var(--fs-caption);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   color: var(--c-primary);
   text-decoration: none;
 }
@@ -446,7 +509,7 @@ a.card:hover { border-color: var(--c-primary-border); }
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: var(--fs-h1);
-  margin-top: var(--sp-3);
+  margin-top: var(--sp-2);
 }
 .pagehead__lead {
   margin-top: var(--sp-4);

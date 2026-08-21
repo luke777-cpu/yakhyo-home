@@ -51,8 +51,8 @@
   --fs-h2: 1.3125rem;      /* 21px */
   --fs-h3: 1.125rem;       /* 18px */
   --fs-body: 1.0625rem;    /* 17px — 본문 최소 크기 */
-  --fs-sm: 0.9375rem;      /* 15px */
-  --fs-caption: 0.84375rem;/* 13.5px */
+  --fs-sm: 1rem;           /* 16px — 카드 설명, 보조 문단 */
+  --fs-caption: 0.875rem;  /* 14px — 라벨, 캡션 */
 
   --lh-body: 1.75;         /* 한글 본문 가독성 */
   --lh-heading: 1.4;
@@ -70,7 +70,7 @@
   --sp-24: 6rem;
   --sp-32: 8rem;
 
-  --section-y: var(--sp-16);   /* 섹션 상하 여백: 모바일 64px */
+  --section-y: 5rem;           /* 섹션 상하 여백: 모바일 80px */
   --gutter: 1.25rem;           /* 컨테이너 좌우 여백: 모바일 20px */
 
   /* --- 레이아웃 ---------------------------------------------------------- */
@@ -97,13 +97,13 @@
     --fs-h2: 1.5rem;         /* 24px */
     --fs-h3: 1.1875rem;      /* 19px */
     --fs-body: 1.0625rem;
-    --section-y: var(--sp-24);
+    --section-y: 7rem;       /* 112px */
     --gutter: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   :root {
-    --section-y: 7rem;       /* 112px */
+    --section-y: 8.5rem;     /* 136px */
   }
 }

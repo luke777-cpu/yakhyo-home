@@ -21,6 +21,8 @@ const homeConcepts = ['on', 'off', 'delayed-on', 'incomplete-on', 'wearing-off',
   .map((slug) => conceptBySlug.get(slug))
   .filter(Boolean) as typeof concepts;
 
+const publishedVideos = videos.items.filter((v) => v.youtubeId && v.status === 'published').slice(0, 3);
+
 const dayCurve = dayTypical as CurveData;
 const doseCurve = singleDose as CurveData;
 
@@ -60,7 +62,7 @@ const timeline = [
   </div>
 
   <!-- 2 — 핵심 개념 -->
-  <Section sunken title="기록에서 이해까지, 세 단계">
+  <Section sunken eyebrow="개념" title="기록에서 이해까지, 세 단계">
     <ol class="steps">
       {steps.map((s, i) => (
         <li class="step">
@@ -101,6 +103,7 @@ const timeline = [
   <!-- 4 — 내가 겪는 현상 찾기 (진단이 아니라 용어로 가는 길잡이) -->
   <Section
     sunken
+    eyebrow="현상 찾기"
     title="지금 겪는 변화와 비슷한 것이 있나요?"
     lead="아래는 자주 쓰이는 표현들입니다. 상태를 판단하기 위한 것이 아니라, 그 현상을 부르는 이름과 설명으로 가는 길잡이입니다."
   >
@@ -156,32 +159,55 @@ const timeline = [
     title="자주 쓰이는 용어부터"
     lead="진료실에서 오가는 말들이 그래프의 어느 부분을 가리키는지 정리했습니다."
   >
-    <div class="grid grid--3">
+    <ul class="termlist">
       {homeConcepts.map((c) => {
         const ready = c.status === 'published';
         const Tag = ready ? 'a' : 'div';
         return (
-          <Tag class={`card ${ready ? '' : 'card--pending'}`} href={ready ? url(`/understand/${c.slug}/`) : undefined}>
-            <span class="card__eyebrow">{c.term}</span>
-            <h3 class="card__title">{c.title}</h3>
-            <p class="card__desc">{c.summary}</p>
-            {!ready && <p class="card__foot"><span class="badge">준비 중</span></p>}
-          </Tag>
+          <li class={`termlist__item ${ready ? '' : 'termlist__item--pending'}`}>
+            <Tag class="termlist__row" href={ready ? url(`/understand/${c.slug}/`) : undefined}>
+              <span>
+                <span class="termlist__term">{c.term}</span>
+                <span class="termlist__title">{c.title}</span>
+                <span class="termlist__desc">{c.summary}</span>
+              </span>
+              {ready
+                ? <span class="termlist__state" aria-hidden="true">→</span>
+                : <span class="badge">준비 중</span>}
+            </Tag>
+          </li>
         );
       })}
-    </div>
+    </ul>
     <p style="margin-top: var(--sp-8)">
       <a class="link-arrow" href={url('/understand/')}>약효 이해하기 전체 보기 <Icon name="arrow-right" size={18} /></a>
     </p>
   </Section>
 
-  <!-- 7 — YouTube -->
+  <!-- 7 — YouTube : 올라온 영상이 있을 때만 카드로 보여준다.
+       아직 없을 때 빈 썸네일 카드를 늘어놓지 않기 위한 분기다. -->
   <Section eyebrow="영상" title="보면서 이해하기">
-    <div class="grid grid--3">
-      {videos.items.slice(0, 3).map((v) => (
-        <VideoCard youtubeId={v.youtubeId} title={v.title} summary={v.summary} publishedAt={v.publishedAt} />
-      ))}
-    </div>
+    {publishedVideos.length > 0 ? (
+      <div class="grid grid--3">
+        {publishedVideos.map((v) => (
+          <VideoCard youtubeId={v.youtubeId} title={v.title} summary={v.summary} publishedAt={v.publishedAt} />
+        ))}
+      </div>
+    ) : (
+      <ul class="termlist">
+        {videos.items.slice(0, 3).map((v) => (
+          <li class="termlist__item termlist__item--pending">
+            <div class="termlist__row">
+              <span>
+                <span class="termlist__title">{v.title}</span>
+                <span class="termlist__desc">{v.summary}</span>
+              </span>
+              <span class="badge">준비 중</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
   </Section>
 
   <!-- 8 — 마지막 CTA -->

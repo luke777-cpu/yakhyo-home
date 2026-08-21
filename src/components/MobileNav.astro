@@ -1,16 +1,15 @@
 ---
 import nav from '../data/nav.json';
 import { url, isActive } from '../lib/url';
-import { SITE } from '../lib/site';
 import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
 
 const here = Astro.url.pathname;
 ---
 <div class="mobilenav" id="mobile-nav" data-nav-panel hidden>
   <div class="container mobilenav__top">
     <a class="header__brand" href={url('/')}>
-      <Icon name="mark" size={22} class="header__mark" />
-      {SITE.name}
+      <Wordmark />
     </a>
     <button class="mobilenav__close" type="button" data-nav-close>
       <Icon name="close" size={24} />
