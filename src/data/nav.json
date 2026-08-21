@@ -1,0 +1,7 @@
+[
+  { "href": "/diary/", "label": "약효일지" },
+  { "href": "/understand/", "label": "약효 이해하기" },
+  { "href": "/graphs/", "label": "그래프 읽기" },
+  { "href": "/learn/", "label": "배우기" },
+  { "href": "/story/", "label": "이야기" }
+]

@@ -1,0 +1,9 @@
+[
+  { "text": "약을 먹었는데 늦게 올라온다", "hint": "올라오는 시점이 뒤로 밀리는 경우", "concept": "delayed-on" },
+  { "text": "올라오지만 충분하지 않다", "hint": "최고점이 낮게 머무는 경우", "concept": "incomplete-on" },
+  { "text": "약효가 빨리 떨어진다", "hint": "유지되는 시간이 짧아지는 경우", "concept": "wearing-off" },
+  { "text": "오후에는 약이 잘 안 듣는다", "hint": "시간대에 따라 달라지는 경우", "concept": "afternoon-decline" },
+  { "text": "운동증이 나타난다", "hint": "내 뜻과 무관한 움직임이 생기는 경우", "concept": "dyskinesia" },
+  { "text": "발이 굳거나 비틀린다", "hint": "근육이 뻣뻣해지거나 자세가 틀어지는 경우", "concept": "dystonia" },
+  { "text": "보행이 갑자기 멈춘다", "hint": "걸음이 시작되지 않거나 멈추는 경우", "concept": "freezing" }
+]

@@ -1,0 +1,8 @@
+[
+  { "slug": "class", "title": "3분 약효교실", "summary": "약효 변동과 관련된 개념을 짧게 하나씩 정리합니다." },
+  { "slug": "graph-reading", "title": "실제 그래프 읽기", "summary": "실제 기록에서 나온 곡선을 함께 따라 읽어 봅니다." },
+  { "slug": "questions", "title": "사용자 질문", "summary": "기록하면서 자주 나온 질문과 그에 대한 정리입니다." },
+  { "slug": "pharmacology", "title": "파킨슨 약리학", "summary": "약이 몸에서 어떤 경로로 작용하는지에 대한 배경 지식입니다." },
+  { "slug": "neuroanatomy", "title": "신경해부학", "summary": "운동을 만들어내는 뇌 구조에 대한 배경 지식입니다." },
+  { "slug": "video", "title": "영상", "summary": "같은 내용을 영상으로 보고 싶을 때." }
+]

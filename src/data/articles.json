@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "why-record",
+    "category": "class",
+    "title": "왜 기록해야 하는가",
+    "summary": "기억에 의존한 설명과 기록이 남은 설명은 진료실에서 다르게 읽힙니다.",
+    "status": "preparing"
+  },
+  {
+    "slug": "output-scale",
+    "category": "class",
+    "title": "출력이라는 표현을 쓰는 이유",
+    "summary": "상태를 두 가지로 나누는 대신 변화의 정도로 기록하는 방식에 대해.",
+    "status": "preparing"
+  },
+  {
+    "slug": "read-one-day",
+    "category": "graph-reading",
+    "title": "하루 곡선을 처음 읽어 보기",
+    "summary": "복용 시점과 곡선을 겹쳐 놓고 무엇부터 보면 되는지.",
+    "status": "preparing"
+  },
+  {
+    "slug": "before-visit",
+    "category": "questions",
+    "title": "진료 전에 무엇을 정리해 갈까",
+    "summary": "짧은 진료 시간에 전달하기 좋은 형태로 기록을 추리는 방법.",
+    "status": "preparing"
+  },
+  {
+    "slug": "levodopa-basics",
+    "category": "pharmacology",
+    "title": "레보도파가 흡수되는 경로",
+    "summary": "먹은 약이 흡수되기까지 어떤 단계를 거치는지에 대한 배경 지식.",
+    "status": "preparing"
+  },
+  {
+    "slug": "basal-ganglia",
+    "category": "neuroanatomy",
+    "title": "움직임을 만드는 회로",
+    "summary": "기저핵과 운동 회로에 대한 아주 짧은 소개.",
+    "status": "preparing"
+  }
+]

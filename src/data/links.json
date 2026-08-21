@@ -1,0 +1,8 @@
+{
+  "_readme": "사이트 밖으로 나가는 링크는 전부 여기 모아둔다. 값이 null이면 화면에서 해당 링크가 자동으로 숨겨지므로, 주소가 정해지면 이 파일만 고치면 된다.",
+  "app": "https://luke777-cpu.github.io/parkinson/",
+  "playStore": null,
+  "appStore": null,
+  "youtube": null,
+  "contactEmail": null
+}

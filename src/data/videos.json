@@ -1,0 +1,29 @@
+{
+  "_readme": "YouTube API를 쓰지 않고 손으로 관리하는 목록이다. 영상을 올린 뒤 youtubeId(주소의 v= 뒤 11자리)와 publishedAt을 채우고 status를 published로 바꾸면 홈과 배우기 페이지에 자동으로 나타난다. youtubeId가 비어 있으면 준비 중으로 표시되고 링크가 걸리지 않는다.",
+  "items": [
+    {
+      "youtubeId": null,
+      "title": "3분 약효교실",
+      "summary": "약효 변동과 관련된 용어를 하나씩 짧게 정리합니다.",
+      "category": "class",
+      "publishedAt": null,
+      "status": "preparing"
+    },
+    {
+      "youtubeId": null,
+      "title": "실제 그래프 읽기",
+      "summary": "기록으로 만들어진 하루 곡선을 함께 따라 읽습니다.",
+      "category": "graph-reading",
+      "publishedAt": null,
+      "status": "preparing"
+    },
+    {
+      "youtubeId": null,
+      "title": "사용자 질문",
+      "summary": "기록하면서 자주 나온 질문에 대해 이야기합니다.",
+      "category": "questions",
+      "publishedAt": null,
+      "status": "preparing"
+    }
+  ]
+}
