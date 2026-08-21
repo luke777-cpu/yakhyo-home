@@ -25,7 +25,11 @@ interface Props {
 const { title, description, bareTitle = false } = Astro.props;
 
 const pageTitle = bareTitle ? title : `${title} — ${SITE.name}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com').toString();
+const origin = Astro.site ?? 'https://example.com';
+const canonical = new URL(Astro.url.pathname, origin).toString();
+// 공유 미리보기 이미지. scripts/gen-og.mjs 로 만든 원본을 구운 것이라
+// 사이트의 색·글꼴·곡선과 같은 그림이다.
+const ogImage = new URL(url('/images/og/default.png'), origin).toString();
 ---
 <!doctype html>
 <html lang={SITE.lang}>
@@ -43,7 +47,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="약효일지 — 파킨슨 약효 변화를 하루의 곡선으로 기록합니다. 하루 동안 네 번 오르내리는 예시 곡선." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
     <meta name="theme-color" content="#FAFAF7" />

@@ -61,6 +61,21 @@ node scripts/gen-curves.mjs     # src/data/curves/*.json 다시 생성
 곡선 모양을 바꾸려면 그 스크립트의 `CURVES` 배열만 고친다.
 JSON을 손으로 고치지 않는다 — 다음 실행에서 덮어써진다.
 
+## 공유 미리보기 이미지 (OG image)
+
+`public/images/og/default.png` 한 장을 모든 페이지가 함께 쓴다.
+
+```bash
+node scripts/gen-og.mjs     # scripts/og/og-card.html 생성
+```
+
+만들어진 HTML을 브라우저에서 열어 **1200×630** 으로 캡처해
+`public/images/og/default.png` 로 덮어쓴다.
+곡선은 `src/data/curves/day-typical.json` 에서 계산하므로, 곡선을 바꾸면
+스크립트를 다시 돌리는 것만으로 같은 모양이 따라온다.
+
+이미지 변환 도구를 저장소 의존성으로 넣지 않기 위해 굽는 단계는 분리해 두었다.
+
 ## 글을 쓸 때의 표현 원칙
 
 - 약을 늘리거나 줄이라는 표현을 쓰지 않는다

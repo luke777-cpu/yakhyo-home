@@ -1,5 +1,12 @@
 {
-  "_readme": "사이트 밖으로 나가는 링크는 전부 여기 모아둔다. 값이 null이면 화면에서 해당 링크가 자동으로 숨겨지므로, 주소가 정해지면 이 파일만 고치면 된다.",
+  "_readme": "사이트 밖으로 나가는 링크는 전부 여기 모아둔다. 값이 null이면 화면에서 해당 링크가 자동으로 숨겨지므로, 주소가 정해지면 이 파일만 고치면 된다. 코드는 고칠 필요가 없다.",
+  "_format": {
+    "app": "웹에서 바로 여는 약효일지 주소",
+    "playStore": "https://play.google.com/store/apps/details?id=<패키지명>  — 물음표 뒤 id 파라미터까지만 남기고 utm_ 같은 추적 파라미터는 지운다",
+    "appStore": "https://apps.apple.com/kr/app/<이름>/id<숫자>  — 아직 없으면 null",
+    "youtube": "https://www.youtube.com/@<채널핸들>  — 아직 없으면 null",
+    "contactEmail": "문의를 받을 주소. 넣으면 푸터에 표시된다. 아직 없으면 null"
+  },
   "app": "https://luke777-cpu.github.io/parkinson/",
   "playStore": null,
   "appStore": null,

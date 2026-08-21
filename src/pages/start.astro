@@ -32,12 +32,17 @@ const faq = [
   />
 
   <div class="container">
-    {links.app && (
-      <div class="btn-row" style="margin-bottom: var(--sp-16)">
-        <Button href={links.app} external block>약효일지 열기</Button>
-        <Button href={url('/diary/')} variant="secondary" block>먼저 설명 읽기</Button>
-      </div>
-    )}
+    <div class="btn-row" style="margin-bottom: var(--sp-16)">
+      {links.playStore && (
+        <Button href={links.playStore} external block>Google Play에서 받기</Button>
+      )}
+      {links.app && (
+        <Button href={links.app} variant={links.playStore ? 'secondary' : 'primary'} external block>
+          {links.playStore ? '웹에서 바로 열기' : '약효일지 열기'}
+        </Button>
+      )}
+      <Button href={url('/diary/')} variant="secondary" block>먼저 설명 읽기</Button>
+    </div>
 
     <h2 class="section__title">시작하는 순서</h2>
     <ol class="checklist" style="margin-top: var(--sp-6)">
