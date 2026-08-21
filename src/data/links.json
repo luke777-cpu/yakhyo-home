@@ -8,7 +8,7 @@
     "contactEmail": "문의를 받을 주소. 넣으면 푸터에 표시된다. 아직 없으면 null"
   },
   "app": "https://luke777-cpu.github.io/parkinson/",
-  "playStore": null,
+  "playStore": "https://play.google.com/store/apps/details?id=kr.parkinson.medicationdiary",
   "appStore": null,
   "youtube": null,
   "contactEmail": null
