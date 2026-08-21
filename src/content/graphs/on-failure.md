@@ -25,7 +25,7 @@ record:
   - title: 며칠에 한 번쯤 생기는지
     detail: 빈도가 이 모양에서 가장 중요한 값입니다.
 related:
-  - label: 올라오지 않는 경우 (ON Failure)
+  - label: 약을 먹어도 올라오지 않는 경우 (ON Failure)
     href: /understand/on-failure/
     note: 이 모양을 부르는 이름과 함께 볼 것들
   - label: 늦게 올라오는 모양

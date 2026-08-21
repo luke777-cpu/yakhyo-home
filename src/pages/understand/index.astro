@@ -33,6 +33,21 @@ const ready = items.filter((i) => i.status === 'published').length;
       </p>
     </Callout>
 
+    <div style="margin-top: var(--sp-8)">
+    <Callout class="prose-width">
+      <p class="callout__title">비슷해 보이는 세 가지</p>
+      <ul>
+        <li><strong>Delayed ON</strong> — 올라오기는 하지만 <strong>시작이 늦습니다.</strong> 보는 곳은 복용에서 상승 시작까지의 거리입니다.</li>
+        <li><strong>Incomplete ON</strong> — 올라오지만 <strong>충분히 높아지지 않습니다.</strong> 보는 곳은 최고점의 높이입니다.</li>
+        <li><strong>ON Failure</strong> — 그 복용에서는 <strong>의미 있는 상승이 나타나지 않습니다.</strong> 보는 곳은 복용 이후 구간 전체입니다.</li>
+      </ul>
+      <p style="margin-top: var(--sp-3)">
+        셋을 가르는 숫자 기준은 두지 않습니다. 사람마다 다르고 같은 사람도 시기에 따라 다릅니다.
+        진단 기준이 아니라 무엇을 기록할지 정하기 위한 구분입니다.
+      </p>
+    </Callout>
+    </div>
+
     <div style="margin-top: var(--sp-12)">
       <TocList items={items} />
     </div>

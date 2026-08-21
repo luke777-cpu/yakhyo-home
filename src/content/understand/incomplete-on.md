@@ -38,7 +38,7 @@ related:
   - label: 늦게 올라오는 경우 (Delayed ON)
     href: /understand/delayed-on/
     note: 높이가 아니라 시점이 밀리는 경우
-  - label: 올라오지 않는 경우 (ON Failure)
+  - label: 약을 먹어도 올라오지 않는 경우 (ON Failure)
     href: null
     note: 변화가 거의 없는 경우와 구분합니다
   - label: 그래프 읽기 — 충분히 올라오지 않는 모양

@@ -53,7 +53,7 @@ related:
     note: 아침 첫 약에서 자주 함께 이야기됩니다
   - label: 약의 작용이 약하다고 느끼는 구간 (OFF)
     href: /understand/off/
-    note: 새벽과 아침의 낮은 출력을 부르는 이름
+    note: 아침 구간을 부르는 이름들
   - label: 그래프 읽기 — 하루 전체의 반복
     href: /graphs/whole-day/
     note: 하루를 이어서 보는 법

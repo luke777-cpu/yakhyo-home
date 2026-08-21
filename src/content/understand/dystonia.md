@@ -40,7 +40,7 @@ related:
   - label: 이상운동 (Dyskinesia)
     href: /understand/dyskinesia/
     note: 흔들리는 움직임과는 다른 현상입니다
-  - label: 아침의 낮은 출력 (Morning OFF)
+  - label: 아침에 잘 움직여지지 않는 시간대 (Morning akinesia / Morning OFF)
     href: /understand/morning-off/
     note: 아침에 함께 나타나는 경우가 많습니다
   - label: 그래프 읽기 — 하루 전체의 반복
