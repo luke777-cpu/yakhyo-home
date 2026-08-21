@@ -77,4 +77,37 @@ const diary = defineCollection({
   }),
 });
 
-export const collections = { understand, graphs, diary };
+/**
+ * "배우기" 글.
+ * 하나의 조건(식사·수면·장운동 같은)이 곡선을 어떻게 흔드는지 짧게 읽는 글이다.
+ * 순서는 개념 글과 같은 이유로 고정한다 —
+ *   1 한 줄 요약 → 2 그래프로 보면 → 3 흔히 하는 말 → 4 왜 그럴 수 있는가
+ *   → 5 며칠만 기록해 보기 → 6 진료에서 → 7 자주 묻는 것 → 8 관련 글
+ */
+const learn = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/learn' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** 1. 한 줄 요약 */
+    lead: z.string(),
+    /** 2. 그래프로 보면 — 쓸 곡선 데이터 파일의 id */
+    curve: z.string().optional(),
+    curveTitle: z.string().optional(),
+    curveCaption: z.string().optional(),
+    /** 3. 환자가 흔히 하는 말 */
+    expressions: z.array(z.string()).default([]),
+    /** 4. 왜 그럴 수 있는가 — 확정이 아니라 함께 이야기되는 이유 */
+    reasons: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    /** 5. 며칠만 기록해 보기 */
+    record: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    /** 6. 치료진에게 보여줄 때 중요한 정보 */
+    forVisit: z.array(z.string()).default([]),
+    /** 7. 자주 묻는 것 */
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    related,
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { understand, graphs, diary, learn };

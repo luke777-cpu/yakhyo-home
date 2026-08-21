@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHead from '../../components/PageHead.astro';
 import Section from '../../components/Section.astro';
@@ -7,6 +8,17 @@ import TocList from '../../components/TocList.astro';
 import categories from '../../data/learn-categories.json';
 import articles from '../../data/articles.json';
 import videos from '../../data/videos.json';
+import { url } from '../../lib/url';
+
+// 글이 없는데 published로 표시된 항목이 있으면 빌드를 멈춘다.
+// 눌리는 링크가 빈 페이지로 이어지는 상태를 만들지 않기 위한 장치다.
+const written = new Set((await getCollection('learn')).map((e) => e.id));
+const missing = articles.filter((a) => a.status === 'published' && !written.has(a.slug));
+if (missing.length > 0) {
+  throw new Error(
+    `src/content/learn/ 에 글이 없는데 published로 표시된 항목: ${missing.map((a) => a.slug).join(', ')}`,
+  );
+}
 
 const byCategory = categories
   .filter((c) => c.slug !== 'video')
@@ -14,7 +26,12 @@ const byCategory = categories
     ...c,
     items: articles
       .filter((a) => a.category === c.slug)
-      .map((a) => ({ title: a.title, summary: a.summary, href: null, status: a.status as 'published' | 'preparing' })),
+      .map((a) => ({
+        title: a.title,
+        summary: a.summary,
+        href: a.status === 'published' ? url(`/learn/${a.slug}/`) : null,
+        status: a.status as 'published' | 'preparing',
+      })),
   }))
   .filter((c) => c.items.length > 0);
 ---

@@ -40,7 +40,8 @@ Vercel로 옮길 때는 Vercel 환경변수에 같은 이름으로 넣고 워크
 | 그래프 읽기 목록 | `src/data/graph-patterns.json` |
 | 홈의 "겪는 현상" 목록 | `src/data/symptoms.json` |
 | 약효일지 하위 항목 | `src/data/diary-topics.json` |
-| 배우기 글·분류 | `src/data/articles.json`, `learn-categories.json` |
+| 배우기 글 (본문) | `src/content/learn/*.md` |
+| 배우기 목록·분류 | `src/data/articles.json`, `learn-categories.json` |
 | YouTube 영상 | `src/data/videos.json` |
 | 이야기 업데이트 기록 | `src/data/story-updates.json` |
 | 앱·스토어·채널 주소 | `src/data/links.json` |
@@ -48,6 +49,7 @@ Vercel로 옮길 때는 Vercel 환경변수에 같은 이름으로 넣고 워크
 
 목록 항목의 `status`를 `preparing`에서 `published`로 바꾸면 링크가 살아난다.
 글이 없는 상태에서 링크만 걸리는 일을 막기 위한 장치다.
+배우기는 한 걸음 더 나아가, `published`인데 `src/content/learn/`에 글이 없으면 빌드가 실패한다.
 
 ## 예시 그래프
 

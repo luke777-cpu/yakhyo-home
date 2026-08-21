@@ -176,6 +176,72 @@ const CURVES = [
       { t0: 1140, ...DAY, amp: 70 },
     ],
     doses: [{ t: 420 }, { t: 660 }, { t: 900 }, { t: 1140 }] },
+  /* --- 배우기 글에서 쓰는 곡선 ------------------------------------------- */
+  {
+    id: 'learn-meal',
+    note: '식사와 복용이 가깝게 겹친 날의 예시. 점선은 같은 약을 빈속에 가깝게 먹은 날의 참고 곡선이다.',
+    window: [360, 900],
+    step: 10,
+    parts: [{ t0: 420, lag: 95, ka: 32, tau: 150, amp: 68 }],
+    reference: [{ t0: 420, ...NORMAL }],
+    doses: [{ t: 420, label: '약 복용' }],
+    marks: [
+      { t: 515, label: '상승 시작' },
+      { t: 585, label: '최고 출력' },
+    ],
+  },
+  {
+    id: 'learn-sleep',
+    note: '잠을 거의 못 잔 날 아침의 예시. 점선은 같은 사람이 잘 잔 날 아침의 참고 곡선이다.',
+    window: [300, 840],
+    step: 10,
+    parts: [{ t0: 420, lag: 60, ka: 28, tau: 138, amp: 62 }],
+    reference: [{ t0: 420, lag: 32, ka: 22, tau: 152, amp: 86 }],
+    doses: [{ t: 420, label: '아침 약' }],
+    marks: [{ t: 545, label: '그날의 최고 출력' }],
+  },
+  {
+    id: 'learn-gut',
+    note: '위장관이 느리게 움직인 날의 예시. 올라오는 시점이 크게 밀리고 최고점도 낮게 머문다.',
+    window: [360, 900],
+    step: 10,
+    parts: [{ t0: 420, lag: 130, ka: 38, tau: 150, amp: 52 }],
+    reference: [{ t0: 420, ...NORMAL }],
+    doses: [{ t: 420, label: '약 복용' }],
+    marks: [{ t: 555, label: '겨우 올라오기 시작' }],
+  },
+  {
+    id: 'learn-uneven',
+    note: '같은 약을 같은 시각에 먹은 서로 다른 두 날. 실선과 점선의 복용 시점은 같고 곡선만 다르다.',
+    window: [360, 1440],
+    step: 20,
+    parts: [
+      { t0: 420, ...DAY, lag: 34, amp: 82 },
+      { t0: 660, ...DAY, lag: 82, amp: 58 },
+      { t0: 900, ...DAY, lag: 30, amp: 78 },
+      { t0: 1140, ...DAY, lag: 56, amp: 60 },
+    ],
+    reference: [
+      { t0: 420, ...DAY, amp: 84 },
+      { t0: 660, ...DAY, amp: 82 },
+      { t0: 900, ...DAY, amp: 76 },
+      { t0: 1140, ...DAY, amp: 70 },
+    ],
+    doses: [{ t: 420 }, { t: 660 }, { t: 900 }, { t: 1140 }],
+  },
+  {
+    id: 'learn-afternoon',
+    note: '오전 복용은 올라오지만 오후로 갈수록 최고점이 낮아지는 날의 예시.',
+    window: [360, 1440],
+    step: 20,
+    parts: [
+      { t0: 420, ...DAY, amp: 86 },
+      { t0: 660, ...DAY, amp: 74 },
+      { t0: 900, ...DAY, amp: 50 },
+      { t0: 1140, ...DAY, amp: 44 },
+    ],
+    doses: [{ t: 420 }, { t: 660 }, { t: 900 }, { t: 1140 }],
+  },
 ];
 
 mkdirSync(OUT_DIR, { recursive: true });

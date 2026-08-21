@@ -1,5 +1,33 @@
 [
   {
+    "slug": "meal-and-timing",
+    "category": "class",
+    "title": "식사와 약효 변화",
+    "summary": "복용과 식사의 간격이 곡선의 시작 지점을 어떻게 흔드는지, 무엇을 함께 남기면 되는지.",
+    "status": "published"
+  },
+  {
+    "slug": "sleep-and-next-day",
+    "category": "class",
+    "title": "수면과 다음날 약효",
+    "summary": "전날 밤의 잠이 다음 날 오전의 곡선으로 어떻게 이어지는지.",
+    "status": "published"
+  },
+  {
+    "slug": "constipation-and-delay",
+    "category": "class",
+    "title": "변비와 약효 지연",
+    "summary": "장이 느려진 날 약이 늦게 올라오는 이유와, 하루 한 글자로 남기는 기록법.",
+    "status": "published"
+  },
+  {
+    "slug": "uneven-days",
+    "category": "class",
+    "title": "약효가 들쭉날쭉한 날",
+    "summary": "같은 약, 같은 시각인데 날마다 다른 이유. 한 번의 기록보다 반복되는 패턴이 중요한 이유.",
+    "status": "published"
+  },
+  {
     "slug": "why-record",
     "category": "class",
     "title": "왜 기록해야 하는가",
@@ -19,6 +47,20 @@
     "title": "하루 곡선을 처음 읽어 보기",
     "summary": "복용 시점과 곡선을 겹쳐 놓고 무엇부터 보면 되는지.",
     "status": "preparing"
+  },
+  {
+    "slug": "why-late-on",
+    "category": "questions",
+    "title": "왜 약효가 늦게 올라올까",
+    "summary": "삼킨 약이 몸에서 거치는 단계와, 그중 어디가 느려지면 시작이 밀리는지.",
+    "status": "published"
+  },
+  {
+    "slug": "why-afternoon-differs",
+    "category": "questions",
+    "title": "왜 오후에는 약이 다르게 느껴질까",
+    "summary": "오전과 같은 방식으로 먹어도 오후가 다른 이유, 그리고 곡선에서 구분해야 할 두 가지.",
+    "status": "published"
   },
   {
     "slug": "before-visit",
