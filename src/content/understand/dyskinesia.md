@@ -39,7 +39,7 @@ related:
     href: /understand/on/
     note: 출력이 높은 구간과의 관계
   - label: 근긴장이상 (Dystonia)
-    href: null
+    href: /understand/dystonia/
     note: 굳거나 비틀리는 현상과는 다릅니다
   - label: 그래프 읽기 — 하루 전체의 반복
     href: /graphs/whole-day/

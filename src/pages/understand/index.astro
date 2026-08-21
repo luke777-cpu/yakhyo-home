@@ -22,7 +22,7 @@ const ready = items.filter((i) => i.status === 'published').length;
   <PageHead
     crumb="약효 이해하기"
     title="약효 변동을 부르는 이름들"
-    lead="진료실에서 오가는 말들이 실제로는 그래프의 어느 부분을 가리키는지 정리했습니다. 모든 글은 같은 순서로 쓰여 있습니다 — 한 줄 정의, 그래프로 보면, 흔히 쓰는 표현, 함께 이야기되는 요인, 기록할 것, 치료진과 상의할 때 보여줄 항목."
+    lead="진료실에서 오가는 말들이 실제로는 그래프의 어느 부분을 가리키는지 정리했습니다. 모든 글은 같은 순서로 쓰여 있습니다 — 한 줄 설명, 그래프로 보면, 흔히 쓰는 표현, 함께 이야기되는 요인, 기록할 것, 치료진과 상의할 때 보여줄 항목."
   />
 
   <div class="container">
@@ -31,15 +31,20 @@ const ready = items.filter((i) => i.status === 'published').length;
         여기 있는 용어는 상태를 두 가지로 나누기 위한 것이 아닙니다.
         약효는 켜지고 꺼지기보다 오르내립니다. 이름은 그 오르내림의 특정 부분을 짧게 부르기 위한 도구입니다.
       </p>
+      <p style="margin-top: var(--sp-3)">
+        각 글 첫머리의 한 줄은 <strong>그 말이 대체로 어떤 상황에서 쓰이는지를 쉬운 말로 옮긴 설명</strong>입니다.
+        학회나 논문의 형식적인 정의를 그대로 옮긴 것이 아니며, 같은 용어라도 자료에 따라 쓰임이 다를 수 있습니다.
+      </p>
     </Callout>
 
     <div style="margin-top: var(--sp-8)">
     <Callout class="prose-width">
-      <p class="callout__title">비슷해 보이는 세 가지</p>
+      <p class="callout__title">비슷해 보이는 세 가지 — 그래프에서 보는 곳</p>
+      <p>아래는 세 용어의 의학적 정의가 아니라, 그래프에서 셋을 헷갈리지 않고 보기 위한 방법입니다.</p>
       <ul>
-        <li><strong>Delayed ON</strong> — 올라오기는 하지만 <strong>시작이 늦습니다.</strong> 보는 곳은 복용에서 상승 시작까지의 거리입니다.</li>
-        <li><strong>Incomplete ON</strong> — 올라오지만 <strong>충분히 높아지지 않습니다.</strong> 보는 곳은 최고점의 높이입니다.</li>
-        <li><strong>ON Failure</strong> — 그 복용에서는 <strong>의미 있는 상승이 나타나지 않습니다.</strong> 보는 곳은 복용 이후 구간 전체입니다.</li>
+        <li><strong>Delayed ON</strong> — 올라오기는 하지만 <strong>시작이 늦습니다.</strong> 그래프에서 볼 곳은 복용에서 상승 시작까지의 거리입니다.</li>
+        <li><strong>Incomplete ON</strong> — 올라오지만 <strong>충분히 높아지지 않습니다.</strong> 그래프에서 볼 곳은 최고점의 높이입니다.</li>
+        <li><strong>ON Failure</strong> — 그 복용에서는 <strong>의미 있는 상승이 나타나지 않습니다.</strong> 그래프에서 볼 곳은 복용 이후 구간 전체입니다.</li>
       </ul>
       <p style="margin-top: var(--sp-3)">
         셋을 가르는 숫자 기준은 두지 않습니다. 사람마다 다르고 같은 사람도 시기에 따라 다릅니다.

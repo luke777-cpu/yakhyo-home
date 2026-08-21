@@ -38,13 +38,13 @@ forVisit:
   - 최근에 달라진 것이 있는지 (식사 습관, 함께 먹는 다른 약, 수면, 활동량)
 related:
   - label: 약을 먹어도 올라오지 않는 경우 (ON Failure)
-    href: null
+    href: /understand/on-failure/
     note: 늦게라도 올라오는 경우와 구분해서 봅니다
   - label: 충분히 올라오지 않는 경우 (Incomplete ON)
     href: /understand/incomplete-on/
     note: 올라오는 시점이 아니라 높이가 문제인 경우
   - label: 아침에 잘 움직여지지 않는 시간대 (Morning akinesia / Morning OFF)
-    href: null
+    href: /understand/morning-off/
     note: 첫 복용에서 자주 함께 이야기됩니다
   - label: 그래프 읽기 — 늦게 올라오는 모양
     href: /graphs/delayed-rise/
