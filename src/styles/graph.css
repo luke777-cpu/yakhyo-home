@@ -1,0 +1,132 @@
+/* ==========================================================================
+   그래프 — 이 사이트의 핵심 시각 언어
+   원칙: hover 없이도 읽힌다 / 모바일에서도 읽힌다 / 색으로 상태를 단정하지 않는다
+   ========================================================================== */
+
+.graph {
+  margin: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-4) var(--sp-3);
+}
+.graph--bare {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.graph__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.graph__caption {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-caption);
+  line-height: 1.6;
+  color: var(--c-text-3);
+}
+
+/* 곡선 */
+.g-area { fill: var(--g-curve-fill); }
+.g-line {
+  fill: none;
+  stroke: var(--g-curve);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.g-line--reference {
+  stroke: var(--g-reference);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+/* 축과 격자 */
+.g-grid { stroke: var(--g-grid); stroke-width: 1; }
+.g-axis { stroke: var(--g-axis); stroke-width: 1; }
+.g-tick {
+  fill: var(--c-text-3);
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.g-axislabel {
+  fill: var(--c-text-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 시간축 라벨 밀도: 모바일은 6시간 간격, 768px 이상에서 3시간 간격 */
+.g-tick--minor { display: none; }
+@media (min-width: 768px) {
+  .g-tick--minor { display: block; }
+}
+
+/* 약 복용 시점 */
+.g-dose-line {
+  stroke: var(--g-dose);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+  opacity: 0.75;
+}
+.g-dose-mark { fill: var(--g-dose); }
+.g-dose-text {
+  fill: var(--g-dose);
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 곡선 위 지점 표시 */
+.g-mark-dot {
+  fill: var(--c-surface);
+  stroke: var(--g-curve);
+  stroke-width: 2.5;
+}
+.g-mark-line { stroke: var(--g-curve); stroke-width: 1; opacity: 0.35; }
+.g-mark-text {
+  fill: var(--c-text);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.g-mark-time {
+  fill: var(--c-text-3);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 범례 */
+.graph__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-line);
+  font-size: var(--fs-caption);
+  color: var(--c-text-2);
+  list-style: none;
+}
+.graph__legend li { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.graph__swatch { flex: none; width: 18px; height: 3px; border-radius: 2px; background: var(--g-curve); }
+.graph__swatch--reference { background: var(--g-reference); }
+.graph__swatch--dose { background: var(--g-dose); height: 12px; width: 3px; }
+
+/* 작은 미리보기 그래프 (그래프 읽기 index 카드) */
+.graph--mini { padding: var(--sp-3); }
+.graph--mini .g-line { stroke-width: 2.5; }
+
+/* 좁은 화면용 / 넓은 화면용 두 벌 중 하나만 보여준다.
+   하나의 SVG를 축소해서 쓰면 글자까지 같이 작아져 모바일에서 읽을 수 없다. */
+.graph__svg--wide { display: none; }
+@media (min-width: 768px) {
+  .graph__svg--narrow { display: none; }
+  .graph__svg--wide { display: block; }
+}
+
+/* 넓은 화면에서 그래프가 지나치게 커지면 글자만 커 보인다 */
+.graph__svg--wide { max-width: 880px; margin-inline: auto; }

@@ -1,0 +1,102 @@
+/* ==========================================================================
+   기본 요소 스타일 (reset + semantic 기본값)
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* 상단에 고정된 헤더가 앵커로 이동한 제목을 가리지 않도록 */
+  scroll-padding-top: 76px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  word-break: keep-all;      /* 한글 단어 중간 줄바꿈 방지 */
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: var(--lh-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration-color: var(--c-line-strong);
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: currentColor; }
+
+img, svg { max-width: 100%; }
+img { height: auto; display: block; }
+
+ul, ol { margin: 0; padding: 0; }
+
+button { font: inherit; color: inherit; }
+
+/* 키보드 포커스만 표시한다. 마우스 클릭에는 링을 그리지 않는다. */
+:focus-visible {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 화면에는 감추되 스크린리더에는 읽히는 텍스트 */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 키보드 사용자를 위한 본문 바로가기 */
+.skip-link {
+  position: absolute;
+  left: var(--sp-4);
+  top: -100px;
+  z-index: 100;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-primary);
+  color: #fff;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: var(--sp-4); }
+
+::selection {
+  background: var(--c-primary-soft);
+  color: var(--c-text);
+}
