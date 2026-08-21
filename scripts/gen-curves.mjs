@@ -126,6 +126,10 @@ const CURVES = [
   { id: 'p-fast-fall', note: '최고점은 비슷하지만 내려오는 속도가 빠른 형태.',
     window: [360, 900], step: 15, parts: [{ t0: 420, lag: 28, ka: 20, tau: 68, amp: 85 }],
     reference: [{ t0: 420, ...NORMAL }], doses: [{ t: 420 }] },
+  { id: 'p-morning', note: '잠에서 깬 뒤 첫 복용까지, 그리고 올라오기까지의 시간을 보여주는 형태.',
+    window: [300, 780], step: 15,
+    parts: [{ t0: 450, lag: 55, ka: 24, tau: 150, amp: 80 }],
+    doses: [{ t: 450, label: '첫 복용' }] },
   { id: 'p-wearing-off', note: '복용 간격은 그대로인데 유지되는 시간이 점점 짧아지는 형태.',
     window: [360, 1440], step: 20,
     parts: [

@@ -22,7 +22,7 @@
   {
     "slug": "on-failure", "term": "ON Failure", "title": "올라오지 않는 경우",
     "summary": "약을 먹었는데도 출력 변화가 거의 나타나지 않는 상황을 가리킵니다.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "wearing-off", "term": "Wearing-off", "title": "유지 시간이 짧아지는 경우",
@@ -37,7 +37,7 @@
   {
     "slug": "dystonia", "term": "Dystonia", "title": "근긴장이상",
     "summary": "근육이 지속적으로 수축해 발이 굳거나 자세가 비틀리는 현상입니다.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "freezing", "term": "Freezing", "title": "보행 동결",
@@ -47,7 +47,7 @@
   {
     "slug": "morning-off", "term": "Morning OFF", "title": "아침의 낮은 출력",
     "summary": "잠에서 깬 직후, 첫 복용 전후로 출력이 낮게 나타나는 시간대를 가리킵니다.",
-    "status": "preparing"
+    "status": "published"
   },
   {
     "slug": "afternoon-decline", "term": "Afternoon decline", "title": "오후의 출력 저하",

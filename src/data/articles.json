@@ -40,5 +40,33 @@
     "title": "움직임을 만드는 회로",
     "summary": "기저핵과 운동 회로에 대한 아주 짧은 소개.",
     "status": "preparing"
+  },
+  {
+    "slug": "irregular-days",
+    "category": "class",
+    "title": "약효가 들쭉날쭉한 날",
+    "summary": "같은 약을 같은 시각에 먹었는데 날마다 다르게 느껴질 때 무엇을 함께 볼까.",
+    "status": "preparing"
+  },
+  {
+    "slug": "meals-and-onset",
+    "category": "class",
+    "title": "식사와 약효 변화",
+    "summary": "복용과 식사의 시간 간격이 곡선의 어느 부분과 관련되는지.",
+    "status": "preparing"
+  },
+  {
+    "slug": "sleep-and-next-day",
+    "category": "class",
+    "title": "수면과 다음날 약효",
+    "summary": "밤사이의 일이 다음날 아침 구간에 어떻게 남는지.",
+    "status": "preparing"
+  },
+  {
+    "slug": "constipation-and-delay",
+    "category": "class",
+    "title": "변비와 약효 지연",
+    "summary": "위와 장의 움직임이 흡수 시점과 어떻게 이어지는지.",
+    "status": "preparing"
   }
 ]
