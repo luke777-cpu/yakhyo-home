@@ -11,7 +11,15 @@ export interface CurveData {
   window: [number, number];
   step: number;
   points: number[][];
+  /** 주 곡선의 범례 이름. compare 와 함께 쓸 때만 필요하다. */
+  label?: string;
+  /** 비교용 참고 곡선 — 위계가 있다. 회색 점선으로 약하게 그린다. */
   reference?: number[][];
+  /**
+   * 같은 지위의 다른 날. reference 와 다르다.
+   * 어느 쪽도 기준이 아니므로 색을 나누지 않고 실선/점선으로만 구분한다.
+   */
+  compare?: { label: string; points: number[][] };
   doses: { t: number; time: string; label: string | null }[];
   marks: { t: number; time: string; label: string; v: number }[];
 }
@@ -71,6 +79,9 @@ export function describe(curve: CurveData): string {
   const hm = (t: number) =>
     `${String(Math.floor(t / 60) % 24).padStart(2, '0')}시 ${t % 60 ? `${t % 60}분` : ''}`.trim();
   const parts = [`가로축은 ${hm(from)}부터 ${hm(to)}까지의 시각, 세로축은 출력의 상대적인 높이입니다.`];
+  if (curve.compare) {
+    parts.push(`같은 복용 시각을 가진 두 날, ${curve.label ?? '첫째 날'}과 ${curve.compare.label}의 곡선을 겹쳐 놓았습니다.`);
+  }
   if (curve.doses.length) parts.push(`약 복용 시점은 ${curve.doses.map((d) => d.time).join(', ')}입니다.`);
   if (curve.marks.length) {
     parts.push(curve.marks.map((m) => `${m.time} 무렵 ${m.label}`).join(', ') + '.');

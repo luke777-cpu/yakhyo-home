@@ -37,6 +37,7 @@ const {
 
 const uid = nextGraphId();
 const hasReference = Array.isArray(curve.reference) && curve.reference.length > 0;
+const hasCompare = !!curve.compare && curve.compare.points.length > 0;
 const showMarks = variant === 'full' && curve.marks.length > 0;
 const description = desc ?? describe(curve);
 
@@ -79,6 +80,7 @@ function build(key: 'narrow' | 'wide' | 'mini') {
     area: toArea(curve.points, s.x, s.y, s.axisY),
     line: toLine(curve.points, s.x, s.y),
     ref: hasReference ? toLine(curve.reference as number[][], s.x, s.y) : null,
+    cmp: hasCompare ? toLine(curve.compare!.points, s.x, s.y) : null,
     grid: [25, 50, 75, 100].map((v) => s.y(v)),
     doseLaneY: s.axisY + box.doseLane - 7,
     tickY: s.axisY + box.doseLane + box.tickLane - 8,
@@ -120,8 +122,11 @@ function anchorFor(x: number, box: Box) {
       {/* 참고 곡선 (비교용) */}
       {v.ref && <path class="g-line g-line--reference" d={v.ref} stroke-width={v.box.sw.line - 0.4} />}
 
-      {/* 출력 곡선 */}
-      <path class="g-area" d={v.area} />
+      {/* 다른 날의 곡선 — 같은 색, 점선으로만 구분한다 */}
+      {v.cmp && <path class="g-line g-line--compare" d={v.cmp} stroke-width={v.box.sw.line} />}
+
+      {/* 출력 곡선. 두 날을 겹칠 때는 면을 채우지 않는다 — 채우면 서로를 가린다 */}
+      {!hasCompare && <path class="g-area" d={v.area} />}
       <path class="g-line" d={v.line} stroke-width={v.box.sw.line} />
 
       {/* 기준선 */}
@@ -189,9 +194,15 @@ function anchorFor(x: number, box: Box) {
 
   {legend && (
     <ul class="graph__legend">
-      <li><span class="graph__swatch" aria-hidden="true"></span>출력 변화</li>
+      <li><span class="graph__swatch" aria-hidden="true"></span>{curve.label ?? '출력 변화'}</li>
+      {hasCompare && <li><span class="graph__swatch graph__swatch--compare" aria-hidden="true"></span>{curve.compare!.label}</li>}
       {hasReference && <li><span class="graph__swatch graph__swatch--reference" aria-hidden="true"></span>비교용 참고 곡선</li>}
-      {curve.doses.length > 0 && <li><span class="graph__swatch graph__swatch--dose" aria-hidden="true"></span>약 복용 시점</li>}
+      {curve.doses.length > 0 && (
+        <li>
+          <span class="graph__swatch graph__swatch--dose" aria-hidden="true"></span>
+          {hasCompare ? '약 복용 시점 (두 날 같음)' : '약 복용 시점'}
+        </li>
+      )}
     </ul>
   )}
 

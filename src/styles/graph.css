@@ -43,6 +43,13 @@
   stroke-width: 2;
   stroke-dasharray: 5 5;
 }
+/* 같은 지위의 다른 날. 회색으로 낮추지 않는다 —
+   색을 나누면 한쪽이 기준이고 다른 쪽이 벗어난 것처럼 읽힌다. */
+.g-line--compare {
+  stroke: var(--g-curve);
+  stroke-dasharray: 7 5;
+  opacity: 0.85;
+}
 
 /* 축과 격자 */
 .g-grid { stroke: var(--g-grid); stroke-width: 1; }
@@ -114,6 +121,11 @@
 .graph__legend li { display: inline-flex; align-items: center; gap: var(--sp-2); }
 .graph__swatch { flex: none; width: 18px; height: 3px; border-radius: 2px; background: var(--g-curve); }
 .graph__swatch--reference { background: var(--g-reference); }
+.graph__swatch--compare {
+  background: none;
+  border-top: 3px dashed var(--g-curve);
+  border-radius: 0;
+}
 .graph__swatch--dose { background: var(--g-dose); height: 12px; width: 3px; }
 
 /* 작은 미리보기 그래프 (그래프 읽기 index 카드) */

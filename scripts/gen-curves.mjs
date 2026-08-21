@@ -151,6 +151,22 @@ const CURVES = [
       { t0: 1140, ...DAY, amp: 38 },
     ],
     doses: [{ t: 420 }, { t: 660 }, { t: 900 }, { t: 1140 }] },
+  { id: 'p-two-days',
+    note: '같은 약을 같은 시각에 먹은 서로 다른 두 날. 어느 쪽도 기준이 아니며 그냥 다른 날이다. 첫 복용에서는 차이가 크고 두 번째 복용에서는 비슷해지도록 잡았다.',
+    window: [360, 900], step: 15,
+    label: '3월 12일',
+    parts: [
+      { t0: 420, lag: 30, ka: 22, tau: 105, amp: 84 },
+      { t0: 660, lag: 30, ka: 22, tau: 105, amp: 82 },
+    ],
+    compare: {
+      label: '3월 15일',
+      parts: [
+        { t0: 420, lag: 78, ka: 26, tau: 82, amp: 58 },
+        { t0: 660, lag: 42, ka: 26, tau: 82, amp: 76 },
+      ],
+    },
+    doses: [{ t: 420 }, { t: 660 }] },
   { id: 'p-whole-day', note: '하루 전체를 이어 보았을 때의 반복 형태.',
     window: [360, 1440], step: 20,
     parts: [
@@ -175,7 +191,13 @@ for (const c of CURVES) {
     doses: (c.doses ?? []).map((d) => ({ t: d.t, time: hm(d.t), label: d.label ?? null })),
     marks: (c.marks ?? []).map((m) => ({ t: m.t, time: hm(m.t), label: m.label, v: valueAt(points, m.t) })),
   };
+  if (c.label) out.label = c.label;
   if (c.reference) out.reference = buildSeries(c.reference, c.window, c.step);
+  // compare 는 reference 와 다르다. reference 는 "비교용 참고"라는 위계가 있지만
+  // compare 는 같은 지위의 다른 날이다. 화면에서도 색을 나누지 않는다.
+  if (c.compare) {
+    out.compare = { label: c.compare.label, points: buildSeries(c.compare.parts, c.window, c.step) };
+  }
   writeFileSync(resolve(OUT_DIR, `${c.id}.json`), `${JSON.stringify(out)}\n`);
   const peak = points.reduce((a, p) => (p[1] > a[1] ? p : a));
   console.log(`${c.id.padEnd(16)} points=${String(points.length).padStart(3)}  peak=${peak[1]} @ ${hm(peak[0])}`);
