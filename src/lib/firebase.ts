@@ -17,7 +17,7 @@ import {
   onAuthStateChanged, type Auth, type User,
 } from 'firebase/auth';
 import {
-  getFirestore, doc, getDoc, runTransaction,
+  getFirestore, doc, getDoc, setDoc, runTransaction,
   collection, addDoc, updateDoc, query, where, orderBy, limit, startAfter,
   getDocs, serverTimestamp, type Firestore, type QueryDocumentSnapshot, type Timestamp,
 } from 'firebase/firestore';
@@ -74,6 +74,7 @@ export const COL = {
   posts: 'yakhyo_posts',
   comments: 'yakhyo_comments',
   reports: 'yakhyo_reports',
+  bans: 'yakhyo_bans',
 } as const;
 
 /* ---------- 경로 ---------- */
@@ -215,7 +216,156 @@ export type PostRow = {
   title: string; body: string;
   createdAt: Timestamp | null; updatedAt?: Timestamp | null; deletedAt: null; status: string;
   commentCount?: number;
+  // 기존 글에는 이 필드가 없다. 없으면 'visible' 로 취급한다(호환).
+  moderationStatus?: 'visible' | 'hidden';
 };
+
+/* ---------- 관리자(운영) ----------
+ * 관리자 여부의 최종 판정은 이 파일이 아니라 Firestore Security Rules 가 한다.
+ * 여기의 getAdminStatus() 는 화면에 버튼을 보일지 말지 정하는 용도일 뿐이다.
+ * 화면이 뚫려도 Rules 의 request.auth.token.admin 검사를 우회할 수 없다.
+ * admin claim 발급 방법: docs/FIREBASE-ADMIN-SETUP.md
+ */
+export const HIDDEN_POST_TEXT = '운영자에 의해 숨김 처리된 글입니다.';
+export const HIDDEN_COMMENT_TEXT = '운영자에 의해 숨김 처리된 댓글입니다.';
+export const BANNED_TEXT = '게시판 이용이 제한된 계정입니다.';
+
+/** 기존 문서에 moderationStatus 가 없으면 visible 로 본다(호환). */
+export function isHidden(row: { moderationStatus?: string } | null | undefined): boolean {
+  return row?.moderationStatus === 'hidden';
+}
+
+let adminCache: boolean | null = null;
+
+/** 현재 사용자의 ID token 에서 admin custom claim 을 읽는다. 세션 동안 캐시한다. */
+export async function getAdminStatus(forceRefresh = false): Promise<boolean> {
+  const auth = getAuthOrNull();
+  if (!auth) return false;
+  const u = auth.currentUser ?? (await currentUser());
+  if (!u) { adminCache = null; return false; }
+  if (adminCache !== null && !forceRefresh) return adminCache;
+  try {
+    const t = await u.getIdTokenResult(forceRefresh);
+    adminCache = t.claims.admin === true;
+  } catch {
+    adminCache = false;
+  }
+  return adminCache;
+}
+
+function requireUid(): string {
+  const auth = getAuthOrNull();
+  const u = auth?.currentUser;
+  if (!u) throw new Error('not-signed-in');
+  return u.uid;
+}
+
+/** 글 숨김/해제. Rules 의 adminModerationWrite 경로를 탄다 — admin claim 없으면 거부된다. */
+export async function adminSetPostModeration(id: string, status: 'visible' | 'hidden', reason = '') {
+  const db = getDb();
+  if (!db) throw new Error('not-configured');
+  await updateDoc(doc(db, COL.posts, id), {
+    moderationStatus: status,
+    moderatedAt: serverTimestamp(),
+    moderatedBy: requireUid(),
+    moderationReason: reason,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+export async function adminSetCommentModeration(id: string, status: 'visible' | 'hidden', reason = '') {
+  const db = getDb();
+  if (!db) throw new Error('not-configured');
+  await updateDoc(doc(db, COL.comments, id), {
+    moderationStatus: status,
+    moderatedAt: serverTimestamp(),
+    moderatedBy: requireUid(),
+    moderationReason: reason,
+    updatedAt: serverTimestamp(),
+  });
+}
+
+export type ReportRow = {
+  id: string; reporterId: string; targetType: 'post' | 'comment'; targetId: string;
+  reason: string; createdAt: Timestamp | null;
+  // 예전 신고에는 status 가 없다. 없으면 'open' 으로 본다(호환).
+  status?: 'open' | 'reviewed' | 'dismissed' | 'actioned';
+  reviewedAt?: Timestamp | null; reviewedBy?: string;
+};
+
+/** 신고 목록(관리자 전용 — Rules 가 admin claim 을 검사한다). 최신순 100건. */
+export async function adminListReports(): Promise<ReportRow[]> {
+  const db = getDb();
+  if (!db) return [];
+  const q = query(collection(db, COL.reports), orderBy('createdAt', 'desc'), limit(100));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => {
+    const data = d.data() as ReportRow;
+    return { ...data, id: d.id, status: data.status ?? 'open' };
+  });
+}
+
+export async function adminSetReportStatus(id: string, status: 'open' | 'reviewed' | 'dismissed' | 'actioned') {
+  const db = getDb();
+  if (!db) throw new Error('not-configured');
+  await updateDoc(doc(db, COL.reports, id), {
+    status,
+    reviewedAt: serverTimestamp(),
+    reviewedBy: requireUid(),
+  });
+}
+
+/** 신고 대상 미리보기용 — 숨김·삭제 여부와 무관하게 관리자 화면에서 원문을 본다. */
+export async function adminGetComment(id: string) {
+  const db = getDb();
+  if (!db) return null;
+  const snap = await getDoc(doc(db, COL.comments, id));
+  if (!snap.exists()) return null;
+  return { id: snap.id, ...(snap.data() as object) } as {
+    id: string; postId: string; authorId: string; authorNickname: string; body: string;
+    deletedAt: Timestamp | null; moderationStatus?: string;
+  };
+}
+
+export type BanRow = {
+  uid: string; reason: string; createdAt: Timestamp | null; createdBy: string;
+  expiresAt: Timestamp | null; active: boolean;
+};
+
+/** 차단. 이미 차단 문서가 있으면 다시 활성화한다(문서 id = 대상 uid). */
+export async function adminBanUser(targetUid: string, reason: string, expiresAt: Timestamp | null = null) {
+  const db = getDb();
+  if (!db) throw new Error('not-configured');
+  const ref = doc(db, COL.bans, targetUid);
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    await updateDoc(ref, { active: true, reason, expiresAt });
+  } else {
+    await setDoc(ref, {
+      uid: targetUid, reason,
+      createdAt: serverTimestamp(), createdBy: requireUid(),
+      expiresAt, active: true,
+    });
+  }
+}
+
+export async function adminUnbanUser(targetUid: string) {
+  const db = getDb();
+  if (!db) throw new Error('not-configured');
+  const ref = doc(db, COL.bans, targetUid);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return;
+  const data = snap.data() as BanRow;
+  await updateDoc(ref, { active: false, reason: data.reason ?? '', expiresAt: data.expiresAt ?? null });
+}
+
+export async function adminListBans(): Promise<BanRow[]> {
+  const db = getDb();
+  if (!db) return [];
+  const q = query(collection(db, COL.bans), orderBy('createdAt', 'desc'), limit(100));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ ...(d.data() as BanRow), uid: d.id }));
+}
 
 const PAGE = 20;
 
@@ -361,7 +511,8 @@ export function friendlyError(err: unknown, fallback = '처리하지 못했습�
   if (code === 'auth/too-many-requests') return '시도가 너무 잦습니다. 잠시 후 다시 해 주세요.';
   if (code === 'auth/network-request-failed') return '연결하지 못했습니다. 네트워크 상태를 확인해 주세요.';
 
-  if (code === 'permission-denied') return '권한이 없습니다. 로그인 상태와 본인 글인지 확인해 주세요.';
+  if (code === 'permission-denied')
+    return '권한이 없습니다. 로그인 상태와 본인 글인지 확인해 주세요. 게시판 이용이 제한된 계정일 수도 있습니다.';
   if (code === 'failed-precondition' && /index/i.test(msg))
     return '데이터베이스 색인이 아직 만들어지지 않았습니다. 설정 문서 6단계의 색인 배포를 확인해 주세요.';
   if (code === 'unavailable') return '연결하지 못했습니다. 네트워크 상태를 확인해 주세요.';

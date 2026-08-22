@@ -16,7 +16,7 @@ import { url } from '../../lib/url';
 </BaseLayout>
 
 <script>
-  import { isConfigured, SETUP_MESSAGE, absoluteUrl, currentUser, listMyPosts, friendlyError, escapeHtml, timeAgo } from '../../lib/firebase';
+  import { isConfigured, SETUP_MESSAGE, absoluteUrl, currentUser, listMyPosts, friendlyError, escapeHtml, timeAgo , isHidden, HIDDEN_POST_TEXT } from '../../lib/firebase';
   import { url } from '../../lib/url';
 
   const $ = (id: string) => document.getElementById(id)!;
@@ -35,7 +35,7 @@ import { url } from '../../lib/url';
         list.innerHTML = rows.map((p) => `
           <li class="board__item">
             <a class="board__link" href="${url('/questions/view/')}?id=${encodeURIComponent(p.id)}">
-              <div class="board__title">${escapeHtml(p.title)}</div>
+              <div class="board__title">${isHidden(p) ? escapeHtml(HIDDEN_POST_TEXT) : escapeHtml(p.title)}</div>
               <div class="board__meta"><span>${timeAgo(p.createdAt)}</span></div>
             </a></li>`).join('');
         list.hidden = false;

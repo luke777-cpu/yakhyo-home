@@ -26,6 +26,10 @@ import { url } from '../../lib/url';
             <button type="button" id="p-edit">수정</button>
             <button type="button" id="p-del">삭제</button>
           </span>
+          <span class="owner-actions" id="p-admin" hidden>
+            <button type="button" id="p-hide">관리자 숨김</button>
+            <button type="button" id="p-ban">사용자 차단</button>
+          </span>
         </div>
         <div class="post__body" id="p-body"></div>
       </article>
@@ -60,6 +64,8 @@ import { url } from '../../lib/url';
     isConfigured, SETUP_MESSAGE, absoluteUrl, currentUser, getProfile,
     getPost, softDeletePost, listComments, createComment, updateComment, softDeleteComment,
     friendlyError, escapeHtml, timeAgo,
+    getAdminStatus, isHidden, HIDDEN_POST_TEXT, HIDDEN_COMMENT_TEXT,
+    adminSetPostModeration, adminSetCommentModeration, adminBanUser,
   } from '../../lib/firebase';
 
   const $ = (id: string) => document.getElementById(id)!;
@@ -67,7 +73,7 @@ import { url } from '../../lib/url';
   const show = (msg: string) => { loading.hidden = true; err.textContent = msg; err.hidden = false; };
 
   const postId = new URLSearchParams(location.search).get('id');
-  let me: string | null = null, myNickname = '';
+  let me: string | null = null, myNickname = '', amAdmin = false;
 
   if (!isConfigured) show(SETUP_MESSAGE);
   else if (!postId) show('주소에 글 번호가 없습니다. 목록에서 다시 눌러 주세요.');
@@ -77,24 +83,61 @@ import { url } from '../../lib/url';
     try {
       const u = await currentUser();
       me = u?.uid ?? null;
-      if (me) { const p = await getProfile(me); myNickname = p?.nickname ?? ''; }
+      if (me) {
+        const p = await getProfile(me);
+        myNickname = p?.nickname ?? '';
+        amAdmin = await getAdminStatus();   // 버튼 노출용일 뿐, 실제 권한은 Rules 가 검사한다
+      }
 
       const post = await getPost(postId!);
       loading.hidden = true;
       if (!post) { show('없는 글이거나 지워진 글입니다.'); return; }
 
-      $('p-title').textContent = post.title;
+      const hidden = isHidden(post);
+      if (hidden && !amAdmin) {
+        // 데이터는 보존하되 내용은 보여주지 않는다.
+        $('p-title').textContent = '숨김 처리된 글';
+        $('p-body').textContent = HIDDEN_POST_TEXT;
+        ($('p-body') as HTMLElement).style.color = 'var(--c-text-weak, #888)';
+      } else {
+        $('p-title').textContent = post.title;
+        $('p-body').textContent = post.body;      // textContent 라 서식이 실행되지 않는다
+        if (hidden) {
+          // 관리자에게는 원문 + 숨김 상태 표시를 같이 보여준다.
+          const mark = document.createElement('p');
+          mark.textContent = `[숨김 상태] ${HIDDEN_POST_TEXT}`;
+          mark.style.color = 'var(--c-danger, #c0392b)';
+          $('p-body').before(mark);
+        }
+      }
       $('p-author').textContent = post.authorNickname;
       $('p-time').textContent = timeAgo(post.createdAt);
-      $('p-body').textContent = post.body;      // textContent 라 서식이 실행되지 않는다
       $('post').hidden = false;
 
-      if (me && me === post.authorId) {
+      if (me && me === post.authorId && !hidden) {
         $('p-actions').hidden = false;
         $('p-edit').addEventListener('click', () => {
           location.href = `${absoluteUrl('/questions/edit/')}?id=${encodeURIComponent(postId!)}`;
         });
         $('p-del').addEventListener('click', () => void removePost());
+      }
+
+      if (amAdmin) {
+        $('p-admin').hidden = false;
+        $('p-hide').textContent = hidden ? '숨김 해제' : '관리자 숨김';
+        $('p-hide').addEventListener('click', async () => {
+          const to = hidden ? 'visible' : 'hidden';
+          const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+          try { await adminSetPostModeration(postId!, to, reason); location.reload(); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
+        $('p-ban').addEventListener('click', async () => {
+          const reason = prompt('차단 사유(관리자만 봅니다)');
+          if (reason === null) return;
+          if (!confirm(`작성자(${post.authorNickname})의 게시판 이용을 제한할까요?`)) return;
+          try { await adminBanUser(post.authorId, reason); alert('차단했습니다.'); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
       }
 
       $('comments-area').hidden = false;
@@ -120,28 +163,56 @@ import { url } from '../../lib/url';
     $('c-count').textContent = rows.length ? String(rows.length) : '';
     $('c-empty').hidden = rows.length > 0;
 
-    $('c-list').innerHTML = rows.map((c) => `
+    $('c-list').innerHTML = rows.map((c) => {
+      const hidden = isHidden(c as { moderationStatus?: string });
+      const ownerBtns = me === c.authorId && !hidden ? `<span class="owner-actions">
+            <button type="button" data-edit="${escapeHtml(c.id)}">수정</button>
+            <button type="button" data-del="${escapeHtml(c.id)}">삭제</button>
+          </span>` : '';
+      const adminBtns = amAdmin ? `<span class="owner-actions">
+            <button type="button" data-mod="${escapeHtml(c.id)}" data-to="${hidden ? 'visible' : 'hidden'}">${hidden ? '숨김 해제' : '관리자 숨김'}</button>
+            <button type="button" data-banuid="${escapeHtml(c.authorId)}" data-bannick="${escapeHtml(c.authorNickname)}">차단</button>
+          </span>` : '';
+      return `
       <li class="comment" data-id="${escapeHtml(c.id)}">
         <div class="comment__meta">
           <span class="comment__author">${escapeHtml(c.authorNickname)}</span>
           <span>${timeAgo(c.createdAt)}</span>
-          ${me === c.authorId ? `<span class="owner-actions">
-            <button type="button" data-edit="${escapeHtml(c.id)}">수정</button>
-            <button type="button" data-del="${escapeHtml(c.id)}">삭제</button>
-          </span>` : ''}
+          ${ownerBtns}${adminBtns}
         </div>
         <div class="comment__body"></div>
-      </li>`).join('');
+      </li>`;
+    }).join('');
 
     // 본문은 textContent 로 넣는다 — 위 템플릿에 사용자 글을 직접 넣지 않기 위해서다.
+    // 숨긴 답글은 내용 대신 안내 문구를 보여준다(데이터는 보존). 관리자는 원문을 본다.
     rows.forEach((c, i) => {
-      $('c-list').children[i].querySelector('.comment__body')!.textContent = c.body;
+      const el = $('c-list').children[i].querySelector('.comment__body') as HTMLElement;
+      const hidden = isHidden(c as { moderationStatus?: string });
+      if (hidden && !amAdmin) { el.textContent = HIDDEN_COMMENT_TEXT; el.style.color = 'var(--c-text-weak, #888)'; }
+      else if (hidden) { el.textContent = `[숨김 상태] ${c.body}`; el.style.color = 'var(--c-danger, #c0392b)'; }
+      else el.textContent = c.body;
     });
 
     $('c-list').querySelectorAll<HTMLButtonElement>('[data-del]').forEach((b) =>
       b.addEventListener('click', () => void removeComment(b.dataset.del!)));
     $('c-list').querySelectorAll<HTMLButtonElement>('[data-edit]').forEach((b) =>
       b.addEventListener('click', () => editComment(b.dataset.edit!)));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-mod]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        const to = b.dataset.to as 'visible' | 'hidden';
+        const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+        try { await adminSetCommentModeration(b.dataset.mod!, to, reason); await refreshComments(); }
+        catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+      }));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-banuid]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        const reason = prompt('차단 사유(관리자만 봅니다)');
+        if (reason === null) return;
+        if (!confirm(`작성자(${b.dataset.bannick})의 게시판 이용을 제한할까요?`)) return;
+        try { await adminBanUser(b.dataset.banuid!, reason); alert('차단했습니다.'); }
+        catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+      }));
   }
 
   async function removeComment(id: string) {

@@ -25,6 +25,23 @@ service cloud.firestore {
     function signedIn()  { return request.auth != null; }
     function uid()       { return request.auth.uid; }
 
+    // 관리자 판별은 오직 Firebase Auth custom claim 으로 한다.
+    // 이메일 비교·프로필의 role 필드·localStorage 는 전부 클라이언트가 조작할 수
+    // 있으므로 근거로 쓰지 않는다. claim 은 Admin SDK(서버)만 발급할 수 있다.
+    // 발급 방법: docs/FIREBASE-ADMIN-SETUP.md
+    function isAdmin() { return request.auth != null && request.auth.token.admin == true; }
+
+    // 게시판 이용이 제한된(차단된) 계정인지. 만료 시각이 지났으면 효력이 없다.
+    // 읽기는 계속 허용하고, 새 글·답글·신고 작성만 막는다.
+    function banDoc() {
+      return get(/databases/$(database)/documents/yakhyo_bans/$(uid())).data;
+    }
+    function notBanned() {
+      return !exists(/databases/$(database)/documents/yakhyo_bans/$(uid()))
+             || banDoc().active != true
+             || (banDoc().expiresAt != null && banDoc().expiresAt < request.time);
+    }
+
     // 닉네임을 정한 사람만 글을 쓸 수 있다. 화면에서만 강제하면 우회된다.
     function hasProfile() {
       return exists(/databases/$(database)/documents/yakhyo_profiles/$(uid()));
@@ -34,6 +51,37 @@ service cloud.firestore {
     function serverNow(field) { return request.resource.data[field] == request.time; }
 
     function keptSame(field) { return request.resource.data[field] == resource.data[field]; }
+
+    // 문서에 없던 필드는 없던 채로, 있던 필드는 같은 값으로 남아야 한다.
+    // 기존 글에는 moderation 필드 자체가 없으므로 keptSame 만으로는 못 지킨다.
+    function sameOrAbsent(field) {
+      return (field in request.resource.data)
+        ? ((field in resource.data) && request.resource.data[field] == resource.data[field])
+        : !(field in resource.data);
+    }
+
+    // 일반 사용자는 어떤 경로로도 moderation 필드를 만들거나 바꿀 수 없다.
+    function moderationUntouched() {
+      return sameOrAbsent('moderationStatus')
+          && sameOrAbsent('moderatedAt')
+          && sameOrAbsent('moderatedBy')
+          && sameOrAbsent('moderationReason');
+    }
+
+    // 관리자 숨김/해제: moderation 필드(+updatedAt)만 바꾼다. 본문·작성자·시각은
+    // 관리자라도 손대지 못한다. hard delete 도 여전히 금지다 — 데이터는 보존한다.
+    function adminModerationWrite() {
+      return isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys()
+               .hasOnly(['moderationStatus', 'moderatedAt', 'moderatedBy', 'moderationReason', 'updatedAt'])
+          && request.resource.data.moderationStatus in ['visible', 'hidden']
+          && request.resource.data.moderatedBy == uid()
+          && serverNow('moderatedAt')
+          && serverNow('updatedAt')
+          && (!('moderationReason' in request.resource.data)
+              || (request.resource.data.moderationReason is string
+                  && request.resource.data.moderationReason.size() <= 500));
+    }
 
     function validNickname(n) {
       return n is string && n.trim().size() >= 2 && n.trim().size() <= 20;
@@ -85,7 +133,7 @@ service cloud.firestore {
       // 목록 질의에 where('deletedAt','==',null) 이 없으면 질의 전체가 거부된다.
       allow read: if resource.data.deletedAt == null;
 
-      allow create: if signedIn() && hasProfile()
+      allow create: if signedIn() && hasProfile() && notBanned()
                     && request.resource.data.keys().hasOnly(
                          ['authorId', 'authorNickname', 'title', 'body', 'status', 'deletedAt', 'createdAt', 'updatedAt'])
                     && request.resource.data.authorId == uid()
@@ -100,13 +148,17 @@ service cloud.firestore {
                     && request.resource.data.deletedAt == null
                     && serverNow('createdAt') && serverNow('updatedAt');
 
-      // 본인 글만, 아직 지우지 않은 글만. 수정과 소프트 삭제가 모두 이 규칙을 탄다.
-      allow update: if signedIn()
+      // 두 경로만 허용한다.
+      //  1) 작성자: 본인 글만, 아직 지우지 않은 글만. 수정과 소프트 삭제가 이 규칙을 탄다.
+      //     moderation 필드는 어떤 값으로도 만들거나 바꿀 수 없다.
+      //  2) 관리자: moderation 필드만 바꾼다(숨김/해제). 본문에는 손대지 못한다.
+      allow update: if (signedIn()
                     && resource.data.authorId == uid()
                     && resource.data.deletedAt == null
                     && keptSame('authorId')          // 소유권을 넘길 수 없다
                     && keptSame('createdAt')
                     && keptSame('status')            // 상태는 클라이언트가 바꾸지 않는다
+                    && moderationUntouched()         // 숨김 상태를 스스로 풀 수 없다
                     && request.resource.data.title is string
                     && request.resource.data.title.trim().size() >= 2
                     && request.resource.data.title.size() <= 120
@@ -116,7 +168,8 @@ service cloud.firestore {
                     && serverNow('updatedAt')
                     // deletedAt 은 그대로 null 이거나(수정), 서버 시각으로 채워진다(삭제).
                     // 임의의 값을 넣거나 되살리는 것은 막는다.
-                    && (request.resource.data.deletedAt == null || serverNow('deletedAt'));
+                    && (request.resource.data.deletedAt == null || serverNow('deletedAt')))
+                    || adminModerationWrite();
 
       allow delete: if false;   // hard delete 금지
     }
@@ -125,7 +178,7 @@ service cloud.firestore {
     match /yakhyo_comments/{commentId} {
       allow read: if resource.data.deletedAt == null;
 
-      allow create: if signedIn() && hasProfile()
+      allow create: if signedIn() && hasProfile() && notBanned()
                     && request.resource.data.keys().hasOnly(
                          ['postId', 'authorId', 'authorNickname', 'body', 'deletedAt', 'createdAt', 'updatedAt'])
                     && request.resource.data.authorId == uid()
@@ -139,37 +192,81 @@ service cloud.firestore {
                     && exists(/databases/$(database)/documents/yakhyo_posts/$(request.resource.data.postId))
                     && get(/databases/$(database)/documents/yakhyo_posts/$(request.resource.data.postId)).data.deletedAt == null;
 
-      allow update: if signedIn()
+      allow update: if (signedIn()
                     && resource.data.authorId == uid()
                     && resource.data.deletedAt == null
                     && keptSame('authorId')
                     && keptSame('postId')
                     && keptSame('createdAt')
+                    && moderationUntouched()         // 숨김 상태를 스스로 풀 수 없다
                     && request.resource.data.body is string
                     && request.resource.data.body.trim().size() >= 1
                     && request.resource.data.body.size() <= 2000
                     && serverNow('updatedAt')
-                    && (request.resource.data.deletedAt == null || serverNow('deletedAt'));
+                    && (request.resource.data.deletedAt == null || serverNow('deletedAt')))
+                    || adminModerationWrite();
 
       allow delete: if false;
     }
 
     // ---------- 신고 ----------
-    // 접수만 된다. read 규칙이 없으므로 아무도 클라이언트에서 읽을 수 없다.
-    // 운영자는 Firebase 콘솔(서버 측)에서 본다.
+    // 일반 사용자는 접수만 할 수 있다. 목록·내용은 관리자(admin claim)만 읽는다.
+    // 신고 남용을 막기 위해 차단된 계정은 신고도 만들 수 없다.
     match /yakhyo_reports/{reportId} {
-      allow read: if false;
+      allow read: if isAdmin();
 
-      allow create: if signedIn()
+      allow create: if signedIn() && notBanned()
                     && request.resource.data.keys().hasOnly(
-                         ['reporterId', 'targetType', 'targetId', 'reason', 'createdAt'])
+                         ['reporterId', 'targetType', 'targetId', 'reason', 'status', 'createdAt'])
                     && request.resource.data.reporterId == uid()
                     && request.resource.data.targetType in ['post', 'comment']
                     && request.resource.data.reason in ['medical_advice', 'personal_info', 'spam', 'other']
                     && request.resource.data.targetId is string
+                    // status 는 넣는다면 'open' 만. (예전 클라이언트는 status 없이 만든다 — 그대로 허용)
+                    && (!('status' in request.resource.data) || request.resource.data.status == 'open')
                     && serverNow('createdAt');
 
-      allow update, delete: if false;
+      // 처리 상태 변경은 관리자만. 신고 원문(대상·사유)은 관리자라도 고칠 수 없다.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'reviewedAt', 'reviewedBy'])
+                    && request.resource.data.status in ['open', 'reviewed', 'dismissed', 'actioned']
+                    && request.resource.data.reviewedBy == uid()
+                    && serverNow('reviewedAt');
+
+      allow delete: if false;
+    }
+
+    // ---------- 게시판 이용 제한(차단) ----------
+    // 문서 id = 차단 대상의 Firebase uid.
+    // 일반 사용자는 자기 것을 포함해 아무것도 읽을 수 없다 — 차단 사유·내부 메모는
+    // 관리자만 본다. 차단 여부는 글 작성이 거부되는 것으로만 드러난다.
+    match /yakhyo_bans/{banUid} {
+      allow read: if isAdmin();
+
+      allow create: if isAdmin()
+                    && request.resource.data.keys().hasOnly(
+                         ['uid', 'reason', 'createdAt', 'createdBy', 'expiresAt', 'active'])
+                    && request.resource.data.uid == banUid
+                    && request.resource.data.reason is string
+                    && request.resource.data.reason.size() <= 500
+                    && request.resource.data.createdBy == uid()
+                    && request.resource.data.active is bool
+                    && (request.resource.data.expiresAt == null
+                        || request.resource.data.expiresAt is timestamp)
+                    && serverNow('createdAt');
+
+      // 해제(active=false)·사유·만료 변경만. 대상 uid 와 만든 기록은 못 바꾼다.
+      allow update: if isAdmin()
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['active', 'reason', 'expiresAt'])
+                    && request.resource.data.active is bool
+                    && request.resource.data.reason is string
+                    && request.resource.data.reason.size() <= 500
+                    && (request.resource.data.expiresAt == null
+                        || request.resource.data.expiresAt is timestamp);
+
+      allow delete: if false;    // 차단 이력도 보존한다
     }
 
     // ---------- 그 밖의 모든 경로 ----------

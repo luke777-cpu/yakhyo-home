@@ -26,6 +26,11 @@ async function check(name, fn) {
 }
 
 const db = (uid) => (uid ? env.authenticatedContext(uid).firestore() : env.unauthenticatedContext().firestore());
+// 관리자는 Firebase Auth custom claim 으로만 판별된다. 에뮬레이터에서는 이렇게 흉내낸다.
+// 실제 환경에서 이 claim 은 Admin SDK(서버)만 발급할 수 있어 클라이언트가 위조할 수 없다.
+const ADMIN = 'admin-1';
+const adminDb = () => env.authenticatedContext(ADMIN, { admin: true }).firestore();
+const BANNED = 'user-banned';
 
 const postData = (authorId, over = {}) => ({
   authorId, authorNickname: '아침산책', title: '아침에 늦게 오르는 날',
@@ -216,6 +221,136 @@ await check('[42] 규칙에 없는 컬렉션 읽기 → 차단', () =>
 
 await check('[43] 규칙에 없는 컬렉션 쓰기 → 차단', () =>
   assertFails(addDoc(collection(db(A), 'anything_else'), { x: 1 })));
+
+/* ---------- 관리자: 숨김(moderation) ---------- */
+// 준비: 관리자 프로필과 차단 대상 데이터
+await env.withSecurityRulesDisabled(async (ctx) => {
+  const d = ctx.firestore();
+  await setDoc(doc(d, 'yakhyo_profiles', ADMIN), { nickname: '운영자', createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+  await setDoc(doc(d, 'yakhyo_profiles', BANNED), { nickname: '차단대상', createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+  await setDoc(doc(d, 'yakhyo_posts', 'post-mod'), { ...postData(A), createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+  await setDoc(doc(d, 'yakhyo_comments', 'comment-mod'), { ...commentData(B), postId: 'post-mod', createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+  // moderation 필드가 아예 없는 "예전 글" — 호환 회귀 검사용
+  await setDoc(doc(d, 'yakhyo_posts', 'post-a2'), { ...postData(A), createdAt: Timestamp.now(), updatedAt: Timestamp.now() });
+  await setDoc(doc(d, 'yakhyo_reports', 'report-1'),
+    { reporterId: B, targetType: 'post', targetId: 'post-mod', reason: 'spam', createdAt: Timestamp.now() });
+});
+
+await check('[44] 일반 회원이 자기 글의 moderationStatus 를 바꾼다 → 차단', () =>
+  assertFails(updateDoc(doc(db(A), 'yakhyo_posts', 'post-mod'),
+    { title: '아침에 늦게 오르는 날', body: '기록을 어떻게 남기면 좋을까요',
+      moderationStatus: 'visible', updatedAt: serverTimestamp() })));
+
+await check('[45] admin claim 이 없는 회원이 관리자 숨김을 흉내낸다 → 차단', () =>
+  assertFails(updateDoc(doc(db(B), 'yakhyo_posts', 'post-mod'),
+    { moderationStatus: 'hidden', moderatedAt: serverTimestamp(), moderatedBy: B,
+      moderationReason: '', updatedAt: serverTimestamp() })));
+
+await check('[46] 관리자가 글을 숨긴다 → 허용', () =>
+  assertSucceeds(updateDoc(doc(adminDb(), 'yakhyo_posts', 'post-mod'),
+    { moderationStatus: 'hidden', moderatedAt: serverTimestamp(), moderatedBy: ADMIN,
+      moderationReason: '의료 조언 우려', updatedAt: serverTimestamp() })));
+
+await check('[47] 작성자가 숨겨진 자기 글의 숨김을 스스로 푼다 → 차단', () =>
+  assertFails(updateDoc(doc(db(A), 'yakhyo_posts', 'post-mod'),
+    { title: '아침에 늦게 오르는 날', body: '기록을 어떻게 남기면 좋을까요',
+      moderationStatus: 'visible', updatedAt: serverTimestamp() })));
+
+await check('[48] 관리자가 moderation 과 함께 본문까지 고친다 → 차단', () =>
+  assertFails(updateDoc(doc(adminDb(), 'yakhyo_posts', 'post-mod'),
+    { moderationStatus: 'visible', moderatedAt: serverTimestamp(), moderatedBy: ADMIN,
+      title: '관리자가 바꾼 제목', updatedAt: serverTimestamp() })));
+
+await check('[49] 관리자가 글 숨김을 해제한다 → 허용', () =>
+  assertSucceeds(updateDoc(doc(adminDb(), 'yakhyo_posts', 'post-mod'),
+    { moderationStatus: 'visible', moderatedAt: serverTimestamp(), moderatedBy: ADMIN,
+      updatedAt: serverTimestamp() })));
+
+await check('[50] 관리자가 답글을 숨긴다 → 허용', () =>
+  assertSucceeds(updateDoc(doc(adminDb(), 'yakhyo_comments', 'comment-mod'),
+    { moderationStatus: 'hidden', moderatedAt: serverTimestamp(), moderatedBy: ADMIN,
+      moderationReason: '', updatedAt: serverTimestamp() })));
+
+await check('[51] 작성자가 숨겨진 자기 답글을 수정해 숨김을 지운다 → 차단', () =>
+  assertFails(updateDoc(doc(db(B), 'yakhyo_comments', 'comment-mod'),
+    { body: '저도 그렇습니다', moderationStatus: 'visible', updatedAt: serverTimestamp() })));
+
+await check('[52] moderation 필드 없는 기존 글을 작성자가 평범하게 수정 → 허용(호환)', () =>
+  assertSucceeds(updateDoc(doc(db(A), 'yakhyo_posts', 'post-a2') /* 아래에서 만든다 */,
+    { title: '수정한 제목', body: '수정한 내용입니다', updatedAt: serverTimestamp() })
+  ));
+
+/* ---------- 관리자: 신고 처리 ---------- */
+await check('[53] 관리자가 신고 목록을 읽는다 → 허용', () =>
+  assertSucceeds(getDocs(collection(adminDb(), 'yakhyo_reports'))));
+
+await check('[54] 관리자가 신고 상태를 바꾼다 → 허용', () =>
+  assertSucceeds(updateDoc(doc(adminDb(), 'yakhyo_reports', 'report-1'),
+    { status: 'reviewed', reviewedAt: serverTimestamp(), reviewedBy: ADMIN })));
+
+await check('[55] 일반 회원이 신고 상태를 바꾼다 → 차단', () =>
+  assertFails(updateDoc(doc(db(B), 'yakhyo_reports', 'report-1'),
+    { status: 'dismissed', reviewedAt: serverTimestamp(), reviewedBy: B })));
+
+await check('[56] 관리자가 신고 원문(대상)을 고친다 → 차단', () =>
+  assertFails(updateDoc(doc(adminDb(), 'yakhyo_reports', 'report-1'),
+    { targetId: '다른글', status: 'reviewed', reviewedAt: serverTimestamp(), reviewedBy: ADMIN })));
+
+await check('[57] status: open 을 넣어 신고를 접수 → 허용(새 클라이언트)', () =>
+  assertSucceeds(addDoc(collection(db(A), 'yakhyo_reports'),
+    { reporterId: A, targetType: 'comment', targetId: 'comment-mod', reason: 'other',
+      status: 'open', createdAt: serverTimestamp() })));
+
+/* ---------- 관리자: 차단 ---------- */
+await check('[58] 일반 회원이 차단 목록을 읽는다 → 차단', () =>
+  assertFails(getDocs(collection(db(A), 'yakhyo_bans'))));
+
+await check('[59] 일반 회원이 자기 차단 문서를 읽는다 → 차단(사유는 관리자만 본다)', () =>
+  assertFails(getDoc(doc(db(BANNED), 'yakhyo_bans', BANNED))));
+
+await check('[60] 일반 회원이 차단 문서를 만든다 → 차단', () =>
+  assertFails(setDoc(doc(db(A), 'yakhyo_bans', B),
+    { uid: B, reason: '마음에 안 듦', createdAt: serverTimestamp(), createdBy: A, expiresAt: null, active: true })));
+
+await check('[61] 관리자가 사용자를 차단한다 → 허용', () =>
+  assertSucceeds(setDoc(doc(adminDb(), 'yakhyo_bans', BANNED),
+    { uid: BANNED, reason: '반복 스팸', createdAt: serverTimestamp(), createdBy: ADMIN, expiresAt: null, active: true })));
+
+await check('[62] 차단된 사용자가 글을 쓴다 → 차단', () =>
+  assertFails(addDoc(collection(db(BANNED), 'yakhyo_posts'), postData(BANNED))));
+
+await check('[63] 차단된 사용자가 답글을 단다 → 차단', () =>
+  assertFails(addDoc(collection(db(BANNED), 'yakhyo_comments'),
+    { ...commentData(BANNED), postId: 'post-mod' })));
+
+await check('[64] 차단된 사용자가 신고를 접수한다 → 차단(신고 남용 방지)', () =>
+  assertFails(addDoc(collection(db(BANNED), 'yakhyo_reports'),
+    { reporterId: BANNED, targetType: 'post', targetId: 'post-mod', reason: 'spam', createdAt: serverTimestamp() })));
+
+await check('[65] 차단된 사용자도 읽기는 된다 → 허용', () =>
+  assertSucceeds(getDocs(query(collection(db(BANNED), 'yakhyo_posts'),
+    where('deletedAt', '==', null), orderBy('createdAt', 'desc')))));
+
+await check('[66] 관리자가 차단을 해제한다 → 허용', () =>
+  assertSucceeds(updateDoc(doc(adminDb(), 'yakhyo_bans', BANNED),
+    { active: false, reason: '반복 스팸', expiresAt: null })));
+
+await check('[67] 해제된 사용자가 다시 글을 쓴다 → 허용', () =>
+  assertSucceeds(addDoc(collection(db(BANNED), 'yakhyo_posts'),
+    { ...postData(BANNED), authorNickname: '차단대상' })));
+
+await check('[68] 만료 시각이 지난 차단은 효력이 없다 → 글쓰기 허용', async () => {
+  await env.withSecurityRulesDisabled(async (ctx) => {
+    await setDoc(doc(ctx.firestore(), 'yakhyo_bans', BANNED),
+      { uid: BANNED, reason: '기간 차단', createdAt: Timestamp.now(), createdBy: ADMIN,
+        expiresAt: Timestamp.fromMillis(Date.now() - 60_000), active: true });
+  });
+  await assertSucceeds(addDoc(collection(db(BANNED), 'yakhyo_posts'),
+    { ...postData(BANNED), authorNickname: '차단대상' }));
+});
+
+await check('[69] 관리자도 hard delete 는 못 한다 → 차단', () =>
+  assertFails(deleteDoc(doc(adminDb(), 'yakhyo_posts', 'post-mod'))));
 
 await env.cleanup();
 

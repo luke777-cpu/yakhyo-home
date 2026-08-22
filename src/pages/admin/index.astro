@@ -1,0 +1,203 @@
+---
+/**
+ * 운영자 화면.
+ *
+ * 이 화면은 안내판이지 자물쇠가 아니다 — 일반 사용자가 URL 을 직접 쳐서 들어와도
+ * "관리자 권한이 없습니다"를 볼 뿐이고, 설령 이 화면의 검사를 우회해 버튼을 눌러도
+ * 모든 요청은 Firestore Security Rules 의 admin claim 검사에서 거부된다.
+ * 관리자 지정 방법: docs/FIREBASE-ADMIN-SETUP.md
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout title="운영" description="게시판 운영자 화면입니다.">
+  <PageHead crumb="질문게시판" crumbHref={url('/questions/')} title="운영" />
+
+  <div class="container">
+    <div class="board">
+      <div class="notice notice--error" id="err" hidden></div>
+      <p class="skeleton" id="loading">확인하는 중…</p>
+      <p class="board__empty" id="denied" hidden>관리자 권한이 없습니다.</p>
+
+      <div id="panel" hidden>
+        <section>
+          <h2 class="section__title" style="font-size: var(--fs-h2)">신고 목록</h2>
+          <p class="field__hint">최근 100건. 예전 신고(상태 없음)는 '접수됨'으로 봅니다.</p>
+          <ul class="board__list" id="r-list"></ul>
+          <p class="board__empty" id="r-empty" hidden>신고가 없습니다.</p>
+        </section>
+
+        <section style="margin-top: var(--sp-12)">
+          <h2 class="section__title" style="font-size: var(--fs-h2)">차단 목록</h2>
+          <ul class="board__list" id="b-list"></ul>
+          <p class="board__empty" id="b-empty" hidden>차단된 사용자가 없습니다.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import {
+    isConfigured, SETUP_MESSAGE, currentUser, getAdminStatus,
+    adminListReports, adminSetReportStatus, adminGetComment,
+    adminListBans, adminBanUser, adminUnbanUser,
+    adminSetPostModeration, adminSetCommentModeration,
+    getPost, isHidden, friendlyError, escapeHtml, timeAgo,
+  } from '../../lib/firebase';
+  import { url } from '../../lib/url';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading');
+  const show = (msg: string) => { err.textContent = msg; err.hidden = false; };
+
+  const STATUS_LABEL: Record<string, string> = {
+    open: '접수됨', reviewed: '검토함', dismissed: '기각', actioned: '조치함',
+  };
+  const REASON_LABEL: Record<string, string> = {
+    medical_advice: '의료 조언', personal_info: '개인정보', spam: '스팸', other: '기타',
+  };
+
+  if (!isConfigured) { loading.hidden = true; show(SETUP_MESSAGE); }
+  else void init();
+
+  async function init() {
+    const u = await currentUser();
+    const amAdmin = u ? await getAdminStatus() : false;
+    loading.hidden = true;
+    if (!amAdmin) { $('denied').hidden = false; return; }
+    $('panel').hidden = false;
+    await Promise.all([refreshReports(), refreshBans()]);
+  }
+
+  async function refreshReports() {
+    try {
+      const rows = await adminListReports();
+      $('r-empty').hidden = rows.length > 0;
+      $('r-list').innerHTML = rows.map((r) => `
+        <li class="board__item" data-rid="${escapeHtml(r.id)}" style="padding: var(--sp-4) 0">
+          <div class="board__meta" style="margin-bottom: var(--sp-2)">
+            <span>${r.targetType === 'post' ? '글' : '답글'}</span>
+            <span>${escapeHtml(REASON_LABEL[r.reason] ?? r.reason)}</span>
+            <span>${timeAgo(r.createdAt)}</span>
+            <span><strong>${escapeHtml(STATUS_LABEL[r.status ?? 'open'])}</strong></span>
+          </div>
+          <div class="field__hint" data-preview>대상 불러오는 중…</div>
+          <div class="btn-row" style="margin-top: var(--sp-3); flex-wrap: wrap; gap: var(--sp-2)">
+            <button type="button" class="btn btn--secondary" data-open hidden>글 열기</button>
+            <button type="button" class="btn btn--secondary" data-hide hidden></button>
+            <button type="button" class="btn btn--secondary" data-ban hidden>작성자 차단</button>
+            <select data-status>
+              ${(['open', 'reviewed', 'dismissed', 'actioned'] as const).map((s) =>
+                `<option value="${s}" ${s === (r.status ?? 'open') ? 'selected' : ''}>${STATUS_LABEL[s]}</option>`).join('')}
+            </select>
+          </div>
+        </li>`).join('');
+
+      for (const r of rows) void wireReport(r);
+    } catch (e) { show(friendlyError(e, '신고 목록을 불러오지 못했습니다.')); }
+  }
+
+  async function wireReport(r: Awaited<ReturnType<typeof adminListReports>>[number]) {
+    const li = $('r-list').querySelector(`li[data-rid="${CSS.escape(r.id)}"]`)!;
+    const preview = li.querySelector('[data-preview]') as HTMLElement;
+    const openBtn = li.querySelector('[data-open]') as HTMLButtonElement;
+    const hideBtn = li.querySelector('[data-hide]') as HTMLButtonElement;
+    const banBtn = li.querySelector('[data-ban]') as HTMLButtonElement;
+    const statusSel = li.querySelector('[data-status]') as HTMLSelectElement;
+
+    statusSel.addEventListener('change', async () => {
+      try { await adminSetReportStatus(r.id, statusSel.value as never); await refreshReports(); }
+      catch (e) { show(friendlyError(e, '상태를 바꾸지 못했습니다.')); }
+    });
+
+    // 신고 대상 미리보기 + 대상별 버튼
+    try {
+      if (r.targetType === 'post') {
+        const post = await getPost(r.targetId);
+        if (!post) { preview.textContent = '(삭제된 글이거나 찾을 수 없습니다)'; return; }
+        const hidden = isHidden(post);
+        preview.textContent = `${post.authorNickname} — ${post.title}${hidden ? '  [숨김 상태]' : ''}`;
+        openBtn.hidden = false;
+        openBtn.addEventListener('click', () => {
+          window.open(`${url('/questions/view/')}?id=${encodeURIComponent(r.targetId)}`, '_blank');
+        });
+        hideBtn.hidden = false;
+        hideBtn.textContent = hidden ? '글 숨김 해제' : '글 숨김';
+        hideBtn.addEventListener('click', async () => {
+          const to = hidden ? 'visible' : 'hidden';
+          const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+          try { await adminSetPostModeration(r.targetId, to, reason); await refreshReports(); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
+        banBtn.hidden = false;
+        banBtn.addEventListener('click', () => void banFlow(post.authorId, post.authorNickname));
+      } else {
+        const cm = await adminGetComment(r.targetId);
+        if (!cm) { preview.textContent = '(찾을 수 없는 답글입니다)'; return; }
+        const hidden = cm.moderationStatus === 'hidden';
+        preview.textContent = `${cm.authorNickname} — ${cm.body.slice(0, 80)}${hidden ? '  [숨김 상태]' : ''}${cm.deletedAt ? '  [삭제됨]' : ''}`;
+        openBtn.hidden = false;
+        openBtn.addEventListener('click', () => {
+          window.open(`${url('/questions/view/')}?id=${encodeURIComponent(cm.postId)}`, '_blank');
+        });
+        hideBtn.hidden = false;
+        hideBtn.textContent = hidden ? '답글 숨김 해제' : '답글 숨김';
+        hideBtn.addEventListener('click', async () => {
+          const to = hidden ? 'visible' : 'hidden';
+          const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+          try { await adminSetCommentModeration(r.targetId, to, reason); await refreshReports(); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
+        banBtn.hidden = false;
+        banBtn.addEventListener('click', () => void banFlow(cm.authorId, cm.authorNickname));
+      }
+    } catch (e) { preview.textContent = friendlyError(e, '대상을 불러오지 못했습니다.'); }
+  }
+
+  async function banFlow(uid: string, nickname: string) {
+    const reason = prompt(`차단 사유(관리자만 봅니다) — 대상: ${nickname}`);
+    if (reason === null) return;
+    if (!confirm(`${nickname} 님의 게시판 이용을 제한할까요? (글·답글·신고 작성 불가, 읽기는 가능)`)) return;
+    try { await adminBanUser(uid, reason); await refreshBans(); alert('차단했습니다.'); }
+    catch (e) { show(friendlyError(e, '차단하지 못했습니다.')); }
+  }
+
+  async function refreshBans() {
+    try {
+      const rows = await adminListBans();
+      $('b-empty').hidden = rows.length > 0;
+      $('b-list').innerHTML = rows.map((b) => `
+        <li class="board__item" data-buid="${escapeHtml(b.uid)}" style="padding: var(--sp-4) 0">
+          <div class="board__meta" style="margin-bottom: var(--sp-2)">
+            <span style="font-family: monospace">${escapeHtml(b.uid)}</span>
+            <span>${timeAgo(b.createdAt)}</span>
+            <span><strong>${b.active ? '차단 중' : '해제됨'}</strong></span>
+          </div>
+          <div class="field__hint"></div>
+          <div class="btn-row" style="margin-top: var(--sp-3)">
+            ${b.active
+              ? `<button type="button" class="btn btn--secondary" data-unban>차단 해제</button>`
+              : `<button type="button" class="btn btn--secondary" data-reban>다시 차단</button>`}
+          </div>
+        </li>`).join('');
+
+      rows.forEach((b, i) => {
+        const li = $('b-list').children[i];
+        (li.querySelector('.field__hint') as HTMLElement).textContent = `사유: ${b.reason || '(없음)'}`;
+        li.querySelector('[data-unban]')?.addEventListener('click', async () => {
+          if (!confirm('차단을 해제할까요?')) return;
+          try { await adminUnbanUser(b.uid); await refreshBans(); }
+          catch (e) { show(friendlyError(e, '해제하지 못했습니다.')); }
+        });
+        li.querySelector('[data-reban]')?.addEventListener('click', async () => {
+          const reason = prompt('차단 사유(관리자만 봅니다)');
+          if (reason === null) return;
+          try { await adminBanUser(b.uid, reason); await refreshBans(); }
+          catch (e) { show(friendlyError(e, '차단하지 못했습니다.')); }
+        });
+      });
+    } catch (e) { show(friendlyError(e, '차단 목록을 불러오지 못했습니다.')); }
+  }
+</script>
