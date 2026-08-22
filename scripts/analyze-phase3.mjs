@@ -143,10 +143,11 @@ export function parseBackup(db, flat) {
       const cls = classifyDrug(e.drug, flat);
       if (!cls) unknownDrugs.set(e.drug, (unknownDrugs.get(e.drug) ?? 0) + 1);
       meds.push({ ...base, drug: e.drug ?? null, dose: e.dose ?? null, tabletMg: e.tabletMg ?? null, tabletCount: e.tabletCount ?? null,
-        assumed: e.assumed === true, fromSet: e.fromSet ?? null, curveId: cls?.curveId ?? null, formulation: cls?.formulation ?? null });
+        assumed: e.assumed === true, assumedRaw: e.assumed, fromSet: e.fromSet ?? null, curveId: cls?.curveId ?? null, formulation: cls?.formulation ?? null });
     } else if (e.type === 'state') {
       if (e.output == null || Number.isNaN(+e.output)) { statesNoOutput++; continue; }
       states.push({ ...base, output: +e.output, state: e.state ?? null, trend: e.trend ?? null, riseResult: e.riseResult ?? null,
+        relatedFactorIds: e.relatedFactorIds ?? [], inputMethod: e.inputMethod ?? null,
         gait: e.gait ?? null, dysk: e.dysk ?? null, dyst: e.dyst ?? null, symptoms: e.symptoms ?? [] });
     } else if (e.type === 'symptom') {
       symptoms.push({ ...base, key: e.key ?? null, phase: e.phase ?? null, customText: e.customText ?? '',
@@ -157,13 +158,36 @@ export function parseBackup(db, flat) {
         durationMin: e.durationMin ?? null, intensity: e.intensity ?? null, symptoms: e.symptoms ?? [] });
     }
   }
-  return { meds, states, symptoms, life, unknownDrugs, statesNoOutput, totalEvents: events.length };
+  const outs = states.map((s) => s.output);
+  const grid = { distinct: [...new Set(outs)].sort((a, b) => a - b), mult10: outs.filter((o) => o % 10 === 0).length, total: outs.length };
+  return { meds, states, symptoms, life, unknownDrugs, statesNoOutput, grid, totalEvents: events.length };
 }
 
 /* ---------- 에피소드 측정 (분류 없음) ---------- */
 export function measureEpisodes(parsed, O = OBS) {
   const { meds, states } = parsed;
-  const levo = meds.filter((m) => O.levodopaCurveIds.includes(m.curveId));
+  const levoRaw = meds.filter((m) => O.levodopaCurveIds.includes(m.curveId));
+
+  /* 같은 시각에 들어간 레보도파계는 임상적으로 한 번의 복용 사건이다.
+     따로 세면 같은 행이 두 번 나오고 분포가 부풀려진다.
+     IR과 CR이 같이 들어간 경우는 어느 쪽 시간 특성인지 가를 수 없으므로
+     form='IR+CR'로 두고 §3 시간 분포에서 뺀다. */
+  const byTs = new Map();
+  for (const m of levoRaw) { if (!byTs.has(m.ts)) byTs.set(m.ts, []); byTs.get(m.ts).push(m); }
+  const levo = [...byTs.entries()].sort((a, b) => a[0] - b[0]).map(([ts, items]) => {
+    const forms = new Set(items.map((m) => O.irCurveIds.includes(m.curveId) ? 'IR' : O.crCurveIds.includes(m.curveId) ? 'CR' : '기타'));
+    return {
+      ts, day: items[0].day, hm: items[0].hm,
+      drug: items.map((m) => m.drug).join(' + '),
+      dose: items.map((m) => m.dose).every((d) => d == null) ? null : items.map((m) => m.dose ?? '?').join(' + '),
+      anyDoseNull: items.some((m) => m.dose == null),
+      nDrugs: items.length,
+      form: forms.size > 1 ? 'IR+CR' : [...forms][0],
+      assumed: items.some((m) => m.assumed), assumedUnknown: items.every((m) => m.assumedRaw === undefined),
+      retro: items.some((m) => m.retro),
+      curveIds: [...new Set(items.map((m) => m.curveId))],
+    };
+  });
 
   const slopeBetween = (a, b) => {
     const dtH = (b.ts - a.ts) / 3600000;
@@ -195,6 +219,7 @@ export function measureEpisodes(parsed, O = OBS) {
     const troughPt = trough != null ? after.find((s) => s.output === trough) : null;
 
     // 첫 상승: 델타를 하나로 정하지 않고 전부 계산한다
+    const firstObsMin = after.length ? after[0].dt : null;
     const firstRiseByDelta = {};
     for (const d of O.riseDeltaSweep) {
       firstRiseByDelta[d] = preOut == null ? null : (after.find((s) => s.output - preOut >= d)?.dt ?? null);
@@ -226,21 +251,26 @@ export function measureEpisodes(parsed, O = OBS) {
     const userLabels = {
       preTrend: preState?.trend ?? null, preState: preState?.state ?? null,
       riseResults: [...new Set(after.map((s) => s.riseResult).filter(Boolean))],
+      relatedFactors: [...new Set(after.flatMap((s) => s.relatedFactorIds ?? []))],
+      inputMethods: [...new Set(after.map((s) => s.inputMethod).filter(Boolean))],
       trends: [...new Set(after.map((s) => s.trend).filter(Boolean))],
       states: [...new Set(after.map((s) => s.state).filter(Boolean))],
     };
 
     return {
       idx: i + 1, day: dose.day, hm: dose.hm, ts: dose.ts,
-      drug: dose.drug, dose: dose.dose, doseIsNull: dose.dose == null,
-      curveId: dose.curveId, formulation: dose.formulation,
-      form: O.irCurveIds.includes(dose.curveId) ? 'IR' : O.crCurveIds.includes(dose.curveId) ? 'CR' : '기타',
-      assumed: dose.assumed, retro: dose.retro,
+      drug: dose.drug, dose: dose.dose, doseIsNull: dose.anyDoseNull, nDrugs: dose.nDrugs,
+      curveIds: dose.curveIds, form: dose.form,
+      assumed: dose.assumed, assumedUnknown: dose.assumedUnknown, retro: dose.retro,
       preOut, preOutAgoMin, preSlope: r1(preSlope), postSlope: r1(postSlope), fallingRecorded,
       nextLevoMin, nextAnyMin: nextAny ? Math.round((nextAny.ts - dose.ts) / MIN) : null,
       nextAnyDrug: nextAny?.drug ?? null, obsEndMin, truncated,
       nAfter: after.length, maxGap, gapFlag: maxGap != null && maxGap > O.gapReportMin,
       peak, peakMin: peakPt?.dt ?? null, trough, troughMin: troughPt?.dt ?? null,
+      firstObsMin,
+      // 첫 상승이 첫 관찰과 같은 시점이면, 그 값은 "그때 올랐다"가 아니라
+      // "그때는 이미 올라 있었다"이다 — 실제 상승 시점은 그보다 이를 수 있다(좌측 절단).
+      riseCensored: preOut != null && firstObsMin != null && firstRiseByDelta[10] === firstObsMin,
       firstRiseByDelta, reachByLevel, declineStruct, userLabels, after,
     };
   });
@@ -264,6 +294,10 @@ export function summarize(eps, O = OBS) {
       nextLevoMin: quantiles(list.map((e) => e.nextLevoMin)),
       firstRise: Object.fromEntries(O.riseDeltaSweep.map((d) => [d, quantiles(list.map((e) => e.firstRiseByDelta[d]))])),
       reach: Object.fromEntries(O.reachLevels.map((lv) => [lv, quantiles(list.map((e) => e.reachByLevel[lv]))])),
+      censoredRise: list.filter((e) => e.riseCensored).length,
+      withRise: list.filter((e) => e.firstRiseByDelta[10] != null).length,
+      firstObs: quantiles(list.map((e) => e.firstObsMin)),
+      nAfter: quantiles(list.map((e) => e.nAfter)),
       gaps: {
         firstRise: gapScan(list.map((e) => e.firstRiseByDelta[D])),
         peak: gapScan(list.map((e) => e.peak)),
@@ -273,10 +307,24 @@ export function summarize(eps, O = OBS) {
     };
   }
   // 사용자 참고 라벨 분포
-  const labelCounts = {};
-  for (const e of eps) for (const r of e.userLabels.riseResults) labelCounts[r] = (labelCounts[r] ?? 0) + 1;
+  const labelCounts = {}, factorCounts = {}, inputMethodCounts = {};
+  for (const e of eps) {
+    for (const r of e.userLabels.riseResults) labelCounts[r] = (labelCounts[r] ?? 0) + 1;
+    for (const f of e.userLabels.relatedFactors) factorCounts[f] = (factorCounts[f] ?? 0) + 1;
+    for (const m of e.userLabels.inputMethods) inputMethodCounts[m] = (inputMethodCounts[m] ?? 0) + 1;
+  }
   const declines = eps.filter((e) => e.fallingRecorded || (e.preSlope != null && e.preSlope < 0));
-  return { byForm, labelCounts, declineCandidates: declines.length };
+  const byHour = {};
+  for (const e of eps) { const h = +e.hm.slice(0, 2); (byHour[h] = byHour[h] ?? []).push(e); }
+  const hourRows = Object.keys(byHour).map(Number).sort((a, b) => a - b).map((h) => {
+    const l = byHour[h];
+    return { hour: h, n: l.length, forms: [...new Set(l.map((e) => e.form))].join('/'),
+      drugs: [...new Set(l.map((e) => e.drug))].join(' / '),
+      peaks: l.map((e) => e.peak), peakQ: quantiles(l.map((e) => e.peak)),
+      noData: l.filter((e) => e.nAfter === 0).length,
+      truncated: l.filter((e) => e.truncated).length };
+  });
+  return { byForm, byHour: hourRows, labelCounts, factorCounts, inputMethodCounts, mixedForm: eps.filter((e) => e.form === 'IR+CR').length, declineCandidates: declines.length };
 }
 
 /* ---------- 실행 ---------- */
@@ -300,6 +348,7 @@ function main() {
     totalEvents: parsed.totalEvents, medEvents: parsed.meds.length, stateEvents: parsed.states.length,
     statesNoOutput: parsed.statesNoOutput, symptomEvents: parsed.symptoms.length, lifeEvents: parsed.life.length,
     retroStates: parsed.states.filter((s) => s.retro).length, retroMeds: parsed.meds.filter((m) => m.retro).length,
+    grid: parsed.grid,
     assumedDoses: parsed.meds.filter((m) => m.assumed).length, nullDose: parsed.meds.filter((m) => m.dose == null).length,
     unknownDrugs: Object.fromEntries(parsed.unknownDrugs), days: [...new Set(parsed.meds.map((m) => m.day))].sort(),
   }, summary: sum, episodes: eps.map((e) => ({ ...e, after: e.after.map((s) => ({ dt: s.dt, output: s.output, state: s.state, trend: s.trend, riseResult: s.riseResult })) })) };
@@ -337,17 +386,21 @@ function render(p, eps, sum, parsed) {
   L.push(`| 생활 기록 | ${P.lifeEvents} |`);
   L.push(`| **레보도파계 에피소드** | **${eps.length}** (IR ${sum.byForm.IR?.n ?? 0} / CR ${sum.byForm.CR?.n ?? 0}) |`);
   L.push(`| 기록된 날짜 | ${P.days.length}일 (${P.days[0] ?? '—'} ~ ${P.days[P.days.length - 1] ?? '—'}) |`);
+  L.push(`| IR+CR 동시 복용(시간 분포에서 제외) | ${sum.mixedForm} |`);
+  L.push(`| output 눈금 | 실제 사용된 값 ${P.grid.distinct.join(', ')} — **${P.grid.mult10}/${P.grid.total}이 10의 배수** |`);
   if (Object.keys(P.unknownDrugs).length) L.push(`| 사전에 없는 약 이름 | ${Object.entries(P.unknownDrugs).map(([k, v]) => `${k}(${v})`).join(', ')} |`);
-  L.push('', '용량이 `null`인 기록은 채우지 않고 그대로 두었다.', '');
+  L.push('', '용량이 `null`인 기록은 채우지 않고 그대로 두었다.');
+  L.push('', '**output 눈금이 사실상 10 단위다.** 그래서 최고 output 축에서 보이는 "틈"은 군집이 아니라 눈금 간격일 수 있다. §4를 읽을 때 이 점을 먼저 감안해야 한다.', '');
 
   L.push('## 2. 전체 에피소드 원자료표', '');
-  L.push('시간 단위는 분, `첫상승`은 델타 10 기준(다른 델타는 §3에 함께 싣는다).', '');
-  L.push('| # | 날짜 | 시각 | 제형 | 약/용량 | 복용전 out | 복용전 기울기/h | 복용후 기울기/h | 최저 | 최고 | 최고까지 | 첫상승(δ10) | →50 | →70 | →80 | →90 | 다음복용 | 기록수 | 최대공백 | 사용자 라벨 | 플래그 |');
-  L.push('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
+  L.push('시간 단위는 분, `첫상승`은 델타 10 기준(다른 델타는 §3에 함께 싣는다).');
+  L.push('', '**`첫상승`에 붙은 ⚠는 그 값이 첫 관찰 시점과 같다는 뜻이다.** 그 경우 "그때 올랐다"가 아니라 "그때는 이미 올라 있었다"이므로, 실제 상승은 그보다 이를 수 있다(좌측 절단). 절단된 값을 늦은 것으로 읽으면 안 된다.', '');
+  L.push('| # | 날짜 | 시각 | 제형 | 약/용량 | 복용전 out | 복용전 기울기/h | 복용후 기울기/h | 최저 | 최고 | 최고까지 | 첫관찰 | 첫상승(δ10) | →50 | →70 | →80 | →90 | 다음복용 | 기록수 | 최대공백 | 사용자 라벨 | 플래그 |');
+  L.push('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
   for (const e of eps) {
-    const flags = [e.assumed && 'assumed', e.retro && 'retro', e.truncated && `관찰${e.obsEndMin}분에서 끊김`, e.gapFlag && `공백${e.maxGap}분`, e.doseIsNull && '용량null', e.fallingRecorded && '복용시 하강기록'].filter(Boolean).join(' · ');
-    const lab = [e.userLabels.preTrend && `전:${e.userLabels.preTrend}`, ...e.userLabels.riseResults.map((r) => `rise:${r}`), ...e.userLabels.trends.map((t) => `후:${t}`)].join(' ');
-    L.push(`| ${e.idx} | ${e.day} | ${e.hm} | ${e.form} | ${e.drug ?? '—'}${e.dose != null ? ` ${e.dose}` : ''} | ${num(e.preOut)} | ${num(e.preSlope)} | ${num(e.postSlope)} | ${num(e.trough)} | ${num(e.peak)} | ${num(e.peakMin)} | ${num(e.firstRiseByDelta[10])} | ${num(e.reachByLevel[50])} | ${num(e.reachByLevel[70])} | ${num(e.reachByLevel[80])} | ${num(e.reachByLevel[90])} | ${num(e.nextLevoMin)} | ${e.nAfter} | ${num(e.maxGap)} | ${lab || '—'} | ${flags || '—'} |`);
+    const flags = [e.assumed && 'assumed', e.assumedUnknown && 'assumed필드없음', e.retro && 'retro', e.nDrugs > 1 && `${e.nDrugs}제 동시`, e.form === 'IR+CR' && 'IR+CR 혼합', e.truncated && `관찰${e.obsEndMin}분에서 끊김`, e.gapFlag && `공백${e.maxGap}분`, e.doseIsNull && '용량null', e.fallingRecorded && '복용시 하강기록'].filter(Boolean).join(' · ');
+    const lab = [e.userLabels.preTrend && `전:${e.userLabels.preTrend}`, ...e.userLabels.riseResults.map((r) => `rise:${r}`), ...e.userLabels.relatedFactors.map((f) => `f:${f}`)].join(' ');
+    L.push(`| ${e.idx} | ${e.day} | ${e.hm} | ${e.form} | ${e.drug ?? '—'}${e.dose != null ? ` ${e.dose}` : ''} | ${num(e.preOut)} | ${num(e.preSlope)} | ${num(e.postSlope)} | ${num(e.trough)} | ${num(e.peak)} | ${num(e.peakMin)} | ${num(e.firstObsMin)} | ${num(e.firstRiseByDelta[10])}${e.riseCensored ? '⚠' : ''} | ${num(e.reachByLevel[50])} | ${num(e.reachByLevel[70])} | ${num(e.reachByLevel[80])} | ${num(e.reachByLevel[90])} | ${num(e.nextLevoMin)} | ${e.nAfter} | ${num(e.maxGap)} | ${lab || '—'} | ${flags || '—'} |`);
   }
   L.push('');
 
@@ -364,16 +417,25 @@ function render(p, eps, sum, parsed) {
     L.push(qRow('복용 직전 기울기 (/h)', s.preSlope));
     L.push(qRow('복용 직후 기울기 (/h)', s.postSlope));
     L.push(qRow('다음 레보도파까지 (분)', s.nextLevoMin));
+    L.push(qRow('첫 관찰까지 (분)', s.firstObs));
+    L.push(qRow('복용 후 기록 수', s.nAfter));
     for (const d of p.obs.riseDeltaSweep) L.push(qRow(`첫 상승까지 · δ${d} (분)`, s.firstRise[d]));
     for (const lv of p.obs.reachLevels) L.push(qRow(`output ${lv} 도달 (분)`, s.reach[lv]));
     L.push('');
+    L.push(`**첫 상승이 측정된 에피소드 ${s.withRise}건 가운데 ${s.censoredRise}건이 첫 관찰 시점과 같다(좌측 절단).**`, '');
     L.push(`**정렬값** — 첫상승(δ${s.repDelta}): ${s.firstRise[s.repDelta]?.sorted.join(', ') ?? '—'}`);
     L.push(`**정렬값** — 최고 output: ${s.peak?.sorted.join(', ') ?? '—'}`, '');
   }
 
+  L.push('### 복용 시각대별 (시각은 데이터이지 내가 정한 구간이 아니다)', '');
+  L.push('| 복용 시각 | 건수 | 제형 | 약 | 최고 output (개별) | 중앙값 | 기록 0건 | 관찰 끊김 |', '|---|---|---|---|---|---|---|---|');
+  for (const r of sum.byHour) L.push(`| ${String(r.hour).padStart(2, '0')}시 | ${r.n} | ${r.forms} | ${r.drugs} | ${r.peaks.map((v) => v ?? '—').join(', ')} | ${r.peakQ?.median ?? '—'} | ${r.noData} | ${r.truncated} |`);
+  L.push('', '같은 약이라도 시각대에 따라 최고 output이 크게 다르다면, 에피소드를 시각대와 무관하게 한 무리로 묶어 비교하는 것 자체가 성립하지 않는다.', '');
+
   L.push('## 4. cutoff 없이도 군집이 보이는가', '');
   L.push('정렬한 값들 사이의 **가장 큰 틈**을 본다. 임계값을 정하기 위한 것이 아니라, 임계값 없이도 데이터가 갈라지는지 보기 위한 것이다.');
   L.push('`틈/전체폭`이 클수록 자연스러운 갈라짐에 가깝고, 값이 고르게 퍼져 있으면 그 축에서는 군집이 없다는 뜻이다.', '');
+  L.push('**두 가지를 먼저 감안해야 한다.** (1) output 눈금이 10 단위이므로 최고 output 축의 틈은 눈금 폭일 수 있다. (2) 첫 상승 값이 좌측 절단되어 있으면(§2의 ⚠) 그 축의 틈은 상승 시점이 아니라 기록 시점의 분포다.', '');
   for (const form of ['IR', 'CR']) {
     const s = sum.byForm[form];
     if (!s?.n) continue;
@@ -416,6 +478,16 @@ function render(p, eps, sum, parsed) {
     const KO = { reached: '정상 ON 도달', delayed: 'Delayed ON', partial: '불완전 ON', failed: 'ON 실패' };
     for (const [k, v] of Object.entries(sum.labelCounts)) L.push(`| \`${k}\` ${KO[k] ?? ''} | ${v} |`);
     L.push('', '이 라벨과 측정값이 어긋나는 사례가 있는지는 §2 원자료표에서 직접 대조할 수 있다.', '');
+  }
+  if (Object.keys(sum.factorCounts).length) {
+    L.push('', '앱이 그 기록에 함께 붙여 둔 `relatedFactorIds` — **동반 조건이지 원인이 아니다.**', '');
+    L.push('| 요인 | 에피소드 수 |', '|---|---|');
+    for (const [k, v] of Object.entries(sum.factorCounts).sort((a, b) => b[1] - a[1])) L.push(`| \`${k}\` | ${v} |`);
+  }
+  if (Object.keys(sum.inputMethodCounts).length) {
+    L.push('', '관찰창 안 상태기록의 입력 경로 — 실시간(`quick`)과 회고(`backdated_manual`)를 구분해야 한다. `tempnote_review`는 그때 남긴 메모를 나중에 정리한 것이다.', '');
+    L.push('| inputMethod | 에피소드 수 |', '|---|---|');
+    for (const [k, v] of Object.entries(sum.inputMethodCounts).sort((a, b) => b[1] - a[1])) L.push(`| \`${k}\` | ${v} |`);
   }
 
   L.push('## 7. 다섯 가지 질문에 대한 관찰', '');

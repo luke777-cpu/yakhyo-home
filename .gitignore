@@ -5,3 +5,8 @@ dist/
 .env
 .env.production
 *.log
+
+# 개인 의료 기록 백업은 저장소에 올리지 않는다 (3차 검정 분석 입력)
+*백업*.json
+medlog_backup*.json
+backup.json
