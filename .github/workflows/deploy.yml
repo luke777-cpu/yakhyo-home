@@ -26,7 +26,10 @@ jobs:
           node-version: 22
           cache: npm
 
-      - run: npm ci
+      # package.json에는 Windows 로컬 빌드용 native binding이 직접 의존성으로 있다.
+      # GitHub Pages runner는 Linux이므로 npm의 플랫폼 검사만 강제로 넘긴다.
+      # 실제 Astro 빌드에서는 Linux용 binding을 사용한다.
+      - run: npm ci --force
 
       - run: npm run build
         env:
