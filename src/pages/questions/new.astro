@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import BoardNotice from '../../components/BoardNotice.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout title="질문 쓰기" description="질문게시판에 새 질문을 올립니다.">
+  <PageHead crumb="질문게시판" crumbHref={url('/questions/')} title="질문 쓰기" />
+
+  <div class="container">
+    <div class="board">
+      <BoardNotice />
+      <div class="notice notice--error" id="err" hidden></div>
+
+      <form class="form" id="form" novalidate>
+        <div class="field">
+          <label class="field__label" for="title">
+            제목 <span class="field__count"><span id="tc">0</span>/120</span>
+          </label>
+          <input class="input" id="title" type="text" required minlength="2" maxlength="120" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="body">
+            내용 <span class="field__count"><span id="bc">0</span>/5000</span>
+          </label>
+          <textarea class="textarea" id="body" required minlength="2" maxlength="5000"></textarea>
+          <p class="field__hint">언제, 어떤 상황이었는지 함께 써 주시면 답하기 쉽습니다.</p>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn--primary" type="submit" id="submit">올리기</button>
+          <a class="btn btn--secondary" href={url('/questions/')}>취소</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, getProfile } from '../../lib/supabase';
+
+  const err = document.getElementById('err')!;
+  const form = document.getElementById('form') as HTMLFormElement;
+  const title = document.getElementById('title') as HTMLInputElement;
+  const body = document.getElementById('body') as HTMLTextAreaElement;
+  const submit = document.getElementById('submit') as HTMLButtonElement;
+
+  function show(msg: string) { err.textContent = msg; err.hidden = false; }
+  const bind = (el: HTMLInputElement | HTMLTextAreaElement, out: string) => {
+    const o = document.getElementById(out)!;
+    const upd = () => { o.textContent = String(el.value.length); };
+    el.addEventListener('input', upd); upd();
+  };
+  bind(title, 'tc'); bind(body, 'bc');
+
+  const sb = getSupabase();
+  let userId: string | null = null;
+
+  if (!isConfigured || !sb) {
+    show(SETUP_MESSAGE); submit.disabled = true;
+  } else {
+    sb.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session?.user) { location.replace(absoluteUrl('/login/')); return; }
+      // 닉네임이 없으면 글을 쓸 수 없다. RLS 도 막지만 먼저 안내한다.
+      const profile = await getProfile(sb, session.user.id);
+      if (!profile) { location.replace(absoluteUrl('/profile/setup/')); return; }
+      userId = session.user.id;
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    if (!sb || !userId) { show('로그인이 필요합니다.'); return; }
+
+    const t = title.value.trim(), b = body.value.trim();
+    if (t.length < 2 || b.length < 2) { show('제목과 내용을 채워 주세요.'); return; }
+
+    submit.disabled = true; submit.textContent = '올리는 중…';
+    const { data, error } = await sb.from('posts')
+      .insert({ author_id: userId, title: t, body: b })
+      .select('id').single();
+
+    if (error) {
+      submit.disabled = false; submit.textContent = '올리기';
+      show(friendlyError(error, '올리지 못했습니다.'));
+      return;
+    }
+    location.replace(`${absoluteUrl('/questions/view/')}?id=${encodeURIComponent(data.id)}`);
+  });
+</script>

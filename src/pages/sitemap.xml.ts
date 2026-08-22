@@ -21,6 +21,9 @@ export const GET: APIRoute = async ({ site }) => {
     '/learn/',
     '/story/',
     '/start/',
+    // 게시판은 목록만 넣는다. 로그인·닉네임 설정·글 상세(?id=)는
+    // 검색에 걸릴 이유가 없고 내용도 매번 다르다.
+    '/questions/',
     ...diary.map((d) => `/diary/${d.id}/`),
     ...concepts.map((c) => `/understand/${c.id}/`),
     ...graphs.map((g) => `/graphs/${g.id}/`),

@@ -1,0 +1,205 @@
+---
+/**
+ * 질문 상세.
+ *
+ * 정적 빌드라 /questions/<uuid>/ 같은 동적 경로를 미리 만들 수 없다.
+ * 그래서 한 장의 페이지가 ?id= 를 읽어 내용을 채운다.
+ * GitHub Pages 든 Vercel 이든 똑같이 동작하는 방식이다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import BoardNotice from '../../components/BoardNotice.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout title="질문" description="질문게시판의 글을 봅니다.">
+  <PageHead crumb="질문게시판" crumbHref={url('/questions/')} title="질문" />
+
+  <div class="container">
+    <div class="board">
+      <div class="notice notice--error" id="err" hidden></div>
+      <p class="skeleton" id="loading">불러오는 중…</p>
+
+      <article id="post" hidden>
+        <h2 class="post__title" id="p-title"></h2>
+        <div class="post__meta">
+          <span id="p-author"></span><span id="p-time"></span>
+          <span class="owner-actions" id="p-actions" hidden>
+            <button type="button" id="p-edit">수정</button>
+            <button type="button" id="p-del">삭제</button>
+          </span>
+        </div>
+        <div class="post__body" id="p-body"></div>
+      </article>
+
+      <section style="margin-top: var(--sp-12)" id="comments-area" hidden>
+        <h2 class="section__title" style="font-size: var(--fs-h2)">답글 <span id="c-count"></span></h2>
+        <ul class="comment-list" id="c-list"></ul>
+        <p class="board__empty" id="c-empty" hidden>아직 답글이 없습니다.</p>
+
+        <div style="margin-top: var(--sp-6)" id="c-form-area" hidden>
+          <BoardNotice />
+          <form class="form" id="c-form" novalidate>
+            <div class="field">
+              <label class="field__label" for="c-body">
+                답글 <span class="field__count"><span id="cc">0</span>/2000</span>
+              </label>
+              <textarea class="textarea" id="c-body" required maxlength="2000" style="min-height: 7rem"></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit" id="c-submit">답글 올리기</button>
+          </form>
+        </div>
+        <p class="field__hint" id="c-login" hidden style="margin-top: var(--sp-6)">
+          답글을 쓰려면 <a href={url('/login/')}>로그인</a>이 필요합니다.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, escapeHtml, timeAgo, nicknameOf } from '../../lib/supabase';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading');
+  function show(msg: string) { loading.hidden = true; err.textContent = msg; err.hidden = false; }
+
+  const postId = new URLSearchParams(location.search).get('id');
+  const sb = getSupabase();
+
+  if (!isConfigured || !sb) show(SETUP_MESSAGE);
+  else if (!postId) show('주소에 글 번호가 없습니다. 목록에서 다시 눌러 주세요.');
+  else void load();
+
+  let me: string | null = null;
+
+  async function load() {
+    const { data: { session } } = await sb!.auth.getSession();
+    me = session?.user?.id ?? null;
+
+    const { data: post, error } = await sb!.from('posts')
+      .select('id, title, body, created_at, author_id, profiles(nickname)')
+      .eq('id', postId).is('deleted_at', null).maybeSingle();
+
+    loading.hidden = true;
+    if (error) { show(friendlyError(error, '글을 불러오지 못했습니다.')); return; }
+    if (!post) { show('없는 글이거나 지워진 글입니다.'); return; }
+
+    const p = post as any;
+    $('p-title').textContent = p.title;
+    $('p-author').textContent = nicknameOf(p);
+    $('p-time').textContent = timeAgo(p.created_at);
+    $('p-body').textContent = p.body;          // textContent 라 서식이 실행되지 않는다
+    $('post').hidden = false;
+
+    if (me && me === p.author_id) {
+      $('p-actions').hidden = false;
+      $('p-edit').addEventListener('click', () => {
+        location.href = `${absoluteUrl('/questions/edit/')}?id=${encodeURIComponent(p.id)}`;
+      });
+      $('p-del').addEventListener('click', () => void softDeletePost(p.id));
+    }
+
+    $('comments-area').hidden = false;
+    if (me) $('c-form-area').hidden = false; else $('c-login').hidden = false;
+    await loadComments();
+  }
+
+  async function softDeletePost(id: string) {
+    if (!confirm('이 질문을 삭제할까요? 목록에서 보이지 않게 됩니다.')) return;
+    // hard delete 가 아니다. deleted_at 만 채운다(DELETE 정책 자체가 없다).
+    const { error } = await sb!.from('posts').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+    if (error) { show(friendlyError(error, '삭제하지 못했습니다.')); return; }
+    location.replace(absoluteUrl('/questions/'));
+  }
+
+  async function loadComments() {
+    const { data, error } = await sb!.from('comments')
+      .select('id, body, created_at, author_id, profiles(nickname)')
+      .eq('post_id', postId).is('deleted_at', null).order('created_at', { ascending: true });
+
+    if (error) { show(friendlyError(error, '답글을 불러오지 못했습니다.')); return; }
+    const rows = (data ?? []) as any[];
+    $('c-count').textContent = rows.length ? String(rows.length) : '';
+    $('c-empty').hidden = rows.length > 0;
+
+    $('c-list').innerHTML = rows.map((c) => `
+      <li class="comment" data-id="${c.id}">
+        <div class="comment__meta">
+          <span class="comment__author">${escapeHtml(nicknameOf(c))}</span>
+          <span>${timeAgo(c.created_at)}</span>
+          ${me === c.author_id ? `<span class="owner-actions">
+            <button type="button" data-edit="${c.id}">수정</button>
+            <button type="button" data-del="${c.id}">삭제</button>
+          </span>` : ''}
+        </div>
+        <div class="comment__body"></div>
+      </li>`).join('');
+
+    // 본문은 textContent 로 넣는다 — 위 템플릿에 사용자 글을 직접 넣지 않기 위해서다.
+    rows.forEach((c, i) => {
+      $('c-list').children[i].querySelector('.comment__body')!.textContent = c.body;
+    });
+
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-del]').forEach((b) =>
+      b.addEventListener('click', () => void softDeleteComment(b.dataset.del!)));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-edit]').forEach((b) =>
+      b.addEventListener('click', () => editComment(b.dataset.edit!)));
+  }
+
+  async function softDeleteComment(id: string) {
+    if (!confirm('이 답글을 삭제할까요?')) return;
+    const { error } = await sb!.from('comments').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+    if (error) { show(friendlyError(error, '삭제하지 못했습니다.')); return; }
+    await loadComments();
+  }
+
+  function editComment(id: string) {
+    const li = $('c-list').querySelector(`li[data-id="${id}"]`)!;
+    const bodyEl = li.querySelector('.comment__body') as HTMLElement;
+    const current = bodyEl.textContent ?? '';
+    if (li.querySelector('textarea')) return;   // 이미 고치는 중
+
+    const ta = document.createElement('textarea');
+    ta.className = 'textarea'; ta.value = current; ta.maxLength = 2000;
+    ta.style.minHeight = '6rem';
+    const row = document.createElement('div');
+    row.className = 'btn-row'; row.style.marginTop = 'var(--sp-3)';
+    const save = document.createElement('button');
+    save.className = 'btn btn--primary'; save.type = 'button'; save.textContent = '저장';
+    const cancel = document.createElement('button');
+    cancel.className = 'btn btn--secondary'; cancel.type = 'button'; cancel.textContent = '취소';
+    row.append(save, cancel);
+    bodyEl.replaceWith(ta); ta.after(row); ta.focus();
+
+    cancel.addEventListener('click', () => void loadComments());
+    save.addEventListener('click', async () => {
+      const v = ta.value.trim();
+      if (!v) { show('답글 내용을 비울 수 없습니다.'); return; }
+      save.disabled = true;
+      const { error } = await sb!.from('comments').update({ body: v }).eq('id', id);
+      if (error) { save.disabled = false; show(friendlyError(error, '수정하지 못했습니다.')); return; }
+      await loadComments();
+    });
+  }
+
+  const cBody = document.getElementById('c-body') as HTMLTextAreaElement | null;
+  if (cBody) {
+    const cc = $('cc');
+    cBody.addEventListener('input', () => { cc.textContent = String(cBody.value.length); });
+    (document.getElementById('c-form') as HTMLFormElement).addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      if (!sb || !me || !postId) { show('로그인이 필요합니다.'); return; }
+      const v = cBody.value.trim();
+      if (!v) { show('답글 내용을 써 주세요.'); return; }
+
+      const submit = document.getElementById('c-submit') as HTMLButtonElement;
+      submit.disabled = true; submit.textContent = '올리는 중…';
+      const { error } = await sb.from('comments').insert({ post_id: postId, author_id: me, body: v });
+      submit.disabled = false; submit.textContent = '답글 올리기';
+      if (error) { show(friendlyError(error, '답글을 올리지 못했습니다.')); return; }
+      cBody.value = ''; cc.textContent = '0';
+      await loadComments();
+    });
+  }
+</script>

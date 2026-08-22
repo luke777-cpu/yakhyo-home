@@ -1,0 +1,94 @@
+---
+/**
+ * 첫 로그인 뒤 닉네임 정하기.
+ * 여기서 받는 것은 닉네임 하나뿐이다. 실명을 요구하지 않는다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+---
+<BaseLayout
+  title="닉네임 정하기"
+  description="게시판에 표시될 닉네임을 정합니다. 실명은 필요하지 않습니다."
+>
+  <PageHead
+    title="닉네임 정하기"
+    lead="게시판에는 이 이름만 보입니다. 이메일이나 로그인 방법은 다른 사람에게 보이지 않습니다."
+  />
+
+  <div class="container">
+    <div class="auth">
+      <div class="notice notice--error" id="err" hidden></div>
+
+      <form class="form" id="form" novalidate>
+        <div class="field">
+          <label class="field__label" for="nickname">닉네임</label>
+          <input class="input" id="nickname" name="nickname" type="text" required
+                 minlength="2" maxlength="20" autocomplete="off" spellcheck="false" />
+          <p class="field__hint">
+            2~20자. <strong>실명을 쓰지 마세요.</strong> 나중에 바꿀 수 있습니다.
+          </p>
+        </div>
+        <div class="field">
+          <button class="btn btn--primary btn--block" type="submit" id="submit">시작하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, getProfile } from '../../lib/supabase';
+
+  const err = document.getElementById('err')!;
+  const form = document.getElementById('form') as HTMLFormElement;
+  const input = document.getElementById('nickname') as HTMLInputElement;
+  const submit = document.getElementById('submit') as HTMLButtonElement;
+
+  function show(msg: string) { err.textContent = msg; err.hidden = false; }
+
+  const sb = getSupabase();
+  let userId: string | null = null;
+
+  if (!isConfigured || !sb) {
+    show(SETUP_MESSAGE);
+    submit.disabled = true;
+  } else {
+    sb.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session?.user) { location.replace(absoluteUrl('/login/')); return; }
+      userId = session.user.id;
+      // 이미 정해 뒀으면 고쳐 쓸 수 있게 채워 둔다.
+      const profile = await getProfile(sb, userId);
+      if (profile) { input.value = profile.nickname; submit.textContent = '닉네임 바꾸기'; }
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    if (!sb || !userId) { show(SETUP_MESSAGE); return; }
+
+    const nickname = input.value.trim();
+    if (nickname.length < 2 || nickname.length > 20) {
+      input.setAttribute('aria-invalid', 'true');
+      show('닉네임은 2~20자로 정해 주세요.');
+      return;
+    }
+    input.removeAttribute('aria-invalid');
+
+    submit.disabled = true;
+    const label = submit.textContent;
+    submit.textContent = '저장 중…';
+
+    // upsert 라 처음 만들 때와 바꿀 때가 같은 코드로 처리된다.
+    // 남의 행을 건드리는 것은 RLS 가 막는다(auth.uid() = id).
+    const { error } = await sb.from('profiles').upsert({ id: userId, nickname }, { onConflict: 'id' });
+
+    if (error) {
+      submit.disabled = false;
+      submit.textContent = label;
+      show(friendlyError(error, '닉네임을 저장하지 못했습니다.'));
+      return;
+    }
+    location.replace(absoluteUrl('/questions/'));
+  });
+</script>

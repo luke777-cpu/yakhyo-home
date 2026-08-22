@@ -11,6 +11,11 @@
     "check:content": "node scripts/check-content.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
     "astro": "^7.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout title="내 글" description="내가 올린 질문 목록입니다.">
+  <PageHead crumb="질문게시판" crumbHref={url('/questions/')} title="내 글" />
+  <div class="container">
+    <div class="board">
+      <div class="notice notice--error" id="err" hidden></div>
+      <p class="skeleton" id="loading">불러오는 중…</p>
+      <ul class="board__list" id="list" hidden></ul>
+      <p class="board__empty" id="empty" hidden>아직 올린 질문이 없습니다.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, escapeHtml, timeAgo, countOf } from '../../lib/supabase';
+  import { url } from '../../lib/url';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading'), list = $('list'), empty = $('empty');
+  function show(msg: string) { loading.hidden = true; err.textContent = msg; err.hidden = false; }
+
+  const sb = getSupabase();
+  if (!isConfigured || !sb) show(SETUP_MESSAGE);
+  else {
+    (async () => {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session?.user) { location.replace(absoluteUrl('/login/')); return; }
+
+      const { data, error } = await sb.from('posts')
+        .select('id, title, created_at, comments(count)')
+        .eq('author_id', session.user.id)
+        .is('deleted_at', null)
+        .order('created_at', { ascending: false });
+
+      loading.hidden = true;
+      if (error) { show(friendlyError(error, '목록을 불러오지 못했습니다.')); return; }
+      if (!data || data.length === 0) { empty.hidden = false; return; }
+
+      list.innerHTML = (data as any[]).map((p) => {
+        const count = countOf(p);
+        return `<li class="board__item">
+          <a class="board__link" href="${url('/questions/view/')}?id=${encodeURIComponent(p.id)}">
+            <div class="board__title">${escapeHtml(p.title)}${count > 0 ? ` <span style="color: var(--c-primary)">[${count}]</span>` : ''}</div>
+            <div class="board__meta"><span>${timeAgo(p.created_at)}</span></div>
+          </a></li>`;
+      }).join('');
+      list.hidden = false;
+    })();
+  }
+</script>

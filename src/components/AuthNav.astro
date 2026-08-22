@@ -1,0 +1,59 @@
+---
+/**
+ * 헤더의 로그인 상태.
+ *
+ * 정적 페이지라 서버가 로그인 여부를 모른다. 그래서 기본값은 "비로그인"으로 그려 두고,
+ * 브라우저에서 세션을 확인한 뒤 바꾼다. 로그인한 사람이 잠깐 「로그인」을 보게 되지만,
+ * 반대(비로그인인데 닉네임이 보이는 것)보다 낫다.
+ *
+ * variant='mobile' 이면 모바일 메뉴 안에 세로로 놓인다.
+ */
+import { url } from '../lib/url';
+
+interface Props { variant?: 'header' | 'mobile'; }
+const { variant = 'header' } = Astro.props;
+const cls = variant === 'mobile' ? 'authnav authnav--mobile' : 'authnav';
+---
+<div class={cls} data-authnav style={variant === 'mobile' ? 'display:flex;gap:var(--sp-4);margin-top:var(--sp-6);flex-wrap:wrap' : undefined}>
+  <a class="authnav__link" href={url('/login/')} data-auth-out>로그인</a>
+
+  <span class="authnav__name" data-auth-in hidden></span>
+  <a class="authnav__link" href={url('/questions/mine/')} data-auth-in hidden>내 글</a>
+  <button class="authnav__link" type="button" data-auth-signout hidden>로그아웃</button>
+</div>
+
+<script>
+  import { getSupabase, absoluteUrl, getProfile } from '../lib/supabase';
+
+  const sb = getSupabase();
+  if (sb) {
+    const outs = document.querySelectorAll<HTMLElement>('[data-auth-out]');
+    const ins = document.querySelectorAll<HTMLElement>('[data-auth-in]');
+    const signouts = document.querySelectorAll<HTMLButtonElement>('[data-auth-signout]');
+
+    const render = async (userId: string | null) => {
+      if (!userId) {
+        outs.forEach((e) => (e.hidden = false));
+        ins.forEach((e) => (e.hidden = true));
+        signouts.forEach((e) => (e.hidden = true));
+        return;
+      }
+      const profile = await getProfile(sb, userId);
+      outs.forEach((e) => (e.hidden = true));
+      ins.forEach((e) => (e.hidden = false));
+      signouts.forEach((e) => (e.hidden = false));
+      document.querySelectorAll<HTMLElement>('.authnav__name').forEach((e) => {
+        e.textContent = profile?.nickname ?? '닉네임 정하기';
+      });
+    };
+
+    sb.auth.getSession().then(({ data: { session } }) => void render(session?.user?.id ?? null));
+    sb.auth.onAuthStateChange((_e, session) => void render(session?.user?.id ?? null));
+
+    signouts.forEach((btn) =>
+      btn.addEventListener('click', async () => {
+        await sb.auth.signOut();
+        location.assign(absoluteUrl('/'));
+      }));
+  }
+</script>

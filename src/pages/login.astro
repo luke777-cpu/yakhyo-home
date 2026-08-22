@@ -1,0 +1,153 @@
+---
+/**
+ * 로그인. 한국 사용자가 우선이라 카카오를 맨 위에 둔다.
+ *
+ * 정적 페이지다. 실제 인증은 브라우저에서 Supabase Auth 가 하고,
+ * 권한은 서버의 RLS 가 정한다. 이 화면은 입구일 뿐이다.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<BaseLayout
+  title="로그인"
+  description="약효일지 질문게시판에 글을 쓰려면 로그인이 필요합니다. 카카오, Google, 이메일로 시작할 수 있습니다."
+>
+  <PageHead
+    title="로그인"
+    lead="질문을 쓰거나 답글을 달 때만 필요합니다. 읽는 것은 로그인 없이도 됩니다."
+  />
+
+  <div class="container">
+    <div class="auth">
+      <div class="notice notice--error" id="err" hidden></div>
+      <div class="notice notice--ok" id="ok" hidden></div>
+
+      <button class="auth__btn auth__btn--kakao" type="button" data-oauth="kakao">
+        카카오로 시작하기
+      </button>
+      <button class="auth__btn auth__btn--google" type="button" data-oauth="google">
+        Google로 계속하기
+      </button>
+
+      <div class="auth__divider">또는 이메일로</div>
+
+      <form class="form" id="email-form" novalidate>
+        <div class="field">
+          <label class="field__label" for="email">이메일</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label class="field__label" for="password">비밀번호</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" required minlength="8" />
+          <p class="field__hint" id="pw-hint">8자 이상</p>
+        </div>
+        <div class="field">
+          <button class="btn btn--primary btn--block" type="submit" id="submit">로그인</button>
+        </div>
+      </form>
+
+      <p class="auth__switch">
+        <span id="switch-text">아직 계정이 없으신가요?</span>
+        <button type="button" id="switch">회원가입</button>
+      </p>
+
+      <p class="field__hint" style="margin-top: var(--sp-6); text-align: center">
+        가입할 때 받는 것은 <strong>닉네임</strong>뿐입니다.
+        실명, 전화번호, 주소는 묻지 않습니다.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, getProfile } from '../lib/supabase';
+
+  const err = document.getElementById('err')!;
+  const ok = document.getElementById('ok')!;
+  const form = document.getElementById('email-form') as HTMLFormElement;
+  const submit = document.getElementById('submit') as HTMLButtonElement;
+  const switchBtn = document.getElementById('switch')!;
+  const switchText = document.getElementById('switch-text')!;
+  const pwInput = document.getElementById('password') as HTMLInputElement;
+  const pwHint = document.getElementById('pw-hint')!;
+
+  let mode: 'signin' | 'signup' = 'signin';
+
+  function show(el: HTMLElement, msg: string) { el.textContent = msg; el.hidden = false; }
+  function clear() { err.hidden = true; ok.hidden = true; }
+
+  const sb = getSupabase();
+
+  // 설정 전이라도 화면은 정상으로 보이고, 누르면 무엇을 해야 하는지 알려준다.
+  if (!isConfigured) show(err, SETUP_MESSAGE);
+
+  // 이미 로그인해 있으면 굳이 이 화면에 머물 필요가 없다.
+  if (sb) {
+    sb.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session?.user) return;
+      const profile = await getProfile(sb, session.user.id);
+      location.replace(profile ? absoluteUrl('/questions/') : absoluteUrl('/profile/setup/'));
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-oauth]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      clear();
+      if (!sb) { show(err, SETUP_MESSAGE); return; }
+      const provider = btn.dataset.oauth as 'kakao' | 'google';
+      btn.disabled = true;
+      const { error } = await sb.auth.signInWithOAuth({
+        provider,
+        // 돌아올 곳은 BASE_PATH 를 포함한 절대 주소여야 한다.
+        // 이 주소를 Supabase 와 각 제공자 콘솔에 그대로 등록한다.
+        options: { redirectTo: absoluteUrl('/auth/callback/') },
+      });
+      if (error) { btn.disabled = false; show(err, friendlyError(error, '로그인 창을 열지 못했습니다.')); }
+    });
+  });
+
+  switchBtn.addEventListener('click', () => {
+    mode = mode === 'signin' ? 'signup' : 'signin';
+    submit.textContent = mode === 'signin' ? '로그인' : '가입하기';
+    switchText.textContent = mode === 'signin' ? '아직 계정이 없으신가요?' : '이미 계정이 있으신가요?';
+    switchBtn.textContent = mode === 'signin' ? '회원가입' : '로그인';
+    pwInput.autocomplete = mode === 'signin' ? 'current-password' : 'new-password';
+    pwHint.textContent = mode === 'signin' ? '8자 이상' : '8자 이상으로 정해 주세요';
+    clear();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clear();
+    if (!sb) { show(err, SETUP_MESSAGE); return; }
+
+    const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+    const password = pwInput.value;
+    if (!email || password.length < 8) { show(err, '이메일과 8자 이상의 비밀번호를 입력해 주세요.'); return; }
+
+    submit.disabled = true;
+    submit.textContent = '잠시만요…';
+
+    if (mode === 'signup') {
+      const { error } = await sb.auth.signUp({
+        email, password,
+        options: { emailRedirectTo: absoluteUrl('/auth/callback/') },
+      });
+      submit.disabled = false;
+      submit.textContent = '가입하기';
+      if (error) { show(err, friendlyError(error, '가입하지 못했습니다.')); return; }
+      show(ok, '메일로 확인 링크를 보냈습니다. 링크를 누르면 가입이 끝납니다.');
+      return;
+    }
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      submit.disabled = false;
+      submit.textContent = '로그인';
+      show(err, friendlyError(error, '로그인하지 못했습니다.'));
+      return;
+    }
+    const profile = data.user ? await getProfile(sb, data.user.id) : null;
+    location.replace(profile ? absoluteUrl('/questions/') : absoluteUrl('/profile/setup/'));
+  });
+</script>
