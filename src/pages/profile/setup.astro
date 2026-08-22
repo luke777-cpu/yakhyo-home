@@ -1,7 +1,6 @@
 ---
 /**
- * 첫 로그인 뒤 닉네임 정하기.
- * 여기서 받는 것은 닉네임 하나뿐이다. 실명을 요구하지 않는다.
+ * 첫 로그인 뒤 닉네임 정하기. 여기서 받는 것은 닉네임 하나뿐이다.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHead from '../../components/PageHead.astro';
@@ -32,40 +31,48 @@ import PageHead from '../../components/PageHead.astro';
           <button class="btn btn--primary btn--block" type="submit" id="submit">시작하기</button>
         </div>
       </form>
+
+      <p class="field__hint" id="rename-note" hidden style="margin-top: var(--sp-4)">
+        이름을 바꿔도 <strong>이미 올린 글에는 예전 닉네임이 그대로 남습니다.</strong>
+        게시판이 글마다 이름을 따로 적어 두기 때문입니다.
+      </p>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  import { getSupabase, isConfigured, SETUP_MESSAGE, absoluteUrl, friendlyError, getProfile } from '../../lib/supabase';
+  import {
+    isConfigured, SETUP_MESSAGE, absoluteUrl,
+    currentUser, getProfile, claimNicknameAndSaveProfile, friendlyError,
+  } from '../../lib/firebase';
 
-  const err = document.getElementById('err')!;
-  const form = document.getElementById('form') as HTMLFormElement;
-  const input = document.getElementById('nickname') as HTMLInputElement;
-  const submit = document.getElementById('submit') as HTMLButtonElement;
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err');
+  const form = $('form') as HTMLFormElement;
+  const input = $('nickname') as HTMLInputElement;
+  const submit = $('submit') as HTMLButtonElement;
+  const show = (msg: string) => { err.textContent = msg; err.hidden = false; };
 
-  function show(msg: string) { err.textContent = msg; err.hidden = false; }
+  let uid: string | null = null;
 
-  const sb = getSupabase();
-  let userId: string | null = null;
-
-  if (!isConfigured || !sb) {
-    show(SETUP_MESSAGE);
-    submit.disabled = true;
-  } else {
-    sb.auth.getSession().then(async ({ data: { session } }) => {
-      if (!session?.user) { location.replace(absoluteUrl('/login/')); return; }
-      userId = session.user.id;
-      // 이미 정해 뒀으면 고쳐 쓸 수 있게 채워 둔다.
-      const profile = await getProfile(sb, userId);
-      if (profile) { input.value = profile.nickname; submit.textContent = '닉네임 바꾸기'; }
+  if (!isConfigured) { show(SETUP_MESSAGE); submit.disabled = true; }
+  else {
+    void currentUser().then(async (u) => {
+      if (!u) { location.replace(absoluteUrl('/login/')); return; }
+      uid = u.uid;
+      const profile = await getProfile(uid);
+      if (profile) {
+        input.value = profile.nickname;
+        submit.textContent = '닉네임 바꾸기';
+        $('rename-note').hidden = false;
+      }
     });
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.hidden = true;
-    if (!sb || !userId) { show(SETUP_MESSAGE); return; }
+    if (!uid) { show(SETUP_MESSAGE); return; }
 
     const nickname = input.value.trim();
     if (nickname.length < 2 || nickname.length > 20) {
@@ -78,17 +85,14 @@ import PageHead from '../../components/PageHead.astro';
     submit.disabled = true;
     const label = submit.textContent;
     submit.textContent = '저장 중…';
-
-    // upsert 라 처음 만들 때와 바꿀 때가 같은 코드로 처리된다.
-    // 남의 행을 건드리는 것은 RLS 가 막는다(auth.uid() = id).
-    const { error } = await sb.from('profiles').upsert({ id: userId, nickname }, { onConflict: 'id' });
-
-    if (error) {
+    try {
+      // 예약 문서와 프로필을 한 트랜잭션으로 묶는다. 중복은 여기서 걸린다.
+      await claimNicknameAndSaveProfile(uid, nickname);
+      location.replace(absoluteUrl('/questions/'));
+    } catch (e2) {
       submit.disabled = false;
       submit.textContent = label;
-      show(friendlyError(error, '닉네임을 저장하지 못했습니다.'));
-      return;
+      show(friendlyError(e2, '닉네임을 저장하지 못했습니다.'));
     }
-    location.replace(absoluteUrl('/questions/'));
   });
 </script>

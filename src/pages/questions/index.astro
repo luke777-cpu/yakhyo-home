@@ -2,8 +2,8 @@
 /**
  * 질문 목록.
  *
- * 정적 페이지이고 목록은 브라우저에서 채운다.
- * 읽기는 로그인 없이도 된다(RLS 의 select 정책이 public).
+ * Firestore 읽기 비용을 생각해 한 번에 20개만 가져오고 "더 보기"로 이어 붙인다.
+ * 실시간 listener 는 쓰지 않는다 — 화면이 열려 있는 동안 계속 과금되기 때문이다.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHead from '../../components/PageHead.astro';
@@ -34,53 +34,55 @@ import { url } from '../../lib/url';
       <p class="skeleton" id="loading">불러오는 중…</p>
       <ul class="board__list" id="list" hidden></ul>
       <p class="board__empty" id="empty" hidden>아직 올라온 질문이 없습니다. 첫 질문을 남겨 보세요.</p>
+
+      <div class="btn-row" style="margin-top: var(--sp-6)">
+        <button class="btn btn--secondary" type="button" id="more" hidden>더 보기</button>
+      </div>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  import { getSupabase, isConfigured, SETUP_MESSAGE, friendlyError, escapeHtml, timeAgo, nicknameOf, countOf } from '../../lib/supabase';
+  import { isConfigured, SETUP_MESSAGE, listPosts, watchUser, friendlyError, escapeHtml, timeAgo } from '../../lib/firebase';
   import { url } from '../../lib/url';
 
-  const err = document.getElementById('err')!;
-  const loading = document.getElementById('loading')!;
-  const list = document.getElementById('list')!;
-  const empty = document.getElementById('empty')!;
-  const mineLink = document.getElementById('mine-link')!;
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading'), list = $('list'), empty = $('empty'), more = $('more') as HTMLButtonElement;
+  const show = (msg: string) => { loading.hidden = true; err.textContent = msg; err.hidden = false; };
 
-  function show(msg: string) { loading.hidden = true; err.textContent = msg; err.hidden = false; }
+  let cursor: any = null;
 
-  const sb = getSupabase();
-  if (!isConfigured || !sb) {
-    show(SETUP_MESSAGE);
-  } else {
-    sb.auth.getSession().then(({ data: { session } }) => { if (session?.user) mineLink.hidden = false; });
+  if (!isConfigured) show(SETUP_MESSAGE);
+  else {
+    watchUser((u) => { $('mine-link').hidden = !u; });
+    void load();
+  }
 
-    (async () => {
-      const { data, error } = await sb
-        .from('posts')
-        .select('id, title, created_at, profiles(nickname), comments(count)')
-        // 정책상 작성자에게는 자기 지운 글도 보인다. 목록에서는 명시적으로 거른다.
-        .is('deleted_at', null)
-        .order('created_at', { ascending: false })
-        .limit(50);
-
+  async function load() {
+    try {
+      const { rows, last } = await listPosts(cursor ?? undefined);
       loading.hidden = true;
-      if (error) { show(friendlyError(error, '목록을 불러오지 못했습니다.')); return; }
-      if (!data || data.length === 0) { empty.hidden = false; return; }
+      if (!rows.length && !cursor) { empty.hidden = false; more.hidden = true; return; }
 
       // 사용자가 쓴 값은 전부 escape 한다. 게시판은 서식 없는 글만 받는다.
-      list.innerHTML = data.map((p: any) => {
-        const nick = nicknameOf(p);
-        const count = countOf(p);
-        return `<li class="board__item">
+      list.insertAdjacentHTML('beforeend', rows.map((p) => `
+        <li class="board__item">
           <a class="board__link" href="${url('/questions/view/')}?id=${encodeURIComponent(p.id)}">
-            <div class="board__title">${escapeHtml(p.title)}${count > 0 ? ` <span style="color: var(--c-primary)">[${count}]</span>` : ''}</div>
-            <div class="board__meta"><span>${escapeHtml(nick)}</span><span>${timeAgo(p.created_at)}</span></div>
+            <div class="board__title">${escapeHtml(p.title)}</div>
+            <div class="board__meta"><span>${escapeHtml(p.authorNickname)}</span><span>${timeAgo(p.createdAt)}</span></div>
           </a>
-        </li>`;
-      }).join('');
+        </li>`).join(''));
       list.hidden = false;
-    })();
+      cursor = last;
+      more.hidden = !last;
+    } catch (e) {
+      show(friendlyError(e, '목록을 불러오지 못했습니다.'));
+    }
   }
+
+  more.addEventListener('click', async () => {
+    more.disabled = true; more.textContent = '불러오는 중…';
+    await load();
+    more.disabled = false; more.textContent = '더 보기';
+  });
 </script>

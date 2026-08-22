@@ -77,6 +77,10 @@
 }
 .auth__btn + .auth__btn { margin-top: var(--sp-3); }
 .auth__btn:disabled { opacity: 0.55; cursor: not-allowed; }
+/* aria-disabled 는 "지금은 못 쓴다"는 표시일 뿐 클릭은 살아 있다.
+   눌렀을 때 이유를 알려 주기 위해서다. 보이는 모습은 disabled 와 같게 둔다. */
+.auth__btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; }
+.auth__btn[aria-disabled='true']:hover { background: #fee500; }
 
 /* 카카오 브랜드 색. 임의로 바꾸지 않는다. 검정 글자와의 대비는 15:1 이상이다. */
 .auth__btn--kakao { background: #fee500; color: #191600; }

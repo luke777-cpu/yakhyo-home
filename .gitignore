@@ -10,3 +10,8 @@ dist/
 *백업*.json
 medlog_backup*.json
 backup.json
+
+# Firebase 에뮬레이터 캐시
+.firebase/
+firebase-debug*.log
+firestore-debug.log
