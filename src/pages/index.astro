@@ -184,9 +184,32 @@ const timeline = [
     </p>
   </Section>
 
-  <!-- 7 — YouTube : 올라온 영상이 있을 때만 카드로 보여준다.
+  <!-- 7 — 몸으로 쓰는 약리학 연재 -->
+  <Section
+    eyebrow="파킨슨 약리학"
+    title="몸으로 쓰는 약리학"
+    lead="책에서 배운 약리학을 실제 몸의 시간축 위에서 다시 읽습니다."
+  >
+    <ul class="termlist">
+      <li class="termlist__item">
+        <a class="termlist__row" href={url('/learn/body-pharmacology-part1/')}>
+          <span>
+            <span class="termlist__term">1부</span>
+            <span class="termlist__title">약은 몸속에서 어떻게 움직이는가</span>
+            <span class="termlist__desc">약을 삼킨 순간부터 첫 신호, ON, 최고점, 하강과 OFF까지. 혈중농도와 몸의 출력 곡선을 함께 생각해 봅니다.</span>
+          </span>
+          <span class="termlist__state" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+    <p style="margin-top: var(--sp-8)">
+      <a class="link-arrow" href={url('/learn/')}>배우기 전체 보기 <Icon name="arrow-right" size={18} /></a>
+    </p>
+  </Section>
+
+  <!-- 8 — YouTube : 올라온 영상이 있을 때만 카드로 보여준다.
        아직 없을 때 빈 썸네일 카드를 늘어놓지 않기 위한 분기다. -->
-  <Section eyebrow="영상" title="보면서 이해하기">
+  <Section sunken eyebrow="영상" title="보면서 이해하기">
     {publishedVideos.length > 0 ? (
       <div class="grid grid--3">
         {publishedVideos.map((v) => (
@@ -210,7 +233,7 @@ const timeline = [
     )}
   </Section>
 
-  <!-- 8 — 마지막 CTA -->
+  <!-- 9 — 마지막 CTA -->
   <div class="finalcta">
     <div class="container">
       <h2 class="finalcta__title">기록이 쌓이면,<br />하루가 다르게 보이기 시작합니다.</h2>
