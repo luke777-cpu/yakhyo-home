@@ -84,6 +84,20 @@
     "status": "preparing"
   },
   {
+    "slug": "body-neuroanatomy-preface",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 — 서문",
+    "summary": "평지에서는 첫발이 어렵고 계단에서는 움직일 수 있는 이유를 질문하며, 구조 암기가 아닌 움직임의 회로로 신경해부학을 다시 시작합니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part1",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 1부 — 몸을 움직인다는 것",
+    "summary": "근육의 힘만으로 설명되지 않는 첫발, 동결보행, 계단과 시각 cue를 통해 운동피질과 기저핵, 보상회로를 따라갑니다.",
+    "status": "published"
+  },
+  {
     "slug": "basal-ganglia",
     "category": "neuroanatomy",
     "title": "움직임을 만드는 회로",
