@@ -1,0 +1,72 @@
+---
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../components/PageHead.astro';
+import TocList from '../../../components/TocList.astro';
+import Callout from '../../../components/Callout.astro';
+import { url } from '../../../lib/url';
+import terms from '../../../data/en/terms.json';
+
+const items = terms.map((t) => ({
+  title: t.title,
+  term: t.term,
+  summary: t.summary,
+  href: url(`/en/terms/${t.slug}/`),
+  status: t.status as 'published' | 'preparing',
+}));
+const ready = items.filter((i) => i.status === 'published').length;
+---
+<EnBaseLayout
+  title="Words for the ups and downs"
+  description="ON, OFF, Delayed ON, Wearing-off and the other words used for Parkinson's medication fluctuation, set out alongside the part of the graph each one points at."
+  koPath="/understand/"
+>
+  <PageHead
+    crumb="Words for the ups and downs"
+    title="The names given to medication fluctuation"
+    lead="These notes set out what the words exchanged in the clinic actually point at on a graph. Every article follows the same order — a one-line explanation, what it looks like on the graph, how people usually put it, things often discussed alongside it, what to write down, and what you could show your care team."
+  />
+
+  <div class="container">
+    <Callout tone="plain" class="prose-width">
+      <p>
+        These words are not here to sort your state into two boxes. Medication response rises and falls
+        rather than switching on and off. The names are tools for referring briefly to a particular part
+        of that movement.
+      </p>
+      <p style="margin-top: var(--sp-3)">
+        The single line at the top of each article is <strong>a plain-language account of the situation
+        the word tends to get used for</strong>. It is not a formal definition carried over from a society
+        or a paper, and the same term can be used differently from source to source.
+      </p>
+    </Callout>
+
+    <div style="margin-top: var(--sp-8)">
+    <Callout class="prose-width">
+      <p class="callout__title">Three that look alike — where to look on the graph</p>
+      <p>What follows is not a medical definition of the three terms, but a way of not confusing them when reading a graph.</p>
+      <ul>
+        <li><strong>Delayed ON</strong> — it does come up, but <strong>the start is late.</strong> On the graph, look at the distance from the dose to where the rise begins.</li>
+        <li><strong>Incomplete ON</strong> — it comes up, but <strong>not high enough.</strong> On the graph, look at the height of the peak.</li>
+        <li><strong>ON Failure</strong> — from that dose, <strong>no meaningful rise appears.</strong> On the graph, look at the whole stretch after the dose.</li>
+      </ul>
+      <p style="margin-top: var(--sp-3)">
+        No numeric cut-offs are set between the three. They differ between people, and for the same person
+        at different times. This is not a diagnostic standard; it is a way of deciding what to write down.
+      </p>
+    </Callout>
+    </div>
+
+    <div style="margin-top: var(--sp-12)">
+      <TocList items={items} pendingLabel="In preparation" />
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      {ready} articles are published so far and the rest are in preparation. They go up one at a time as they are ready.
+    </p>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-4)">
+      The Korean site carries more than these — how to read the graphs, how to use the app, and longer
+      reading. <a href={url('/understand/')} lang="ko">약효 이해하기</a>
+    </p>
+  </div>
+</EnBaseLayout>

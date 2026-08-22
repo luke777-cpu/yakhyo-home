@@ -6,8 +6,12 @@
  */
 import { SITE } from '../lib/site';
 
-interface Props { size?: number }
-const { size = 28 } = Astro.props;
+interface Props {
+  size?: number;
+  /** 워드마크에 쓸 이름. 영문 섹션(/en/)에서만 다른 값을 넘긴다. */
+  text?: string;
+}
+const { size = 28, text = SITE.name } = Astro.props;
 ---
 <span class="wordmark">
   <svg
@@ -30,5 +34,5 @@ const { size = 28 } = Astro.props;
     <circle cx="9.6" cy="25.8" r="1.7" fill="var(--g-dose)" />
     <circle cx="20.4" cy="25.8" r="1.7" fill="var(--g-dose)" />
   </svg>
-  <span class="wordmark__text">{SITE.name}</span>
+  <span class="wordmark__text">{text}</span>
 </span>

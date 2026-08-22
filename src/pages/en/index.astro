@@ -1,0 +1,176 @@
+---
+import EnBaseLayout from '../../layouts/EnBaseLayout.astro';
+import Section from '../../components/Section.astro';
+import DayCurve from '../../components/DayCurve.astro';
+import Button from '../../components/Button.astro';
+import Timeline from '../../components/Timeline.astro';
+import Icon from '../../components/Icon.astro';
+import { url } from '../../lib/url';
+import { EN_SITE, EN_GRAPH_LABELS, enCurve, describeEn } from '../../lib/en';
+
+import dayTypical from '../../data/curves/day-typical.json';
+import singleDose from '../../data/curves/single-dose.json';
+import terms from '../../data/en/terms.json';
+import type { CurveData } from '../../lib/curve';
+
+const termBySlug = new Map(terms.map((t) => [t.slug, t]));
+const homeTerms = ['on', 'off', 'delayed-on', 'incomplete-on', 'wearing-off', 'dyskinesia']
+  .map((slug) => termBySlug.get(slug))
+  .filter(Boolean) as typeof terms;
+
+const dayCurve = enCurve(dayTypical as unknown as CurveData);
+const doseCurve = enCurve(singleDose as unknown as CurveData);
+
+const steps = [
+  { title: 'You record', desc: 'How well you are moving right now, and when you took a dose, noted as they happen.' },
+  { title: 'A curve appears', desc: 'Scattered notes gather into one line running across the day.' },
+  { title: 'A pattern becomes readable', desc: 'After a few days, the shapes that repeat and the days that broke from them stand out.' },
+];
+
+const timeline = [
+  { time: '07:00', label: 'Dose taken', note: 'Noted at the moment, not from memory' },
+  { time: '08:10', label: 'Starts to rise', note: 'When the body first felt different' },
+  { time: '09:00', label: 'Best moment', note: 'The stretch you moved best that day' },
+  { time: '11:20', label: 'Coming down', note: 'When things began to feel heavy again' },
+];
+---
+<EnBaseLayout title={EN_SITE.title} description={EN_SITE.description} bareTitle koPath="/">
+  <!-- 1 — HERO -->
+  <div class="hero">
+    <div class="container hero__inner">
+      <div>
+        <h1 class="hero__title">When does my<br />medication work,<br />and when does it fade?</h1>
+        <p class="hero__lead">
+          Record how your Parkinson's medication response changes through the day, as a single curve.
+        </p>
+        <div class="btn-row hero__actions">
+          <Button href={url('/en/start/')} block>Get started</Button>
+          <Button href={url('/en/terms/')} variant="secondary" block>Read the words first</Button>
+        </div>
+      </div>
+
+      <DayCurve
+        curve={dayCurve}
+        variant="compact"
+        title="An example of movement rising and falling across one day"
+        desc={describeEn(dayCurve)}
+        caption="An illustration generated for teaching. Real curves differ from person to person."
+        labels={EN_GRAPH_LABELS}
+      />
+    </div>
+  </div>
+
+  <!-- 2 — 세 단계 -->
+  <Section sunken eyebrow="How it works" title="From recording to understanding, in three steps">
+    <ol class="steps">
+      {steps.map((s, i) => (
+        <li class="step">
+          <span class="step__num" aria-hidden="true">{i + 1}</span>
+          <h3 class="step__title">{s.title}</h3>
+          <p class="step__desc">{s.desc}</p>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <!-- 3 — 한 번의 복용 -->
+  <Section
+    eyebrow="One day"
+    title="What a single dose looks like as it passes"
+    lead="Note the time you took a dose and the times your body changed, and a day is left in this shape."
+  >
+    <div class="daystory">
+      <DayCurve
+        curve={doseCurve}
+        variant="full"
+        title="An example of the response after a dose taken at 07:00"
+        desc={describeEn(doseCurve)}
+        caption="An illustration generated for teaching. It does not represent the response to any particular medication or dose."
+        labels={EN_GRAPH_LABELS}
+      />
+      <div>
+        <Timeline items={timeline} label="Dose times and changes in response" />
+        <p class="section__lead" style="font-size: var(--fs-sm)">
+          Recorded only as a good day or a bad one, those four times disappear. Kept, they let you compare
+          what was different the next time.
+        </p>
+        <p style="margin-top: var(--sp-4)">
+          <a class="link-arrow" href={url('/en/terms/')}>See what the words point at <Icon name="arrow-right" size={18} /></a>
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 4 — 왜 기록하는가 -->
+  <Section sunken eyebrow="Why record" title="What a day leaves behind without it">
+    <div class="prose">
+      <p>
+        Once a day is over, what tends to remain is roughly that it went all right. What time the dose was
+        taken, when the body began to change, and how long it held all blur within a few days.
+      </p>
+      <p>
+        This diary puts those three on one shared timeline. How well you are moving, when you took a dose,
+        and what happened in between, recorded together, make a day into a single curve. Once curves
+        accumulate, one-off events start to separate from the shapes that repeat.
+      </p>
+      <p>
+        You do not have to sort your state into one of two boxes. Noting how things are right now is enough.
+      </p>
+    </div>
+  </Section>
+
+  <!-- 5 — 용어 -->
+  <Section
+    eyebrow="Words"
+    title="Starting with the words used most"
+    lead="What the words exchanged in the clinic actually point at on a graph."
+  >
+    <ul class="termlist">
+      {homeTerms.map((t) => {
+        const ready = t.status === 'published';
+        const Tag = ready ? 'a' : 'div';
+        return (
+          <li class={`termlist__item ${ready ? '' : 'termlist__item--pending'}`}>
+            <Tag class="termlist__row" href={ready ? url(`/en/terms/${t.slug}/`) : undefined}>
+              <span>
+                <span class="termlist__term">{t.term}</span>
+                <span class="termlist__title">{t.title}</span>
+                <span class="termlist__desc">{t.summary}</span>
+              </span>
+              {ready
+                ? <span class="termlist__state" aria-hidden="true">→</span>
+                : <span class="badge">In preparation</span>}
+            </Tag>
+          </li>
+        );
+      })}
+    </ul>
+    <p style="margin-top: var(--sp-8)">
+      <a class="link-arrow" href={url('/en/terms/')}>See all of them <Icon name="arrow-right" size={18} /></a>
+    </p>
+  </Section>
+
+  <!-- 6 — 한국어 안내 -->
+  <Section sunken eyebrow="한국어" title="The site is written in Korean first">
+    <div class="prose">
+      <p>
+        These English pages cover the words used for medication fluctuation and how to get started. The
+        Korean site goes further — how to read each shape of curve, how to use the app step by step, and
+        longer reading on what shifts a curve from day to day.
+      </p>
+      <p>
+        <a href={url('/')} lang="ko">약효일지 한국어 홈페이지로 이동</a>
+      </p>
+    </div>
+  </Section>
+
+  <!-- 7 — 마지막 CTA -->
+  <div class="finalcta">
+    <div class="container">
+      <h2 class="finalcta__title">Once records accumulate,<br />a day starts to look different.</h2>
+      <div class="btn-row finalcta__actions">
+        <Button href={url('/en/start/')} block>Get started</Button>
+      </div>
+    </div>
+  </div>
+</EnBaseLayout>

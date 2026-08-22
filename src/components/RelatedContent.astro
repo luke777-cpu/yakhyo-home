@@ -3,8 +3,10 @@ import Icon from './Icon.astro';
 interface Props {
   title?: string;
   items: { label: string; href?: string | null; note?: string; external?: boolean }[];
+  /** 아직 글이 없는 항목에 붙는 배지. 영문 섹션에서만 다른 값을 넘긴다. */
+  pendingLabel?: string;
 }
-const { title = '관련 글', items } = Astro.props;
+const { title = '관련 글', items, pendingLabel = '준비 중' } = Astro.props;
 ---
 <nav class="related" aria-label={title}>
   <h2 class="section__title">{title}</h2>
@@ -25,7 +27,7 @@ const { title = '관련 글', items } = Astro.props;
               {item.label}
               {item.note && <span class="rowlink__hint">{item.note}</span>}
             </span>
-            <span class="badge">준비 중</span>
+            <span class="badge">{pendingLabel}</span>
           </span>
         )}
       </li>

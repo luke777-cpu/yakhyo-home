@@ -1,0 +1,41 @@
+---
+/**
+ * 영문 섹션(/en/)의 헤더.
+ * 한국어 Header.astro 와 같은 클래스·같은 구조를 쓰되 문구와 메뉴만 영어다.
+ * 두 파일을 나눠 둔 이유는 한쪽 문구를 고칠 때 다른 쪽이 흔들리지 않게 하기 위해서다.
+ */
+import { EN_NAV, EN_SITE } from '../lib/en';
+import { url, isActive } from '../lib/url';
+import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
+import EnMobileNav from './EnMobileNav.astro';
+
+const here = Astro.url.pathname;
+---
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__brand" href={url('/en/')}>
+      <Wordmark text={EN_SITE.name} />
+    </a>
+
+    <nav class="header__nav" aria-label="Main menu">
+      {EN_NAV.filter((item) => item.href !== '/en/').map((item) => (
+        <a
+          class="header__link"
+          href={url(item.href)}
+          aria-current={isActive(here, item.href) ? 'true' : undefined}
+        >{item.label}</a>
+      ))}
+      <a class="header__link" href={url('/')} lang="ko">한국어</a>
+    </nav>
+
+    <a class="btn btn--primary header__cta" href={url('/en/start/')}>Get started</a>
+
+    <button class="header__toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="mobile-nav">
+      <Icon name="menu" size={24} />
+      <span class="sr-only">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<EnMobileNav />

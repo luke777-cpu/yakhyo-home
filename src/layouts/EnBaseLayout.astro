@@ -1,0 +1,89 @@
+---
+/**
+ * 영문 섹션(/en/)의 바깥 껍데기.
+ *
+ * 한국어 BaseLayout.astro 와 나눠 둔 이유는 두 가지다.
+ *  1) <html lang> 과 og:locale 이 다르다. 한 파일에서 분기하면 한국어 페이지에도
+ *     영어 때문에 생긴 조건이 남는다.
+ *  2) 한쪽 문구를 고칠 때 다른 언어의 페이지가 함께 흔들리지 않는다.
+ * 스타일·컴포넌트·URL 헬퍼는 모두 같은 것을 쓴다. 디자인은 한 벌뿐이다.
+ */
+import { EN_SITE } from '../lib/en';
+import { url } from '../lib/url';
+import EnHeader from '../components/EnHeader.astro';
+import EnFooter from '../components/EnFooter.astro';
+
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import '../styles/components.css';
+import '../styles/graph.css';
+import '../styles/pages.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** 제목 뒤에 사이트 이름을 붙이지 않을 때 (홈) */
+  bareTitle?: boolean;
+  /** 같은 내용을 다루는 한국어 페이지. hreflang 으로 서로를 가리킨다. */
+  koPath?: string;
+}
+
+const { title, description, bareTitle = false, koPath } = Astro.props;
+
+const pageTitle = bareTitle ? title : `${title} — ${EN_SITE.name}`;
+const origin = Astro.site ?? 'https://example.com';
+const canonical = new URL(Astro.url.pathname, origin).toString();
+const ogImage = new URL(url('/images/og/default.png'), origin).toString();
+const koHref = koPath ? new URL(url(koPath), origin).toString() : null;
+---
+<!doctype html>
+<html lang={EN_SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    {koHref && <link rel="alternate" hreflang="ko" href={koHref} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={EN_SITE.name} />
+    <meta property="og:locale" content={EN_SITE.locale} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="약효일지 (Medication Diary) — an example curve showing how movement rises and falls four times across one day." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#FAFAF7" />
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap"
+    />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <EnHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <EnFooter />
+  </body>
+</html>

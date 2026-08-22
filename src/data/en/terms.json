@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "on",
+    "term": "ON",
+    "title": "The stretch when the medication feels like it is working",
+    "summary": "A common shorthand for the stretch of time when the body moves comparatively well.",
+    "status": "published"
+  },
+  {
+    "slug": "off",
+    "term": "OFF",
+    "title": "The stretch when the medication feels weak",
+    "summary": "A shorthand for the stretch of time when movement feels heavy and the body does not follow.",
+    "status": "published"
+  },
+  {
+    "slug": "delayed-on",
+    "term": "Delayed ON",
+    "title": "When the rise starts late",
+    "summary": "The point at which the response begins to rise after a dose is pushed later than usual.",
+    "status": "published"
+  },
+  {
+    "slug": "incomplete-on",
+    "term": "Incomplete ON",
+    "title": "When the rise does not reach as high",
+    "summary": "It does rise, but not as high as usual, and it stays at that lower level.",
+    "status": "published"
+  },
+  {
+    "slug": "on-failure",
+    "term": "ON Failure",
+    "title": "When a dose brings no rise at all",
+    "summary": "No meaningful rise appears from that dose. Worth telling apart from a late rise and from a low one.",
+    "status": "published"
+  },
+  {
+    "slug": "wearing-off",
+    "term": "Wearing-off",
+    "title": "When the good stretch gets shorter",
+    "summary": "What rose once no longer holds as long as it used to, and comes down before the next dose is due.",
+    "status": "published"
+  },
+  {
+    "slug": "dyskinesia",
+    "term": "Dyskinesia",
+    "title": "Movement you did not intend",
+    "summary": "The word used for the body moving or swaying without you meaning it to.",
+    "status": "published"
+  },
+  {
+    "slug": "dystonia",
+    "term": "Dystonia",
+    "title": "Muscles that stay contracted",
+    "summary": "A muscle keeps contracting and will not let go, so a foot stiffens, toes curl, or a posture twists.",
+    "status": "published"
+  },
+  {
+    "slug": "freezing",
+    "term": "Freezing",
+    "title": "Feet that stop as if stuck",
+    "summary": "Difficulty taking a first step, or feet stopping mid-walk as if glued to the floor.",
+    "status": "published"
+  },
+  {
+    "slug": "morning-off",
+    "term": "Morning akinesia / Morning OFF",
+    "title": "The morning stretch before things get moving",
+    "summary": "The stretch between waking and the first dose taking effect. The two terms are not always used to mean the same thing.",
+    "status": "published"
+  },
+  {
+    "slug": "afternoon-decline",
+    "term": "Afternoon decline",
+    "title": "Lower response in the afternoon",
+    "summary": "The same dosing pattern as the morning, yet the afternoon sits lower.",
+    "status": "preparing"
+  }
+]

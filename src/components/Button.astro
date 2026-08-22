@@ -4,9 +4,18 @@ interface Props {
   variant?: 'primary' | 'secondary';
   block?: boolean;
   external?: boolean;
+  /** 새 창으로 열린다는 화면낭독기용 안내. 영문 섹션에서만 다른 값을 넘긴다. */
+  externalLabel?: string;
   class?: string;
 }
-const { href, variant = 'primary', block = false, external = false, class: className = '' } = Astro.props;
+const {
+  href,
+  variant = 'primary',
+  block = false,
+  external = false,
+  externalLabel = '(새 창)',
+  class: className = '',
+} = Astro.props;
 const rel = external ? 'noopener' : undefined;
 const target = external ? '_blank' : undefined;
 ---
@@ -17,5 +26,5 @@ const target = external ? '_blank' : undefined;
   target={target}
 >
   <slot />
-  {external && <span class="sr-only">(새 창)</span>}
+  {external && <span class="sr-only">{externalLabel}</span>}
 </a>
