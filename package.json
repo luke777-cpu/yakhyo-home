@@ -12,6 +12,8 @@
     "test:rules": "firebase emulators:exec --only firestore \"node tests/firestore-rules.test.mjs\""
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.4",
+    "@bruits/satteri-win32-x64-msvc": "^0.10.5",
     "astro": "^7.2.4",
     "firebase": "^12.18.0"
   },
