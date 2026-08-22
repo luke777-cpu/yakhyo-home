@@ -70,6 +70,13 @@
     "status": "published"
   },
   {
+    "slug": "body-pharmacology-part1",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 1부 — 약은 몸속에서 어떻게 움직이는가",
+    "summary": "약을 삼킨 순간부터 첫 신호, ON, 최고점, 하강과 OFF까지. 책의 약리학을 실제 몸의 시간축으로 다시 읽습니다.",
+    "status": "published"
+  },
+  {
     "slug": "levodopa-basics",
     "category": "pharmacology",
     "title": "레보도파가 흡수되는 경로",
