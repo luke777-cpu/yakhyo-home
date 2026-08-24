@@ -1,0 +1,42 @@
+---
+/** 영문 섹션의 모바일 메뉴. 여닫는 동작은 한국어 쪽과 같은 스크립트를 쓴다. */
+import { EN_NAV, EN_SITE } from '../lib/en';
+import { url, isActive } from '../lib/url';
+import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
+
+const here = Astro.url.pathname;
+---
+<div class="mobilenav" id="mobile-nav" data-nav-panel hidden>
+  <div class="container mobilenav__top">
+    <a class="header__brand" href={url('/en/')}>
+      <Wordmark text={EN_SITE.name} />
+    </a>
+    <button class="mobilenav__close" type="button" data-nav-close>
+      <Icon name="close" size={24} />
+      <span class="sr-only">Close menu</span>
+    </button>
+  </div>
+
+  <div class="container mobilenav__body">
+    <a class="btn btn--primary btn--block mobilenav__cta" href={url('/en/start/')}>Get started</a>
+    <nav aria-label="Main menu">
+      <ul class="mobilenav__list">
+        {EN_NAV.map((item) => (
+          <li>
+            <a
+              class="mobilenav__link"
+              href={url(item.href)}
+              aria-current={isActive(here, item.href) ? 'true' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+        <li><a class="mobilenav__link" href={url('/')} lang="ko">한국어 페이지로</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  import '../scripts/navigation';
+</script>

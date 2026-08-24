@@ -1,0 +1,137 @@
+---
+/**
+ * 영문 용어 페이지의 공통 틀.
+ * 순서는 한국어 ConceptLayout 과 동일하게 고정한다 — 언어가 달라도 읽는 순서는 같아야 한다.
+ *   1 한 줄 설명 → 2 그래프로 보면 → 3 흔히 쓰는 표현 → 4 함께 이야기되는 요인
+ *   → 5 기록할 것 → 6 치료진과 상의할 때 → 7 관련 글
+ */
+import EnBaseLayout from './EnBaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import DayCurve from '../components/DayCurve.astro';
+import Callout from '../components/Callout.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+import { EN_GRAPH_LABELS, enCurve, describeEn } from '../lib/en';
+import type { CurveData } from '../lib/curve';
+
+interface Props {
+  data: {
+    title: string;
+    term: string;
+    description: string;
+    definition: string;
+    curveTitle?: string;
+    curveCaption?: string;
+    expressions: string[];
+    causes: string[];
+    record: { title: string; detail: string }[];
+    forVisit: string[];
+    related: { label: string; href: string | null; note?: string }[];
+    koPath?: string;
+  };
+  curve?: CurveData;
+}
+
+const { data, curve } = Astro.props;
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+const graph = curve ? enCurve(curve) : undefined;
+---
+<EnBaseLayout
+  title={`${data.title} (${data.term})`}
+  description={data.description}
+  koPath={data.koPath}
+>
+  <PageHead crumb="Words for the ups and downs" crumbHref={url('/en/terms/')} title={data.title}>
+    <p class="concept__meta"><span class="badge badge--soft">{data.term}</span></p>
+    <p class="concept__definition">{data.definition}</p>
+  </PageHead>
+
+  <div class="container">
+    {graph && (
+      <section class="concept__section" aria-labelledby="s-graph">
+        <h2 id="s-graph">In the graph</h2>
+        <DayCurve
+          curve={graph}
+          variant="full"
+          title={data.curveTitle ?? `An example curve for ${data.title}`}
+          desc={describeEn(graph)}
+          caption={data.curveCaption}
+          labels={EN_GRAPH_LABELS}
+        />
+        <div class="prose" style="margin-top: var(--sp-8)">
+          <slot />
+        </div>
+      </section>
+    )}
+
+    {data.expressions.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-expr">
+        <h2 id="s-expr">People often put it like this</h2>
+        <ul class="quotes">
+          {data.expressions.map((e) => <li>{e}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {data.causes.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-cause">
+        <h2 id="s-cause">Things often discussed alongside it</h2>
+        <div class="prose">
+          <p>
+            These are factors that come up in conversation about this pattern. This is not a list of
+            confirmed causes, and more than one of them is often in play at once.
+          </p>
+          <ul>
+            {data.causes.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {data.record.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-record">
+        <h2 id="s-record">Worth writing down alongside this pattern</h2>
+        <ul class="checklist">
+          {data.record.map((r) => (
+            <li>
+              <strong>{r.title}</strong>
+              <span>{r.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {data.forVisit.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-visit">
+        <h2 id="s-visit">What you could show your care team</h2>
+        <Callout>
+          <ul>
+            {data.forVisit.map((v) => <li>{v}</li>)}
+          </ul>
+        </Callout>
+        <p class="graph__caption" style="margin-top: var(--sp-4); max-width: var(--w-prose)">
+          A record is material for describing your situation. Decisions about which medication you take,
+          at what dose, and at what time belong with the clinicians who look after you.
+        </p>
+      </section>
+    )}
+
+    {related.length > 0 && <RelatedContent title="Related" items={related} pendingLabel="In preparation" />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">Start recording</h2>
+      <Callout tone="plain">
+        <p class="callout__title">If this pattern sounds familiar</p>
+        <p>
+          Try noting the time of each dose and the moment things started to change, for a few days.
+          A few days say considerably more than a single one.
+        </p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/en/start/')}>Get started</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</EnBaseLayout>

@@ -10,8 +10,13 @@ interface Item {
   href?: string | null;
   status?: 'published' | 'preparing';
 }
-interface Props { items: Item[]; numbered?: boolean; }
-const { items, numbered = true } = Astro.props;
+interface Props {
+  items: Item[];
+  numbered?: boolean;
+  /** 아직 글이 없는 항목에 붙는 배지. 영문 섹션에서만 다른 값을 넘긴다. */
+  pendingLabel?: string;
+}
+const { items, numbered = true, pendingLabel = '준비 중' } = Astro.props;
 ---
 <ol class="toc" style={numbered ? undefined : 'list-style:none'}>
   {items.map((item, i) => {
@@ -30,7 +35,7 @@ const { items, numbered = true } = Astro.props;
           </span>
           {ready
             ? <span class="toc__state" aria-hidden="true">→</span>
-            : <span class="badge">준비 중</span>}
+            : <span class="badge">{pendingLabel}</span>}
         </Tag>
       </li>
     );

@@ -10,6 +10,28 @@
  */
 import { makeScales, toArea, toLine, timeTicks, describe, nextGraphId, type Box, type CurveData } from '../lib/curve';
 
+/**
+ * 그림 안에 그려지는 글자. 기본값은 한국어이며, 영문 섹션(/en/)에서만 다른 값을 넘긴다.
+ * 곡선 계산과 모양은 언어와 무관하게 같다.
+ */
+export interface GraphLabels {
+  high: string;
+  low: string;
+  series: string;
+  reference: string;
+  dose: string;
+  doseShared: string;
+}
+
+const KO_LABELS: GraphLabels = {
+  high: '높음',
+  low: '낮음',
+  series: '출력 변화',
+  reference: '비교용 참고 곡선',
+  dose: '약 복용 시점',
+  doseShared: '약 복용 시점 (두 날 같음)',
+};
+
 interface Props {
   curve: CurveData;
   /** full: 라벨까지 모두 / compact: 라벨 없이 곡선 중심 / mini: 목록 카드용 작은 미리보기 */
@@ -20,6 +42,8 @@ interface Props {
   doseLabels?: boolean;
   legend?: boolean;
   bare?: boolean;
+  /** 그림 안 글자를 다른 언어로 바꿀 때만 넘긴다 */
+  labels?: GraphLabels;
   class?: string;
 }
 
@@ -32,6 +56,7 @@ const {
   doseLabels = variant === 'full',
   legend = variant !== 'mini',
   bare = false,
+  labels = KO_LABELS,
   class: className = '',
 } = Astro.props;
 
@@ -135,8 +160,8 @@ function anchorFor(x: number, box: Box) {
       {/* 세로축은 눈금값 대신 높낮이만 표시한다 */}
       {variant !== 'mini' && (
         <g>
-          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.y(100) + 4} font-size={v.box.fs.axis}>높음</text>
-          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.axisY} font-size={v.box.fs.axis}>낮음</text>
+          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.y(100) + 4} font-size={v.box.fs.axis}>{labels.high}</text>
+          <text class="g-axislabel" x={v.box.W - v.box.padR + 6} y={v.s.axisY} font-size={v.box.fs.axis}>{labels.low}</text>
         </g>
       )}
 
@@ -194,13 +219,13 @@ function anchorFor(x: number, box: Box) {
 
   {legend && (
     <ul class="graph__legend">
-      <li><span class="graph__swatch" aria-hidden="true"></span>{curve.label ?? '출력 변화'}</li>
+      <li><span class="graph__swatch" aria-hidden="true"></span>{curve.label ?? labels.series}</li>
       {hasCompare && <li><span class="graph__swatch graph__swatch--compare" aria-hidden="true"></span>{curve.compare!.label}</li>}
-      {hasReference && <li><span class="graph__swatch graph__swatch--reference" aria-hidden="true"></span>비교용 참고 곡선</li>}
+      {hasReference && <li><span class="graph__swatch graph__swatch--reference" aria-hidden="true"></span>{labels.reference}</li>}
       {curve.doses.length > 0 && (
         <li>
           <span class="graph__swatch graph__swatch--dose" aria-hidden="true"></span>
-          {hasCompare ? '약 복용 시점 (두 날 같음)' : '약 복용 시점'}
+          {hasCompare ? labels.doseShared : labels.dose}
         </li>
       )}
     </ul>

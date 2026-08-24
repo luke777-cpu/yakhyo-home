@@ -110,4 +110,55 @@ const learn = defineCollection({
   }),
 });
 
-export const collections = { understand, graphs, diary, learn };
+/**
+ * 영문 섹션(/en/terms/)의 용어 글.
+ *
+ * 한국어 understand 컬렉션과 필드 구성을 일부러 똑같이 맞췄다. 같은 순서로 읽히고,
+ * 한쪽에만 있는 항목이 생기지 않게 하기 위해서다. 별도 컬렉션으로 둔 이유는
+ * 한국어 글의 스키마를 영어 때문에 고치는 일이 없도록 하기 위해서다.
+ */
+/**
+ * 영문 학습 글(/en/learn/). 한국어 learn 의 「몸으로 쓰는 약리학」·「몸으로 배우는
+ * 신경해부학」 시리즈를 영어로 옮긴 것. 필드는 learn 과 같은 뼈대를 쓰되,
+ * 영문판은 본문 중심이라 목록형 필드는 생략 가능하게 두었다.
+ */
+const enLearn = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/en-learn' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    lead: z.string().optional(),
+    order: z.number().default(99),
+    related,
+  }),
+});
+
+const enTerms = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/en-terms' }),
+  schema: z.object({
+    title: z.string(),
+    term: z.string(),
+    description: z.string(),
+    /** 1. 한 줄 설명 — 형식적 정의가 아니라 쉬운 말 설명이다 */
+    definition: z.string(),
+    /** 2. 그래프로 보면 */
+    curve: z.string().optional(),
+    curveTitle: z.string().optional(),
+    curveCaption: z.string().optional(),
+    /** 3. 흔히 쓰는 표현 */
+    expressions: z.array(z.string()).default([]),
+    /** 4. 함께 이야기되는 요인 — 원인을 확정하는 목록이 아니다 */
+    causes: z.array(z.string()).default([]),
+    /** 5. 기록할 것 */
+    record: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    /** 6. 치료진과 상의할 때 보여줄 항목 */
+    forVisit: z.array(z.string()).default([]),
+    /** 7. 관련 글 */
+    related,
+    /** 같은 내용을 다루는 한국어 글의 경로 — hreflang 과 언어 전환에 쓴다 */
+    koPath: z.string().optional(),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { understand, graphs, diary, learn, enTerms, enLearn };

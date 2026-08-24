@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import { url } from '../../../lib/url';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('enLearn');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, lead, related } = entry.data;
+// 한국어 원문 경로 — slug 가 같으므로 그대로 연결된다.
+const koPath = `/learn/${entry.id}/`;
+---
+<EnBaseLayout title={title} description={description} koPath={koPath}>
+  <div class="container">
+    <article class="article">
+      <nav class="crumb"><a href={url('/en/')}>English</a> · <a href={url('/en/learn/')}>Learn</a></nav>
+      <h1>{title}</h1>
+      {lead && <p class="article__lead">{lead}</p>}
+      <div class="article__body">
+        <Content />
+      </div>
+      {related.length > 0 && (
+        <aside class="related">
+          <h2>Related articles</h2>
+          <ul>
+            {related.map((r) => (
+              <li>
+                <a href={url(r.href)}>{r.label}</a>
+                {r.note && <span class="related__note"> — {r.note}</span>}
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+    </article>
+  </div>
+</EnBaseLayout>
+
+<style>
+  .article { max-width: 720px; margin: 0 auto; padding: var(--sp-10, 2.5rem) 0 var(--sp-12, 4rem); }
+  .crumb { font-size: 0.85rem; color: var(--c-text-weak, #777); margin-bottom: 1rem; }
+  .crumb a { color: inherit; }
+  h1 { line-height: 1.3; margin: 0 0 0.9rem; }
+  .article__lead { color: var(--c-text-weak, #666); font-size: 1.05rem; line-height: 1.8; margin: 0 0 2rem; }
+  .article__body { line-height: 1.85; }
+  .article__body :global(h2) { margin-top: 2.4rem; }
+  .article__body :global(figure.article-figure) { margin: 1.6rem 0; }
+  .article__body :global(figure.article-figure img) { width: 100%; height: auto; }
+  .article__body :global(figcaption) { font-size: 0.85rem; color: var(--c-text-weak, #777); margin-top: 0.5rem; }
+  .article__body :global(blockquote) { border-left: 3px solid var(--c-line, #ddd); margin: 2rem 0 0; padding: 0.2rem 0 0.2rem 1rem; color: var(--c-text-weak, #666); font-size: 0.92rem; }
+  .related { margin-top: 3rem; border-top: 1px solid var(--c-line, #e5e0d8); padding-top: 1.4rem; }
+  .related h2 { font-size: 1rem; margin: 0 0 0.7rem; }
+  .related ul { margin: 0; padding-left: 1.1rem; }
+  .related li { margin-bottom: 0.4rem; }
+  .related__note { color: var(--c-text-weak, #777); font-size: 0.88rem; }
+</style>

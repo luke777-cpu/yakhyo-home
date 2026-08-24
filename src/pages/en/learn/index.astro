@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import { url } from '../../../lib/url';
+
+const entries = (await getCollection('enLearn')).sort((a, b) => a.data.order - b.data.order);
+
+const series = [
+  {
+    name: 'Pharmacology Through My Own Body',
+    blurb: 'A doctor-patient relearns pharmacology — not as plasma graphs in a textbook, but as the daily curve a person with Parkinson\u2019s disease feels in the body.',
+    match: (id: string) => id.startsWith('body-pharmacology'),
+  },
+  {
+    name: 'Neuroanatomy Through the Body',
+    blurb: 'Why does the body stop, and move again? Starting from lived experience — freezing, stairs, visual lines — and following the motor circuits.',
+    match: (id: string) => id.startsWith('body-neuroanatomy'),
+  },
+];
+---
+<EnBaseLayout title="Learn" description="Long-form articles on Parkinson's medication response and the motor circuits, written from lived experience." koPath="/learn/">
+  <div class="container">
+    <div class="wrap">
+      <nav class="crumb"><a href={url('/en/')}>English</a> · Learn</nav>
+      <h1>Learn</h1>
+      <p class="intro">Long-form articles written by a physician living with Parkinson's disease — pharmacology and neuroanatomy, retold from the body's point of view. These are educational articles; decisions about your own medication belong with your treating clinician.</p>
+
+      {series.map((s) => {
+        const items = entries.filter((e) => s.match(e.id));
+        return items.length > 0 && (
+          <section class="series">
+            <h2>{s.name}</h2>
+            <p class="series__blurb">{s.blurb}</p>
+            <ul class="series__list">
+              {items.map((e) => (
+                <li>
+                  <a href={url(`/en/learn/${e.id}/`)}>{e.data.title}</a>
+                  <p>{e.data.description}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</EnBaseLayout>
+
+<style>
+  .wrap { max-width: 720px; margin: 0 auto; padding: var(--sp-10, 2.5rem) 0 var(--sp-12, 4rem); }
+  .crumb { font-size: 0.85rem; color: var(--c-text-weak, #777); margin-bottom: 1rem; }
+  .crumb a { color: inherit; }
+  .intro { color: var(--c-text-weak, #666); line-height: 1.8; margin: 0.6rem 0 2.4rem; }
+  .series { margin-bottom: 2.8rem; }
+  .series h2 { margin: 0 0 0.4rem; }
+  .series__blurb { color: var(--c-text-weak, #666); font-size: 0.95rem; line-height: 1.7; margin: 0 0 1.1rem; }
+  .series__list { list-style: none; margin: 0; padding: 0; }
+  .series__list li { border-top: 1px solid var(--c-line, #e5e0d8); padding: 1rem 0; }
+  .series__list a { font-weight: 600; }
+  .series__list p { margin: 0.35rem 0 0; font-size: 0.92rem; color: var(--c-text-weak, #666); line-height: 1.7; }
+</style>

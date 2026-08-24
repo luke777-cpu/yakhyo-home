@@ -1,0 +1,87 @@
+---
+import EnBaseLayout from '../../layouts/EnBaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import Button from '../../components/Button.astro';
+import Callout from '../../components/Callout.astro';
+import FAQ from '../../components/FAQ.astro';
+import { url } from '../../lib/url';
+import links from '../../data/links.json';
+
+const first = [
+  { title: 'Register the times you take medication', detail: 'Setting your usual times once means you are not typing them in again each day.' },
+  { title: 'Record a dose at the moment you take it', detail: 'Written down later from memory, intervals of a few minutes blur.' },
+  { title: 'Note how you are moving whenever it changes', detail: 'Several times a day is fine, and an ambiguous moment can be left ambiguous.' },
+  { title: 'Look at the graph after about three days', detail: 'One day rarely shows much. Shapes that repeat need a few days to appear.' },
+];
+
+const faq = [
+  { q: 'Do I have to record all the time?', a: 'No. There is no need to hold on to it all day. The times you took a dose, and a few moments when your body felt different, are enough for the shape of the curve to emerge.' },
+  { q: 'I cannot tell whether this counts as a good state or a bad one.', a: 'You do not have to judge. It does not ask you to pick one of two states — it asks how things are right now, so ambiguous moments can be recorded as they are.' },
+  { q: 'Do my records get uploaded to a server?', a: 'No. Records stay on the device you use. This website receives no records at all. Export and restore exist for when you change devices.' },
+  { q: 'Can I adjust my medication based on what I see?', a: 'A record is material for describing your situation. Decisions about which medication you take, at what dose, and at what time belong with the clinicians who look after you.' },
+];
+---
+<EnBaseLayout
+  title="Getting started"
+  description="What to do first with the Medication Diary, and how many days of recording it takes before a curve becomes readable."
+  koPath="/start/"
+>
+  <PageHead
+    crumb="Getting started"
+    title="Try just the first four days"
+    lead="There is no need to record perfectly. The times you took a dose and the moments your body changed are enough for the shape of the curve to emerge."
+  />
+
+  <div class="container">
+    <div class="btn-row" style="margin-bottom: var(--sp-16)">
+      {links.playStore && (
+        <Button href={links.playStore} external externalLabel="(opens in a new window)" block>Get it on Google Play</Button>
+      )}
+      {links.app && (
+        <Button
+          href={links.app}
+          variant={links.playStore ? 'secondary' : 'primary'}
+          external
+          externalLabel="(opens in a new window)"
+          block
+        >
+          {links.playStore ? 'Open it in a browser' : 'Open the Medication Diary'}
+        </Button>
+      )}
+      <Button href={url('/en/terms/')} variant="secondary" block>Read the words first</Button>
+    </div>
+
+    <Callout tone="plain" class="prose-width">
+      <p>
+        The app itself is in Korean. These English pages explain what it records and what the words mean;
+        the buttons above lead to the same Korean app.
+      </p>
+    </Callout>
+
+    <h2 class="section__title" style="margin-top: var(--sp-16)">The order to start in</h2>
+    <ol class="checklist" style="margin-top: var(--sp-6)">
+      {first.map((f) => (
+        <li>
+          <strong>{f.title}</strong>
+          <span>{f.detail}</span>
+        </li>
+      ))}
+    </ol>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">Common questions</h2>
+      <div style="margin-top: var(--sp-6); max-width: var(--w-prose)">
+        <FAQ items={faq} />
+      </div>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <Callout tone="plain">
+        <p>
+          Once a few days have accumulated, read <a href={url('/en/terms/')}>the words for the ups and downs</a>
+          alongside them. Each one sets out which part of the curve it points at.
+        </p>
+      </Callout>
+    </div>
+  </div>
+</EnBaseLayout>
