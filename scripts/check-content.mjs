@@ -5,7 +5,8 @@
  *     YAML 이 인용 문자열로 읽고 닫는 따옴표 뒤를 오류로 처리한다.
  *     한국어 본문에 큰따옴표를 쓰다 보면 반복해서 걸리는 함정이라 여기서 막는다.
  *  2) 본문에 배포 경로(/yakhyo-home)를 하드코딩한 경우
- *     Markdown 본문은 url() 헬퍼를 거치지 않으므로 배포 대상이 바뀌면 그대로 깨진다.
+ *     내부 문서 링크는 related 목록을 사용한다.
+ *     단, public/images 아래의 정적 이미지 src는 GitHub Pages의 base 경로가 필요하므로 허용한다.
  *
  * 실행:  node scripts/check-content.mjs
  */
@@ -37,10 +38,9 @@ for (const file of walk(CONTENT)) {
     if (inFrontmatter && /^\s*[a-zA-Z_]+:\s*"/.test(line)) {
       problems.push(`${rel}:${i + 1} 프론트매터 값이 따옴표로 시작합니다 — YAML 이 인용 문자열로 읽습니다`);
     }
-    // 그림(figure)의 이미지 src 는 배포 base 가 필요하므로 허용한다.
-    // 글 사이 '링크'를 하드코딩하는 것만 막는다 — 링크는 related 로 건다.
-    const withoutImages = line.replace(/src="\/yakhyo-home\/images\/[^"]*"/g, '');
-    if (!inFrontmatter && withoutImages.includes('/yakhyo-home')) {
+
+    const isPublicImageSrc = /src=["']\/yakhyo-home\/images\//.test(line);
+    if (!inFrontmatter && line.includes('/yakhyo-home') && !isPublicImageSrc) {
       problems.push(`${rel}:${i + 1} 본문에 배포 경로가 하드코딩되어 있습니다 — related 목록으로 연결하세요`);
     }
   });
