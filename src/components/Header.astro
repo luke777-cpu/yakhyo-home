@@ -24,6 +24,8 @@ const here = Astro.url.pathname;
       ))}
     </nav>
 
+    <a class="header__link" href={url('/en/')} lang="en" aria-label="English site">English</a>
+
     <AuthNav />
 
     <a class="btn btn--primary header__cta" href={url('/start/')}>시작하기</a>
