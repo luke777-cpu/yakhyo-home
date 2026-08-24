@@ -31,6 +31,9 @@ const here = Astro.url.pathname;
             >{item.label}</a>
           </li>
         ))}
+        <li>
+          <a class="mobilenav__link" href={url('/en/')} lang="en">English</a>
+        </li>
       </ul>
     </nav>
 
