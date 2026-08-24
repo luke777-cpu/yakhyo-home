@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">기저핵 운동회로 도식</title>
+  <desc id="desc">대뇌피질, 선조체, GPe, GPi, 시상하핵, 흑질, 시상 사이의 직접경로와 간접경로를 단순화한 교육용 회로도</desc>
+  <rect width="1200" height="760" rx="28" fill="#f8fafc"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">Basal Ganglia Motor Circuit</text>
+  <text x="60" y="105" font-family="Arial, sans-serif" font-size="20" fill="#475569">직접경로·간접경로·도파민 조절 — 교육용 단순화 도식</text>
+
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="450" y="140" width="300" height="72" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="600" y="172" font-size="24" font-weight="700" fill="#1e3a8a">Cortex</text><text x="600" y="198" font-size="18" fill="#1e40af">대뇌피질</text>
+
+    <rect x="450" y="275" width="300" height="82" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="600" y="308" font-size="24" font-weight="700" fill="#14532d">Striatum</text><text x="600" y="336" font-size="18" fill="#166534">Putamen / Caudate</text>
+
+    <rect x="110" y="425" width="250" height="76" rx="18" fill="#fef3c7" stroke="#ca8a04" stroke-width="3"/>
+    <text x="235" y="458" font-size="23" font-weight="700" fill="#713f12">GPe</text><text x="235" y="485" font-size="18" fill="#854d0e">외측 담창구</text>
+
+    <rect x="475" y="565" width="250" height="76" rx="18" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+    <text x="600" y="598" font-size="23" font-weight="700" fill="#7f1d1d">GPi / SNr</text><text x="600" y="625" font-size="18" fill="#991b1b">기저핵 주요 출력</text>
+
+    <rect x="840" y="425" width="250" height="76" rx="18" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="965" y="458" font-size="23" font-weight="700" fill="#4c1d95">STN</text><text x="965" y="485" font-size="18" fill="#5b21b6">시상하핵</text>
+
+    <rect x="450" y="675" width="300" height="62" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+    <text x="600" y="714" font-size="23" font-weight="700" fill="#0c4a6e">Thalamus → Cortex</text>
+
+    <rect x="820" y="260" width="300" height="88" rx="18" fill="#d1fae5" stroke="#059669" stroke-width="3"/>
+    <text x="970" y="295" font-size="23" font-weight="700" fill="#064e3b">SNc</text><text x="970" y="323" font-size="18" fill="#065f46">Substantia nigra pars compacta</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#334155"/></marker>
+    <marker id="bar" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M7 0 L7 10" stroke="#b91c1c" stroke-width="3"/></marker>
+  </defs>
+
+  <g fill="none" stroke-width="4">
+    <path d="M600 212 L600 270" stroke="#334155" marker-end="url(#arrow)"/>
+    <path d="M540 357 C515 430 530 500 570 560" stroke="#16a34a" marker-end="url(#bar)"/>
+    <path d="M500 340 C380 360 300 385 245 420" stroke="#b91c1c" marker-end="url(#bar)"/>
+    <path d="M360 463 C560 430 760 430 835 463" stroke="#b91c1c" marker-end="url(#bar)"/>
+    <path d="M965 501 C930 555 820 585 730 603" stroke="#7c3aed" marker-end="url(#arrow)"/>
+    <path d="M600 641 L600 670" stroke="#b91c1c" marker-end="url(#bar)"/>
+    <path d="M600 675 C365 710 240 645 230 510" stroke="#0284c7" marker-end="url(#arrow)" opacity="0"/>
+    <path d="M520 705 C350 690 250 640 250 510" stroke="#0284c7" marker-end="url(#arrow)" opacity="0"/>
+    <path d="M600 675 C420 655 290 600 270 505" stroke="#0284c7" opacity="0"/>
+    <path d="M560 675 C420 650 350 580 350 520" stroke="#0284c7" opacity="0"/>
+    <path d="M600 675 C600 660 600 655 600 645" stroke="#0284c7" opacity="0"/>
+    <path d="M600 737 C600 748 590 750 580 750" stroke="#0284c7"/>
+    <path d="M750 705 C860 690 955 630 965 505" stroke="#0284c7" opacity="0"/>
+    <path d="M970 348 C860 355 745 345 675 350" stroke="#059669" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="17" fill="#334155">
+    <text x="390" y="445">직접경로: GPi/SNr 억제</text>
+    <text x="150" y="390">간접경로</text>
+    <text x="850" y="540">STN → GPi/SNr 흥분</text>
+    <text x="805" y="378">도파민: D1 촉진 / D2 경로 억제 방향</text>
+    <text x="760" y="692">GPi/SNr의 시상 억제가 줄면 운동피질 활성화가 쉬워짐</text>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="16" fill="#64748b">
+    <text x="60" y="735">※ 실제 기저핵 회로는 이보다 훨씬 복잡하며, 이 그림은 운동회로의 핵심 방향만 단순화한 것입니다.</text>
+  </g>
+</svg>
