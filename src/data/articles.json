@@ -77,6 +77,13 @@
     "status": "published"
   },
   {
+    "slug": "body-pharmacology-part2",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 2부 — 레보도파를 몸으로 배우다",
+    "summary": "같은 레보도파가 왜 어떤 날은 빨리 듣고 어떤 날은 늦게 듣는지, Delayed ON·Incomplete ON·ON failure·Wearing-off를 몸의 곡선으로 읽습니다.",
+    "status": "published"
+  },
+  {
     "slug": "levodopa-basics",
     "category": "pharmacology",
     "title": "레보도파가 흡수되는 경로",
@@ -98,10 +105,10 @@
     "status": "published"
   },
   {
-    "slug": "basal-ganglia",
+    "slug": "body-neuroanatomy-part2",
     "category": "neuroanatomy",
-    "title": "움직임을 만드는 회로",
-    "summary": "기저핵과 운동 회로에 대한 아주 짧은 소개.",
-    "status": "preparing"
+    "title": "몸으로 배우는 신경해부학 2부 — 기저핵, 움직임을 선택하는 시스템",
+    "summary": "미상핵·조가비핵·담창구·시상하핵·흑질을 아틀라스와 회로도로 따라가며, 첫발과 서동이 왜 생기는지 연결합니다.",
+    "status": "published"
   }
 ]
