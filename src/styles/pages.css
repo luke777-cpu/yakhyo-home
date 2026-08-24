@@ -150,3 +150,185 @@
 .toc__link:hover .toc__state { color: var(--c-primary); }
 .toc__item--pending .toc__title { color: var(--c-text-2); }
 .toc__item--pending .toc__link { cursor: default; }
+
+/* --- 시리즈(연재) 목차 ----------------------------------------------------
+   「몸으로 쓰는 약리학」·「몸으로 배우는 신경해부학」처럼 여러 편으로 이어지는
+   글의 목차. 번호 있는 .toc 와 달리 "지금 보고 있는 편"을 강조해야 하므로
+   따로 둔다. */
+.seriestoc {
+  padding: var(--sp-6);
+  background: var(--c-bg-sunken);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+}
+.seriestoc__title { font-weight: 700; }
+.seriestoc__summary {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+.seriestoc__list {
+  margin-top: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.seriestoc__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-3);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--c-text);
+}
+a.seriestoc__link:hover { background: var(--c-surface); color: var(--c-primary); }
+.seriestoc__label { font-size: var(--fs-sm); }
+.seriestoc__item--pending .seriestoc__label { color: var(--c-text-2); }
+.seriestoc__item--current .seriestoc__link {
+  background: var(--c-surface);
+  font-weight: 700;
+  box-shadow: inset 2px 0 0 var(--c-primary);
+}
+
+/* --- 연재 이전/다음 이동 --------------------------------------------------- */
+.prevnext {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-12);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--c-line);
+}
+.prevnext__side--next { text-align: right; }
+.prevnext__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--c-text);
+}
+.prevnext__link:hover { color: var(--c-primary); }
+.prevnext__icon { flex: none; color: var(--c-text-3); }
+@media (min-width: 768px) {
+  .prevnext { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* --- 학습지도 (/learn/map/, /en/learn/map/) --------------------------------
+   PC: 중앙 개념 아래 대분류가 가지처럼 펼쳐지는 트리.
+   모바일: 여닫는 카드(<details>).
+   두 모습을 하나의 <details> 를 CSS 로 눈속임하는 방법을 처음 썼지만,
+   닫힌 <details> 의 내용을 최신 브라우저가 display 가 아니라
+   content-visibility 로 감추는 경우가 있어 그 방법이 브라우저마다 다르게
+   동작했다 (스크린샷으로 확인). 그래서 모바일용 <details> 트리와 데스크톱용
+   평범한 <div> 트리를 LearnMapTree.astro 가 둘 다 렌더링하고, 이 파일에서는
+   폭에 따라 한쪽만 보이게 감추기만 한다 — 자바스크립트는 여전히 없다. */
+.learnmap__root {
+  text-align: center;
+  padding-block: var(--sp-8) var(--sp-10);
+}
+.learnmap__root-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-6);
+  background: var(--c-primary-soft);
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+}
+
+.learnmap__tree { display: grid; gap: var(--sp-4); }
+.learnmap__tree--desktop { display: none; }
+
+.learnmap__branch {
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  overflow: hidden;
+}
+.learnmap__branch-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-5) var(--sp-6);
+  margin: 0;
+  list-style: none;
+  font-weight: 700;
+  font-size: var(--fs-h3);
+}
+summary.learnmap__branch-head { cursor: pointer; }
+.learnmap__branch-head::-webkit-details-marker { display: none; }
+.learnmap__branch-toggle { flex: none; color: var(--c-text-3); font-size: var(--fs-sm); font-weight: 400; }
+details.learnmap__branch[open] .learnmap__branch-toggle::before { content: '−'; }
+details.learnmap__branch:not([open]) .learnmap__branch-toggle::before { content: '+'; }
+.learnmap__branch-desc {
+  margin: 0 var(--sp-6) var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+.learnmap__leaves {
+  margin: 0 var(--sp-6) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.learnmap__leaf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--c-text);
+  font-size: var(--fs-sm);
+}
+a.learnmap__leaf:hover { background: var(--c-bg-sunken); color: var(--c-primary); }
+.learnmap__leaf--pending { color: var(--c-text-2); }
+.learnmap__seeall {
+  display: inline-block;
+  margin: var(--sp-2) var(--sp-6) var(--sp-6);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+  /* 데스크톱 트리로 전환 */
+  .learnmap__tree--mobile { display: none; }
+  .learnmap__tree--desktop {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-6);
+    position: relative;
+    margin-top: var(--sp-8);
+    padding-top: var(--sp-8);
+  }
+  /* "중앙 개념 → 가지"를 가로선 하나 + 세로 짧은 선들로만 표현한다.
+     선을 많이 그리지 않는다는 원칙(디자인 §14)을 지키기 위해서다. */
+  .learnmap__tree--desktop::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--c-line-strong);
+  }
+  .learnmap__tree--desktop .learnmap__branch { position: relative; }
+  .learnmap__tree--desktop .learnmap__branch::before {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--sp-8));
+    left: 50%;
+    width: 1px;
+    height: var(--sp-8);
+    background: var(--c-line-strong);
+  }
+}

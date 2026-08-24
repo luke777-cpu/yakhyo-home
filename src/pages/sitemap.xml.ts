@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import series from '../data/series.json';
+import enSeries from '../data/en/series.json';
 import { url } from '../lib/url';
 
 /**
@@ -30,13 +32,17 @@ export const GET: APIRoute = async ({ site }) => {
     ...concepts.map((c) => `/understand/${c.id}/`),
     ...graphs.map((g) => `/graphs/${g.id}/`),
     ...learn.map((l) => `/learn/${l.id}/`),
+    '/learn/map/',
+    ...Object.keys(series).map((key) => `/learn/series/${key}/`),
     // 영문 섹션
     '/en/',
     '/en/terms/',
     '/en/learn/',
+    '/en/learn/map/',
     '/en/start/',
     ...enTerms.map((t) => `/en/terms/${t.id}/`),
     ...enLearn.map((t) => `/en/learn/${t.id}/`),
+    ...Object.keys(enSeries).map((key) => `/en/learn/series/${key}/`),
   ];
 
   const base = site ?? new URL('http://localhost');

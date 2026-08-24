@@ -1,0 +1,60 @@
+---
+/**
+ * English course landing pages — mirrors /learn/series/[key]/ in structure and
+ * data source (src/data/en/series.json). Which parts are "published" is read
+ * from the real enLearn content collection, the same one /en/learn/[...slug].astro
+ * uses — so this page and the actual articles never drift apart.
+ */
+import { getCollection } from 'astro:content';
+import EnBaseLayout from '../../../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../../../components/PageHead.astro';
+import Callout from '../../../../../components/Callout.astro';
+import SeriesToc from '../../../../../components/SeriesToc.astro';
+import krSeries from '../../../../../data/series.json';
+import enSeries from '../../../../../data/en/series.json';
+import { seriesItemViews, seriesProgress, type Series } from '../../../../../lib/series';
+import { url } from '../../../../../lib/url';
+
+export async function getStaticPaths() {
+  return Object.keys(enSeries).map((key) => ({ params: { key } }));
+}
+
+const { key } = Astro.params;
+const data = (enSeries as Record<string, Series>)[key as string];
+const koData = (krSeries as Record<string, Series>)[key as string];
+
+const written = new Set((await getCollection('enLearn')).map((e) => e.id));
+const items = seriesItemViews(data, written, url('/en/learn/'));
+const progress = seriesProgress(data, written);
+---
+<EnBaseLayout
+  title={data.title}
+  description={`${data.summary} ${progress.done} of ${progress.total} parts are published in English so far.`}
+  koPath={koData ? `/learn/series/${koData.slug}/` : undefined}
+>
+  <PageHead crumb="Learn" crumbHref={url('/en/learn/')} title={data.title} lead={data.summary} />
+
+  <div class="container">
+    {progress.done < progress.total && (
+      <Callout tone="plain" class="prose-width">
+        <p>
+          Not every part is translated into English yet. The table of contents below shows the whole course —
+          parts already published open directly, and the rest arrive here as soon as they are ready.
+        </p>
+      </Callout>
+    )}
+
+    <div style={`margin-top: var(--sp-${progress.done < progress.total ? '8' : '2'}); max-width: var(--w-prose)`}>
+      <SeriesToc
+        title={`${progress.total} parts planned, ${progress.done} published`}
+        items={items}
+        pendingLabel="In preparation"
+        currentLabel="Now reading"
+      />
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      <a href={url('/en/learn/map/')}>See the rest of the learning map</a>
+    </p>
+  </div>
+</EnBaseLayout>

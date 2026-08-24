@@ -1,0 +1,35 @@
+{
+  "pharmacology": {
+    "slug": "pharmacology",
+    "title": "몸으로 쓰는 약리학",
+    "summary": "약을 먹은 순간부터 첫 신호, ON, Peak, 하강과 OFF까지. 파킨슨병 환자의 실제 경험으로 약리학을 다시 읽습니다.",
+    "learnCategory": "pharmacology",
+    "items": [
+      { "slug": "body-pharmacology-part1", "order": 1, "title": "1부 — 약은 몸속에서 어떻게 움직이는가" },
+      { "slug": "body-pharmacology-part2", "order": 2, "title": "2부 — 레보도파를 몸으로 배우다" },
+      { "slug": "body-pharmacology-part3", "order": 3, "title": "3부 — 너무 적어도 문제고, 너무 많아도 문제다" },
+      { "slug": "body-pharmacology-part4", "order": 4, "title": "4부 — 약을 조합한다는 것" },
+      { "slug": "body-pharmacology-part5", "order": 5, "title": "5부 — 내 몸을 실험실로 삼다" },
+      { "slug": "body-pharmacology-part6", "order": 6, "title": "6부 — 기록이 약리학이 되는 순간" },
+      { "slug": "body-pharmacology-final", "order": 7, "title": "마지막 장 — 나는 내 몸에서 약리학을 다시 배웠다" }
+    ]
+  },
+  "neuroanatomy": {
+    "slug": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학",
+    "summary": "첫발, 동결보행, 계단, 기저핵과 운동회로를 실제 움직임에서 출발해 이해합니다.",
+    "learnCategory": "neuroanatomy",
+    "items": [
+      { "slug": "body-neuroanatomy-preface", "order": 0, "title": "서문" },
+      { "slug": "body-neuroanatomy-part1", "order": 1, "title": "1부 — 몸을 움직인다는 것" },
+      { "slug": "body-neuroanatomy-part2", "order": 2, "title": "2부 — 기저핵, 움직임을 선택하는 시스템" },
+      { "slug": "body-neuroanatomy-part3", "order": 3, "title": "3부 — 직접경로와 간접경로" },
+      { "slug": "body-neuroanatomy-part4", "order": 4, "title": "4부 — 왜 발이 바닥에 붙는가" },
+      { "slug": "body-neuroanatomy-part5", "order": 5, "title": "5부 — 왜 계단은 오히려 쉬운가" },
+      { "slug": "body-neuroanatomy-part6", "order": 6, "title": "6부 — 이상운동증은 어디서 만들어지는가" },
+      { "slug": "body-neuroanatomy-part7", "order": 7, "title": "7부 — 떨림은 왜 또 다른 회로인가" },
+      { "slug": "body-neuroanatomy-part8", "order": 8, "title": "8부 — 운동만의 병이 아니다" },
+      { "slug": "body-neuroanatomy-part9", "order": 9, "title": "9부 — DBS는 어디를 자극하는가" }
+    ]
+  }
+}

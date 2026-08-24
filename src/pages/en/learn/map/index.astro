@@ -1,0 +1,113 @@
+---
+/**
+ * English learning map — mirrors /learn/map/ in structure exactly (same five
+ * branches, same layout, same CSS). Most Korean content has no English
+ * translation yet, so most leaves point back to the Korean pages (marked
+ * lang="ko") while the few pages that do exist in English — terms, start,
+ * the two courses — link within /en/.
+ */
+import EnBaseLayout from '../../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../../components/PageHead.astro';
+import LearnMapTree, { type MapLeaf as Leaf } from '../../../../components/LearnMapTree.astro';
+import { EN_SITE } from '../../../../lib/en';
+import enSeries from '../../../../data/en/series.json';
+import links from '../../../../data/links.json';
+import { url } from '../../../../lib/url';
+
+const recordLeaves: Leaf[] = [
+  { title: 'Output level', href: url('/diary/output/'), ko: true },
+  { title: 'Medication times', href: url('/diary/medication/'), ko: true },
+  { title: 'Symptoms & events', href: url('/diary/events/'), ko: true },
+  { title: 'Frequently asked questions', href: url('/diary/faq/'), ko: true },
+];
+
+const graphLeaves: Leaf[] = [
+  { title: 'A basic rise', href: url('/graphs/normal-rise/'), ko: true },
+  { title: 'Two different days, same drug', href: url('/graphs/same-drug-two-days/'), ko: true },
+  { title: 'A full day, repeated', href: url('/graphs/whole-day/'), ko: true },
+  { title: 'PHS / reports', href: url('/diary/phs/'), ko: true },
+];
+
+const learnLeaves: Leaf[] = [
+  { title: 'Words for the ups and downs', href: url('/en/terms/') },
+  { title: '3-Minute Medication Class', href: url('/learn/#class'), ko: true },
+  { title: 'Reading real graphs', href: url('/learn/#graph-reading'), ko: true },
+  { title: 'User questions', href: url('/learn/#questions'), ko: true },
+  { title: enSeries.pharmacology.title, href: url('/en/learn/series/pharmacology/') },
+  { title: enSeries.neuroanatomy.title, href: url('/en/learn/series/neuroanatomy/') },
+];
+
+const appLeaves: Leaf[] = [
+  { title: 'About the app', href: url('/en/start/') },
+  { title: 'How to use it', href: url('/diary/'), ko: true },
+  ...(links.playStore ? [{ title: 'Install (Google Play)', href: links.playStore, external: true }] : []),
+  { title: 'Backup & restore', href: url('/diary/backup/'), ko: true },
+];
+
+const branches = [
+  {
+    slug: 'record',
+    title: 'Recording',
+    desc: 'How well you are moving right now, and what you did and when, noted as it happens.',
+    leaves: recordLeaves,
+    seeAll: { label: 'The Medication Diary section (Korean)', href: url('/diary/'), ko: true },
+  },
+  {
+    slug: 'graph',
+    title: 'Graphs',
+    desc: 'Records gathered into a curve for one day, and into a pattern that repeats.',
+    leaves: graphLeaves,
+    seeAll: { label: 'All graph shapes (Korean)', href: url('/graphs/'), ko: true },
+  },
+  {
+    slug: 'learn',
+    title: 'Learn',
+    desc: 'Background knowledge and courses for understanding medication fluctuation.',
+    leaves: learnLeaves,
+    seeAll: { label: 'The full Learn hub', href: url('/en/learn/') },
+  },
+  {
+    slug: 'community',
+    title: 'Community',
+    desc: 'A place to share questions with other users. The board itself is Korean-only for now.',
+    leaves: [
+      { title: 'Question board', href: url('/questions/'), ko: true },
+      { title: 'Post a question', href: url('/questions/new/'), ko: true },
+      { title: 'My posts', href: url('/questions/mine/'), ko: true },
+    ] as Leaf[],
+    seeAll: null,
+  },
+  {
+    slug: 'app',
+    title: 'App guidance',
+    desc: 'What you need the first time you use the app, and to keep your records safe.',
+    leaves: appLeaves,
+    seeAll: null,
+  },
+];
+---
+<EnBaseLayout
+  title="Learning map"
+  description="Recording, graphs, learning, community and app guidance for the whole site, in one view."
+  koPath="/learn/map/"
+>
+  <PageHead
+    crumb="Learn"
+    crumbHref={url('/en/learn/')}
+    title="Learning map"
+    lead="Recording, graphs, learning and app guidance for the whole site, in one view. Tap a section to open it on mobile."
+  />
+
+  <div class="container">
+    <div class="learnmap__root">
+      <span class="learnmap__root-mark">{EN_SITE.name}</span>
+    </div>
+
+    <LearnMapTree branches={branches} pendingLabel="In preparation" externalLabel="(opens in a new window)" />
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-12)">
+      Most of the site is written in Korean first. Pages marked in Korean above open the Korean version —
+      there is no separate English copy of that page yet.
+    </p>
+  </div>
+</EnBaseLayout>

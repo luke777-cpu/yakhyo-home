@@ -1,0 +1,126 @@
+---
+/**
+ * 학습지도 — 홈페이지 콘텐츠 전체 구조를 한눈에 보여주는 페이지.
+ * 신경해부학 글 안에 있을 "해부학 Atlas"(뇌 구조 그림)와는 다른 것이다.
+ * 이 페이지는 뇌가 아니라 "홈페이지 안에 무엇이 있는가"를 보여준다.
+ *
+ * 데스크톱에서는 다섯 개의 가지가 늘어선 트리로, 모바일에서는 여닫는 카드로
+ * 보인다. 렌더링은 LearnMapTree.astro 가 맡는다 — 그 컴포넌트의 주석에
+ * 왜 <details> 하나로 두 모습을 만들지 않았는지 이유가 있다. 새 자바스크립트는
+ * 쓰지 않는다.
+ *
+ * 각 가지의 세부 항목은 실제 데이터 파일(diary-topics.json 등)에서 제목을
+ * 가져온다. 어떤 항목을 보여줄지 고르는 것은 이 파일의 역할이지만, 제목 글자
+ * 자체를 다시 입력하지는 않는다 — 원본을 고치면 지도도 함께 바뀐다.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHead from '../../../components/PageHead.astro';
+import LearnMapTree, { type MapLeaf as Leaf } from '../../../components/LearnMapTree.astro';
+import diaryTopics from '../../../data/diary-topics.json';
+import graphPatterns from '../../../data/graph-patterns.json';
+import learnCategories from '../../../data/learn-categories.json';
+import series from '../../../data/series.json';
+import links from '../../../data/links.json';
+import { url } from '../../../lib/url';
+
+function pick<T extends { slug: string; title: string }>(list: T[], slugs: string[]) {
+  return slugs
+    .map((s) => list.find((x) => x.slug === s))
+    .filter(Boolean) as T[];
+}
+
+const diaryLeaves: Leaf[] = pick(diaryTopics, ['output', 'medication', 'events', 'faq']).map((d) => ({
+  title: d.title,
+  href: url(`/diary/${d.slug}/`),
+}));
+
+const graphLeaves: Leaf[] = [
+  ...pick(graphPatterns, ['normal-rise', 'same-drug-two-days', 'whole-day']).map((g) => ({
+    title: g.title,
+    href: url(`/graphs/${g.slug}/`),
+  })),
+  { title: 'PHS / 보고서', href: url('/diary/phs/') },
+];
+
+const learnLeaves: Leaf[] = [
+  ...pick(learnCategories, ['class', 'graph-reading', 'questions']).map((c) => ({
+    title: c.title,
+    href: url(`/learn/#${c.slug}`),
+  })),
+  { title: series.pharmacology.title, href: url('/learn/series/pharmacology/') },
+  { title: series.neuroanatomy.title, href: url('/learn/series/neuroanatomy/') },
+];
+
+const appLeaves: Leaf[] = [
+  { title: '앱 소개', href: url('/start/') },
+  { title: '사용법', href: url('/diary/') },
+  links.playStore ? { title: '설치 (Google Play)', href: links.playStore, external: true } : null,
+  { title: '백업 및 복원', href: url('/diary/backup/') },
+].filter(Boolean) as { title: string; href: string; external?: boolean }[];
+
+const branches = [
+  {
+    slug: 'record',
+    title: '기록',
+    desc: '지금 몸이 어느 정도인지, 언제 무엇을 했는지 그때그때 남깁니다.',
+    leaves: diaryLeaves,
+    seeAll: { label: '약효일지 전체 보기', href: url('/diary/') },
+  },
+  {
+    slug: 'graph',
+    title: '그래프',
+    desc: '쌓인 기록이 하루의 곡선으로, 다시 반복되는 패턴으로 보입니다.',
+    leaves: graphLeaves,
+    seeAll: { label: '그래프 읽기 전체 보기', href: url('/graphs/') },
+  },
+  {
+    slug: 'learn',
+    title: '배우기',
+    desc: '약효 변동을 이해하는 데 필요한 배경 지식과 연재를 모았습니다.',
+    leaves: learnLeaves,
+    seeAll: { label: '배우기 전체 보기', href: url('/learn/') },
+  },
+  {
+    slug: 'community',
+    title: '커뮤니티',
+    desc: '다른 사용자와 질문을 나누는 공간입니다.',
+    leaves: [
+      { title: '질문게시판', href: url('/questions/') },
+      { title: '질문 올리기', href: url('/questions/new/') },
+      { title: '내 글 보기', href: url('/questions/mine/') },
+    ] as Leaf[],
+    seeAll: null,
+  },
+  {
+    slug: 'app',
+    title: '앱 안내',
+    desc: '약효일지를 처음 쓸 때, 그리고 기록을 안전하게 지킬 때 필요한 안내입니다.',
+    leaves: appLeaves,
+    seeAll: null,
+  },
+];
+---
+<BaseLayout
+  title="학습지도"
+  description="약효일지의 기록, 그래프, 약리학, 신경해부학과 사용자 안내를 한눈에 볼 수 있습니다."
+>
+  <PageHead
+    crumb="배우기"
+    crumbHref={url('/learn/')}
+    title="학습지도"
+    lead="약효일지의 기록, 그래프, 약리학, 신경해부학과 사용자 안내를 한눈에 볼 수 있습니다. 모바일에서는 항목을 눌러 펼칩니다."
+  />
+
+  <div class="container">
+    <div class="learnmap__root">
+      <span class="learnmap__root-mark">약효일지</span>
+    </div>
+
+    <LearnMapTree branches={branches} />
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-12)">
+      신경해부학 연재 안에는 뇌 구조를 보여주는 그림(Atlas)이 따로 있습니다. 이 지도는 그것과 달리
+      홈페이지 안에 어떤 내용이 있는지를 보여줍니다.
+    </p>
+  </div>
+</BaseLayout>

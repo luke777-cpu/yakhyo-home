@@ -107,6 +107,11 @@ const learn = defineCollection({
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     related,
     order: z.number().default(99),
+    /**
+     * 이 글이 연재(시리즈)의 한 편이면 src/data/series.json 의 키(예: 'pharmacology').
+     * 값이 있으면 글 상단에 시리즈 목차가, 하단에 이전/다음 이동이 자동으로 붙는다.
+     */
+    series: z.string().optional(),
   }),
 });
 

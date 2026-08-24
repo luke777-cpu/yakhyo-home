@@ -1,0 +1,44 @@
+---
+/**
+ * 연재(시리즈) 목차 — 「몸으로 쓰는 약리학」·「몸으로 배우는 신경해부학」처럼
+ * 여러 편으로 이어지는 글의 공통 목차. 시리즈 소개 페이지와 각 편의 글 상단
+ * 양쪽에서 같은 컴포넌트를 쓴다.
+ *
+ * 항목의 글 여부(published/preparing)는 호출하는 쪽이 src/lib/series.ts 로 미리
+ * 계산해서 넘긴다 — 이 컴포넌트는 그 결과를 그리기만 한다.
+ */
+import type { SeriesItemView } from '../lib/series';
+
+interface Props {
+  title: string;
+  summary?: string;
+  items: SeriesItemView[];
+  /** 준비 중인 항목에 붙는 배지. 영문 페이지에서만 다른 값을 넘긴다. */
+  pendingLabel?: string;
+  /** 지금 보고 있는 편에 붙는 배지. 영문 페이지에서만 다른 값을 넘긴다. */
+  currentLabel?: string;
+  class?: string;
+}
+
+const { title, summary, items, pendingLabel = '준비 중', currentLabel = '현재', class: className = '' } = Astro.props;
+---
+<nav class={`seriestoc ${className}`} aria-label={title}>
+  <p class="seriestoc__title">{title}</p>
+  {summary && <p class="seriestoc__summary">{summary}</p>}
+  <ol class="seriestoc__list">
+    {items.map((item) => {
+      const ready = item.status === 'published' && item.href;
+      const Tag = ready ? 'a' : item.current ? 'span' : 'div';
+      return (
+        <li class={`seriestoc__item ${item.current ? 'seriestoc__item--current' : ''} ${ready ? '' : 'seriestoc__item--pending'}`}>
+          <Tag class="seriestoc__link" href={ready ? item.href : undefined} aria-current={item.current ? 'true' : undefined}>
+            <span class="seriestoc__label">{item.title}</span>
+            {item.current
+              ? <span class="badge badge--soft">{currentLabel}</span>
+              : !ready && <span class="badge">{pendingLabel}</span>}
+          </Tag>
+        </li>
+      );
+    })}
+  </ol>
+</nav>

@@ -1,0 +1,112 @@
+---
+/**
+ * 학습지도(/learn/map/, /en/learn/map/)의 트리 렌더링.
+ *
+ * <details> 하나로 모바일/데스크톱을 함께 처리하는 CSS 트릭(요약 이외 자식을
+ * !important 로 항상 block 처리)을 처음에 썼지만, 최신 Chromium은 닫힌
+ * <details> 의 내용을 display 가 아니라 content-visibility 로 감추기 때문에
+ * 그 방법이 브라우저마다 다르게 동작한다 — 실제로 데스크톱에서도 접힌 채로
+ * 나오는 것을 스크린샷으로 확인했다.
+ *
+ * 그래서 두 벌을 각각 렌더링하고 CSS 로만 하나를 감춘다.
+ *  - 모바일: <details> — 네이티브 여닫기, 새 자바스크립트 없음.
+ *  - 데스크톱(1024px+): 평범한 <div> — 항상 펼쳐진 트리. 접고 펼 필요가 없다.
+ * 마크업은 늘지만 두 모드 모두 브라우저 기본 동작만으로 정확하게 그려진다.
+ */
+import Icon from './Icon.astro';
+
+export interface MapLeaf {
+  title: string;
+  href?: string;
+  external?: boolean;
+  /** 이 링크가 한국어 페이지로 간다는 표시. 영문 지도에서만 쓴다. */
+  ko?: boolean;
+}
+export interface MapBranch {
+  slug: string;
+  title: string;
+  desc: string;
+  leaves: MapLeaf[];
+  seeAll: { label: string; href: string; ko?: boolean } | null;
+}
+
+interface Props {
+  branches: MapBranch[];
+  pendingLabel?: string;
+  externalLabel?: string;
+}
+
+const { branches, pendingLabel = '준비 중', externalLabel = '(새 창)' } = Astro.props;
+---
+{/* 모바일 — 네이티브 <details>, 기본값(닫힘) 그대로 */}
+<div class="learnmap__tree learnmap__tree--mobile">
+  {branches.map((b) => (
+    <details class="learnmap__branch" id={b.slug}>
+      <summary class="learnmap__branch-head">
+        {b.title}
+        <span class="learnmap__branch-toggle" aria-hidden="true"></span>
+      </summary>
+      <p class="learnmap__branch-desc">{b.desc}</p>
+      <div class="learnmap__leaves">
+        {b.leaves.map((leaf) =>
+          leaf.href ? (
+            <a
+              class="learnmap__leaf"
+              href={leaf.href}
+              lang={leaf.ko ? 'ko' : undefined}
+              rel={leaf.external ? 'noopener' : undefined}
+              target={leaf.external ? '_blank' : undefined}
+            >
+              <span>{leaf.title}</span>
+              <Icon name={leaf.external ? 'arrow-up-right' : 'arrow-right'} size={16} />
+              {leaf.external && <span class="sr-only">{externalLabel}</span>}
+            </a>
+          ) : (
+            <span class="learnmap__leaf learnmap__leaf--pending">
+              <span>{leaf.title}</span>
+              <span class="badge">{pendingLabel}</span>
+            </span>
+          ),
+        )}
+      </div>
+      {b.seeAll && (
+        <a class="learnmap__seeall" href={b.seeAll.href} lang={b.seeAll.ko ? 'ko' : undefined}>{b.seeAll.label} →</a>
+      )}
+    </details>
+  ))}
+</div>
+
+{/* 데스크톱 — 접고 펼 필요가 없으므로 평범한 블록. 트리처럼 가지 선만 CSS 로 붙인다 */}
+<div class="learnmap__tree learnmap__tree--desktop">
+  {branches.map((b) => (
+    <div class="learnmap__branch" id={`${b.slug}-d`}>
+      <p class="learnmap__branch-head">{b.title}</p>
+      <p class="learnmap__branch-desc">{b.desc}</p>
+      <div class="learnmap__leaves">
+        {b.leaves.map((leaf) =>
+          leaf.href ? (
+            <a
+              class="learnmap__leaf"
+              href={leaf.href}
+              lang={leaf.ko ? 'ko' : undefined}
+              rel={leaf.external ? 'noopener' : undefined}
+              target={leaf.external ? '_blank' : undefined}
+            >
+              <span>{leaf.title}</span>
+              <Icon name={leaf.external ? 'arrow-up-right' : 'arrow-right'} size={16} />
+              {leaf.external && <span class="sr-only">{externalLabel}</span>}
+            </a>
+          ) : (
+            <span class="learnmap__leaf learnmap__leaf--pending">
+              <span>{leaf.title}</span>
+              <span class="badge">{pendingLabel}</span>
+            </span>
+          ),
+        )}
+      </div>
+      {b.seeAll && (
+        <a class="learnmap__seeall" href={b.seeAll.href} lang={b.seeAll.ko ? 'ko' : undefined}>{b.seeAll.label} →</a>
+      )}
+    </div>
+  ))}
+</div>

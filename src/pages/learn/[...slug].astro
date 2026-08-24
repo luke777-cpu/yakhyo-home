@@ -3,12 +3,15 @@ import { getCollection, render } from 'astro:content';
 import LearnLayout from '../../layouts/LearnLayout.astro';
 import categories from '../../data/learn-categories.json';
 import articles from '../../data/articles.json';
+import seriesData from '../../data/series.json';
+import { seriesItemViews, seriesPrevNext, type Series } from '../../lib/series';
+import { url } from '../../lib/url';
 import type { CurveData } from '../../lib/curve';
 
 const normalizeSlug = (value: string) =>
   value
     .normalize('NFKC')
-    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/[​-‍﻿]/g, '')
     .replace(/\.md$/i, '')
     .trim();
 
@@ -22,13 +25,15 @@ const { Content } = await render(entry);
 
 // 글의 분류는 목록 데이터(articles.json) 한 곳에서만 정한다.
 // 파일명/slug에 보이지 않는 문자나 확장자 차이가 있어도 같은 글로 인식한다.
+// 시리즈(series.json)의 한 편인 글은 목록 데이터 없이도 존재할 수 있다 —
+// 시리즈 목차 자체가 이미 그 글의 자리를 설명해 주기 때문이다.
 const entrySlug = normalizeSlug(entry.id);
 const listed = articles.find((a) => normalizeSlug(a.slug) === entrySlug);
-if (!listed) {
-  throw new Error(`src/data/articles.json 에 "${entry.id}" 항목이 없습니다. 목록에 먼저 추가해 주세요.`);
+if (!listed && !entry.data.series) {
+  throw new Error(`src/data/articles.json 에 "${entry.id}" 항목이 없습니다. 목록에 먼저 추가하거나, series 프론트매터로 연재에 포함시켜 주세요.`);
 }
-const category = categories.find((c) => c.slug === listed.category);
-if (!category) {
+const category = listed ? categories.find((c) => c.slug === listed.category) : undefined;
+if (listed && !category) {
   throw new Error(`learn-categories.json 에 "${listed.category}" 분류가 없습니다.`);
 }
 
@@ -37,7 +42,20 @@ const curves = import.meta.glob<{ default: CurveData }>('../../data/curves/*.jso
 const curve = entry.data.curve
   ? curves[`../../data/curves/${entry.data.curve}.json`]?.default
   : undefined;
+
+// 시리즈의 한 편이면 목차와 이전/다음을 계산해 넘긴다.
+let series: { title: string; items: ReturnType<typeof seriesItemViews>; prev: ReturnType<typeof seriesItemViews>[number] | null; next: ReturnType<typeof seriesItemViews>[number] | null } | undefined;
+if (entry.data.series) {
+  const s = (seriesData as Record<string, Series>)[entry.data.series];
+  if (!s) {
+    throw new Error(`src/data/series.json 에 "${entry.data.series}" 시리즈가 없습니다.`);
+  }
+  const written = new Set((await getCollection('learn')).map((e) => e.id));
+  const items = seriesItemViews(s, written, url('/learn/'), entry.id);
+  const { prev, next } = seriesPrevNext(s, written, url('/learn/'), entry.id);
+  series = { title: s.title, items, prev, next };
+}
 ---
-<LearnLayout data={entry.data} category={category} curve={curve}>
+<LearnLayout data={entry.data} category={category ?? { title: series?.title ?? '' }} curve={curve} series={series}>
   <Content />
 </LearnLayout>
