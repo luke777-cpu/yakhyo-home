@@ -32,6 +32,7 @@ export const EN_CURVE_NOTICE =
 export const EN_NAV = [
   { href: '/en/', label: 'Home' },
   { href: '/en/terms/', label: 'Words for the ups and downs' },
+  { href: '/en/learn/', label: 'Learn' },
   { href: '/en/start/', label: 'Getting started' },
 ] as const;
 

@@ -7,12 +7,13 @@ import { url } from '../lib/url';
  * 여기 목록을 보는 편이 어떤 페이지가 있는지 알기 쉽다.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const [concepts, graphs, diary, learn, enTerms] = await Promise.all([
+  const [concepts, graphs, diary, learn, enTerms, enLearn] = await Promise.all([
     getCollection('understand'),
     getCollection('graphs'),
     getCollection('diary'),
     getCollection('learn'),
     getCollection('enTerms'),
+    getCollection('enLearn'),
   ]);
   const paths = [
     '/',
@@ -32,8 +33,10 @@ export const GET: APIRoute = async ({ site }) => {
     // 영문 섹션
     '/en/',
     '/en/terms/',
+    '/en/learn/',
     '/en/start/',
     ...enTerms.map((t) => `/en/terms/${t.id}/`),
+    ...enLearn.map((t) => `/en/learn/${t.id}/`),
   ];
 
   const base = site ?? new URL('http://localhost');

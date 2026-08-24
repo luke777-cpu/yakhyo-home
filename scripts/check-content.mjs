@@ -37,7 +37,10 @@ for (const file of walk(CONTENT)) {
     if (inFrontmatter && /^\s*[a-zA-Z_]+:\s*"/.test(line)) {
       problems.push(`${rel}:${i + 1} 프론트매터 값이 따옴표로 시작합니다 — YAML 이 인용 문자열로 읽습니다`);
     }
-    if (!inFrontmatter && line.includes('/yakhyo-home')) {
+    // 그림(figure)의 이미지 src 는 배포 base 가 필요하므로 허용한다.
+    // 글 사이 '링크'를 하드코딩하는 것만 막는다 — 링크는 related 로 건다.
+    const withoutImages = line.replace(/src="\/yakhyo-home\/images\/[^"]*"/g, '');
+    if (!inFrontmatter && withoutImages.includes('/yakhyo-home')) {
       problems.push(`${rel}:${i + 1} 본문에 배포 경로가 하드코딩되어 있습니다 — related 목록으로 연결하세요`);
     }
   });

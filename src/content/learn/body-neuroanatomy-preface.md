@@ -12,9 +12,9 @@ related:
   - label: 몸으로 배우는 신경해부학 1부
     href: /learn/body-neuroanatomy-part1/
     note: 몸을 움직인다는 것은 무엇인가
-  - label: 움직임을 만드는 회로
-    href: /learn/basal-ganglia/
-    note: 기저핵과 운동회로의 기본 구조
+  - label: 몸으로 배우는 신경해부학 2부
+    href: /learn/body-neuroanatomy-part2/
+    note: 기저핵을 회로로 따라가기
 ---
 
 나는 의과대학에서 신경해부학을 배웠다.
