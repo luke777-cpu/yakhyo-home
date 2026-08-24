@@ -8,9 +8,19 @@
     "build": "node scripts/check-content.mjs && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "check:content": "node scripts/check-content.mjs"
+    "check:content": "node scripts/check-content.mjs",
+    "test:rules": "firebase emulators:exec --only firestore \"node tests/firestore-rules.test.mjs\""
   },
   "dependencies": {
-    "astro": "^7.2.4"
+    "@astrojs/markdown-remark": "^7.2.4",
+    "@bruits/satteri-win32-x64-msvc": "^0.10.5",
+    "astro": "^7.2.4",
+    "firebase": "^12.18.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "firebase-tools": "^15.28.1",
+    "typescript": "^6.0.3"
   }
 }

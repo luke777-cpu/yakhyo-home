@@ -1,0 +1,229 @@
+/* ============================================================
+   인증 · 게시판 화면.
+   기존 팔레트(warm off-white / deep teal)와 간격 토큰을 그대로 쓴다.
+   새 색은 카카오 버튼 두 개뿐이고, 그건 브랜드 규정이라 바꿀 수 없다.
+   ============================================================ */
+
+/* ---------- 폼 ---------- */
+.form { max-width: var(--w-prose); }
+.field + .field { margin-top: var(--sp-4); }
+
+.field__label {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text);
+  margin-bottom: var(--sp-2);
+}
+.field__hint {
+  font-size: var(--fs-caption);
+  color: var(--c-text-3);
+  margin-top: var(--sp-2);
+}
+.field__count { float: right; font-variant-numeric: tabular-nums; }
+
+.input,
+.textarea {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0.75rem 0.875rem;
+  font: inherit;
+  font-size: var(--fs-body);
+  color: var(--c-text);
+  background: #fff;
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.textarea { min-height: 12rem; resize: vertical; line-height: 1.7; }
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
+}
+.input[aria-invalid='true'] { border-color: #a3352b; }
+
+/* ---------- 상태 메시지 ---------- */
+.notice {
+  padding: var(--sp-4);
+  border-radius: 10px;
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+}
+.notice--error  { background: #fbf0ee; color: #7a2a22; border: 1px solid #e8cfca; }
+.notice--ok     { background: var(--c-primary-soft); color: #124f47; border: 1px solid #cfe3de; }
+.notice--info   { background: var(--c-bg-sunken); color: var(--c-text-2); border: 1px solid var(--c-line); }
+.notice[hidden] { display: none; }
+
+/* ---------- 로그인 ---------- */
+.auth { max-width: 26rem; margin: 0 auto; }
+
+.auth__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 52px;                 /* 44px 최소치보다 넉넉하게 — 첫 화면의 주된 동작이다 */
+  padding: 0 var(--sp-4);
+  font: inherit;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.auth__btn + .auth__btn { margin-top: var(--sp-3); }
+.auth__btn:disabled { opacity: 0.55; cursor: not-allowed; }
+/* aria-disabled 는 "지금은 못 쓴다"는 표시일 뿐 클릭은 살아 있다.
+   눌렀을 때 이유를 알려 주기 위해서다. 보이는 모습은 disabled 와 같게 둔다. */
+.auth__btn[aria-disabled='true'] { opacity: 0.55; cursor: not-allowed; }
+.auth__btn[aria-disabled='true']:hover { background: #fee500; }
+
+/* 카카오 브랜드 색. 임의로 바꾸지 않는다. 검정 글자와의 대비는 15:1 이상이다. */
+.auth__btn--kakao { background: #fee500; color: #191600; }
+.auth__btn--kakao:hover:not(:disabled) { background: #f2da00; }
+
+.auth__btn--google { background: #fff; color: var(--c-text); border-color: var(--c-line); }
+.auth__btn--google:hover:not(:disabled) { background: var(--c-bg-sunken); }
+
+.auth__divider {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin: var(--sp-6) 0;
+  font-size: var(--fs-caption); color: var(--c-text-3);
+}
+.auth__divider::before,
+.auth__divider::after { content: ''; flex: 1; height: 1px; background: var(--c-line); }
+
+.auth__switch {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  text-align: center;
+}
+.auth__switch button {
+  font: inherit; font-size: inherit; font-weight: 600;
+  color: var(--c-primary); background: none; border: 0;
+  padding: 0.25rem; cursor: pointer; text-decoration: underline;
+}
+
+/* ---------- 게시판 목록 ---------- */
+.board { max-width: var(--w-prose); }
+.board__list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--c-line); }
+.board__item { border-bottom: 1px solid var(--c-line); }
+
+.board__link {
+  display: block;
+  padding: var(--sp-4) 0;
+  min-height: var(--tap);
+  text-decoration: none;
+  color: inherit;
+}
+.board__link:hover .board__title { color: var(--c-primary); }
+
+.board__title {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--c-text);
+  line-height: 1.5;
+  transition: color 0.15s ease;
+}
+.board__meta {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-caption);
+  color: var(--c-text-3);
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+}
+.board__meta span::after { content: '·'; margin-left: 0.5rem; color: var(--c-line); }
+.board__meta span:last-child::after { content: none; }
+
+.board__empty {
+  padding: var(--sp-12) 0;
+  text-align: center;
+  color: var(--c-text-3);
+  font-size: var(--fs-sm);
+}
+
+/* ---------- 글 본문 · 답글 ---------- */
+.post__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  line-height: 1.35;
+  color: var(--c-text);
+}
+.post__meta {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-caption);
+  color: var(--c-text-3);
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+}
+.post__body {
+  margin-top: var(--sp-6);
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  color: var(--c-text);
+  white-space: pre-wrap;            /* 사용자가 쓴 줄바꿈을 그대로 보여준다 */
+  word-break: break-word;
+}
+
+.comment-list { list-style: none; padding: 0; margin: 0; }
+.comment {
+  padding: var(--sp-4) 0;
+  border-bottom: 1px solid var(--c-line);
+}
+.comment__meta {
+  font-size: var(--fs-caption);
+  color: var(--c-text-3);
+  display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+}
+.comment__author { font-weight: 600; color: var(--c-text-2); }
+.comment__body {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 본인 글에만 보이는 작은 동작 묶음 */
+.owner-actions { display: flex; gap: var(--sp-3); margin-left: auto; }
+.owner-actions button {
+  font: inherit; font-size: var(--fs-caption);
+  color: var(--c-text-3); background: none; border: 0;
+  padding: 0.5rem 0.25rem;          /* 세로 여백으로 터치 영역을 확보 */
+  cursor: pointer; text-decoration: underline;
+}
+.owner-actions button:hover { color: var(--c-text); }
+
+/* ---------- 헤더 로그인 상태 ---------- */
+.authnav { display: flex; align-items: center; gap: var(--sp-3); }
+.authnav__name {
+  font-size: var(--fs-caption);
+  color: var(--c-text-2);
+  max-width: 8rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.authnav__link {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap); padding: 0 0.25rem;
+  font-size: var(--fs-caption); color: var(--c-text-2);
+  text-decoration: none;
+}
+.authnav__link:hover { color: var(--c-primary); text-decoration: underline; }
+.authnav button.authnav__link { background: none; border: 0; font: inherit; font-size: var(--fs-caption); cursor: pointer; }
+.authnav[hidden] { display: none; }
+
+/* 모바일 메뉴 안의 것은 항상 보인다. 헤더의 것만 좁은 화면에서 숨긴다. */
+@media (max-width: 767px) {
+  /* 좁은 화면에서는 헤더가 이미 빡빡하다. 로그인 상태는 모바일 메뉴 안에서 본다. */
+  .authnav:not(.authnav--mobile) { display: none; }
+}
+@media (min-width: 768px) {
+  /* 모바일 메뉴 자체가 안 보이지만, 혹시 열려도 중복 표시되지 않게. */
+  .authnav--mobile { display: none; }
+}
+
+/* ---------- 로딩 ---------- */
+.skeleton { color: var(--c-text-3); font-size: var(--fs-sm); padding: var(--sp-6) 0; }

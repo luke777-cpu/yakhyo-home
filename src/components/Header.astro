@@ -4,6 +4,7 @@ import { url, isActive } from '../lib/url';
 import Icon from './Icon.astro';
 import Wordmark from './Wordmark.astro';
 import MobileNav from './MobileNav.astro';
+import AuthNav from './AuthNav.astro';
 
 const here = Astro.url.pathname;
 ---
@@ -22,6 +23,8 @@ const here = Astro.url.pathname;
         >{item.label}</a>
       ))}
     </nav>
+
+    <AuthNav />
 
     <a class="btn btn--primary header__cta" href={url('/start/')}>시작하기</a>
 

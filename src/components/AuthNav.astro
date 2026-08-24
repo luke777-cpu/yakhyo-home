@@ -1,0 +1,64 @@
+---
+/**
+ * 헤더의 로그인 상태.
+ *
+ * 정적 페이지라 서버가 로그인 여부를 모른다. 그래서 기본값은 "비로그인"으로 그려 두고,
+ * 브라우저에서 세션을 확인한 뒤 바꾼다. 로그인한 사람이 잠깐 「로그인」을 보게 되지만,
+ * 반대(비로그인인데 닉네임이 보이는 것)보다 낫다.
+ *
+ * variant='mobile' 이면 모바일 메뉴 안에 세로로 놓인다.
+ */
+import { url } from '../lib/url';
+
+interface Props { variant?: 'header' | 'mobile'; }
+const { variant = 'header' } = Astro.props;
+const cls = variant === 'mobile' ? 'authnav authnav--mobile' : 'authnav';
+---
+<div class={cls} data-authnav style={variant === 'mobile' ? 'display:flex;gap:var(--sp-4);margin-top:var(--sp-6);flex-wrap:wrap' : undefined}>
+  <a class="authnav__link" href={url('/login/')} data-auth-out>로그인</a>
+
+  <span class="authnav__name" data-auth-in hidden></span>
+  <a class="authnav__link" href={url('/questions/mine/')} data-auth-in hidden>내 글</a>
+  <button class="authnav__link" type="button" data-auth-signout hidden>로그아웃</button>
+</div>
+
+<script>
+  /**
+   * 헤더는 Firebase SDK 를 부르지 않는다.
+   * 이 스크립트가 모든 페이지에 실리므로, 여기서 SDK 를 정적으로 import 하면
+   * 글 읽는 페이지까지 550KB 를 내려받게 된다. 그래서 가벼운 힌트만 읽는다.
+   * 로그아웃을 누를 때만 SDK 를 동적으로 불러온다.
+   */
+  import { readAuthHint, AUTH_HINT_EVENT } from '../lib/authHint';
+
+  const outs = document.querySelectorAll<HTMLElement>('[data-auth-out]');
+  const ins = document.querySelectorAll<HTMLElement>('[data-auth-in]');
+  const signouts = document.querySelectorAll<HTMLButtonElement>('[data-auth-signout]');
+
+  function render() {
+    const hint = readAuthHint();
+    outs.forEach((e) => (e.hidden = !!hint));
+    ins.forEach((e) => (e.hidden = !hint));
+    signouts.forEach((e) => (e.hidden = !hint));
+    if (hint) {
+      document.querySelectorAll<HTMLElement>('.authnav__name').forEach((e) => {
+        e.textContent = hint.nickname ?? '닉네임 정하기';
+      });
+    }
+  }
+  render();
+
+  // 같은 페이지에서 Firebase 가 상태를 확인하면 힌트가 갱신된다.
+  window.addEventListener(AUTH_HINT_EVENT, render);
+  // 다른 탭에서 로그인/로그아웃한 경우.
+  window.addEventListener('storage', render);
+
+  signouts.forEach((btn) =>
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      // 여기서만 SDK 를 부른다. 로그아웃은 세션을 실제로 끊어야 하기 때문이다.
+      const { signOut, absoluteUrl } = await import('../lib/firebase');
+      await signOut();
+      location.assign(absoluteUrl('/'));
+    }));
+</script>

@@ -1,0 +1,12 @@
+{
+  "//": "에뮬레이터와 Rules/색인 배포에만 쓴다. 이 사이트는 Firebase Hosting 을 쓰지 않고 GitHub Pages 에 그대로 있다.",
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "emulators": {
+    "firestore": { "port": 8080 },
+    "ui": { "enabled": false },
+    "singleProjectMode": true
+  }
+}

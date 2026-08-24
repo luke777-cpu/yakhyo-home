@@ -1,0 +1,88 @@
+---
+/**
+ * 질문 목록.
+ *
+ * Firestore 읽기 비용을 생각해 한 번에 20개만 가져오고 "더 보기"로 이어 붙인다.
+ * 실시간 listener 는 쓰지 않는다 — 화면이 열려 있는 동안 계속 과금되기 때문이다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout
+  title="질문게시판"
+  description="약효 기록과 그래프 읽기에 대해 궁금한 점을 올리고 답을 주고받는 곳입니다."
+>
+  <PageHead
+    title="질문게시판"
+    lead="기록하다 막히는 곳, 그래프에서 헷갈리는 곳을 물어보세요. 읽는 것은 로그인 없이도 됩니다."
+  />
+
+  <div class="container">
+    <div class="board">
+      <div class="notice notice--info" style="margin-bottom: var(--sp-6)">
+        여기는 <strong>기록 방법</strong>을 이야기하는 곳입니다.
+        약의 용량이나 복용 시간에 대한 판단은 진료에서 상의하세요.
+      </div>
+
+      <div class="btn-row" style="margin-bottom: var(--sp-6)">
+        <a class="btn btn--primary" href={url('/questions/new/')}>질문 쓰기</a>
+        <a class="btn btn--secondary" href={url('/questions/mine/')} id="mine-link" hidden>내 글</a>
+      </div>
+
+      <div class="notice notice--error" id="err" hidden></div>
+      <p class="skeleton" id="loading">불러오는 중…</p>
+      <ul class="board__list" id="list" hidden></ul>
+      <p class="board__empty" id="empty" hidden>아직 올라온 질문이 없습니다. 첫 질문을 남겨 보세요.</p>
+
+      <div class="btn-row" style="margin-top: var(--sp-6)">
+        <button class="btn btn--secondary" type="button" id="more" hidden>더 보기</button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { isConfigured, SETUP_MESSAGE, listPosts, watchUser, friendlyError, escapeHtml, timeAgo, isHidden, HIDDEN_POST_TEXT } from '../../lib/firebase';
+  import { url } from '../../lib/url';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading'), list = $('list'), empty = $('empty'), more = $('more') as HTMLButtonElement;
+  const show = (msg: string) => { loading.hidden = true; err.textContent = msg; err.hidden = false; };
+
+  let cursor: any = null;
+
+  if (!isConfigured) show(SETUP_MESSAGE);
+  else {
+    watchUser((u) => { $('mine-link').hidden = !u; });
+    void load();
+  }
+
+  async function load() {
+    try {
+      const { rows, last } = await listPosts(cursor ?? undefined);
+      loading.hidden = true;
+      if (!rows.length && !cursor) { empty.hidden = false; more.hidden = true; return; }
+
+      // 사용자가 쓴 값은 전부 escape 한다. 게시판은 서식 없는 글만 받는다.
+      list.insertAdjacentHTML('beforeend', rows.map((p) => `
+        <li class="board__item">
+          <a class="board__link" href="${url('/questions/view/')}?id=${encodeURIComponent(p.id)}">
+            <div class="board__title">${isHidden(p) ? escapeHtml(HIDDEN_POST_TEXT) : escapeHtml(p.title)}</div>
+            <div class="board__meta"><span>${escapeHtml(p.authorNickname)}</span><span>${timeAgo(p.createdAt)}</span></div>
+          </a>
+        </li>`).join(''));
+      list.hidden = false;
+      cursor = last;
+      more.hidden = !last;
+    } catch (e) {
+      show(friendlyError(e, '목록을 불러오지 못했습니다.'));
+    }
+  }
+
+  more.addEventListener('click', async () => {
+    more.disabled = true; more.textContent = '불러오는 중…';
+    await load();
+    more.disabled = false; more.textContent = '더 보기';
+  });
+</script>

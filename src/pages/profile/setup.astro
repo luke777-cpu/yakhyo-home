@@ -1,0 +1,98 @@
+---
+/**
+ * 첫 로그인 뒤 닉네임 정하기. 여기서 받는 것은 닉네임 하나뿐이다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+---
+<BaseLayout
+  title="닉네임 정하기"
+  description="게시판에 표시될 닉네임을 정합니다. 실명은 필요하지 않습니다."
+>
+  <PageHead
+    title="닉네임 정하기"
+    lead="게시판에는 이 이름만 보입니다. 이메일이나 로그인 방법은 다른 사람에게 보이지 않습니다."
+  />
+
+  <div class="container">
+    <div class="auth">
+      <div class="notice notice--error" id="err" hidden></div>
+
+      <form class="form" id="form" novalidate>
+        <div class="field">
+          <label class="field__label" for="nickname">닉네임</label>
+          <input class="input" id="nickname" name="nickname" type="text" required
+                 minlength="2" maxlength="20" autocomplete="off" spellcheck="false" />
+          <p class="field__hint">
+            2~20자. <strong>실명을 쓰지 마세요.</strong> 나중에 바꿀 수 있습니다.
+          </p>
+        </div>
+        <div class="field">
+          <button class="btn btn--primary btn--block" type="submit" id="submit">시작하기</button>
+        </div>
+      </form>
+
+      <p class="field__hint" id="rename-note" hidden style="margin-top: var(--sp-4)">
+        이름을 바꿔도 <strong>이미 올린 글에는 예전 닉네임이 그대로 남습니다.</strong>
+        게시판이 글마다 이름을 따로 적어 두기 때문입니다.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import {
+    isConfigured, SETUP_MESSAGE, absoluteUrl,
+    currentUser, getProfile, claimNicknameAndSaveProfile, friendlyError,
+  } from '../../lib/firebase';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err');
+  const form = $('form') as HTMLFormElement;
+  const input = $('nickname') as HTMLInputElement;
+  const submit = $('submit') as HTMLButtonElement;
+  const show = (msg: string) => { err.textContent = msg; err.hidden = false; };
+
+  let uid: string | null = null;
+
+  if (!isConfigured) { show(SETUP_MESSAGE); submit.disabled = true; }
+  else {
+    void currentUser().then(async (u) => {
+      if (!u) { location.replace(absoluteUrl('/login/')); return; }
+      uid = u.uid;
+      const profile = await getProfile(uid);
+      if (profile) {
+        input.value = profile.nickname;
+        submit.textContent = '닉네임 바꾸기';
+        $('rename-note').hidden = false;
+      }
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    if (!uid) { show(SETUP_MESSAGE); return; }
+
+    const nickname = input.value.trim();
+    if (nickname.length < 2 || nickname.length > 20) {
+      input.setAttribute('aria-invalid', 'true');
+      show('닉네임은 2~20자로 정해 주세요.');
+      return;
+    }
+    input.removeAttribute('aria-invalid');
+
+    submit.disabled = true;
+    const label = submit.textContent;
+    submit.textContent = '저장 중…';
+    try {
+      // 예약 문서와 프로필을 한 트랜잭션으로 묶는다. 중복은 여기서 걸린다.
+      await claimNicknameAndSaveProfile(uid, nickname);
+      location.replace(absoluteUrl('/questions/'));
+    } catch (e2) {
+      submit.disabled = false;
+      submit.textContent = label;
+      show(friendlyError(e2, '닉네임을 저장하지 못했습니다.'));
+    }
+  });
+</script>

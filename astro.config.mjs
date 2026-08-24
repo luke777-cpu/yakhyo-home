@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 /**
  * 배포 대상은 환경변수로만 결정한다.
@@ -16,12 +17,17 @@ const base = process.env.BASE_PATH ?? '/yakhyo-home';
 export default defineConfig({
   site,
   base,
-  // 두 호스팅 모두에서 동일하게 동작하는 조합.
   trailingSlash: 'always',
   build: { format: 'directory' },
   compressHTML: true,
+
   markdown: {
-    shikiConfig: { theme: 'github-light', wrap: true },
+    processor: unified(),
+    shikiConfig: {
+      theme: 'github-light',
+      wrap: true,
+    },
   },
+
   devToolbar: { enabled: false },
 });

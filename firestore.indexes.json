@@ -1,0 +1,35 @@
+{
+  "//": "게시판 질의에 필요한 복합 색인. deletedAt 은 소프트 삭제 필터라 모든 질의에 붙는다.",
+  "indexes": [
+    {
+      "//": "목록: where(deletedAt==null).orderBy(createdAt desc)",
+      "collectionGroup": "yakhyo_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "deletedAt", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "//": "내 글: where(authorId==uid, deletedAt==null).orderBy(createdAt desc)",
+      "collectionGroup": "yakhyo_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "authorId", "order": "ASCENDING" },
+        { "fieldPath": "deletedAt", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "//": "답글: where(postId==id, deletedAt==null).orderBy(createdAt asc)",
+      "collectionGroup": "yakhyo_comments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "postId", "order": "ASCENDING" },
+        { "fieldPath": "deletedAt", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

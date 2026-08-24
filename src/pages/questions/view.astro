@@ -1,0 +1,275 @@
+---
+/**
+ * 질문 상세.
+ *
+ * 정적 빌드라 /questions/<id>/ 같은 동적 경로를 미리 만들 수 없다.
+ * 그래서 한 장의 페이지가 ?id= 를 읽어 내용을 채운다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import BoardNotice from '../../components/BoardNotice.astro';
+import { url } from '../../lib/url';
+---
+<BaseLayout title="질문" description="질문게시판의 글을 봅니다.">
+  <PageHead crumb="질문게시판" crumbHref={url('/questions/')} title="질문" />
+
+  <div class="container">
+    <div class="board">
+      <div class="notice notice--error" id="err" hidden></div>
+      <p class="skeleton" id="loading">불러오는 중…</p>
+
+      <article id="post" hidden>
+        <h2 class="post__title" id="p-title"></h2>
+        <div class="post__meta">
+          <span id="p-author"></span><span id="p-time"></span>
+          <span class="owner-actions" id="p-actions" hidden>
+            <button type="button" id="p-edit">수정</button>
+            <button type="button" id="p-del">삭제</button>
+          </span>
+          <span class="owner-actions" id="p-admin" hidden>
+            <button type="button" id="p-hide">관리자 숨김</button>
+            <button type="button" id="p-ban">사용자 차단</button>
+          </span>
+        </div>
+        <div class="post__body" id="p-body"></div>
+      </article>
+
+      <section style="margin-top: var(--sp-12)" id="comments-area" hidden>
+        <h2 class="section__title" style="font-size: var(--fs-h2)">답글 <span id="c-count"></span></h2>
+        <ul class="comment-list" id="c-list"></ul>
+        <p class="board__empty" id="c-empty" hidden>아직 답글이 없습니다.</p>
+
+        <div style="margin-top: var(--sp-6)" id="c-form-area" hidden>
+          <BoardNotice />
+          <form class="form" id="c-form" novalidate>
+            <div class="field">
+              <label class="field__label" for="c-body">
+                답글 <span class="field__count"><span id="cc">0</span>/2000</span>
+              </label>
+              <textarea class="textarea" id="c-body" required maxlength="2000" style="min-height: 7rem"></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit" id="c-submit">답글 올리기</button>
+          </form>
+        </div>
+        <p class="field__hint" id="c-login" hidden style="margin-top: var(--sp-6)">
+          답글을 쓰려면 <a href={url('/login/')}>로그인</a>이 필요합니다.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import {
+    isConfigured, SETUP_MESSAGE, absoluteUrl, currentUser, getProfile,
+    getPost, softDeletePost, listComments, createComment, updateComment, softDeleteComment,
+    friendlyError, escapeHtml, timeAgo,
+    getAdminStatus, isHidden, HIDDEN_POST_TEXT, HIDDEN_COMMENT_TEXT,
+    adminSetPostModeration, adminSetCommentModeration, adminBanUser,
+  } from '../../lib/firebase';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), loading = $('loading');
+  const show = (msg: string) => { loading.hidden = true; err.textContent = msg; err.hidden = false; };
+
+  const postId = new URLSearchParams(location.search).get('id');
+  let me: string | null = null, myNickname = '', amAdmin = false;
+
+  if (!isConfigured) show(SETUP_MESSAGE);
+  else if (!postId) show('주소에 글 번호가 없습니다. 목록에서 다시 눌러 주세요.');
+  else void load();
+
+  async function load() {
+    try {
+      const u = await currentUser();
+      me = u?.uid ?? null;
+      if (me) {
+        const p = await getProfile(me);
+        myNickname = p?.nickname ?? '';
+        amAdmin = await getAdminStatus();   // 버튼 노출용일 뿐, 실제 권한은 Rules 가 검사한다
+      }
+
+      const post = await getPost(postId!);
+      loading.hidden = true;
+      if (!post) { show('없는 글이거나 지워진 글입니다.'); return; }
+
+      const hidden = isHidden(post);
+      if (hidden && !amAdmin) {
+        // 데이터는 보존하되 내용은 보여주지 않는다.
+        $('p-title').textContent = '숨김 처리된 글';
+        $('p-body').textContent = HIDDEN_POST_TEXT;
+        ($('p-body') as HTMLElement).style.color = 'var(--c-text-weak, #888)';
+      } else {
+        $('p-title').textContent = post.title;
+        $('p-body').textContent = post.body;      // textContent 라 서식이 실행되지 않는다
+        if (hidden) {
+          // 관리자에게는 원문 + 숨김 상태 표시를 같이 보여준다.
+          const mark = document.createElement('p');
+          mark.textContent = `[숨김 상태] ${HIDDEN_POST_TEXT}`;
+          mark.style.color = 'var(--c-danger, #c0392b)';
+          $('p-body').before(mark);
+        }
+      }
+      $('p-author').textContent = post.authorNickname;
+      $('p-time').textContent = timeAgo(post.createdAt);
+      $('post').hidden = false;
+
+      if (me && me === post.authorId && !hidden) {
+        $('p-actions').hidden = false;
+        $('p-edit').addEventListener('click', () => {
+          location.href = `${absoluteUrl('/questions/edit/')}?id=${encodeURIComponent(postId!)}`;
+        });
+        $('p-del').addEventListener('click', () => void removePost());
+      }
+
+      if (amAdmin) {
+        $('p-admin').hidden = false;
+        $('p-hide').textContent = hidden ? '숨김 해제' : '관리자 숨김';
+        $('p-hide').addEventListener('click', async () => {
+          const to = hidden ? 'visible' : 'hidden';
+          const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+          try { await adminSetPostModeration(postId!, to, reason); location.reload(); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
+        $('p-ban').addEventListener('click', async () => {
+          const reason = prompt('차단 사유(관리자만 봅니다)');
+          if (reason === null) return;
+          if (!confirm(`작성자(${post.authorNickname})의 게시판 이용을 제한할까요?`)) return;
+          try { await adminBanUser(post.authorId, reason); alert('차단했습니다.'); }
+          catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+        });
+      }
+
+      $('comments-area').hidden = false;
+      // 닉네임이 없으면 답글도 못 단다(Rules 가 막는다). 그때는 설정으로 안내한다.
+      if (me && myNickname) $('c-form-area').hidden = false; else $('c-login').hidden = false;
+      await refreshComments();
+    } catch (e) {
+      show(friendlyError(e, '글을 불러오지 못했습니다.'));
+    }
+  }
+
+  async function removePost() {
+    if (!confirm('이 질문을 삭제할까요? 목록에서 보이지 않게 됩니다.')) return;
+    try {
+      // hard delete 가 아니다. Rules 에서 delete 는 아예 막혀 있다.
+      await softDeletePost(postId!);
+      location.replace(absoluteUrl('/questions/'));
+    } catch (e) { show(friendlyError(e, '삭제하지 못했습니다.')); }
+  }
+
+  async function refreshComments() {
+    const rows = await listComments(postId!);
+    $('c-count').textContent = rows.length ? String(rows.length) : '';
+    $('c-empty').hidden = rows.length > 0;
+
+    $('c-list').innerHTML = rows.map((c) => {
+      const hidden = isHidden(c as { moderationStatus?: string });
+      const ownerBtns = me === c.authorId && !hidden ? `<span class="owner-actions">
+            <button type="button" data-edit="${escapeHtml(c.id)}">수정</button>
+            <button type="button" data-del="${escapeHtml(c.id)}">삭제</button>
+          </span>` : '';
+      const adminBtns = amAdmin ? `<span class="owner-actions">
+            <button type="button" data-mod="${escapeHtml(c.id)}" data-to="${hidden ? 'visible' : 'hidden'}">${hidden ? '숨김 해제' : '관리자 숨김'}</button>
+            <button type="button" data-banuid="${escapeHtml(c.authorId)}" data-bannick="${escapeHtml(c.authorNickname)}">차단</button>
+          </span>` : '';
+      return `
+      <li class="comment" data-id="${escapeHtml(c.id)}">
+        <div class="comment__meta">
+          <span class="comment__author">${escapeHtml(c.authorNickname)}</span>
+          <span>${timeAgo(c.createdAt)}</span>
+          ${ownerBtns}${adminBtns}
+        </div>
+        <div class="comment__body"></div>
+      </li>`;
+    }).join('');
+
+    // 본문은 textContent 로 넣는다 — 위 템플릿에 사용자 글을 직접 넣지 않기 위해서다.
+    // 숨긴 답글은 내용 대신 안내 문구를 보여준다(데이터는 보존). 관리자는 원문을 본다.
+    rows.forEach((c, i) => {
+      const el = $('c-list').children[i].querySelector('.comment__body') as HTMLElement;
+      const hidden = isHidden(c as { moderationStatus?: string });
+      if (hidden && !amAdmin) { el.textContent = HIDDEN_COMMENT_TEXT; el.style.color = 'var(--c-text-weak, #888)'; }
+      else if (hidden) { el.textContent = `[숨김 상태] ${c.body}`; el.style.color = 'var(--c-danger, #c0392b)'; }
+      else el.textContent = c.body;
+    });
+
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-del]').forEach((b) =>
+      b.addEventListener('click', () => void removeComment(b.dataset.del!)));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-edit]').forEach((b) =>
+      b.addEventListener('click', () => editComment(b.dataset.edit!)));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-mod]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        const to = b.dataset.to as 'visible' | 'hidden';
+        const reason = to === 'hidden' ? (prompt('숨김 사유(관리자 기록용, 선택)') ?? '') : '';
+        try { await adminSetCommentModeration(b.dataset.mod!, to, reason); await refreshComments(); }
+        catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+      }));
+    $('c-list').querySelectorAll<HTMLButtonElement>('[data-banuid]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        const reason = prompt('차단 사유(관리자만 봅니다)');
+        if (reason === null) return;
+        if (!confirm(`작성자(${b.dataset.bannick})의 게시판 이용을 제한할까요?`)) return;
+        try { await adminBanUser(b.dataset.banuid!, reason); alert('차단했습니다.'); }
+        catch (e) { show(friendlyError(e, '처리하지 못했습니다.')); }
+      }));
+  }
+
+  async function removeComment(id: string) {
+    if (!confirm('이 답글을 삭제할까요?')) return;
+    try { await softDeleteComment(id); await refreshComments(); }
+    catch (e) { show(friendlyError(e, '삭제하지 못했습니다.')); }
+  }
+
+  function editComment(id: string) {
+    const li = $('c-list').querySelector(`li[data-id="${CSS.escape(id)}"]`)!;
+    const bodyEl = li.querySelector('.comment__body') as HTMLElement;
+    if (li.querySelector('textarea')) return;   // 이미 고치는 중
+
+    const ta = document.createElement('textarea');
+    ta.className = 'textarea'; ta.value = bodyEl.textContent ?? ''; ta.maxLength = 2000;
+    ta.style.minHeight = '6rem';
+    const row = document.createElement('div');
+    row.className = 'btn-row'; row.style.marginTop = 'var(--sp-3)';
+    const save = document.createElement('button');
+    save.className = 'btn btn--primary'; save.type = 'button'; save.textContent = '저장';
+    const cancel = document.createElement('button');
+    cancel.className = 'btn btn--secondary'; cancel.type = 'button'; cancel.textContent = '취소';
+    row.append(save, cancel);
+    bodyEl.replaceWith(ta); ta.after(row); ta.focus();
+
+    cancel.addEventListener('click', () => void refreshComments());
+    save.addEventListener('click', async () => {
+      const v = ta.value.trim();
+      if (!v) { show('답글 내용을 비울 수 없습니다.'); return; }
+      save.disabled = true;
+      try { await updateComment(id, v); await refreshComments(); }
+      catch (e) { save.disabled = false; show(friendlyError(e, '수정하지 못했습니다.')); }
+    });
+  }
+
+  const cBody = document.getElementById('c-body') as HTMLTextAreaElement | null;
+  if (cBody) {
+    const cc = $('cc');
+    cBody.addEventListener('input', () => { cc.textContent = String(cBody.value.length); });
+    ($('c-form') as HTMLFormElement).addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      if (!me || !postId) { show('로그인이 필요합니다.'); return; }
+      const v = cBody.value.trim();
+      if (!v) { show('답글 내용을 써 주세요.'); return; }
+
+      const submit = $('c-submit') as HTMLButtonElement;
+      submit.disabled = true; submit.textContent = '올리는 중…';
+      try {
+        await createComment(postId, me, myNickname, v);
+        cBody.value = ''; cc.textContent = '0';
+        await refreshComments();
+      } catch (e2) {
+        show(friendlyError(e2, '답글을 올리지 못했습니다.'));
+      } finally {
+        submit.disabled = false; submit.textContent = '답글 올리기';
+      }
+    });
+  }
+</script>

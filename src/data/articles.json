@@ -70,6 +70,20 @@
     "status": "published"
   },
   {
+    "slug": "body-pharmacology-part1",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 1부 — 약은 몸속에서 어떻게 움직이는가",
+    "summary": "약을 삼킨 순간부터 첫 신호, ON, 최고점, 하강과 OFF까지. 책의 약리학을 실제 몸의 시간축으로 다시 읽어봅니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-pharmacology-part2",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 2부 — 레보도파를 몸으로 배우다",
+    "summary": "같은 레보도파가 왜 어떤 날은 빨리 듣고 어떤 날은 늦게 듣는지, Delayed ON·Incomplete ON·ON failure·Wearing-off를 몸의 곡선으로 읽습니다.",
+    "status": "published"
+  },
+  {
     "slug": "levodopa-basics",
     "category": "pharmacology",
     "title": "레보도파가 흡수되는 경로",
@@ -77,10 +91,24 @@
     "status": "preparing"
   },
   {
-    "slug": "basal-ganglia",
+    "slug": "body-neuroanatomy-preface",
     "category": "neuroanatomy",
-    "title": "움직임을 만드는 회로",
-    "summary": "기저핵과 운동 회로에 대한 아주 짧은 소개.",
-    "status": "preparing"
+    "title": "몸으로 배우는 신경해부학 — 서문",
+    "summary": "평지에서는 첫발이 어렵고 계단에서는 움직일 수 있는 이유를 질문하며, 구조 암기가 아닌 움직임의 회로로 신경해부학을 다시 시작합니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part1",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 1부 — 몸을 움직인다는 것",
+    "summary": "근육의 힘만으로 설명되지 않는 첫발, 동결보행, 계단과 시각 cue를 통해 운동피질과 기저핵, 보상회로를 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part2",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 2부 — 기저핵, 움직임을 선택하는 시스템",
+    "summary": "미상핵·조가비핵·담창구·시상하핵·흑질을 아틀라스와 회로도로 따라가며, 첫발과 서동이 왜 생기는지 연결합니다.",
+    "status": "published"
   }
 ]

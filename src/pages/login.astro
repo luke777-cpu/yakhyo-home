@@ -1,0 +1,154 @@
+---
+/**
+ * 로그인.
+ *
+ * 한국 사용자가 우선이라 카카오를 맨 위에 두었지만, **아직 눌리지 않는다.**
+ * Firebase 는 카카오를 기본 제공하지 않아 안전한 서버가 필요하다.
+ * 이유와 앞으로의 계획은 docs/FIREBASE-KAKAO-AUTH.md 에 있다.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+---
+<BaseLayout
+  title="로그인"
+  description="약효일지 질문게시판에 글을 쓰려면 로그인이 필요합니다. Google 또는 이메일로 시작할 수 있습니다."
+>
+  <PageHead
+    title="로그인"
+    lead="질문을 쓰거나 답글을 달 때만 필요합니다. 읽는 것은 로그인 없이도 됩니다."
+  />
+
+  <div class="container">
+    <div class="auth">
+      <div class="notice notice--error" id="err" hidden></div>
+      <div class="notice notice--ok" id="ok" hidden></div>
+
+      <!--
+        disabled 를 쓰지 않는다. disabled 버튼은 click 이 발생하지 않아 눌러도 아무 일이 없고,
+        키보드 포커스도 잡히지 않아 화면 낭독기 사용자가 이유를 알 방법이 없다.
+        aria-disabled 로 "지금은 못 쓴다"를 알리되, 누르면 왜인지 말해 준다.
+      -->
+      <button class="auth__btn auth__btn--kakao" type="button" id="kakao"
+              aria-disabled="true" aria-describedby="kakao-note">
+        카카오로 시작하기 <span style="font-weight: 400">(준비 중)</span>
+      </button>
+      <p class="field__hint" id="kakao-note" style="margin-top: var(--sp-2)">
+        카카오 로그인은 준비 중입니다. 그동안은 Google이나 이메일을 이용해 주세요.
+      </p>
+
+      <div style="margin-top: var(--sp-4)">
+        <button class="auth__btn auth__btn--google" type="button" id="google">
+          Google로 계속하기
+        </button>
+      </div>
+
+      <div class="auth__divider">또는 이메일로</div>
+
+      <form class="form" id="email-form" novalidate>
+        <div class="field">
+          <label class="field__label" for="email">이메일</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label class="field__label" for="password">비밀번호</label>
+          <input class="input" id="password" name="password" type="password" autocomplete="current-password" required minlength="8" />
+          <p class="field__hint" id="pw-hint">8자 이상</p>
+        </div>
+        <div class="field">
+          <button class="btn btn--primary btn--block" type="submit" id="submit">로그인</button>
+        </div>
+      </form>
+
+      <p class="auth__switch">
+        <span id="switch-text">아직 계정이 없으신가요?</span>
+        <button type="button" id="switch">회원가입</button>
+      </p>
+
+      <p class="field__hint" style="margin-top: var(--sp-6); text-align: center">
+        가입할 때 받는 것은 <strong>닉네임</strong>뿐입니다.
+        실명, 전화번호, 주소는 묻지 않습니다.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import {
+    isConfigured, SETUP_MESSAGE, KAKAO_PENDING_MESSAGE, absoluteUrl,
+    signInWithGoogle, signInWithEmail, signUpWithEmail,
+    currentUser, getProfile, friendlyError,
+  } from '../lib/firebase';
+
+  const $ = (id: string) => document.getElementById(id)!;
+  const err = $('err'), ok = $('ok');
+  const form = $('email-form') as HTMLFormElement;
+  const submit = $('submit') as HTMLButtonElement;
+  const pwInput = $('password') as HTMLInputElement;
+
+  let mode: 'signin' | 'signup' = 'signin';
+  const show = (el: HTMLElement, msg: string) => { el.textContent = msg; el.hidden = false; };
+  const clear = () => { err.hidden = true; ok.hidden = true; };
+
+  /** 로그인 뒤 갈 곳은 닉네임 유무가 정한다. */
+  async function goAfterLogin(uid: string) {
+    const profile = await getProfile(uid);
+    location.replace(profile ? absoluteUrl('/questions/') : absoluteUrl('/profile/setup/'));
+  }
+
+  if (!isConfigured) show(err, SETUP_MESSAGE);
+  else void currentUser().then((u) => { if (u) void goAfterLogin(u.uid); });
+
+  // 카카오는 아직 못 쓰지만, 눌러 보는 사람에게 이유를 알려 준다.
+  // 설정 안내가 떠 있어도 이 메시지로 바꾼다 — 카카오가 안 되는 것은 설정 문제가 아니기 때문이다.
+  $('kakao').addEventListener('click', () => { clear(); show(err, KAKAO_PENDING_MESSAGE); });
+
+  $('google').addEventListener('click', async () => {
+    clear();
+    if (!isConfigured) { show(err, SETUP_MESSAGE); return; }
+    const btn = $('google') as HTMLButtonElement;
+    btn.disabled = true;
+    try {
+      const user = await signInWithGoogle();
+      await goAfterLogin(user.uid);
+    } catch (e) {
+      btn.disabled = false;
+      show(err, friendlyError(e, '로그인하지 못했습니다.'));
+    }
+  });
+
+  $('switch').addEventListener('click', () => {
+    mode = mode === 'signin' ? 'signup' : 'signin';
+    submit.textContent = mode === 'signin' ? '로그인' : '가입하기';
+    $('switch-text').textContent = mode === 'signin' ? '아직 계정이 없으신가요?' : '이미 계정이 있으신가요?';
+    $('switch').textContent = mode === 'signin' ? '회원가입' : '로그인';
+    pwInput.autocomplete = mode === 'signin' ? 'current-password' : 'new-password';
+    $('pw-hint').textContent = mode === 'signin' ? '8자 이상' : '8자 이상으로 정해 주세요';
+    clear();
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clear();
+    if (!isConfigured) { show(err, SETUP_MESSAGE); return; }
+
+    const email = ($('email') as HTMLInputElement).value.trim();
+    const password = pwInput.value;
+    if (!email || password.length < 8) { show(err, '이메일과 8자 이상의 비밀번호를 입력해 주세요.'); return; }
+
+    submit.disabled = true;
+    const label = mode === 'signin' ? '로그인' : '가입하기';
+    submit.textContent = '잠시만요…';
+
+    try {
+      const user = mode === 'signup'
+        ? await signUpWithEmail(email, password)
+        : await signInWithEmail(email, password);
+      if (mode === 'signup') show(ok, '확인 메일을 보냈습니다. 지금 바로 이용하실 수 있고, 메일 링크는 나중에 눌러도 됩니다.');
+      await goAfterLogin(user.uid);
+    } catch (e2) {
+      submit.disabled = false;
+      submit.textContent = label;
+      show(err, friendlyError(e2, mode === 'signup' ? '가입하지 못했습니다.' : '로그인하지 못했습니다.'));
+    }
+  });
+</script>

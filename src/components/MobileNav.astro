@@ -3,6 +3,7 @@ import nav from '../data/nav.json';
 import { url, isActive } from '../lib/url';
 import Icon from './Icon.astro';
 import Wordmark from './Wordmark.astro';
+import AuthNav from './AuthNav.astro';
 
 const here = Astro.url.pathname;
 ---
@@ -32,6 +33,8 @@ const here = Astro.url.pathname;
         ))}
       </ul>
     </nav>
+
+    <AuthNav variant="mobile" />
   </div>
 </div>
 
