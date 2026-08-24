@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">기저핵 해부학 아틀라스</title>
+  <desc id="desc">대뇌 피질 아래에 위치한 미상핵, 조가비핵, 담창구, 시상, 시상하핵, 흑질의 위치 관계를 단순화한 교육용 도식</desc>
+  <rect width="1200" height="760" rx="28" fill="#f7f8fb"/>
+  <text x="60" y="72" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#1f2937">Basal Ganglia Atlas</text>
+  <text x="60" y="108" font-size="20" font-family="Arial, sans-serif" fill="#4b5563">기저핵의 위치 관계 — 교육용 단순화 도식</text>
+
+  <path d="M175 210 C250 120 420 95 560 145 C680 92 860 115 960 220 C1040 305 1028 450 955 545 C875 650 700 675 575 615 C455 675 275 640 190 535 C115 440 108 305 175 210Z" fill="#eef2f7" stroke="#94a3b8" stroke-width="5"/>
+  <path d="M575 155 C548 245 546 510 575 606" fill="none" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="10 10"/>
+
+  <ellipse cx="405" cy="280" rx="95" ry="52" fill="#93c5fd" stroke="#2563eb" stroke-width="4"/>
+  <ellipse cx="740" cy="280" rx="95" ry="52" fill="#93c5fd" stroke="#2563eb" stroke-width="4"/>
+  <text x="367" y="289" font-size="23" font-family="Arial, sans-serif" font-weight="700" fill="#123c69">Caudate</text>
+  <text x="703" y="289" font-size="23" font-family="Arial, sans-serif" font-weight="700" fill="#123c69">Caudate</text>
+
+  <ellipse cx="380" cy="410" rx="105" ry="72" fill="#86efac" stroke="#16a34a" stroke-width="4"/>
+  <ellipse cx="765" cy="410" rx="105" ry="72" fill="#86efac" stroke="#16a34a" stroke-width="4"/>
+  <text x="338" y="418" font-size="24" font-family="Arial, sans-serif" font-weight="700" fill="#14532d">Putamen</text>
+  <text x="722" y="418" font-size="24" font-family="Arial, sans-serif" font-weight="700" fill="#14532d">Putamen</text>
+
+  <ellipse cx="505" cy="410" rx="70" ry="62" fill="#fde68a" stroke="#ca8a04" stroke-width="4"/>
+  <ellipse cx="640" cy="410" rx="70" ry="62" fill="#fde68a" stroke="#ca8a04" stroke-width="4"/>
+  <line x1="487" y1="354" x2="487" y2="466" stroke="#ca8a04" stroke-width="3"/>
+  <line x1="658" y1="354" x2="658" y2="466" stroke="#ca8a04" stroke-width="3"/>
+  <text x="468" y="402" font-size="19" font-family="Arial, sans-serif" font-weight="700" fill="#713f12">GPe</text>
+  <text x="512" y="432" font-size="19" font-family="Arial, sans-serif" font-weight="700" fill="#713f12">GPi</text>
+  <text x="606" y="432" font-size="19" font-family="Arial, sans-serif" font-weight="700" fill="#713f12">GPi</text>
+  <text x="666" y="402" font-size="19" font-family="Arial, sans-serif" font-weight="700" fill="#713f12">GPe</text>
+
+  <ellipse cx="572" cy="330" rx="92" ry="48" fill="#c4b5fd" stroke="#7c3aed" stroke-width="4"/>
+  <text x="525" y="339" font-size="23" font-family="Arial, sans-serif" font-weight="700" fill="#4c1d95">Thalamus</text>
+
+  <ellipse cx="572" cy="515" rx="72" ry="30" fill="#fca5a5" stroke="#dc2626" stroke-width="4"/>
+  <text x="545" y="523" font-size="20" font-family="Arial, sans-serif" font-weight="700" fill="#7f1d1d">STN</text>
+
+  <path d="M485 575 Q572 545 660 575 Q630 625 572 632 Q515 625 485 575Z" fill="#a7f3d0" stroke="#059669" stroke-width="4"/>
+  <text x="515" y="598" font-size="21" font-family="Arial, sans-serif" font-weight="700" fill="#064e3b">Substantia nigra</text>
+
+  <g font-family="Arial, sans-serif" font-size="18" fill="#374151">
+    <text x="70" y="690">Caudate + Putamen = Striatum(선조체)</text>
+    <text x="70" y="720">GPe/GPi = Globus pallidus external/internal, STN = Subthalamic nucleus</text>
+  </g>
+
+  <g stroke="#64748b" stroke-width="2.5" fill="none">
+    <path d="M285 280 L170 255"/>
+    <path d="M275 410 L145 410"/>
+    <path d="M572 282 L572 220"/>
+    <path d="M505 472 L450 530"/>
+    <path d="M572 545 L572 565"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="18" fill="#334155">
+    <text x="72" y="250">미상핵</text>
+    <text x="72" y="415">조가비핵</text>
+    <text x="535" y="205">시상</text>
+    <text x="322" y="550">담창구</text>
+    <text x="590" y="562">시상하핵</text>
+  </g>
+</svg>
