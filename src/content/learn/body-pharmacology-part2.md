@@ -2,6 +2,7 @@
 title: 몸으로 쓰는 약리학 2부 — 레보도파를 몸으로 배우다
 description: 같은 레보도파가 왜 어떤 날은 빨리 듣고 어떤 날은 늦게 듣는지, Delayed ON·Incomplete ON·ON failure·Wearing-off를 실제 몸의 곡선으로 풀어봅니다.
 lead: 처방전에는 같은 100mg이라고 적혀 있어도 몸에서 만들어지는 결과는 같지 않습니다. 레보도파의 흡수, 문턱값, 시작점과 시간축을 따라가면 그 차이가 조금씩 보입니다.
+series: pharmacology
 order: 21
 expressions: []
 reasons: []

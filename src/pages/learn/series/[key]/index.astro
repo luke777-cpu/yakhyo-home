@@ -1,0 +1,51 @@
+---
+/**
+ * 시리즈(연재) 소개 페이지 — /learn/series/pharmacology/, /learn/series/neuroanatomy/
+ * 제목·순서는 src/data/series.json 하나에서만 관리한다 (섹션 12번 지시).
+ * 글이 없는 편은 링크 대신 "준비 중" 배지만 보인다.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import PageHead from '../../../../components/PageHead.astro';
+import Callout from '../../../../components/Callout.astro';
+import SeriesToc from '../../../../components/SeriesToc.astro';
+import series from '../../../../data/series.json';
+import { seriesItemViews, seriesProgress, type Series } from '../../../../lib/series';
+import { url } from '../../../../lib/url';
+
+export async function getStaticPaths() {
+  return Object.keys(series).map((key) => ({ params: { key } }));
+}
+
+const { key } = Astro.params;
+const data = (series as Record<string, Series>)[key as string];
+
+const written = new Set((await getCollection('learn')).map((e) => e.id));
+const items = seriesItemViews(data, written, url('/learn/'));
+const progress = seriesProgress(data, written);
+---
+<BaseLayout
+  title={data.title}
+  description={`${data.summary} 총 ${progress.total}편 가운데 ${progress.done}편이 공개되어 있습니다.`}
+>
+  <PageHead crumb="배우기" crumbHref={url('/learn/')} title={data.title} lead={data.summary} />
+
+  <div class="container">
+    {progress.done < progress.total && (
+      <Callout tone="plain" class="prose-width">
+        <p>
+          아직 쓰이지 않은 편은 목차만 먼저 볼 수 있도록 준비 중 표시로 남겨 두었습니다. 한 편씩 올라오는 대로
+          여기서 바로 열립니다.
+        </p>
+      </Callout>
+    )}
+
+    <div style={`margin-top: var(--sp-${progress.done < progress.total ? '8' : '2'}); max-width: var(--w-prose)`}>
+      <SeriesToc title={`전체 ${progress.total}편 가운데 ${progress.done}편 공개`} items={items} />
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      <a href={url('/learn/map/')}>학습지도에서 다른 주제도 보기</a>
+    </p>
+  </div>
+</BaseLayout>

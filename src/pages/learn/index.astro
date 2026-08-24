@@ -8,6 +8,7 @@ import TocList from '../../components/TocList.astro';
 import categories from '../../data/learn-categories.json';
 import articles from '../../data/articles.json';
 import videos from '../../data/videos.json';
+import series from '../../data/series.json';
 import { url } from '../../lib/url';
 
 // 글이 없는데 published로 표시된 항목이 있으면 빌드를 멈춘다.
@@ -46,8 +47,27 @@ const byCategory = categories
   />
 
   <div class="container">
+    <!-- 빠른 진입 — 긴 목록을 내려가기 전에 먼저 큰 구조를 고를 수 있게 한다 -->
+    <div class="grid grid--3">
+      <a class="card" href={url('/learn/map/')}>
+        <p class="card__eyebrow">전체 구조</p>
+        <h2 class="card__title">학습지도</h2>
+        <p class="card__desc">약효일지의 기록, 그래프, 배우기, 앱 안내를 한눈에 봅니다.</p>
+      </a>
+      <a class="card" href={url('/learn/series/pharmacology/')}>
+        <p class="card__eyebrow">연재</p>
+        <h2 class="card__title">{series.pharmacology.title}</h2>
+        <p class="card__desc">{series.pharmacology.summary}</p>
+      </a>
+      <a class="card" href={url('/learn/series/neuroanatomy/')}>
+        <p class="card__eyebrow">연재</p>
+        <h2 class="card__title">{series.neuroanatomy.title}</h2>
+        <p class="card__desc">{series.neuroanatomy.summary}</p>
+      </a>
+    </div>
+
     {byCategory.map((c) => (
-      <section style="margin-top: var(--sp-16)">
+      <section id={c.slug} style="margin-top: var(--sp-16); scroll-margin-top: var(--sp-16)">
         <h2 class="section__title">{c.title}</h2>
         <p class="section__lead">{c.summary}</p>
         <div style="margin-top: var(--sp-6)">

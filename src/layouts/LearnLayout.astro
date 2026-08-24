@@ -13,9 +13,12 @@ import DayCurve from '../components/DayCurve.astro';
 import Callout from '../components/Callout.astro';
 import FAQ from '../components/FAQ.astro';
 import RelatedContent from '../components/RelatedContent.astro';
+import SeriesToc from '../components/SeriesToc.astro';
+import PrevNextNav from '../components/PrevNextNav.astro';
 import Button from '../components/Button.astro';
 import { url } from '../lib/url';
 import type { CurveData } from '../lib/curve';
+import type { SeriesItemView } from '../lib/series';
 
 interface Props {
   data: {
@@ -33,20 +36,33 @@ interface Props {
   };
   category: { title: string };
   curve?: CurveData;
+  /**
+   * 이 글이 연재의 한 편일 때만 넘어온다 (content.config.ts 의 learn.series 참고).
+   * 넘어오면 breadcrumb 이 시리즈 이름을 함께 보여주고, 본문 앞뒤로 목차와
+   * 이전/다음 이동이 붙는다.
+   */
+  series?: { title: string; items: SeriesItemView[]; prev: SeriesItemView | null; next: SeriesItemView | null };
 }
 
-const { data, category, curve } = Astro.props;
+const { data, category, curve, series } = Astro.props;
 const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+const crumb = series ? `배우기 · ${series.title}` : `배우기 · ${category.title}`;
 ---
 <BaseLayout title={data.title} description={data.description}>
   <PageHead
-    crumb={`배우기 · ${category.title}`}
+    crumb={crumb}
     crumbHref={url('/learn/')}
     title={data.title}
     lead={data.lead}
   />
 
   <div class="container">
+    {series && (
+      <div style="margin-bottom: var(--sp-10); max-width: var(--w-prose)">
+        <SeriesToc title={series.title} items={series.items} />
+      </div>
+    )}
+
     {curve ? (
       <section class="concept__section" aria-labelledby="s-graph">
         <h2 id="s-graph">그래프로 보면</h2>
@@ -134,6 +150,8 @@ const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : nu
     )}
 
     {related.length > 0 && <RelatedContent items={related} />}
+
+    {series && <PrevNextNav prev={series.prev} next={series.next} />}
 
     <section class="concept__section" aria-labelledby="s-cta">
       <h2 id="s-cta" class="sr-only">기록 시작하기</h2>

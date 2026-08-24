@@ -1,0 +1,35 @@
+---
+/** 연재 글 하단의 이전/다음 이동. 시리즈 목차로 돌아가지 않고 계속 읽을 수 있게 한다. */
+import Icon from './Icon.astro';
+import type { SeriesItemView } from '../lib/series';
+
+interface Props {
+  prev: SeriesItemView | null;
+  next: SeriesItemView | null;
+  /** 이 nav 의 접근성 라벨. 영문 페이지에서만 다른 값을 넘긴다. */
+  navLabel?: string;
+  class?: string;
+}
+
+const { prev, next, navLabel = '연재 이동', class: className = '' } = Astro.props;
+---
+{(prev?.href || next?.href) && (
+  <nav class={`prevnext ${className}`} aria-label={navLabel}>
+    <div class="prevnext__side">
+      {prev?.href && (
+        <a class="prevnext__link prevnext__link--prev" href={prev.href}>
+          <Icon name="arrow-left" size={18} class="prevnext__icon" />
+          <span>{prev.title}</span>
+        </a>
+      )}
+    </div>
+    <div class="prevnext__side prevnext__side--next">
+      {next?.href && (
+        <a class="prevnext__link prevnext__link--next" href={next.href}>
+          <span>{next.title}</span>
+          <Icon name="arrow-right" size={18} class="prevnext__icon" />
+        </a>
+      )}
+    </div>
+  </nav>
+)}

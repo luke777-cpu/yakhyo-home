@@ -11,6 +11,7 @@ import { EN_SITE, EN_GRAPH_LABELS, enCurve, describeEn } from '../../lib/en';
 import dayTypical from '../../data/curves/day-typical.json';
 import singleDose from '../../data/curves/single-dose.json';
 import terms from '../../data/en/terms.json';
+import series from '../../data/en/series.json';
 import type { CurveData } from '../../lib/curve';
 
 const termBySlug = new Map(terms.map((t) => [t.slug, t]));
@@ -148,6 +149,24 @@ const timeline = [
     <p style="margin-top: var(--sp-8)">
       <a class="link-arrow" href={url('/en/terms/')}>See all of them <Icon name="arrow-right" size={18} /></a>
     </p>
+  </Section>
+
+  <!-- 5.5 — 두 강좌 -->
+  <Section eyebrow="Courses" title="Two background courses, taught through the body">
+    <div class="grid grid--2">
+      <a class="card" href={url('/en/learn/series/pharmacology/')}>
+        <p class="card__eyebrow">Pharmacology</p>
+        <h3 class="card__title">{series.pharmacology.title}</h3>
+        <p class="card__desc">{series.pharmacology.summary}</p>
+        <p class="card__foot">See the pharmacology course →</p>
+      </a>
+      <a class="card" href={url('/en/learn/series/neuroanatomy/')}>
+        <p class="card__eyebrow">Neuroanatomy</p>
+        <h3 class="card__title">{series.neuroanatomy.title}</h3>
+        <p class="card__desc">{series.neuroanatomy.summary}</p>
+        <p class="card__foot">See the neuroanatomy course →</p>
+      </a>
+    </div>
   </Section>
 
   <!-- 6 — 한국어 안내 -->

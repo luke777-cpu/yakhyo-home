@@ -14,6 +14,7 @@ import singleDose from '../data/curves/single-dose.json';
 import symptoms from '../data/symptoms.json';
 import concepts from '../data/concepts.json';
 import videos from '../data/videos.json';
+import series from '../data/series.json';
 import type { CurveData } from '../lib/curve';
 
 const conceptBySlug = new Map(concepts.map((c) => [c.slug, c]));
@@ -184,27 +185,22 @@ const timeline = [
     </p>
   </Section>
 
-  <!-- 7 — 몸으로 쓰는 약리학 연재 -->
-  <Section
-    eyebrow="파킨슨 약리학"
-    title="몸으로 쓰는 약리학"
-    lead="책에서 배운 약리학을 실제 몸의 시간축 위에서 다시 읽습니다."
-  >
-    <ul class="termlist">
-      <li class="termlist__item">
-        <a class="termlist__row" href={url('/learn/body-pharmacology-part1/')}>
-          <span>
-            <span class="termlist__term">1부</span>
-            <span class="termlist__title">약은 몸속에서 어떻게 움직이는가</span>
-            <span class="termlist__desc">약을 삼킨 순간부터 첫 신호, ON, 최고점, 하강과 OFF까지. 혈중농도와 몸의 출력 곡선을 함께 생각해 봅니다.</span>
-          </span>
-          <span class="termlist__state" aria-hidden="true">→</span>
-        </a>
-      </li>
-    </ul>
-    <p style="margin-top: var(--sp-8)">
-      <a class="link-arrow" href={url('/learn/')}>배우기 전체 보기 <Icon name="arrow-right" size={18} /></a>
-    </p>
+  <!-- 7 — 몸으로 쓰는 두 연재 -->
+  <Section eyebrow="연재" title="몸으로 배우는 두 가지 배경 지식">
+    <div class="grid grid--2">
+      <a class="card" href={url('/learn/series/pharmacology/')}>
+        <p class="card__eyebrow">약리학</p>
+        <h3 class="card__title">{series.pharmacology.title}</h3>
+        <p class="card__desc">{series.pharmacology.summary}</p>
+        <p class="card__foot">약리학 강좌 보기 →</p>
+      </a>
+      <a class="card" href={url('/learn/series/neuroanatomy/')}>
+        <p class="card__eyebrow">신경해부학</p>
+        <h3 class="card__title">{series.neuroanatomy.title}</h3>
+        <p class="card__desc">{series.neuroanatomy.summary}</p>
+        <p class="card__foot">신경해부학 강좌 보기 →</p>
+      </a>
+    </div>
   </Section>
 
   <!-- 8 — YouTube : 올라온 영상이 있을 때만 카드로 보여준다.

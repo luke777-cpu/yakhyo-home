@@ -1,0 +1,33 @@
+{
+  "pharmacology": {
+    "slug": "pharmacology",
+    "title": "Pharmacology Through My Own Body",
+    "summary": "A doctor-patient relearns pharmacology — not as plasma graphs in a textbook, but as the daily curve a person with Parkinson's disease feels in the body.",
+    "items": [
+      { "slug": "body-pharmacology-part1", "order": 1, "title": "Part 1 — How Does a Drug Move Through the Body?" },
+      { "slug": "body-pharmacology-part2", "order": 2, "title": "Part 2 — Learning Levodopa with the Body" },
+      { "slug": "body-pharmacology-part3", "order": 3, "title": "Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much" },
+      { "slug": "body-pharmacology-part4", "order": 4, "title": "Part 4 — What It Means to Combine Medications" },
+      { "slug": "body-pharmacology-part5", "order": 5, "title": "Part 5 — Making a Laboratory of My Own Body" },
+      { "slug": "body-pharmacology-part6", "order": 6, "title": "Part 6 — The Moment a Record Becomes Pharmacology" },
+      { "slug": "body-pharmacology-final", "order": 7, "title": "Closing Chapter — What My Body Taught Me About Pharmacology" }
+    ]
+  },
+  "neuroanatomy": {
+    "slug": "neuroanatomy",
+    "title": "Neuroanatomy Through the Body",
+    "summary": "Why does the body stop, and move again? Starting from lived experience — freezing, stairs, visual lines — and following the motor circuits.",
+    "items": [
+      { "slug": "body-neuroanatomy-preface", "order": 0, "title": "Preface" },
+      { "slug": "body-neuroanatomy-part1", "order": 1, "title": "Part 1 — What It Means to Move" },
+      { "slug": "body-neuroanatomy-part2", "order": 2, "title": "Part 2 — The Basal Ganglia, the System That Selects Movement" },
+      { "slug": "body-neuroanatomy-part3", "order": 3, "title": "Part 3 — The Direct and Indirect Pathways" },
+      { "slug": "body-neuroanatomy-part4", "order": 4, "title": "Part 4 — Why the Feet Stick to the Floor" },
+      { "slug": "body-neuroanatomy-part5", "order": 5, "title": "Part 5 — Why Stairs Are Sometimes Easier" },
+      { "slug": "body-neuroanatomy-part6", "order": 6, "title": "Part 6 — Where Dyskinesia Is Made" },
+      { "slug": "body-neuroanatomy-part7", "order": 7, "title": "Part 7 — Why Tremor Is Yet Another Circuit" },
+      { "slug": "body-neuroanatomy-part8", "order": 8, "title": "Part 8 — Not a Disease of Movement Alone" },
+      { "slug": "body-neuroanatomy-part9", "order": 9, "title": "Part 9 — Where DBS Stimulates" }
+    ]
+  }
+}
