@@ -49,17 +49,17 @@ const byCategory = categories
   <div class="container">
     <!-- 빠른 진입 — 긴 목록을 내려가기 전에 먼저 큰 구조를 고를 수 있게 한다 -->
     <div class="grid grid--3">
-      <a class="card" href={url('/learn/map/')}>
+      <a class="card" href={url('/learn/map/')} data-gtag-event="course_card_click" data-gtag-course-name="learning_map">
         <p class="card__eyebrow">전체 구조</p>
         <h2 class="card__title">학습지도</h2>
         <p class="card__desc">약효일지의 기록, 그래프, 배우기, 앱 안내를 한눈에 봅니다.</p>
       </a>
-      <a class="card" href={url('/learn/series/pharmacology/')}>
+      <a class="card" href={url('/learn/series/pharmacology/')} data-gtag-event="course_card_click" data-gtag-course-name="pharmacology">
         <p class="card__eyebrow">연재</p>
         <h2 class="card__title">{series.pharmacology.title}</h2>
         <p class="card__desc">{series.pharmacology.summary}</p>
       </a>
-      <a class="card" href={url('/learn/series/neuroanatomy/')}>
+      <a class="card" href={url('/learn/series/neuroanatomy/')} data-gtag-event="course_card_click" data-gtag-course-name="neuroanatomy">
         <p class="card__eyebrow">연재</p>
         <h2 class="card__title">{series.neuroanatomy.title}</h2>
         <p class="card__desc">{series.neuroanatomy.summary}</p>

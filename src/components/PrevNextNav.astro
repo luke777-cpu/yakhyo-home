@@ -9,15 +9,26 @@ interface Props {
   /** 이 nav 의 접근성 라벨. 영문 페이지에서만 다른 값을 넘긴다. */
   navLabel?: string;
   class?: string;
+  /** series.json의 키(예: "pharmacology"). GA series_navigation 이벤트에만 쓰인다. */
+  seriesName?: string;
+  /** 지금 보고 있는 글의 slug. GA series_navigation 이벤트에만 쓰인다. */
+  currentArticle?: string;
 }
 
-const { prev, next, navLabel = '연재 이동', class: className = '' } = Astro.props;
+const { prev, next, navLabel = '연재 이동', class: className = '', seriesName, currentArticle } = Astro.props;
 ---
 {(prev?.href || next?.href) && (
   <nav class={`prevnext ${className}`} aria-label={navLabel}>
     <div class="prevnext__side">
       {prev?.href && (
-        <a class="prevnext__link prevnext__link--prev" href={prev.href}>
+        <a
+          class="prevnext__link prevnext__link--prev"
+          href={prev.href}
+          data-gtag-event="series_navigation"
+          data-gtag-series-name={seriesName}
+          data-gtag-current-article={currentArticle}
+          data-gtag-direction="prev"
+        >
           <Icon name="arrow-left" size={18} class="prevnext__icon" />
           <span>{prev.title}</span>
         </a>
@@ -25,7 +36,14 @@ const { prev, next, navLabel = '연재 이동', class: className = '' } = Astro.
     </div>
     <div class="prevnext__side prevnext__side--next">
       {next?.href && (
-        <a class="prevnext__link prevnext__link--next" href={next.href}>
+        <a
+          class="prevnext__link prevnext__link--next"
+          href={next.href}
+          data-gtag-event="series_navigation"
+          data-gtag-series-name={seriesName}
+          data-gtag-current-article={currentArticle}
+          data-gtag-direction="next"
+        >
           <span>{next.title}</span>
           <Icon name="arrow-right" size={18} class="prevnext__icon" />
         </a>

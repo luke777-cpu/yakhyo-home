@@ -12,6 +12,7 @@ import { EN_SITE } from '../lib/en';
 import { url } from '../lib/url';
 import EnHeader from '../components/EnHeader.astro';
 import EnFooter from '../components/EnFooter.astro';
+import Analytics from '../components/Analytics.astro';
 
 import '../styles/tokens.css';
 import '../styles/base.css';
@@ -76,6 +77,7 @@ const koHref = koPath ? new URL(url(koPath), origin).toString() : null;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600&display=swap"
     />
+    <Analytics lang="en" />
   </head>
 
   <body>

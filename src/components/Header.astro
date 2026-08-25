@@ -20,6 +20,8 @@ const here = Astro.url.pathname;
           class="header__link"
           href={url(item.href)}
           aria-current={isActive(here, item.href) ? 'true' : undefined}
+          data-gtag-event={item.href === '/questions/' ? 'question_board_click' : undefined}
+          data-gtag-source={item.href === '/questions/' ? 'header' : undefined}
         >{item.label}</a>
       ))}
     </nav>

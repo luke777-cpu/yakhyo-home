@@ -29,6 +29,10 @@ export const EN_MEDICAL_NOTICE =
 export const EN_CURVE_NOTICE =
   'Every curve on this site is an illustration generated for teaching. It does not predict blood levels or any individual response.';
 
+/** GA4가 실제로 켜져 있을 때만 EnFooter.astro가 보여준다. 한국어 GA_NOTICE와 같은 내용이다. */
+export const EN_GA_NOTICE =
+  'This site may use anonymized visit statistics to understand how it is used. It does not send personal medication or health records for analytics purposes.';
+
 export const EN_NAV = [
   { href: '/en/', label: 'Home' },
   { href: '/en/terms/', label: 'Words for the ups and downs' },
