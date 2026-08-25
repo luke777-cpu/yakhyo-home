@@ -84,6 +84,13 @@
     "status": "published"
   },
   {
+    "slug": "body-pharmacology-part3",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 3부 — 너무 적어도 문제고, 너무 많아도 문제다",
+    "summary": "OFF와 이상운동증 사이의 치료구간, peak와 trough, 그리고 변동폭을 어떻게 이해할지 실제 몸의 곡선으로 읽습니다.",
+    "status": "published"
+  },
+  {
     "slug": "levodopa-basics",
     "category": "pharmacology",
     "title": "레보도파가 흡수되는 경로",
