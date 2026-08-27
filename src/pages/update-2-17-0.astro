@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Button from '../components/Button.astro';
+import Callout from '../components/Callout.astro';
+import { url } from '../lib/url';
+import links from '../data/links.json';
+
+const features = [
+  {
+    title: '홈 화면 기록 위젯',
+    detail: '앱을 열지 않고 현재 출력값을 ±10으로 조정하고, 상승·유지·하락 방향을 함께 선택한 뒤 기록할 수 있습니다.',
+  },
+  {
+    title: '빠른 기록 위젯',
+    detail: '임시기록, 증상, 생활, 지금 느낌 메모, 점수 매기기 기능을 홈 화면에서 바로 시작할 수 있습니다.',
+  },
+  {
+    title: '백업과 PDF 저장 안정화',
+    detail: 'Android에서 JSON 백업과 PDF 보고서를 Download 폴더에 더 안정적으로 저장하도록 개선했습니다.',
+  },
+  {
+    title: '위젯 기록의 앱 편입',
+    detail: '위젯에서 남긴 기록은 앱을 열면 오늘 기록과 그래프에 이어서 반영됩니다.',
+  },
+];
+
+const installSteps = [
+  '약효일지 앱을 최신 버전으로 업데이트한 뒤 앱을 한 번 실행합니다.',
+  '휴대폰 홈 화면의 빈 곳을 길게 누릅니다.',
+  '‘위젯’을 누른 뒤 ‘파킨슨 약효 기록’을 찾습니다.',
+  '‘약효 기록’ 또는 ‘약효 빠른 기록’ 위젯을 선택해 홈 화면에 추가합니다.',
+  '필요하면 위젯을 길게 눌러 위치와 크기를 조정합니다.',
+];
+
+const useSteps = [
+  {
+    title: '출력값 조정',
+    detail: '기록 위젯의 -10 / +10 버튼으로 현재 출력값을 맞춥니다. 이 단계만으로는 아직 기록이 확정되지 않습니다.',
+  },
+  {
+    title: '방향 선택',
+    detail: '↑ 상승중 / = 유지중 / ↓ 하락중 중 지금 느낌에 가까운 방향을 선택합니다.',
+  },
+  {
+    title: '기록 확정',
+    detail: '‘기록’을 누르면 현재 출력값과 방향이 대기 기록으로 저장됩니다. 이후 ‘앱 열기’를 누르면 오늘 기록에 편입됩니다.',
+  },
+  {
+    title: '빠른 기록 사용',
+    detail: '별도의 빠른 기록 위젯에서는 임시기록을 바로 남기거나 증상·생활·메모·점수 매기기 화면으로 곧바로 이동할 수 있습니다.',
+  },
+];
+---
+<BaseLayout
+  title="2.17.0 업데이트 · 홈 화면 위젯 사용법"
+  description="약효일지 2.17.0의 주요 변경점과 Android 홈 화면 위젯 설치·사용 방법을 안내합니다."
+>
+  <PageHead
+    crumb="업데이트 안내"
+    title="2.17.0 · 홈 화면에서 바로 기록하세요"
+    lead="2026년 8월 27일 업데이트에서 Android 홈 화면 위젯 2종과 백업·PDF 저장 안정화가 추가되었습니다."
+  />
+
+  <div class="container">
+    <div class="btn-row" style="margin-bottom: var(--sp-12)">
+      {links.playStore && <Button href={links.playStore} external block>Google Play에서 업데이트</Button>}
+      <Button href={url('/start/')} variant="secondary" block>앱 시작 방법 보기</Button>
+    </div>
+
+    <Callout tone="plain">
+      <p><strong>위젯은 앱 업데이트 후 자동으로 홈 화면에 생기지 않습니다.</strong> 아래 순서대로 직접 한 번 추가해 주세요.</p>
+    </Callout>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">이번 버전</p>
+      <h2 class="section__title">2.17.0의 주요 변경점</h2>
+      <div class="grid grid--2" style="margin-top: var(--sp-6)">
+        {features.map((item) => (
+          <article class="card">
+            <h3 class="card__title">{item.title}</h3>
+            <p class="card__desc">{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">설치</p>
+      <h2 class="section__title">홈 화면에 위젯 추가하기</h2>
+      <ol class="checklist" style="margin-top: var(--sp-6)">
+        {installSteps.map((step) => (
+          <li><strong>{step}</strong></li>
+        ))}
+      </ol>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">사용</p>
+      <h2 class="section__title">기록 위젯은 이렇게 씁니다</h2>
+      <ol class="checklist" style="margin-top: var(--sp-6)">
+        {useSteps.map((step) => (
+          <li>
+            <strong>{step.title}</strong>
+            <span>{step.detail}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <h2 class="section__title">두 위젯의 역할</h2>
+      <div class="grid grid--2" style="margin-top: var(--sp-6)">
+        <article class="card">
+          <p class="card__eyebrow">약효 기록</p>
+          <h3 class="card__title">출력과 방향을 빠르게 남기기</h3>
+          <p class="card__desc">현재 출력값, ±10, 기록, 앱 열기, 상승·유지·하락 선택을 한 곳에 모았습니다.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">약효 빠른 기록</p>
+          <h3 class="card__title">증상·생활·메모로 바로 가기</h3>
+          <p class="card__desc">임시기록은 즉시 저장하고, 증상·생활·지금 느낌 메모·점수 매기기는 앱의 해당 기록 화면을 바로 엽니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--sp-16); margin-bottom: var(--sp-16)">
+      <h2 class="section__title">위젯이 보이지 않을 때</h2>
+      <div class="prose" style="margin-top: var(--sp-6)">
+        <p>먼저 Play Store에서 앱이 최신 버전인지 확인하고, 앱을 한 번 실행한 뒤 홈 화면의 위젯 목록을 다시 열어 주세요.</p>
+        <p>업데이트 전 위젯이 남아 있다면 기존 위젯만 홈 화면에서 제거한 뒤 새로 추가해 보세요. <strong>기록 보존을 위해 문제 해결 목적으로 앱 자체를 먼저 삭제하는 것은 권하지 않습니다.</strong></p>
+        <p>위젯은 Android용 기능입니다. 휴대폰 제조사와 홈 화면 설정에 따라 위젯 추가 화면의 표현은 조금 다를 수 있습니다.</p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
