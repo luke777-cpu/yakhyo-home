@@ -11,6 +11,7 @@
       { "slug": "body-pharmacology-part4", "order": 4, "title": "4부 — 약을 조합한다는 것" },
       { "slug": "body-pharmacology-part5", "order": 5, "title": "5부 — 내 몸을 실험실로 삼다" },
       { "slug": "body-pharmacology-part6", "order": 6, "title": "6부 — 기록이 약리학이 되는 순간" },
+      { "slug": "body-pharmacology-special-1", "order": 6.5, "title": "외전 1 — ‘조금 덜 좋은 ON’을 어떻게 이해할 것인가" },
       { "slug": "body-pharmacology-final", "order": 7, "title": "마지막 장 — 나는 내 몸에서 약리학을 다시 배웠다" }
     ]
   },
