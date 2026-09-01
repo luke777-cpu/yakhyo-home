@@ -61,6 +61,11 @@ related:
 
 **내 몸의 ON은 연속적으로 변하지만, 특정 문턱을 지날 때 기능이 갑자기 좋아지는 것처럼 체감된다.**
 
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/pharmacology/special-1-response-window.png" alt="OFF, 불완전 ON, 완전 ON, 이상운동증 구간을 S자 반응곡선으로 나타낸 개념도" loading="lazy" />
+  <figcaption>그림 1. 도파민성 자극과 임상 반응을 설명하기 위한 개념도. 실제 혈중 농도나 개인의 치료창을 측정한 그래프는 아니다.</figcaption>
+</figure>
+
 ## 어깨 위와 아래에서 느껴진 차이
 
 두 저녁의 가장 큰 차이는 보행의 자동성이었다.
@@ -83,6 +88,11 @@ related:
 
 > **가설:** 저녁 CR 100mg만으로는 충분한 기능 회복에 이르지 못한 날, 즉방형 50mg이 필요한 수준에 더 빨리 도달하도록 도왔을 수 있다.
 
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/pharmacology/special-1-two-evenings.png" alt="CR 100mg 단독 저녁과 CR 100mg에 즉방형 50mg을 추가한 저녁의 체감 출력을 비교한 선그래프" loading="lazy" />
+  <figcaption>그림 2. 두 저녁의 체감 경과를 비교한 추정도. 실측 혈중 농도 곡선이 아니며 인과관계를 증명하지 않는다.</figcaption>
+</figure>
+
 ## 같은 CR 100mg도 결과가 달랐던 이유
 
 사흘 동안 같은 CR 100mg을 여러 시각에 복용했지만 반응은 달랐다.
@@ -96,6 +106,11 @@ related:
 이전 용량의 잔여 효과, 오피카폰에 의한 레보도파 노출 증가, 식사와 단백질, 위 배출 속도, 변비, 수면, 활동량과 일중 변동이 모두 후보가 된다. 내가 사용한 ‘바닥이 높다’는 표현은 이런 조건을 묶어 설명하기 위한 개인적인 모델이다.
 
 오피카폰을 중단한 뒤 아침 이상운동증이 줄었다는 관찰도 의미는 있다. 그러나 그것만으로 오피카폰의 잔류 효과가 원인이었다고 확정할 수는 없다. 오피카폰의 혈중 반감기가 비교적 짧더라도 COMT 억제와 레보도파 노출에 미치는 효과는 더 오래 이어질 수 있다. 동시에 다른 약과 생활 조건도 달라졌을 가능성이 있다.
+
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/pharmacology/special-1-daily-baseline.png" alt="아침, 오후, 저녁의 서로 다른 배경 상태 위에 CR 100mg과 즉방형 50mg이 놓이는 모습을 비교한 막대 개념도" loading="lazy" />
+  <figcaption>그림 3. 시간대별 배경 상태가 달랐다는 가설을 나타낸 개념도. 실제 약물 농도를 측정한 결과는 아니다.</figcaption>
+</figure>
 
 ## 치료창을 ‘재었다’기보다 반응이 예민한 구간을 보았다
 
