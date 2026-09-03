@@ -10,6 +10,9 @@ record: []
 forVisit: []
 faq: []
 related:
+  - label: 몸으로 배우는 신경해부학 3부 — 직접경로와 간접경로
+    href: /learn/body-neuroanatomy-part3/
+    note: 움직임의 문은 어떻게 열리고 닫히는가
   - label: 몸으로 배우는 신경해부학 1부 — 몸을 움직인다는 것
     href: /learn/body-neuroanatomy-part1/
     note: 운동피질과 자동운동에서 시작하기
@@ -290,4 +293,4 @@ STN은 이 과정에서 GPi/SNr의 출력을 높이는 중요한 위치에 있�
 
 **왜 어떤 순간에는 발이 완전히 바닥에 붙어버리는가.**
 
-다음에는 freezing과 보행회로를 따라가 보려 한다.
+다음 3부에서는 직접경로와 간접경로를 화살표가 아니라 세 문장으로 따라가고, 그 다음에 freezing과 보행회로로 넘어가려 한다.

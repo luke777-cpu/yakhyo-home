@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 700" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">기저핵 운동경로 지도 — 직접·간접·hyperdirect 경로</title>
+  <desc id="desc">운동피질, 선조체 D1·D2 뉴런, GPe, STN, GPi와 SNr, 시상, 흑질 치밀부를 연결한 직접경로, 간접경로, hyperdirect 경로와 도파민 조절을 단순화한 교육용 도식</desc>
+  <rect width="960" height="700" rx="28" fill="#f8fafc"/>
+  <defs>
+    <marker id="exc" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+    <marker id="inh" markerWidth="8" markerHeight="10" refX="4" refY="5" orient="auto"><rect x="2" y="0" width="3" height="10" fill="#b91c1c"/></marker>
+    <marker id="da" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
+    <marker id="dab" markerWidth="8" markerHeight="10" refX="4" refY="5" orient="auto"><rect x="2" y="0" width="3" height="10" fill="#059669"/></marker>
+  </defs>
+  <text x="480" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">Basal Ganglia Motor Pathways — 직접·간접·Hyperdirect 경로</text>
+
+  <!-- column headers -->
+  <text x="240" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#166534">직접경로 — 선택된 문을 연다</text>
+  <text x="520" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#854d0e">간접경로 — 경쟁하는 문을 닫는다</text>
+  <text x="800" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#6d28d9">Hyperdirect — 일단 모두 멈춘다</text>
+  <rect x="110" y="92" width="270" height="490" rx="18" fill="#dcfce7" opacity="0.35"/>
+  <rect x="390" y="92" width="270" height="490" rx="18" fill="#fef3c7" opacity="0.45"/>
+  <rect x="670" y="92" width="260" height="490" rx="18" fill="#ede9fe" opacity="0.4"/>
+
+  <!-- Motor cortex -->
+  <rect x="330" y="104" width="300" height="52" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="480" y="126" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">Motor cortex (운동피질)</text>
+  <text x="480" y="146" text-anchor="middle" font-size="12" fill="#555">글루탐산 — 흥분성 출력</text>
+
+  <!-- Striatum -->
+  <rect x="130" y="200" width="510" height="104" rx="8" fill="none" stroke="#777" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="630" y="299" text-anchor="end" font-size="12" fill="#666">Striatum (선조체 · Putamen)</text>
+  <rect x="150" y="226" width="180" height="52" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="240" y="248" text-anchor="middle" font-size="15" font-weight="bold" fill="#14532d">D1 뉴런</text>
+  <text x="240" y="268" text-anchor="middle" font-size="12" fill="#b91c1c">GABA — 억제성</text>
+  <rect x="430" y="226" width="180" height="52" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="520" y="248" text-anchor="middle" font-size="15" font-weight="bold" fill="#14532d">D2 뉴런</text>
+  <text x="520" y="268" text-anchor="middle" font-size="12" fill="#b91c1c">GABA — 억제성</text>
+
+  <!-- GPe -->
+  <rect x="430" y="330" width="180" height="48" rx="14" fill="#fef3c7" stroke="#ca8a04" stroke-width="2.5"/>
+  <text x="520" y="350" text-anchor="middle" font-size="15" font-weight="bold" fill="#713f12">GPe</text>
+  <text x="520" y="368" text-anchor="middle" font-size="12" fill="#b91c1c">외측 담창구 — 억제성</text>
+
+  <!-- STN -->
+  <rect x="710" y="400" width="180" height="48" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="800" y="420" text-anchor="middle" font-size="15" font-weight="bold" fill="#4c1d95">STN</text>
+  <text x="800" y="438" text-anchor="middle" font-size="12" fill="#334155">시상하핵 — 흥분성</text>
+
+  <!-- GPi/SNr -->
+  <rect x="330" y="450" width="300" height="52" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="480" y="472" text-anchor="middle" font-size="15" font-weight="bold" fill="#7f1d1d">GPi / SNr — 출력핵</text>
+  <text x="480" y="492" text-anchor="middle" font-size="12" fill="#b91c1c">평소에도 시상을 계속 억제 (기본 브레이크)</text>
+
+  <!-- Thalamus -->
+  <rect x="330" y="540" width="300" height="48" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="480" y="560" text-anchor="middle" font-size="15" font-weight="bold" fill="#0c4a6e">Thalamus (시상)</text>
+  <text x="480" y="578" text-anchor="middle" font-size="12" fill="#555">억제가 풀리면 운동피질로 신호를 되돌린다</text>
+
+  <!-- SNc -->
+  <rect x="14" y="216" width="100" height="70" rx="14" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/>
+  <text x="64" y="238" text-anchor="middle" font-size="15" font-weight="bold" fill="#166534">SNc</text>
+  <text x="64" y="256" text-anchor="middle" font-size="11" fill="#059669">흑질 치밀부 · 도파민</text>
+  
+  <text x="64" y="274" text-anchor="middle" font-size="10" fill="#059669">(파킨슨병에서 감소)</text>
+
+  <!-- Cortex -> D1 (+) -->
+  <path d="M 400 156 L 260 224" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#exc)"/>
+  <text x="315" y="186" font-size="13" font-weight="bold" fill="#334155">+</text>
+  <!-- Cortex -> D2 (+) -->
+  <path d="M 540 156 L 530 224" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#exc)"/>
+  <text x="547" y="196" font-size="13" font-weight="bold" fill="#334155">+</text>
+  <!-- Cortex -> STN (+) hyperdirect -->
+  <path d="M 630 130 L 800 130 L 800 398" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#exc)"/>
+  <text x="810" y="270" font-size="13" font-weight="bold" fill="#334155">+</text>
+  <text x="812" y="290" font-size="11" fill="#6d28d9">선조체를 거치지 않음</text>
+  <text x="812" y="306" font-size="11" fill="#6d28d9">가장 빠른 경로</text>
+
+  <!-- D1 -> GPi (-) -->
+  <path d="M 300 278 L 300 420 L 400 420 L 400 448" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#inh)"/>
+  <text x="308" y="360" font-size="13" font-weight="bold" fill="#b91c1c">−</text>
+  <text x="130" y="360" font-size="11" fill="#166534">억제를 억제</text>
+  <text x="130" y="376" font-size="11" fill="#166534">= 탈억제(disinhibition)</text>
+  <text x="130" y="392" font-size="11" fill="#166534">→ 브레이크를 풀어준다</text>
+
+  <!-- D2 -> GPe (-) -->
+  <path d="M 520 278 L 520 328" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#inh)"/>
+  <text x="528" y="308" font-size="13" font-weight="bold" fill="#b91c1c">−</text>
+  <!-- GPe -> STN (-) -->
+  <path d="M 610 354 L 760 354 L 760 398" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#inh)"/>
+  <text x="680" y="346" font-size="13" font-weight="bold" fill="#b91c1c">−</text>
+  <!-- STN -> GPi (+) -->
+  <path d="M 710 435 L 632 470" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#exc)"/>
+  <text x="672" y="466" font-size="13" font-weight="bold" fill="#334155">+</text>
+  <text x="440" y="416" font-size="11" fill="#854d0e">GPe 억제 → STN 풀림 → GPi 흥분</text>
+  <text x="440" y="432" font-size="11" fill="#854d0e">→ 브레이크를 더 건다</text>
+
+  <!-- GPi -> Thalamus (-) -->
+  <path d="M 480 502 L 480 538" fill="none" stroke="#b91c1c" stroke-width="3" marker-end="url(#inh)"/>
+  <text x="490" y="524" font-size="13" font-weight="bold" fill="#b91c1c">−</text>
+
+  <!-- Thalamus -> Cortex (+) loop on far right -->
+  <path d="M 630 564 L 920 564 L 920 112 L 632 112" fill="none" stroke="#334155" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#exc)"/>
+  <text x="900" y="340" font-size="13" font-weight="bold" fill="#334155" text-anchor="end">+</text>
+  <text x="915" y="600" font-size="11" fill="#6d28d9" text-anchor="end">시상 → 운동피질 되먹임</text>
+
+  <!-- SNc dopamine -> D1 (+), D2 (-) -->
+  <path d="M 114 250 L 148 250" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#da)"/>
+  <text x="124" y="244" font-size="13" font-weight="bold" fill="#059669">+</text>
+  <path d="M 64 216 L 64 192 L 470 192 L 470 224" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#dab)"/>
+  <text x="476" y="220" font-size="13" font-weight="bold" fill="#059669">−</text>
+  <text x="20" y="326" font-size="11" fill="#059669">도파민: D1은 밀어주고(+) D2는 눌러준다(−)</text><text x="20" y="342" font-size="11" fill="#059669">→ 필요한 움직임의 선택이 쉬워진다</text>
+
+  <!-- Legend -->
+  <g transform="translate(120,612)">
+    <line x1="0" y1="8" x2="40" y2="8" stroke="#334155" stroke-width="2.5" marker-end="url(#exc)"/>
+    <text x="50" y="12" font-size="12" fill="#333">흥분성 (+) 글루탐산</text>
+    <line x1="200" y1="8" x2="240" y2="8" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#inh)"/>
+    <text x="250" y="12" font-size="12" fill="#333">억제성 (−) GABA</text>
+    <line x1="380" y1="8" x2="420" y2="8" stroke="#059669" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#da)"/>
+    <text x="430" y="12" font-size="12" fill="#333">도파민 조절 (SNc → 선조체)</text>
+    <line x1="620" y1="8" x2="660" y2="8" stroke="#334155" stroke-width="2.5" stroke-dasharray="7 4"/>
+    <text x="670" y="12" font-size="12" fill="#333">시상-피질 되먹임</text>
+  </g>
+  <text x="480" y="662" text-anchor="middle" font-size="12" fill="#666">파킨슨병: SNc 도파민 감소 → 직접경로 약화·간접경로 강화 → GPi/SNr가 시상을 과도하게 억제 → 움직임을 꺼내기 어려워진다</text>
+  <text x="480" y="684" text-anchor="middle" font-size="11" fill="#888">교육용 도식. 실제 회로에는 사이신경세포, 다양한 신경전달물질, 발화 패턴(β 동기화) 등 더 많은 요소가 있다.</text>
+</svg>
