@@ -26,6 +26,16 @@
         "title": "4부 — 약을 조합한다는 것"
       },
       {
+        "slug": "body-pharmacology-special-1",
+        "order": 4.5,
+        "title": "외전 1 — '조금 덜 좋은 ON'을 어떻게 이해할 것인가"
+      },
+      {
+        "slug": "body-pharmacology-special-2",
+        "order": 4.6,
+        "title": "외전 2 — 도파민 효율성"
+      },
+      {
         "slug": "body-pharmacology-part5",
         "order": 5,
         "title": "5부 — 내 몸을 실험실로 삼다"
