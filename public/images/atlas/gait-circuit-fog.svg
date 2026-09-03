@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">보행회로와 Freezing of Gait</title>
+  <desc id="desc">보조운동영역, 전운동피질, 기저핵, 시상, 중뇌 보행영역(PPN·MLR), 척수, 근육으로 이어지는 내부 보행회로와, 감각입력이 들어오는 외부 단서 경로, 파킨슨병에서 과도해지는 억제 경로를 단순화한 교육용 도식</desc>
+  <defs>
+    <marker id="a1" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+    <marker id="a2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0284c7"/></marker>
+    <marker id="b1" markerWidth="8" markerHeight="10" refX="4" refY="5" orient="auto"><rect x="2" y="0" width="3" height="10" fill="#b91c1c"/></marker>
+  </defs>
+  <rect width="960" height="760" rx="28" fill="#f8fafc"/>
+  <text x="480" y="44" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">Atlas 4-1. 보행회로와 Freezing of Gait</text>
+  <text x="480" y="68" text-anchor="middle" font-size="14" fill="#475569">내부 보행회로(위→아래)와 외부 단서(바깥→안)의 상호작용</text>
+
+  <!-- boxes: x=300,w=340 -->
+  <g text-anchor="middle">
+    <rect x="300" y="96" width="340" height="56" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="470" y="120" font-size="15" font-weight="700" fill="#1e3a8a">보조운동영역 (SMA)</text>
+    <text x="470" y="140" font-size="12" fill="#1e40af">움직임 계획, 시작 신호 생성</text>
+
+    <rect x="300" y="182" width="340" height="56" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="470" y="206" font-size="15" font-weight="700" fill="#1e3a8a">전운동피질 (Premotor cortex)</text>
+    <text x="470" y="226" font-size="12" fill="#1e40af">동작 프로그램 선택, 시퀀스 준비</text>
+
+    <rect x="300" y="268" width="340" height="56" rx="14" fill="#fef3c7" stroke="#ca8a04" stroke-width="2.5"/>
+    <text x="470" y="292" font-size="15" font-weight="700" fill="#713f12">기저핵 (Basal ganglia)</text>
+    <text x="470" y="312" font-size="12" fill="#854d0e">움직임 선택, 불필요한 활동 억제</text>
+
+    <rect x="300" y="354" width="340" height="56" rx="14" fill="#fef3c7" stroke="#ca8a04" stroke-width="2.5"/>
+    <text x="470" y="378" font-size="15" font-weight="700" fill="#713f12">시상 (Thalamus)</text>
+    <text x="470" y="398" font-size="12" fill="#854d0e">피질로 정보 전달, 리듬 조율</text>
+
+    <rect x="300" y="440" width="340" height="66" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+    <text x="470" y="464" font-size="15" font-weight="700" fill="#4c1d95">중뇌 보행영역 (MLR · PPN)</text>
+    <text x="470" y="484" font-size="12" fill="#6d28d9">리듬 생성, 자세·균형, 보행 개시 시동</text>
+    <text x="470" y="499" font-size="11" fill="#6d28d9">— 첫발 스위치 —</text>
+
+    <rect x="300" y="536" width="340" height="56" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+    <text x="470" y="560" font-size="15" font-weight="700" fill="#0c4a6e">척수 (Spinal cord)</text>
+    <text x="470" y="580" font-size="12" fill="#075985">중앙패턴생성기(CPG) 가동, 근육에 명령</text>
+
+    <rect x="300" y="622" width="340" height="50" rx="14" fill="#f1f5f9" stroke="#64748b" stroke-width="2.5"/>
+    <text x="470" y="644" font-size="15" font-weight="700" fill="#1e293b">근육 · 관절</text>
+    <text x="470" y="662" font-size="12" fill="#475569">한 걸음이 실현됨</text>
+  </g>
+
+  <!-- vertical flow -->
+  <g stroke="#334155" stroke-width="2.5" fill="none">
+    <path d="M470 152 L470 180" marker-end="url(#a1)"/>
+    <path d="M470 238 L470 266" marker-end="url(#a1)"/>
+    <path d="M470 324 L470 352" marker-end="url(#a1)"/>
+    <path d="M470 410 L470 438" marker-end="url(#a1)"/>
+    <path d="M470 506 L470 534" marker-end="url(#a1)"/>
+    <path d="M470 592 L470 620" marker-end="url(#a1)"/>
+  </g>
+  <!-- thalamus back to cortex -->
+  <path d="M640 382 L690 382 L690 124 L642 124" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a1)"/>
+  <text x="700" y="250" font-size="11" fill="#334155">시상→피질</text>
+  <text x="700" y="265" font-size="11" fill="#334155">되먹임</text>
+
+  <!-- impaired inhibitory loop -->
+  <path d="M300 296 L250 296 L250 473 L298 473" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#b1)"/>
+  <path d="M300 382 L272 382 L272 382" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 4"/>
+  <path d="M250 382 L298 382" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#b1)"/>
+  <rect x="30" y="300" width="205" height="150" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="132" y="326" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">파킨슨병에서</text>
+  <text x="132" y="346" text-anchor="middle" font-size="12" fill="#991b1b">도파민 감소로 기저핵</text>
+  <text x="132" y="363" text-anchor="middle" font-size="12" fill="#991b1b">출력의 억제가 과도해짐</text>
+  <text x="132" y="386" text-anchor="middle" font-size="12" fill="#991b1b">→ 시상·PPN에 브레이크</text>
+  <text x="132" y="403" text-anchor="middle" font-size="12" fill="#991b1b">→ 보행 개시 신호 약화</text>
+  <text x="132" y="430" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">→ 첫발이 '멈춤'</text>
+
+  <!-- external cue -->
+  <rect x="720" y="420" width="210" height="130" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="825" y="446" text-anchor="middle" font-size="13" font-weight="700" fill="#0c4a6e">감각입력 / 외부 단서</text>
+  <text x="825" y="466" text-anchor="middle" font-size="11" fill="#075985">(Visual · Auditory cues)</text>
+  <text x="825" y="490" text-anchor="middle" font-size="12" fill="#075985">바닥선, 소리, 촉각,</text>
+  <text x="825" y="507" text-anchor="middle" font-size="12" fill="#075985">계단, 레이저 등</text>
+  <text x="825" y="534" text-anchor="middle" font-size="11" fill="#075985">막힌 내부 시동을 우회·지원</text>
+  <path d="M720 470 L642 470" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#a2)"/>
+  <path d="M720 520 L680 520 L680 562 L642 562" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#a2)"/>
+  <path d="M760 420 L760 210 L642 210" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#a2)"/>
+  <text x="770" y="330" font-size="11" fill="#075985">주의·시각으로</text>
+  <text x="770" y="345" font-size="11" fill="#075985">피질 경로 활성</text>
+
+  <!-- legend -->
+  <g transform="translate(60,708)">
+    <line x1="0" y1="0" x2="40" y2="0" stroke="#334155" stroke-width="2.5" marker-end="url(#a1)"/>
+    <text x="48" y="4" font-size="12" fill="#333">내부 운동 생성 경로</text>
+    <line x1="220" y1="0" x2="260" y2="0" stroke="#0284c7" stroke-width="2.5" marker-end="url(#a2)"/>
+    <text x="268" y="4" font-size="12" fill="#333">외부 단서 지원 경로</text>
+    <line x1="440" y1="0" x2="480" y2="0" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#b1)"/>
+    <text x="488" y="4" font-size="12" fill="#333">과도한 억제 (파킨슨병)</text>
+    <line x1="680" y1="0" x2="720" y2="0" stroke="#334155" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="728" y="4" font-size="12" fill="#333">되먹임</text>
+  </g>
+  <text x="480" y="742" text-anchor="middle" font-size="11" fill="#888">교육용 도식. 소뇌, 전정·체성감각, 전전두엽 주의 시스템 등이 함께 관여한다.</text>
+</svg>

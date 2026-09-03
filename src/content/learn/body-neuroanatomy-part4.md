@@ -29,11 +29,6 @@ related:
 
 3부에서 기저핵이 움직임의 문을 여닫는 원리를 보았다. 이번에는 그 문 너머, 발이 실제로 나가기까지의 길을 따라간다. 기저핵-피질-시상-뇌간-척수로 이어지는 보행회로와, 주의·시공간 정보·자세 조절 시스템이 협동해서 만들어내는 복잡한 통합의 실패가 FOG다.
 
-<figure class="article-figure">
-  <img src="/yakhyo-home/images/atlas/gait-freezing-atlas.jpg" alt="보행회로와 Freezing of Gait 아틀라스. 보조운동영역, 전운동피질, 기저핵, 시상, 중뇌 보행영역(PPN/MLR), 척수, 근육으로 이어지는 내부 보행회로와 외부 단서 경로, 파킨슨병에서 과도한 억제 경로를 표시한 회로도. 아래에는 문턱·회전·이중과제에서 멈춤이 생기는 상황과, 바닥선·리듬·계단·레이저 단서로 보행이 다시 움직이는 장면" loading="lazy" />
-  <figcaption>Atlas 4-1~4-3. 보행회로와 Freezing of Gait. 내부 보행회로(top-down)와 외부 단서(top-up)의 상호작용, 멈춤이 잘 생기는 상황, 외부 단서 전략. 교육용 도식이며 실제 해부 구조의 비율을 그대로 재현한 그림이 아니다.</figcaption>
-</figure>
-
 ## 30장. 첫발이 특히 어려운 이유 — gait initiation is not simple muscle weakness
 
 FOG는 '움직임을 계획하고 시작하는' 초기 단계의 문제다.
@@ -47,6 +42,11 @@ FOG는 '움직임을 계획하고 시작하는' 초기 단계의 문제다.
 ## 31장. 보행은 회로의 협동이다
 
 보행은 단일 부위가 아니라 여러 뇌영역과 척수가 긴밀히 연결된 '네트워크'의 결과다.
+
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/atlas/gait-circuit-fog.svg" alt="보조운동영역, 전운동피질, 기저핵, 시상, 중뇌 보행영역(PPN·MLR), 척수, 근육으로 이어지는 내부 보행회로와 외부 단서 경로, 파킨슨병에서 과도해지는 억제 경로를 표시한 회로도" loading="lazy" />
+  <figcaption>Atlas 4-1. 보행회로와 Freezing of Gait. 짙은 화살표는 내부 운동 생성 경로, 파란 화살표는 외부 단서 지원 경로, 붉은 점선은 파킨슨병에서 과도해지는 억제 경로다. 교육용 도식이며 소뇌·감각·주의 시스템은 생략했다.</figcaption>
+</figure>
 
 Atlas 4-1의 세로 줄을 위에서 아래로 따라가면 이렇다.
 
@@ -74,6 +74,11 @@ Atlas 4-1의 세로 줄을 위에서 아래로 따라가면 이렇다.
 
 또한 대화·계산·휴대폰 사용 등 이중과제는 전전두엽의 주의 자원을 빼앗아 보행 회로의 시작 신호를 약화시킨다.
 
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/atlas/gait-fog-situations.svg" alt="문턱 통과, 방향 전환, 이중과제 상황에서 발이 바닥에 붙는 장면을 단순화한 그림" loading="lazy" />
+  <figcaption>Atlas 4-2. 멈춤이 잘 생기는 상황. 붉은 선은 발이 바닥에 붙은 상태를 뜻한다.</figcaption>
+</figure>
+
 Atlas 4-2가 그 세 장면이다. 출입문·엘리베이터 앞에서 발이 떨어지지 않음. 방향 전환 시 발이 바닥에 붙어 머뭇거림. 대화·계산 등 주의분산 시 보행 시작·유지 어려움.
 
 공통점은 하나다. 자동으로 돌아가던 보행에 갑자기 '생각'이 끼어들 때 멈춘다.
@@ -85,6 +90,11 @@ Atlas 4-2가 그 세 장면이다. 출입문·엘리베이터 앞에서 발이 �
 바닥의 선, 메트로놈 소리, 계단, 레이저 등은 감각을 통해 보행 회로를 직접 활성화하거나 PPN·척수의 리듬을 깨워 첫발을 가능하게 한다.
 
 이는 손상된 내부 시작 회로를 우회(bypass)하거나 보조(support)하는 역할을 한다.
+
+<figure class="article-figure">
+  <img src="/yakhyo-home/images/atlas/gait-cueing.svg" alt="바닥선, 리듬, 계단, 레이저 단서로 멈춘 발이 다시 나가는 장면을 단순화한 그림" loading="lazy" />
+  <figcaption>Atlas 4-3. 외부 단서가 보행을 다시 움직이게 한다. 위는 내부 시동이 끊겨 멈춘 상태, 아래는 단서가 시동을 대신 건 상태.</figcaption>
+</figure>
 
 Atlas 4-3의 네 장면이 그것이다. 선을 따라서 첫발이 쉽게 떨어짐. 리듬에 맞춰 보폭이 규칙적으로. 계단 단서가 보행 시동을 돕는다. 레이저 선을 따라 발이 움직인다.
 
