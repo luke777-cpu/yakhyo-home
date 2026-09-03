@@ -91,6 +91,34 @@
     "status": "published"
   },
   {
+    "slug": "body-pharmacology-part4",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 4부 — 약을 조합한다는 것",
+    "summary": "빠른 약과 느린 약, 약효 연장제와 보조약이 하루의 peak와 trough를 어떻게 바꾸는지 실제 몸의 곡선으로 읽습니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-pharmacology-part5",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 5부 — 내 몸을 실험실로 삼다",
+    "summary": "2026년 8월 29일부터 9월 2일까지의 실제 기록을 바탕으로, 같은 약이 왜 다른 결과를 만드는지 관찰과 가설을 구분해 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-pharmacology-part6",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 6부 — 기록이 약리학이 되는 순간",
+    "summary": "Delayed ON·Incomplete ON·ON failure·Wearing-off를 복용 시각, 첫 신호, 출력과 지속시간의 기록으로 구분합니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-pharmacology-final",
+    "category": "pharmacology",
+    "title": "몸으로 쓰는 약리학 — 마지막 장. 나는 내 몸에서 약리학을 다시 배웠다",
+    "summary": "같은 약이 같은 결과를 만들지 않는 이유를 돌아보며, 기록과 경험이 어떻게 약리학을 다시 이해하게 했는지 정리합니다.",
+    "status": "published"
+  },
+  {
     "slug": "levodopa-basics",
     "category": "pharmacology",
     "title": "레보도파가 흡수되는 경로",
