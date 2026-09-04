@@ -1,10 +1,10 @@
 ---
-title: "Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body"
+title: Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body
 description: Based on real records from August 29 to September 2, 2026, this installment follows why the same medication produces different results, carefully distinguishing observation from hypothesis.
 lead: Same medication — so why is today different? Laying five days of records on a single time axis, what came into view was not the drug itself so much as the conditions around it — the starting point, meals, accumulation, and the depth of OFF.
 order: 24
 related:
-  - label: "Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications"
+  - label: Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications
     href: /en/learn/body-pharmacology-part4/
     note: Understanding drug combinations through time and the curve
 ---

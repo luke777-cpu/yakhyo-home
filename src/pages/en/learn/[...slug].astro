@@ -1,6 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
 import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import SeriesToc from '../../../components/SeriesToc.astro';
+import PrevNextNav from '../../../components/PrevNextNav.astro';
+import enSeries from '../../../data/en/series.json';
+import { seriesItemViews, seriesPrevNext, type Series } from '../../../lib/series';
 import { url } from '../../../lib/url';
 
 export async function getStaticPaths() {
@@ -13,11 +17,33 @@ const { Content } = await render(entry);
 const { title, description, lead, related } = entry.data;
 // 한국어 원문 경로 — slug 가 같으므로 그대로 연결된다.
 const koPath = `/learn/${entry.id}/`;
+
+// 이 글이 「몸으로 쓰는 약리학」·「몸으로 배우는 신경해부학」 연재의 한 편이면
+// slug 접두사로 시리즈를 찾아 목차와 이전/다음 이동을 계산한다.
+// enLearn 은 series 프론트매터 없이 slug 접두사만으로 연재를 식별한다 (en/learn/index.astro 와 동일한 규칙).
+const seriesKey = entry.id.startsWith('body-pharmacology')
+  ? 'pharmacology'
+  : entry.id.startsWith('body-neuroanatomy')
+    ? 'neuroanatomy'
+    : undefined;
+const seriesInfo = seriesKey ? (enSeries as Record<string, Series>)[seriesKey] : undefined;
+let series: { title: string; items: ReturnType<typeof seriesItemViews>; prev: ReturnType<typeof seriesItemViews>[number] | null; next: ReturnType<typeof seriesItemViews>[number] | null; key: string } | undefined;
+if (seriesInfo) {
+  const written = new Set((await getCollection('enLearn')).map((e) => e.id));
+  const items = seriesItemViews(seriesInfo, written, url('/en/learn/'), entry.id);
+  const { prev, next } = seriesPrevNext(seriesInfo, written, url('/en/learn/'), entry.id);
+  series = { title: seriesInfo.title, items, prev, next, key: seriesKey as string };
+}
 ---
 <EnBaseLayout title={title} description={description} koPath={koPath}>
   <div class="container">
     <article class="article">
       <nav class="crumb"><a href={url('/en/')}>English</a> · <a href={url('/en/learn/')}>Learn</a></nav>
+      {series && (
+        <div style="margin-bottom: var(--sp-10, 2.5rem)">
+          <SeriesToc title={series.title} items={series.items} pendingLabel="In preparation" currentLabel="Now reading" />
+        </div>
+      )}
       <h1>{title}</h1>
       {lead && <p class="article__lead">{lead}</p>}
       <div class="article__body">
@@ -35,6 +61,9 @@ const koPath = `/learn/${entry.id}/`;
             ))}
           </ul>
         </aside>
+      )}
+      {series && (
+        <PrevNextNav prev={series.prev} next={series.next} navLabel="Series navigation" seriesName={series.key} currentArticle={entry.id} />
       )}
     </article>
   </div>

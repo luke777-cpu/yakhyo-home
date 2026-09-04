@@ -1,18 +1,18 @@
 ---
-title: "Pharmacology Through My Own Body, Special Edition 2 — Dopamine Efficiency: Not How Much, But How Well"
+title: Pharmacology Through My Own Body, Special Edition 2 — Dopamine Efficiency
 description: The story of a period when raising the dose never made OFF disappear, and how I came to ask instead how long the same total dose could keep me in a livable range. A concept diagram and a real day's record lay out my personal idea of "dopamine efficiency."
 lead: The question was never how much dopamine I put in over a day. It was how long the same amount could keep me in a state I could actually live in.
 order: 26.6
 related:
-  - label: "Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications"
+  - label: Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications
     href: /en/learn/body-pharmacology-part4/
-    note: "Raising the dose doesn't fill the trough (Chapter 20); interval over dose (Chapter 23)"
-  - label: "Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'"
+    note: Raising the dose doesn't fill the trough (Chapter 20); interval over dose (Chapter 23)
+  - label: Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'
     href: /en/learn/body-pharmacology-special-1/
-    note: "The difference between two evenings"
-  - label: "Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body"
+    note: The difference between two evenings
+  - label: Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body
     href: /en/learn/body-pharmacology-part5/
-    note: "Five days of records"
+    note: Five days of records
 ---
 
 # Pharmacology Through My Own Body, Special Edition 2 — Dopamine Efficiency: Not How Much, But How Well

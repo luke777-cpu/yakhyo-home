@@ -1,10 +1,10 @@
 ---
-title: "Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications"
+title: Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications
 description: How fast-acting and slow-acting drugs, medication-extending agents, and adjunct drugs combine within a single day's curve — explained through actual bodily experience.
 lead: Combining medications turned out not to be stacking pills, but designing the moment when different drug effects meet, and adjusting the day's peak and trough.
 order: 23
 related:
-  - label: "Pharmacology Through My Own Body, Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much"
+  - label: Pharmacology Through My Own Body, Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much
     href: /en/learn/body-pharmacology-part3/
     note: Continuing from the therapeutic window and peak/trough
 ---

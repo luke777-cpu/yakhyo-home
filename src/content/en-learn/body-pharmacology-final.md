@@ -1,10 +1,10 @@
 ---
-title: "Pharmacology Through My Own Body — Closing Chapter: What My Body Taught Me About Pharmacology"
+title: Pharmacology Through My Own Body, Closing Chapter — What My Body Taught Me About Pharmacology
 description: Looking back at why the same drug doesn't produce the same result, this closing chapter sums up how keeping records and living through the experience taught me to understand pharmacology again.
 lead: The drug has its own curve, and the body has its own curve. This closing chapter sums up the experience of living each day between those two curves.
 order: 26
 related:
-  - label: "Pharmacology Through My Own Body, Part 6 — The Moment a Record Becomes Pharmacology"
+  - label: Pharmacology Through My Own Body, Part 6 — The Moment a Record Becomes Pharmacology
     href: /en/learn/body-pharmacology-part6/
     note: How records become the language of a treatment conversation
 ---

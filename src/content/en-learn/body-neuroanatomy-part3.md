@@ -1,5 +1,5 @@
 ---
-title: "Neuroanatomy Through the Body, Part 3 — The Direct and Indirect Pathways: How the Gates of Movement Open and Close"
+title: Neuroanatomy Through the Body, Part 3 — The Direct and Indirect Pathways
 description: At the basal ganglia's output, a brake stays on even at baseline. This article explains, in three sentences instead of arrows, how the direct pathway opens the gate for the needed movement, the indirect pathway closes the gate on competing movements, and the hyperdirect pathway applies a sudden brake.
 lead: The direct and indirect pathways are not arrows to memorize — they are a single question. I have the strength, and I know where to go, so why won't the first step come?
 order: 33

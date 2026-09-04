@@ -1,10 +1,10 @@
 ---
-title: "Pharmacology Through My Own Body, Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much"
+title: Pharmacology Through My Own Body, Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much
 description: The narrow therapeutic window between OFF and dyskinesia, peak and trough, and why matching the medication gets harder as the disease progresses — worked out through actual lived experience in the body.
 lead: When medication is too low, the body won't move. When it's too high, movement you didn't intend can appear. The real problem was never too much or too little — it was how long I could stay inside the therapeutic window where I can actually live my day.
 order: 22
 related:
-  - label: "Pharmacology Through My Own Body, Part 2 — Learning Levodopa with the Body"
+  - label: Pharmacology Through My Own Body, Part 2 — Learning Levodopa with the Body
     href: /en/learn/body-pharmacology-part2/
     note: Continuing from Delayed ON and Wearing-off
 ---

@@ -1,10 +1,10 @@
 ---
-title: "Pharmacology Through My Own Body, Part 6 — The Moment a Record Becomes Pharmacology"
+title: Pharmacology Through My Own Body, Part 6 — The Moment a Record Becomes Pharmacology
 description: Delayed ON, incomplete ON, ON failure, wearing-off, and dyskinesia don't show up in a simple ON/OFF record — this is how I began telling them apart by keeping notes.
 lead: Once I began breaking down the single sentence "the medication isn't working well" into time, output, first sign, and duration, the changes in my body slowly started to look like patterns.
 order: 25
 related:
-  - label: "Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body"
+  - label: Pharmacology Through My Own Body, Part 5 — Making a Laboratory of My Own Body
     href: /en/learn/body-pharmacology-part5/
     note: Continuing from five days of observation notes
 ---

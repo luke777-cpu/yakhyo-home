@@ -1,13 +1,13 @@
 ---
-title: "Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'"
+title: Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'
 description: Why two evenings both logged as ON felt completely different — rethinking partial response and the therapeutic window through an extended-release levodopa and immediate-release 50 mg experience.
 lead: Being able to walk did not mean every ON was the same. Medication effect changes continuously, but crossing a certain threshold made the body feel like it suddenly moved in a different way.
 order: 26.5
 related:
-  - label: "Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications"
+  - label: Pharmacology Through My Own Body, Part 4 — What It Means to Combine Medications
     href: /en/learn/body-pharmacology-part4/
     note: Reading first how a fast drug and a slow drug meet in time
-  - label: "Incomplete ON"
+  - label: Incomplete ON
     href: /en/terms/incomplete-on/
     note: Understanding a response that improves only partly
 ---

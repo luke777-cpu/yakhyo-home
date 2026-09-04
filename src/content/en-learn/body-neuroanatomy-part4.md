@@ -1,16 +1,16 @@
 ---
-title: "Neuroanatomy Through the Body, Part 4 — Why the Feet Stick to the Floor: Freezing of Gait and the Walking Circuit"
+title: Neuroanatomy Through the Body, Part 4 — Why the Feet Stick to the Floor
 description: In Parkinson's disease, freezing of gait is not a problem of muscle strength — it is a momentary stall in the circuit that starts walking. This article follows the gait circuit that runs from the basal ganglia through the cortex, thalamus, and brainstem PPN/MLR to the spinal cord, and asks why it stalls at thresholds, turns, and dual tasks, and why an external cue can start the feet moving again.
 lead: The intention to move is there, and the legs have strength. But the circuit that produces the first step stalls for a moment. That is why the feet stick to the floor.
 order: 34
 related:
-  - label: "Neuroanatomy Through the Body, Part 3 — The Direct and Indirect Pathways: How the Gates of Movement Open and Close"
+  - label: Neuroanatomy Through the Body, Part 3 — The Direct and Indirect Pathways
     href: /en/learn/body-neuroanatomy-part3/
     note: How the gates of movement open and close
-  - label: "Neuroanatomy Through the Body, Part 2 — The Basal Ganglia, the System That Selects Movement"
+  - label: Neuroanatomy Through the Body, Part 2 — The Basal Ganglia, the System That Selects Movement
     href: /en/learn/body-neuroanatomy-part2/
     note: Why the first step is hardest
-  - label: "Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'"
+  - label: Pharmacology Through My Own Body, Special Edition 1 — How to Understand a 'Slightly Less Good ON'
     href: /en/learn/body-pharmacology-special-1/
     note: An evening when I was ON, yet the automaticity of walking never returned
 ---
