@@ -1,0 +1,44 @@
+---
+/**
+ * GA4 로더 — BaseLayout / EnBaseLayout에서 한 번만 불러온다. 페이지마다 따로
+ * 넣지 않는다(작업지시서 10번).
+ *
+ * PUBLIC_GA_MEASUREMENT_ID가 비어 있거나 production 빌드가 아니면 아무것도
+ * 렌더링하지 않는다 — 로컬 개발 중 새로고침이 방문자로 잡히는 것을 막기 위해서다
+ * (작업지시서 12번). 값을 비워 두면 이 컴포넌트는 완전히 빈 상태이고, 사이트에는
+ * 원래대로 런타임 JavaScript가 없다.
+ *
+ * 여기서 보내는 것은 GA4 기본 page_view와 언어 구분(content_language)뿐이다.
+ * 이름·이메일·약물 기록·질문 게시글 같은 개인 식별정보는 이 파일도, 이 파일이
+ * 불러오는 ../scripts/analytics도 다루지 않는다 — 클릭 이벤트의 파라미터는
+ * 항상 각 컴포넌트가 미리 정해 둔 data-gtag-* 값(예: course_name="pharmacology")
+ * 뿐이며, 사용자가 입력한 텍스트를 그대로 보내는 곳은 없다.
+ *
+ * Firebase 프로젝트(src/lib/firebase.ts)와는 완전히 분리되어 있다. 로그인 사용자
+ * 정보를 이 스크립트로 넘기지 않는다.
+ */
+interface Props {
+  lang: 'ko' | 'en';
+}
+
+const { lang } = Astro.props;
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID as string | undefined;
+const enabled = Boolean(gaId) && import.meta.env.PROD;
+---
+{enabled && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script is:inline define:vars={{ gaId, lang }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      // content_language는 GA4 관리자 화면에서 같은 이름의 맞춤 측정기준으로
+      // 등록해야 보고서에 나타난다. 등록 전에도 /en/ 경로로는 이미 구분할 수 있다.
+      gtag('config', gaId, { content_language: lang });
+    </script>
+    <script>
+      import '../scripts/analytics';
+    </script>
+  </>
+)}

@@ -1,10 +1,11 @@
 ---
 /** 영문 섹션의 푸터. 바깥 링크 목록은 한국어 쪽과 같은 links.json 을 함께 쓴다. */
-import { EN_NAV, EN_SITE, EN_MEDICAL_NOTICE } from '../lib/en';
+import { EN_NAV, EN_SITE, EN_MEDICAL_NOTICE, EN_GA_NOTICE } from '../lib/en';
 import links from '../data/links.json';
 import { url } from '../lib/url';
 
 const year = 2026;
+const gaEnabled = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID) && import.meta.env.PROD;
 const external = [
   links.app ? { href: links.app, label: 'Open the app in a browser' } : null,
   links.playStore ? { href: links.playStore, label: 'Google Play' } : null,
@@ -43,6 +44,7 @@ const external = [
 
     <div class="footer__bottom">
       <p class="footer__notice">{EN_MEDICAL_NOTICE}</p>
+      {gaEnabled && <p class="footer__notice">{EN_GA_NOTICE}</p>}
       <p>© {year} {EN_SITE.koreanName} ({EN_SITE.name})</p>
     </div>
   </div>

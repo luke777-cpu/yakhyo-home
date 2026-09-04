@@ -56,6 +56,9 @@ const { branches, pendingLabel = '준비 중', externalLabel = '(새 창)' } = A
               lang={leaf.ko ? 'ko' : undefined}
               rel={leaf.external ? 'noopener' : undefined}
               target={leaf.external ? '_blank' : undefined}
+              data-gtag-event="learning_map_click"
+              data-gtag-branch={b.slug}
+              data-gtag-label={leaf.title}
             >
               <span>{leaf.title}</span>
               <Icon name={leaf.external ? 'arrow-up-right' : 'arrow-right'} size={16} />
@@ -70,7 +73,14 @@ const { branches, pendingLabel = '준비 중', externalLabel = '(새 창)' } = A
         )}
       </div>
       {b.seeAll && (
-        <a class="learnmap__seeall" href={b.seeAll.href} lang={b.seeAll.ko ? 'ko' : undefined}>{b.seeAll.label} →</a>
+        <a
+          class="learnmap__seeall"
+          href={b.seeAll.href}
+          lang={b.seeAll.ko ? 'ko' : undefined}
+          data-gtag-event="learning_map_click"
+          data-gtag-branch={b.slug}
+          data-gtag-label={b.seeAll.label}
+        >{b.seeAll.label} →</a>
       )}
     </details>
   ))}
@@ -91,6 +101,9 @@ const { branches, pendingLabel = '준비 중', externalLabel = '(새 창)' } = A
               lang={leaf.ko ? 'ko' : undefined}
               rel={leaf.external ? 'noopener' : undefined}
               target={leaf.external ? '_blank' : undefined}
+              data-gtag-event="learning_map_click"
+              data-gtag-branch={b.slug}
+              data-gtag-label={leaf.title}
             >
               <span>{leaf.title}</span>
               <Icon name={leaf.external ? 'arrow-up-right' : 'arrow-right'} size={16} />
@@ -105,7 +118,14 @@ const { branches, pendingLabel = '준비 중', externalLabel = '(새 창)' } = A
         )}
       </div>
       {b.seeAll && (
-        <a class="learnmap__seeall" href={b.seeAll.href} lang={b.seeAll.ko ? 'ko' : undefined}>{b.seeAll.label} →</a>
+        <a
+          class="learnmap__seeall"
+          href={b.seeAll.href}
+          lang={b.seeAll.ko ? 'ko' : undefined}
+          data-gtag-event="learning_map_click"
+          data-gtag-branch={b.slug}
+          data-gtag-label={b.seeAll.label}
+        >{b.seeAll.label} →</a>
       )}
     </div>
   ))}

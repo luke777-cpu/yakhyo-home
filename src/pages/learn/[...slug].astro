@@ -44,7 +44,7 @@ const curve = entry.data.curve
   : undefined;
 
 // 시리즈의 한 편이면 목차와 이전/다음을 계산해 넘긴다.
-let series: { title: string; items: ReturnType<typeof seriesItemViews>; prev: ReturnType<typeof seriesItemViews>[number] | null; next: ReturnType<typeof seriesItemViews>[number] | null } | undefined;
+let series: { title: string; items: ReturnType<typeof seriesItemViews>; prev: ReturnType<typeof seriesItemViews>[number] | null; next: ReturnType<typeof seriesItemViews>[number] | null; key: string; currentSlug: string } | undefined;
 if (entry.data.series) {
   const s = (seriesData as Record<string, Series>)[entry.data.series];
   if (!s) {
@@ -53,7 +53,7 @@ if (entry.data.series) {
   const written = new Set((await getCollection('learn')).map((e) => e.id));
   const items = seriesItemViews(s, written, url('/learn/'), entry.id);
   const { prev, next } = seriesPrevNext(s, written, url('/learn/'), entry.id);
-  series = { title: s.title, items, prev, next };
+  series = { title: s.title, items, prev, next, key: entry.data.series, currentSlug: entry.id };
 }
 ---
 <LearnLayout data={entry.data} category={category ?? { title: series?.title ?? '' }} curve={curve} series={series}>

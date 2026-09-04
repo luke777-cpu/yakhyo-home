@@ -203,13 +203,13 @@ const timeline = [
   <!-- 7 — 몸으로 쓰는 두 연재 -->
   <Section eyebrow="연재" title="몸으로 배우는 두 가지 배경 지식">
     <div class="grid grid--2">
-      <a class="card" href={url('/learn/series/pharmacology/')}>
+      <a class="card" href={url('/learn/series/pharmacology/')} data-gtag-event="course_card_click" data-gtag-course-name="pharmacology">
         <p class="card__eyebrow">약리학</p>
         <h3 class="card__title">{series.pharmacology.title}</h3>
         <p class="card__desc">{series.pharmacology.summary}</p>
         <p class="card__foot">약리학 강좌 보기 →</p>
       </a>
-      <a class="card" href={url('/learn/series/neuroanatomy/')}>
+      <a class="card" href={url('/learn/series/neuroanatomy/')} data-gtag-event="course_card_click" data-gtag-course-name="neuroanatomy">
         <p class="card__eyebrow">신경해부학</p>
         <h3 class="card__title">{series.neuroanatomy.title}</h3>
         <p class="card__desc">{series.neuroanatomy.summary}</p>

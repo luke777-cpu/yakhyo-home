@@ -154,13 +154,13 @@ const timeline = [
   <!-- 5.5 — 두 강좌 -->
   <Section eyebrow="Courses" title="Two background courses, taught through the body">
     <div class="grid grid--2">
-      <a class="card" href={url('/en/learn/series/pharmacology/')}>
+      <a class="card" href={url('/en/learn/series/pharmacology/')} data-gtag-event="course_card_click" data-gtag-course-name="pharmacology">
         <p class="card__eyebrow">Pharmacology</p>
         <h3 class="card__title">{series.pharmacology.title}</h3>
         <p class="card__desc">{series.pharmacology.summary}</p>
         <p class="card__foot">See the pharmacology course →</p>
       </a>
-      <a class="card" href={url('/en/learn/series/neuroanatomy/')}>
+      <a class="card" href={url('/en/learn/series/neuroanatomy/')} data-gtag-event="course_card_click" data-gtag-course-name="neuroanatomy">
         <p class="card__eyebrow">Neuroanatomy</p>
         <h3 class="card__title">{series.neuroanatomy.title}</h3>
         <p class="card__desc">{series.neuroanatomy.summary}</p>

@@ -41,7 +41,15 @@ interface Props {
    * 넘어오면 breadcrumb 이 시리즈 이름을 함께 보여주고, 본문 앞뒤로 목차와
    * 이전/다음 이동이 붙는다.
    */
-  series?: { title: string; items: SeriesItemView[]; prev: SeriesItemView | null; next: SeriesItemView | null };
+  series?: {
+    title: string;
+    items: SeriesItemView[];
+    prev: SeriesItemView | null;
+    next: SeriesItemView | null;
+    /** series.json의 키(예: "pharmacology")와 지금 글의 slug. GA 이벤트에만 쓰인다. */
+    key: string;
+    currentSlug: string;
+  };
 }
 
 const { data, category, curve, series } = Astro.props;
@@ -151,7 +159,9 @@ const crumb = series ? `배우기 · ${series.title}` : `배우기 · ${category
 
     {related.length > 0 && <RelatedContent items={related} />}
 
-    {series && <PrevNextNav prev={series.prev} next={series.next} />}
+    {series && (
+      <PrevNextNav prev={series.prev} next={series.next} seriesName={series.key} currentArticle={series.currentSlug} />
+    )}
 
     <section class="concept__section" aria-labelledby="s-cta">
       <h2 id="s-cta" class="sr-only">기록 시작하기</h2>

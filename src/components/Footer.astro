@@ -2,9 +2,10 @@
 import nav from '../data/nav.json';
 import links from '../data/links.json';
 import { url } from '../lib/url';
-import { SITE, MEDICAL_NOTICE } from '../lib/site';
+import { SITE, MEDICAL_NOTICE, GA_NOTICE } from '../lib/site';
 
 const year = 2026;
+const gaEnabled = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID) && import.meta.env.PROD;
 const external = [
   links.app ? { href: links.app, label: '약효일지 앱 열기' } : null,
   links.playStore ? { href: links.playStore, label: 'Google Play' } : null,
@@ -43,6 +44,7 @@ const external = [
 
     <div class="footer__bottom">
       <p class="footer__notice">{MEDICAL_NOTICE}</p>
+      {gaEnabled && <p class="footer__notice">{GA_NOTICE}</p>}
       <p>© {year} {SITE.name}</p>
     </div>
   </div>

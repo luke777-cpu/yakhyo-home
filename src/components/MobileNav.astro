@@ -28,6 +28,8 @@ const here = Astro.url.pathname;
               class="mobilenav__link"
               href={url(item.href)}
               aria-current={isActive(here, item.href) ? 'true' : undefined}
+              data-gtag-event={item.href === '/questions/' ? 'question_board_click' : undefined}
+              data-gtag-source={item.href === '/questions/' ? 'mobile_nav' : undefined}
             >{item.label}</a>
           </li>
         ))}
