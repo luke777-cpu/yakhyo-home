@@ -3,8 +3,13 @@ import { getCollection, render } from 'astro:content';
 import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
 import SeriesToc from '../../../components/SeriesToc.astro';
 import PrevNextNav from '../../../components/PrevNextNav.astro';
+import DayCurve from '../../../components/DayCurve.astro';
+import Callout from '../../../components/Callout.astro';
+import FAQ from '../../../components/FAQ.astro';
 import enSeries from '../../../data/en/series.json';
 import { seriesItemViews, seriesPrevNext, type Series } from '../../../lib/series';
+import { EN_GRAPH_LABELS, enCurve, describeEn } from '../../../lib/en';
+import type { CurveData } from '../../../lib/curve';
 import { url } from '../../../lib/url';
 
 export async function getStaticPaths() {
@@ -14,9 +19,14 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, description, lead, related } = entry.data;
+const { title, description, lead, expressions, reasons, record, forVisit, faq, related } = entry.data;
 // 한국어 원문 경로 — slug 가 같으므로 그대로 연결된다.
 const koPath = `/learn/${entry.id}/`;
+
+// 곡선 데이터는 한국어 글과 같은 파일을 함께 쓴다. 그림은 언어와 무관하게 같다.
+const curves = import.meta.glob<{ default: CurveData }>('../../../data/curves/*.json', { eager: true });
+const rawCurve = entry.data.curve ? curves[`../../../data/curves/${entry.data.curve}.json`]?.default : undefined;
+const curve = rawCurve ? enCurve(rawCurve) : undefined;
 
 // 이 글이 「몸으로 쓰는 약리학」·「몸으로 배우는 신경해부학」 연재의 한 편이면
 // slug 접두사로 시리즈를 찾아 목차와 이전/다음 이동을 계산한다.
@@ -46,9 +56,95 @@ if (seriesInfo) {
       )}
       <h1>{title}</h1>
       {lead && <p class="article__lead">{lead}</p>}
-      <div class="article__body">
-        <Content />
-      </div>
+
+      {curve ? (
+        <section class="concept__section" aria-labelledby="s-graph">
+          <h2 id="s-graph">In the graph</h2>
+          <DayCurve
+            curve={curve}
+            variant="full"
+            title={entry.data.curveTitle ?? `An example curve for ${title}`}
+            desc={describeEn(curve)}
+            caption={entry.data.curveCaption}
+            labels={EN_GRAPH_LABELS}
+          />
+          <div class="article__body" style="margin-top: var(--sp-8)">
+            <Content />
+          </div>
+        </section>
+      ) : (
+        <div class="article__body">
+          <Content />
+        </div>
+      )}
+
+      {expressions.length > 0 && (
+        <section class="concept__section" aria-labelledby="s-expr">
+          <h2 id="s-expr">People often put it like this</h2>
+          <ul class="quotes">
+            {expressions.map((e) => <li>{e}</li>)}
+          </ul>
+        </section>
+      )}
+
+      {reasons.length > 0 && (
+        <section class="concept__section" aria-labelledby="s-reason">
+          <h2 id="s-reason">Why this can happen</h2>
+          <div class="prose">
+            <p>
+              Below are factors often discussed alongside this pattern. This is not a list of confirmed
+              causes, and more than one is often in play at once.
+            </p>
+          </div>
+          <ul class="checklist" style="margin-top: var(--sp-6)">
+            {reasons.map((r) => (
+              <li>
+                <strong>{r.title}</strong>
+                <span>{r.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {record.length > 0 && (
+        <section class="concept__section" aria-labelledby="s-record">
+          <h2 id="s-record">Try recording this for a few days</h2>
+          <ul class="checklist">
+            {record.map((r) => (
+              <li>
+                <strong>{r.title}</strong>
+                <span>{r.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {forVisit.length > 0 && (
+        <section class="concept__section" aria-labelledby="s-visit">
+          <h2 id="s-visit">What you could show your care team</h2>
+          <Callout>
+            <ul>
+              {forVisit.map((v) => <li>{v}</li>)}
+            </ul>
+          </Callout>
+          <p class="graph__caption" style="margin-top: var(--sp-4); max-width: var(--w-prose)">
+            A record is material for describing your situation. Decisions about which medication you
+            take, at what dose, and at what time belong with the clinicians who look after you.
+          </p>
+        </section>
+      )}
+
+      {faq.length > 0 && (
+        <section class="concept__section" aria-labelledby="s-faq">
+          <h2 id="s-faq">Frequently asked questions</h2>
+          <div style="max-width: var(--w-prose)">
+            <FAQ items={faq} />
+          </div>
+        </section>
+      )}
+
       {related.length > 0 && (
         <aside class="related">
           <h2>Related articles</h2>

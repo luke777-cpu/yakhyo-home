@@ -123,9 +123,10 @@ const learn = defineCollection({
  * 한국어 글의 스키마를 영어 때문에 고치는 일이 없도록 하기 위해서다.
  */
 /**
- * 영문 학습 글(/en/learn/). 한국어 learn 의 「몸으로 쓰는 약리학」·「몸으로 배우는
- * 신경해부학」 시리즈를 영어로 옮긴 것. 필드는 learn 과 같은 뼈대를 쓰되,
- * 영문판은 본문 중심이라 목록형 필드는 생략 가능하게 두었다.
+ * 영문 학습 글(/en/learn/). 한국어 learn 컬렉션을 영어로 옮긴 것 — 「몸으로 쓰는
+ * 약리학」·「몸으로 배우는 신경해부학」 연재(본문 중심이라 목록형 필드를 생략)와,
+ * 그래프·기록을 곁들이는 실용 교육 글(한국어 learn과 같은 구조) 둘 다를 담는다.
+ * 목록형 필드는 전부 optional/default([])라 연재 글은 그대로 생략할 수 있다.
  */
 const enLearn = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/en-learn' }),
@@ -133,7 +134,21 @@ const enLearn = defineCollection({
     title: z.string(),
     description: z.string(),
     lead: z.string().optional(),
+    curve: z.string().optional(),
+    curveTitle: z.string().optional(),
+    curveCaption: z.string().optional(),
+    expressions: z.array(z.string()).default([]),
+    reasons: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    record: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    forVisit: z.array(z.string()).default([]),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     order: z.number().default(99),
+    /**
+     * 연재가 아닌 실용 교육 글이 속하는 분류 (learn-categories.json 의 slug 중
+     * class / graph-reading / questions). 연재의 한 편(예: body-pharmacology-*)이면
+     * 비워 둔다 — 그 경우 [...slug].astro 가 slug 접두사로 시리즈를 알아낸다.
+     */
+    category: z.enum(['class', 'graph-reading', 'questions']).optional(),
     related,
   }),
 });
