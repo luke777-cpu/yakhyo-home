@@ -8,6 +8,8 @@
       { "slug": "body-pharmacology-part2", "order": 2, "title": "Part 2 — Learning Levodopa with the Body" },
       { "slug": "body-pharmacology-part3", "order": 3, "title": "Part 3 — A Problem When There Is Too Little, a Problem When There Is Too Much" },
       { "slug": "body-pharmacology-part4", "order": 4, "title": "Part 4 — What It Means to Combine Medications" },
+      { "slug": "body-pharmacology-special-1", "order": 4.5, "title": "Special Edition 1 — How to Understand a 'Slightly Less Good ON'" },
+      { "slug": "body-pharmacology-special-2", "order": 4.6, "title": "Special Edition 2 — Dopamine Efficiency" },
       { "slug": "body-pharmacology-part5", "order": 5, "title": "Part 5 — Making a Laboratory of My Own Body" },
       { "slug": "body-pharmacology-part6", "order": 6, "title": "Part 6 — The Moment a Record Becomes Pharmacology" },
       { "slug": "body-pharmacology-final", "order": 7, "title": "Closing Chapter — What My Body Taught Me About Pharmacology" }
