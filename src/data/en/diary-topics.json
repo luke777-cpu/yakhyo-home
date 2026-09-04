@@ -1,0 +1,10 @@
+[
+  { "slug": "start", "title": "Getting Started", "summary": "A step-by-step guide to what to do first when you open the app.", "status": "published" },
+  { "slug": "output", "title": "How to Record Output", "summary": "How to record how well your body is moving right now.", "status": "published" },
+  { "slug": "medication", "title": "Recording Doses", "summary": "Recording what you took and when, so it can be laid over the curve.", "status": "published" },
+  { "slug": "events", "title": "Recording Events", "summary": "Marking things like meals, activity, or dyskinesia that can affect the curve.", "status": "published" },
+  { "slug": "graph", "title": "Viewing the Graph", "summary": "How your records turn into a day's curve.", "status": "published" },
+  { "slug": "phs", "title": "PHS / Reports", "summary": "Putting your records into a form you can bring to a clinic visit.", "status": "published" },
+  { "slug": "backup", "title": "Backup & Restore", "summary": "How to export and restore your records so you don't lose them.", "status": "published" },
+  { "slug": "faq", "title": "Frequently Asked Questions", "summary": "The most common questions when you're just getting started.", "status": "published" }
+]

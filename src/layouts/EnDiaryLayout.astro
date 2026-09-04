@@ -1,0 +1,85 @@
+---
+/**
+ * English "how to use the diary" article template — mirrors DiaryLayout.astro
+ * (Korean) in structure and order: explanation -> steps -> notes -> FAQ ->
+ * related -> CTA.
+ */
+import EnBaseLayout from './EnBaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Callout from '../components/Callout.astro';
+import FAQ from '../components/FAQ.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  data: {
+    title: string;
+    description: string;
+    lead: string;
+    steps: { title: string; detail: string }[];
+    notes: string[];
+    faq: { q: string; a: string }[];
+    related: { label: string; href: string | null; note?: string }[];
+  };
+  koPath?: string;
+}
+
+const { data, koPath } = Astro.props;
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+---
+<EnBaseLayout title={data.title} description={data.description} koPath={koPath}>
+  <PageHead crumb="Medication Diary" crumbHref={url('/en/diary/')} title={data.title} lead={data.lead} />
+
+  <div class="container">
+    <div class="prose">
+      <slot />
+    </div>
+
+    {data.steps.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-steps">
+        <h2 id="s-steps">Step by step</h2>
+        <ol class="checklist">
+          {data.steps.map((s) => (
+            <li>
+              <strong>{s.title}</strong>
+              <span>{s.detail}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {data.notes.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-notes">
+        <h2 id="s-notes">Worth knowing</h2>
+        <Callout>
+          <ul>
+            {data.notes.map((n) => <li>{n}</li>)}
+          </ul>
+        </Callout>
+      </section>
+    )}
+
+    {data.faq.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-faq">
+        <h2 id="s-faq">Frequently asked questions</h2>
+        <div style="max-width: var(--w-prose)">
+          <FAQ items={data.faq} />
+        </div>
+      </section>
+    )}
+
+    {related.length > 0 && <RelatedContent title="Related" items={related} pendingLabel="In preparation" />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">Start recording</h2>
+      <Callout tone="plain">
+        <p>Trying it once is faster than reading about it.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/en/start/')}>Get started</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</EnBaseLayout>

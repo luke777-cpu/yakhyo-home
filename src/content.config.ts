@@ -181,4 +181,40 @@ const enTerms = defineCollection({
   }),
 });
 
-export const collections = { understand, graphs, diary, learn, enTerms, enLearn };
+/**
+ * 영문 "그래프 읽기" 글(/en/graphs/). 한국어 graphs 컬렉션과 같은 구조를 그대로 쓴다 —
+ * 별도 컬렉션으로 둔 이유는 en-terms/enLearn과 같은 이유로, 한국어 글의 스키마를
+ * 영어 때문에 고치는 일이 없도록 하기 위해서다.
+ */
+const enGraphs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/en-graphs' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    lead: z.string(),
+    curve: z.string(),
+    curveTitle: z.string(),
+    curveCaption: z.string().optional(),
+    look: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    record: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    related,
+    order: z.number().default(99),
+  }),
+});
+
+/** 영문 "약효일지" 사용법 글(/en/diary/). 한국어 diary 컬렉션과 같은 구조를 그대로 쓴다. */
+const enDiary = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/en-diary' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    lead: z.string(),
+    steps: z.array(z.object({ title: z.string(), detail: z.string() })).default([]),
+    notes: z.array(z.string()).default([]),
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    related,
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { understand, graphs, diary, learn, enTerms, enLearn, enGraphs, enDiary };

@@ -15,17 +15,17 @@ import links from '../../../../data/links.json';
 import { url } from '../../../../lib/url';
 
 const recordLeaves: Leaf[] = [
-  { title: 'Output level', href: url('/diary/output/'), ko: true },
-  { title: 'Medication times', href: url('/diary/medication/'), ko: true },
-  { title: 'Symptoms & events', href: url('/diary/events/'), ko: true },
-  { title: 'Frequently asked questions', href: url('/diary/faq/'), ko: true },
+  { title: 'How to Record Output', href: url('/en/diary/output/') },
+  { title: 'Recording Doses', href: url('/en/diary/medication/') },
+  { title: 'Recording Events', href: url('/en/diary/events/') },
+  { title: 'Frequently Asked Questions', href: url('/en/diary/faq/') },
 ];
 
 const graphLeaves: Leaf[] = [
-  { title: 'A basic rise', href: url('/graphs/normal-rise/'), ko: true },
-  { title: 'Two different days, same drug', href: url('/graphs/same-drug-two-days/'), ko: true },
-  { title: 'A full day, repeated', href: url('/graphs/whole-day/'), ko: true },
-  { title: 'PHS / reports', href: url('/diary/phs/'), ko: true },
+  { title: 'A Basic Rise', href: url('/en/graphs/normal-rise/') },
+  { title: 'Same Medication, a Different Curve on a Different Day', href: url('/en/graphs/same-drug-two-days/') },
+  { title: 'A Whole Day, Repeated', href: url('/en/graphs/whole-day/') },
+  { title: 'PHS / Reports', href: url('/en/diary/phs/') },
 ];
 
 const learnLeaves: Leaf[] = [
@@ -39,9 +39,9 @@ const learnLeaves: Leaf[] = [
 
 const appLeaves: Leaf[] = [
   { title: 'About the app', href: url('/en/start/') },
-  { title: 'How to use it', href: url('/diary/'), ko: true },
+  { title: 'How to use it', href: url('/en/diary/') },
   ...(links.playStore ? [{ title: 'Install (Google Play)', href: links.playStore, external: true }] : []),
-  { title: 'Backup & restore', href: url('/diary/backup/'), ko: true },
+  { title: 'Backup & Restore', href: url('/en/diary/backup/') },
 ];
 
 const branches = [
@@ -50,14 +50,14 @@ const branches = [
     title: 'Recording',
     desc: 'How well you are moving right now, and what you did and when, noted as it happens.',
     leaves: recordLeaves,
-    seeAll: { label: 'The Medication Diary section (Korean)', href: url('/diary/'), ko: true },
+    seeAll: { label: 'The Medication Diary section', href: url('/en/diary/') },
   },
   {
     slug: 'graph',
     title: 'Graphs',
     desc: 'Records gathered into a curve for one day, and into a pattern that repeats.',
     leaves: graphLeaves,
-    seeAll: { label: 'All graph shapes (Korean)', href: url('/graphs/'), ko: true },
+    seeAll: { label: 'All graph shapes', href: url('/en/graphs/') },
   },
   {
     slug: 'learn',

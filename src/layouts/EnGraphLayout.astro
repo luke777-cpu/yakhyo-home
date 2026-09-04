@@ -1,0 +1,101 @@
+---
+/**
+ * English "reading graphs" article template — mirrors GraphLayout.astro (Korean)
+ * in structure and order: graph -> short explanation -> what to look at -> what
+ * to record -> related -> CTA. Section headings are the only thing translated;
+ * the component set is identical so the two languages never drift in layout.
+ */
+import EnBaseLayout from './EnBaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import DayCurve from '../components/DayCurve.astro';
+import Callout from '../components/Callout.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+import { EN_GRAPH_LABELS, enCurve, describeEn } from '../lib/en';
+import type { CurveData } from '../lib/curve';
+
+interface Props {
+  data: {
+    title: string;
+    description: string;
+    lead: string;
+    curveTitle: string;
+    curveCaption?: string;
+    look: { title: string; detail: string }[];
+    record: { title: string; detail: string }[];
+    related: { label: string; href: string | null; note?: string }[];
+  };
+  curve: CurveData;
+  koPath?: string;
+}
+
+const { data, curve: rawCurve, koPath } = Astro.props;
+const curve = enCurve(rawCurve);
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+---
+<EnBaseLayout title={data.title} description={data.description} koPath={koPath}>
+  <PageHead crumb="Reading graphs" crumbHref={url('/en/graphs/')} title={data.title} lead={data.lead} />
+
+  <div class="container">
+    <section class="concept__section" style="margin-top: 0" aria-labelledby="s-graph">
+      <h2 id="s-graph">The graph</h2>
+      <DayCurve
+        curve={curve}
+        variant="full"
+        title={data.curveTitle}
+        desc={describeEn(curve)}
+        caption={data.curveCaption}
+        labels={EN_GRAPH_LABELS}
+      />
+      <div class="prose" style="margin-top: var(--sp-8)">
+        <slot />
+      </div>
+    </section>
+
+    {data.look.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-look">
+        <h2 id="s-look">What to look at</h2>
+        <ul class="checklist">
+          {data.look.map((l) => (
+            <li>
+              <strong>{l.title}</strong>
+              <span>{l.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {data.record.length > 0 && (
+      <section class="concept__section" aria-labelledby="s-record">
+        <h2 id="s-record">Worth recording when you see this shape</h2>
+        <ul class="checklist">
+          {data.record.map((r) => (
+            <li>
+              <strong>{r.title}</strong>
+              <span>{r.detail}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="graph__caption" style="margin-top: var(--sp-4); max-width: var(--w-prose)">
+          The shape of the curve is material for describing your situation. Decisions about the type,
+          dose, or timing of medication belong with the clinicians who look after you.
+        </p>
+      </section>
+    )}
+
+    {related.length > 0 && <RelatedContent title="Related" items={related} pendingLabel="In preparation" />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">Start recording</h2>
+      <Callout tone="plain">
+        <p class="callout__title">To check this against your own curve</p>
+        <p>Once a few days of records build up, you can look for the same spot in your own graph.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/en/start/')}>Get started</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</EnBaseLayout>

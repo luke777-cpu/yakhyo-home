@@ -33,9 +33,12 @@ export const EN_CURVE_NOTICE =
 export const EN_GA_NOTICE =
   'This site may use anonymized visit statistics to understand how it is used. It does not send personal medication or health records for analytics purposes.';
 
+/** 한국어 nav.json과 같은 순서 — 아직 영문판이 없는 이야기/질문게시판만 뺐다. */
 export const EN_NAV = [
   { href: '/en/', label: 'Home' },
+  { href: '/en/diary/', label: 'Medication Diary' },
   { href: '/en/terms/', label: 'Words for the ups and downs' },
+  { href: '/en/graphs/', label: 'Reading graphs' },
   { href: '/en/learn/', label: 'Learn' },
   { href: '/en/start/', label: 'Getting started' },
 ] as const;
@@ -64,6 +67,9 @@ const CURVE_TEXT: Record<string, string> = {
   '첫 상승': 'Starts to rise',
   '하강': 'Coming down',
   '겨우 올라오기 시작': 'Only just starting to rise',
+  // p-two-days.json 의 두 날짜 라벨 — same-drug-two-days.md 에서만 쓰인다.
+  '3월 12일': 'March 12',
+  '3월 15일': 'March 15',
 };
 
 /** 영문 페이지에 그래프를 놓을 때 이 함수를 거친다. */
@@ -71,6 +77,8 @@ export function enCurve(curve: CurveData): CurveData {
   const t = (s: string | null) => (s == null ? s : (CURVE_TEXT[s] ?? s));
   return {
     ...curve,
+    label: t(curve.label ?? null) ?? undefined,
+    compare: curve.compare ? { ...curve.compare, label: t(curve.compare.label) as string } : undefined,
     doses: curve.doses.map((d) => ({ ...d, label: t(d.label) })),
     marks: curve.marks.map((m) => ({ ...m, label: t(m.label) as string })),
   };

@@ -1,0 +1,17 @@
+---
+import { getCollection, render } from 'astro:content';
+import EnDiaryLayout from '../../../layouts/EnDiaryLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('enDiary');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+// 한국어 원문 경로 — slug 가 같으므로 그대로 연결된다.
+const koPath = `/diary/${entry.id}/`;
+---
+<EnDiaryLayout data={entry.data} koPath={koPath}>
+  <Content />
+</EnDiaryLayout>

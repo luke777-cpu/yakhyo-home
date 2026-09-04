@@ -9,13 +9,15 @@ import { url } from '../lib/url';
  * 여기 목록을 보는 편이 어떤 페이지가 있는지 알기 쉽다.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const [concepts, graphs, diary, learn, enTerms, enLearn] = await Promise.all([
+  const [concepts, graphs, diary, learn, enTerms, enLearn, enGraphs, enDiary] = await Promise.all([
     getCollection('understand'),
     getCollection('graphs'),
     getCollection('diary'),
     getCollection('learn'),
     getCollection('enTerms'),
     getCollection('enLearn'),
+    getCollection('enGraphs'),
+    getCollection('enDiary'),
   ]);
   const paths = [
     '/',
@@ -40,9 +42,13 @@ export const GET: APIRoute = async ({ site }) => {
     '/en/learn/',
     '/en/learn/map/',
     '/en/start/',
+    '/en/diary/',
+    '/en/graphs/',
     ...enTerms.map((t) => `/en/terms/${t.id}/`),
     ...enLearn.map((t) => `/en/learn/${t.id}/`),
     ...Object.keys(enSeries).map((key) => `/en/learn/series/${key}/`),
+    ...enDiary.map((d) => `/en/diary/${d.id}/`),
+    ...enGraphs.map((g) => `/en/graphs/${g.id}/`),
   ];
 
   const base = site ?? new URL('http://localhost');
