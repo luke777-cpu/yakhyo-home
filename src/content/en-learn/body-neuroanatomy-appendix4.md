@@ -1,7 +1,7 @@
 ---
 title: Neuroanatomy Through the Body, Appendix 4 — Corticobasal Syndrome (CBS)
-description: Corticobasal syndrome (CBS) is a clinical syndrome in which asymmetric parkinsonism appears together with cortical features such as apraxia, cortical sensory loss, alien limb phenomenon, and myoclonus; its representative pathology, corticobasal degeneration, is a 4-repeat tauopathy in which tau accumulates in neurons and glia of the cortex and basal ganglia.
-lead: Why won't one side of the body move the way I intend? When the cortex and basal ganglia break down together, the blueprint for movement itself collapses.
+description: Corticobasal syndrome (CBS) is a clinical syndrome combining markedly asymmetric parkinsonism with cortical features such as apraxia, cortical sensory loss, alien limb phenomena, myoclonus, and language dysfunction. Corticobasal degeneration (CBD), one important underlying pathology, is a 4-repeat tauopathy.
+lead: Why does one side of the body stop obeying intention? When cortical motor planning and basal ganglia function fail together, the problem goes beyond slowness.
 order: 43
 related:
   - label: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
@@ -19,56 +19,172 @@ related:
 
 ## — Why won't one side of the body move the way I intend?
 
-Among the parkinsonian syndromes, corticobasal syndrome, or CBS, is a very distinctive group of disorders. It is a syndrome in which dysfunction of the **cortex** (the cerebral cortex) and the **basal ganglia** appears together.
+Corticobasal syndrome, or **CBS**, is a distinctive parkinsonian syndrome because it combines **cortical dysfunction** with **basal ganglia dysfunction**.
 
-So CBS does not present with simple bradykinesia and rigidity alone. One arm or leg can become severely stiff and slow, and **apraxia** can develop — a state in which the patient knows how a movement should be done but cannot actually carry it out. The **alien limb phenomenon** can also appear, in which one's own hand feels as though it belongs to someone else.
+A limb can become slow and rigid, but the patient may also lose the ability to organize a learned action, interpret complex sensory information, or experience a limb as fully under voluntary control.
 
----
-
-<img src="/yakhyo-home/images/atlas/cbs_pathology_en.svg" alt="Simultaneous cortical and basal ganglia damage in CBS, and how alien limb phenomenon arises" loading="lazy" />
-
-*Figure. (Left) In CBS, cortical symptoms (apraxia, cortical sensory loss, alien limb) and basal ganglia symptoms (bradykinesia, rigidity, dystonia) appear together in the same limb. (Right) Alien limb phenomenon arises when motor intention, planning, execution, and self-recognition fail to be integrated.*
+That is why CBS looks superficially like Parkinson's disease yet can feel fundamentally different.
 
 ---
 
-## 1. CBS is a clinical syndrome; CBD is a pathology
+<img src="/yakhyo-home/images/atlas/cbs_pathology_en.svg" alt="Combined cortical and basal ganglia dysfunction in CBS and one way of understanding alien limb phenomena" loading="lazy" />
 
-**CBS is the name of a clinical syndrome.** Pathologically, however, several different diseases can produce the clinical picture of CBS. The most representative of these pathologies is **corticobasal degeneration, or CBD**.
+*Figure. In CBS, cortical features and basal-ganglia motor features may converge in the same limb. Alien limb phenomena can emerge when intention, motor planning, sensory feedback, and the sense of ownership are no longer integrated normally.*
 
-In other words, **showing the CBS picture does not necessarily mean the underlying pathology is CBD.** CBS is a clinical presentation; CBD is a pathological diagnosis.
+---
 
-## 2. Apraxia does not come from weak muscles
+## 1. CBS is a syndrome; CBD is a pathology
 
-One of the very important symptoms in CBS is **apraxia**.
+This distinction is essential.
 
-Apraxia is not an inability caused by lack of muscle strength. Nor is it caused by paralysis. The patient knows what needs to be done. But they cannot actually organize and carry out that movement.
+**CBS is a clinical syndrome.** **Corticobasal degeneration (CBD)** is a pathological diagnosis.
 
-In other words, the problem is not in the movement itself but in **the process that turns a motor plan into an actual action**. Carrying out a familiar movement requires the parietal lobe, premotor cortex, motor cortex, and basal ganglia to work together, and in CBS this cortical–basal ganglia network can be damaged as a whole.
+CBD is an important cause of CBS, but CBS can also be produced by PSP pathology, Alzheimer disease pathology, FTLD-TDP, and other neurodegenerative processes.
 
-## 3. Why does alien limb happen?
+So **CBS does not automatically mean CBD**.
 
-One of the most striking symptoms in CBS is the **alien limb phenomenon**. A patient may find that one hand moves against their own will, cannot be controlled, or feels as though it is not their own hand at all.
+## 2. Why is one side often much worse?
 
-Normally, intention, motor planning, sensory feedback, and the sense of one's own body are integrated into one whole. But when networks such as the frontal lobe, parietal lobe, supplementary motor area, and corpus callosum are damaged, this integration can break down.
+Marked **asymmetry** is one of the classic features of CBS.
 
-> Movement still occurs, but the feeling that it is "movement I made" can disappear.
+One arm may become much more rigid and slow than the other, and cortical deficits can develop predominantly on that same side.
 
-## 4. The core of the pathology
+Parkinson's disease can also begin asymmetrically, but the combination of severe asymmetry plus cortical signs points in a different direction.
 
-Like PSP, CBD is a **4-repeat tauopathy**. But sharing the same tauopathy does not mean PSP and CBD are the same disease. In CBD, **astrocytic plaques** and **ballooned neurons** are the more characteristic pathological findings, distinct from the **tufted astrocytes** seen in PSP.
+## 3. Apraxia is not weakness
 
-## 5. Why levodopa and DBS have limited effect
+**Apraxia** means that a learned purposeful action cannot be properly organized or executed even though weakness, paralysis, or primary sensory loss does not fully explain the failure.
 
-The core problem in CBS does not lie in the basal ganglia alone. The cortex, white matter, basal ganglia, and sensory integration circuits can all be affected together. That is why stimulating a single point in the basal ganglia is unlikely to resolve core symptoms such as apraxia, cortical sensory loss, or alien limb phenomenon.
+A patient may understand the request and have adequate strength, yet be unable to produce the correct hand shape or movement sequence for a familiar gesture.
+
+The problem lies in **turning a motor plan into an organized action**.
+
+## 4. Why does apraxia happen?
+
+Skilled action depends on a distributed network.
+
+The parietal cortex integrates object and spatial information. Premotor and supplementary motor areas help prepare action sequences. Motor cortex drives execution. Basal ganglia help select and initiate motor programs.
+
+In CBS, the **frontoparietal-premove motor-basal ganglia network** can be affected together.
+
+The strength may still be present, but the blueprint for action no longer reaches execution normally.
+
+## 5. What is cortical sensory loss?
+
+A patient may feel an object placed in the hand but be unable to identify it with the eyes closed. This is **astereognosis**.
+
+A number traced on the skin may not be recognized despite intact primary sensation; this is impaired **graphesthesia**.
+
+These are not simply peripheral sensory failures. The information reaches the cortex, but **higher-order integration and interpretation** are impaired.
+
+## 6. Why does alien limb happen?
+
+The term **alien limb phenomenon** describes a range of experiences: involuntary complex limb behavior, a sense that the limb is not fully one's own, interference with intended actions, or abnormal utilization behavior.
+
+Normally, intention, motor planning, sensory feedback, and the sense of body ownership are integrated.
+
+Damage involving frontal, parietal, supplementary motor, and callosal networks can break that integration.
+
+> The movement happens, but the feeling that “I made that movement” may be lost.
+
+Because “alien limb” covers several different phenomena, it is better clinically to describe exactly what the limb does and how the patient's sense of control or ownership has changed.
+
+## 7. Rigidity and dystonia can be strikingly asymmetric
+
+CBS can produce severe unilateral rigidity and **dystonia**, sometimes leaving an arm flexed or a hand held in a fixed abnormal posture.
+
+This can look different from the more familiar rigidity of typical Parkinson's disease.
+
+## 8. Myoclonus may appear
+
+**Myoclonus** consists of brief, shock-like jerks.
+
+It is different from a rhythmic tremor and can coexist with rigidity, dystonia, bradykinesia, and apraxia in the same limb.
+
+## 9. Language can also be affected
+
+CBS is not purely a limb disorder.
+
+Some patients develop nonfluent language impairment or **apraxia of speech**, reflecting involvement of dominant frontal-parietal language and motor-planning networks.
+
+## 10. The pathology of CBD
+
+CBD is a **4-repeat tauopathy** involving neurons and glial cells.
+
+Characteristic findings include **astrocytic plaques**, tau-positive threads, oligodendroglial **coiled bodies**, and **ballooned or achromatic neurons**.
+
+This contrasts with the **tufted astrocytes** classically associated with PSP.
+
+## 11. Why do cortical and basal-ganglia symptoms appear together?
+
+CBD can affect frontal and parietal cortex, subcortical white matter, and basal ganglia, often asymmetrically.
+
+Cortical involvement can produce apraxia, cortical sensory loss, language dysfunction, and alien limb phenomena.
+
+Basal ganglia involvement can produce bradykinesia, rigidity, and dystonia.
+
+That combination is what gives the syndrome its **corticobasal** character.
+
+## 12. Why is levodopa response often limited?
+
+In typical Parkinson's disease, dopamine replacement can work well because much of the downstream motor circuitry remains usable.
+
+In CBS, degeneration can extend through cortex, white matter, and basal ganglia.
+
+Levodopa cannot restore cortical motor planning or higher-order sensory integration.
+
+Motor benefit is therefore often limited, though an adequate levodopa trial may still be reasonable to see whether any component is responsive.
+
+## 13. The same CBS phenotype can come from different pathologies
+
+This is one of the most important lessons of CBS.
+
+The syndrome can be caused by CBD, PSP, Alzheimer disease, FTLD-TDP, and other pathologies.
+
+So the **clinical phenotype and the underlying tissue diagnosis are not one-to-one**.
+
+## 14. What can MRI show?
+
+MRI may show asymmetric frontal-parietal or perirolandic cortical atrophy.
+
+But this is supportive rather than diagnostic, and the pattern can vary with the underlying pathology.
+
+The longitudinal clinical pattern — what failed first, and on which side — remains crucial.
+
+## 15. Why is DBS usually not the answer?
+
+CBS is not a disorder of one basal ganglia node.
+
+Cortex, white matter, basal ganglia, and sensory-integration networks can all be involved.
+
+Stimulating a single motor target cannot be expected to reverse apraxia, cortical sensory loss, language dysfunction, or alien limb phenomena.
+
+For that reason, **CBS is not a standard indication for DBS**.
+
+---
+
+## CBS and PSP through the lens of pathology
+
+Both CBD and PSP are 4-repeat tauopathies.
+
+Yet the clinical pictures differ because the distribution and cellular pattern of tau pathology differ.
+
+PSP is especially associated with midbrain, brainstem, postural, and vertical ocular-motor dysfunction.
+
+CBS/CBD more often highlights frontoparietal cortical, white-matter, basal-ganglia, praxis, and sensory-integration dysfunction.
+
+The same protein can produce different syndromes depending on **where and in which cells it accumulates**.
 
 ---
 
 ## Understanding CBS makes Parkinson's disease easier to see
 
-In Parkinson's disease, the hand can become slow. But in CBS, **the motor plan itself for how to use the hand can collapse.** This difference is very large.
+Parkinson's disease can make a hand slow.
 
-> In Parkinson's disease, the circuit that mainly has trouble is the one that brings movement out; in CBS, the circuits that design the movement, carry it out, and recognize it as one's own movement can all be affected together.
+CBS can make the hand slow **and** disrupt the motor plan for how to use that hand.
+
+> In Parkinson's disease, the problem is often bringing movement out. In CBS, the networks that design the movement, execute it, and recognize it as one's own can all be affected.
 
 ---
 
-**Appendix 4 in one line:** Corticobasal syndrome (CBS) is a clinical syndrome in which asymmetric parkinsonism appears together with cortical features such as apraxia, cortical sensory loss, alien limb phenomenon, and myoclonus; its representative pathology, corticobasal degeneration, is a 4-repeat tauopathy in which tau accumulates in neurons and glia of the cortex and basal ganglia.
+**Appendix 4 in one line:** CBS is a clinical syndrome combining asymmetric parkinsonism with cortical features such as apraxia, cortical sensory loss, alien limb phenomena, myoclonus, and language dysfunction; CBD is one important 4-repeat tau pathology behind that syndrome, but not the only one.

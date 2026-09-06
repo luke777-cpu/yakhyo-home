@@ -1,7 +1,7 @@
 ---
 title: Neuroanatomy Through the Body, Part 6 — How Does Dyskinesia Develop?
-description: In Parkinson's disease, where dopamine is deficient, why does the body sometimes move too much instead? Dyskinesia is not simply a matter of how much dopamine there is — it is a phenomenon produced when repeated fluctuation in dopamine signaling reshapes the basal ganglia motor circuit into a hypersensitive state.
-lead: Take the medication, and this time movement goes too far. Dyskinesia isn't caused by too much medication — it's a circuit change produced by the shape of the dopamine curve.
+description: In Parkinson's disease, dyskinesia is not simply caused by too much dopamine. Repeated pulsatile stimulation, altered D1 and glutamatergic signaling, and maladaptive plasticity can reshape the basal ganglia-thalamocortical circuit into a hypersensitive state.
+lead: Take the medication, and movement goes too far. Dyskinesia is shaped not only by dopamine amount, but by the shape of the medication curve and how the circuit has adapted to repeated stimulation.
 order: 36
 related:
   - label: Neuroanatomy Through the Body, Part 5 — Does the Cerebellum Create Movement, or Refine It?
@@ -19,98 +19,126 @@ related:
 
 ## — In a disease defined by too little dopamine, why does the body sometimes move too much?
 
-Parkinson's disease is often described as **a disease in which movement decreases**. The hands slow down, the steps shorten, the body stiffens, starting becomes hard. So when you first learn about Parkinson's disease, this thought naturally comes to mind.
+Parkinson's disease is usually described as a disorder of reduced movement. The hands slow, steps shorten, the body stiffens, and starting becomes difficult.
 
-"It's a disease where you can't move because dopamine is deficient."
+So at first the logic seems simple: **too little dopamine means too little movement.**
 
-But as the disease goes on for years and you take levodopa for years, an entirely opposite phenomenon can appear. The body can't stay still. The neck and shoulders sway, the trunk twists, and the arms and legs move on their own as though dancing.
+But after years of disease and years of levodopa treatment, the opposite can happen. The neck and shoulders sway, the trunk twists, and the limbs move in an excessive, flowing, involuntary way.
 
 This is **levodopa-induced dyskinesia (LID)**.
 
-Isn't that strange? A disease caused by a deficiency of dopamine — and once you replace that deficient dopamine, this time movement goes too far.
-
-Dyskinesia is not simply caused by **how much dopamine there is**. What matters more is **the way dopamine is delivered to the brain**.
+The important point is that dyskinesia is not explained simply by “too much dopamine.” What matters is **how dopamine is delivered over time, and how the circuit has adapted to that repeated pattern.**
 
 ---
 
-<img src="/yakhyo-home/images/atlas/fig7_dyskinesia_en.svg" alt="Comparison of normal vs. Parkinsonian dopamine fluctuation, and where dyskinesia arises on the medication-effect curve" loading="lazy" />
+<img src="/yakhyo-home/images/atlas/fig7_dyskinesia_en.svg" alt="Normal versus Parkinsonian dopamine fluctuation, and where dyskinesia may appear on the medication-effect curve" loading="lazy" />
 
-*Figure 2. (Left) Normal vs. Parkinson's: the difference in dopamine fluctuation. (Right) Where on the medication-effect curve dyskinesia arises.*
+*Figure. Normal buffering smooths dopamine delivery. As buffering capacity is lost, plasma levodopa fluctuations are transmitted more directly to the striatum, and dyskinesia may appear at the peak or during rising and falling phases.*
 
 ---
 
-## 1. In the normal brain, dopamine flows smoothly
+## 1. Normal dopamine is relatively smooth
 
-In the normal substantia nigra, dopamine neurons continuously send dopamine to the striatum. Dopamine concentration doesn't suddenly spike and then drop — it maintains a steady baseline level while producing small changes as needed.
+Dopamine neurons in the substantia nigra pars compacta provide the striatum with relatively continuous dopaminergic input. The system is not simply switching movement on and off. It continuously adjusts movement size, speed, and selection.
 
-> Like water trickling steadily from a faucet — in a healthy person, the basal ganglia are not simply an organ that switches movement on and off, but more a device that continuously fine-tunes the size and speed of movement.
+> It is closer to a faucet that keeps a steady flow than to a light switch that flips between zero and maximum.
 
 ## 2. When the reservoir shrinks
 
-In Parkinson's disease, dopamine neurons in the substantia nigra pars compacta gradually decrease. Early on, the remaining neurons compensate to some degree. When you take levodopa, the levodopa that enters the brain can be converted into dopamine, stored, and released little by little as needed.
+Earlier in Parkinson's disease, surviving dopamine terminals can still buffer some of the levodopa arriving in the brain. Dopamine can be synthesized, stored, and released in a more regulated way.
 
-But as time passes and more dopamine neurons are lost, the situation changes.
+As nigrostriatal degeneration advances, that buffering capacity shrinks.
 
-Before, there was a **reservoir** inside the brain. Even if a bit too much medication came in, it could be stored and released slowly.
+The brain's **reservoir becomes smaller**. Plasma levodopa fluctuations are transmitted more directly to striatal dopamine signaling. Peaks become sharper, troughs deeper, and the response becomes less forgiving.
 
-But as the disease progresses, that reservoir shrinks. Now, when medication arrives, dopamine rises sharply, and when the drug effect wears off, it falls sharply again.
+## 3. The problem is the pulse, not just the amount
 
-## 3. The problem is the fluctuation, not the amount
+Oral levodopa rises and falls in the bloodstream. Taken several times a day, those oscillations repeat.
 
-When you take levodopa, its blood concentration rises and then falls again. Taking it several times a day means this fluctuation repeats.
+With fewer surviving dopamine terminals, striatal receptors are exposed repeatedly to **strong stimulation → weak stimulation → strong stimulation → weak stimulation**.
 
-When enough dopamine neurons remain, this fluctuation can be buffered to some degree. But once many neurons have been lost, the dopamine receptors of the striatum experience, several times a day, a repeating cycle of **strong stimulation → weak stimulation → strong stimulation → weak stimulation**.
+This is often described as **pulsatile dopaminergic stimulation**.
 
-This is called **pulsatile dopaminergic stimulation**.
+Over time, the circuit adapts to that unstable pattern. Dyskinesia is therefore better understood as an abnormal motor state produced by repeated fluctuations and altered network plasticity, not merely as an acute overdose effect.
 
-> Rather than a phenomenon caused simply by too much dopamine, dyskinesia is more accurately understood as an abnormal motor circuit produced as the brain adapts, over a long period, to a state in which dopamine signaling fluctuates excessively.
+## 4. The direct pathway can become hypersensitive
 
-## 4. The direct pathway opens too far
+In the OFF state, reduced dopamine weakens the movement-promoting direct pathway and strengthens inhibitory influences within the basal ganglia network.
 
-The basal ganglia contain the **direct pathway**, which promotes movement, and the **indirect pathway**, which suppresses it.
+When levodopa arrives, D1 receptor-bearing striatal neurons in the direct pathway are activated. After long exposure to pulsatile stimulation, that response can become abnormally sensitive.
 
-In the OFF state of Parkinson's disease, dopamine is deficient. The strength of the direct pathway falls, and the suppression from the indirect pathway grows stronger. So **it becomes hard to move.**
+One intracellular signaling cascade often discussed in this context is **D1 receptor → cAMP → PKA → DARPP-32**. Repeated abnormal activation can alter phosphorylation, gene expression, and synaptic responsiveness.
 
-Conversely, at the moment levodopa acts strongly, the direct pathway can become sharply activated. In particular, striatal neurons that have received pulsatile stimulation over a long period may become more sensitive to stimulation than normal. As a result, the signal that promotes movement can become stronger than necessary.
+This is part of what is meant by **maladaptive neuroplasticity**: the circuit has learned the wrong response pattern.
 
-OFF and dyskinesia look like entirely different conditions, but in fact they are the two ends of the same circuit.
+> In OFF, the gate is too closed. In dyskinesia, the gate can open too far.
 
-> In OFF, the door is closed too far. In dyskinesia, the door is open too far.
+## 5. The output side of the circuit also changes
 
-## 5. Diphasic dyskinesia — dyskinesia that comes on the slope
+When the direct pathway becomes excessively active, inhibitory output from the **GPi (globus pallidus internus)** to the thalamus can fall too much.
 
-Not all dyskinesia appears when the drug effect is at its highest.
+That can produce excessive thalamic disinhibition and greater motor cortical drive.
 
-There is also **diphasic dyskinesia**, which appears during the intermediate stretch where levodopa concentration is rising or falling. In this case, dyskinesia can appear not at the peak of the drug effect but rather during the process of rising into ON and the process of falling into OFF.
+A simplified version is:
 
-> OFF → rising phase (dyskinesia) → full ON → declining phase (dyskinesia) → OFF
+> excessive direct-pathway activity → reduced GPi inhibition → thalamic disinhibition → increased motor cortical output → excessive involuntary movement
 
-So you shouldn't judge from the visible movement alone that "there's too much medication." You need to first look at **where on the medication-effect curve that dyskinesia occurred**.
+Dyskinesia is therefore a problem of the whole **striatal–pallidal–thalamocortical circuit**, not one receptor in isolation.
 
-This is also why paradoxical phenomena can occur — dyskinesia worsening after the dose is lowered further, or dyskinesia lessening after a small additional dose of levodopa.
+## 6. Peak-dose and diphasic dyskinesia are not the same
 
-## 6. Why amantadine helps
+The best-known pattern is **peak-dose dyskinesia**, which appears when the levodopa effect is relatively high.
 
-The basal ganglia are not a circuit that runs on dopamine alone. The main excitatory signal entering the striatum from the cerebral cortex is **glutamate**. When dopamine signaling fluctuates repeatedly, the response of the glutamate circuit changes as well.
+But dyskinesia can also appear on the way up and on the way down. This is **diphasic dyskinesia**.
 
-Amantadine has an action that suppresses excessive glutamate signaling at the **NMDA receptor**. This is why amantadine helps in dyskinesia.
+> OFF → rising phase with dyskinesia → full ON → falling phase with dyskinesia → OFF
 
-In other words, dyskinesia can also be understood as **not solely a disease of dopamine, but a disease of the circuit that dopamine and glutamate produce together**.
+That distinction matters clinically. Visible excessive movement does not automatically mean the dose is simply “too high.” The first question should be: **where on the medication-effect curve did the dyskinesia occur?**
+
+This is why reducing a dose can sometimes make a transition-phase dyskinesia worse, while a small additional levodopa dose can occasionally reduce it by moving the patient through that unstable zone.
+
+## 7. Dyskinesia and dystonia overlap, but they are not identical
+
+Dyskinesia is often flowing, irregular, writhing, or dance-like.
+
+**Dystonia** is more likely to involve sustained muscle contraction and abnormal posturing: toes curling, a foot turning inward, or a body part becoming fixed in an abnormal position.
+
+The two can coexist, and dystonia may be especially prominent in OFF or transition states.
+
+So “there is too much movement” is not enough. We need to ask **what kind of movement, and at what point in the medication cycle?**
+
+## 8. Glutamate and NMDA signaling matter too
+
+The basal ganglia do not run on dopamine alone. The cortex sends major excitatory input to the striatum through **glutamate**.
+
+Repeated dopaminergic fluctuation can alter glutamatergic signaling and synaptic plasticity, including NMDA- and AMPA-related mechanisms.
+
+Amantadine can reduce dyskinesia in part through its effects on **NMDA receptor-mediated glutamatergic transmission**.
+
+So dyskinesia is not only a dopamine problem. It is a circuit disorder shaped by dopamine, glutamate, and plasticity together.
 
 ---
 
-## Dyskinesia, Understood Through the Body
+## Dyskinesia, understood through my own body
 
-For a long time I thought of dyskinesia as simply "a state where too much medication has gone in." But now I think of it a little differently.
+For a long time, I thought dyskinesia simply meant “too much medication.” Recording my own medication-effect curve made that explanation feel incomplete.
 
-As Parkinson's disease goes on for a long time, the brain's ability to store and buffer dopamine declines. Each time levodopa arrives, dopamine stimulation rises sharply and falls sharply, and as that stimulation repeats, the neural circuits of the striatum grow progressively more hypersensitive. And at some point, the circuit that is supposed to produce normal movement begins to produce more movement than necessary.
+On some mornings, the medication seems to rise in one relatively clean sweep. Dyskinesia may become strong during that rise, then disappear once I settle into a stable ON state.
 
-In other words, dyskinesia is not a side effect that appeared overnight. It is **a change in the neural circuit produced jointly by long disease progression and repeated dopamine stimulation**.
+In the evening, after repeated dopaminergic stimulation through the day, a rising-phase dyskinesia may last 30 minutes, sometimes more than an hour. That may not mean only that “there is more drug in the evening.” It may mean that the circuit is **spending longer in an unstable transition zone** between states.
 
-> To understand dyskinesia, you can't just look at a single pill. You have to look at the entire dopamine curve that pill produces over time.
+On other days, dyskinesia can continue for a stretch and then be followed almost immediately by OFF. In that pattern, the later part of the dyskinesia may reflect a **falling-phase, diphasic or transition dyskinesia**, rather than a high peak.
 
-This is also exactly why, in keeping records of my Parkinson's disease, I kept paying attention to the rise and fall of the drug effect, its peaks and valleys.
+I have also experienced OFF ending abruptly, almost as if the body crossed a line all at once rather than improving gradually.
+
+That makes me think of a **nonlinear network threshold**: once the circuit crosses a certain point, the whole motor state may switch. The threshold on the way up may not be identical to the threshold on the way down — a possibility related to **hysteresis or path dependence**.
+
+These are observations from my own body and should not be generalized to every person with Parkinson's disease. But they changed the way I think about dyskinesia.
+
+> To understand dyskinesia, I need to look not at one pill, but at the entire medication-effect curve and the state of the circuit while it moves through that curve.
+
+The therapeutic goal is therefore not simply to minimize dopamine. It is to reduce deep troughs and sharp peaks, and whenever possible to create **smoother, more continuous dopaminergic stimulation**.
 
 ---
 
-**Part 6 in one line:** Dyskinesia is not caused simply by too much dopamine — it is a phenomenon produced when repeated fluctuation in dopamine signaling reshapes the basal ganglia motor circuit into a hypersensitive state.
+**Part 6 in one line:** Dyskinesia is not simply caused by too much dopamine. Repeated pulsatile stimulation can alter D1 and glutamatergic signaling, plasticity, and basal ganglia-thalamocortical output, so the whole medication-effect curve — including peak-dose and rising/falling diphasic dyskinesia — has to be considered.
