@@ -1,6 +1,6 @@
 ---
 title: Neuroanatomy Through the Body, Appendix 3 — Progressive Supranuclear Palsy (PSP)
-description: Progressive supranuclear palsy (PSP) is a 4-repeat tauopathy involving neurons and glial cells across the midbrain, basal ganglia, brainstem, and frontal networks, producing early falls, axial rigidity, slowed vertical saccades or vertical supranuclear gaze palsy, speech-swallowing problems, and frontal dysfunction.
+description: Progressive supranuclear palsy (PSP) is a 4-repeat tauopathy in which tau accumulates in neurons and glial cells across the midbrain, basal ganglia, brainstem, and frontal networks, producing parkinsonian bradykinesia and rigidity together with early falls, axial rigidity, and vertical eye-movement impairment.
 lead: Why do the eyes and posture fail first? When the midbrain and brainstem are involved, symptoms beyond bradykinesia and rigidity move to the foreground.
 order: 42
 related:
@@ -19,140 +19,266 @@ related:
 
 ## — Why do the eyes and posture fail first?
 
-Progressive supranuclear palsy, or **PSP**, can resemble Parkinson's disease, but important differences often appear relatively early.
+Among the parkinsonian syndromes, progressive supranuclear palsy, or **PSP**, shares some features with Parkinson's disease but often begins to look different relatively early.
 
-The word **supranuclear** means that the problem initially lies mainly in the higher control systems above the cranial nerve nuclei that move the eyes, rather than simply in the eye-movement nuclei themselves.
+Its full name is **Progressive Supranuclear Palsy**.
+
+The name itself contains several important clues.
+
+**Progressive** means that the disorder advances over time.
+
+**Supranuclear** means that the higher control circuits above the cranial nerve nuclei that move the eyes are predominantly affected.
+
+**Palsy** refers to impaired control of movement.
+
+The terminology sounds difficult at first, but the core picture is fairly clear.
+
+In PSP, the central axis of the body can become rigid, balance can fail early, and the ability to move the eyes — especially vertically — can become impaired.
+
+So although patients may become slow and rigid like those with Parkinson's disease, **posture and eye-movement problems often come to the foreground more than tremor.**
 
 ---
 
 <img src="/yakhyo-home/images/atlas/psp_pathology_en.svg" alt="Major structures affected in PSP and the vertical eye-movement network" loading="lazy" />
 
-*Figure. PSP can affect the midbrain, STN, globus pallidus, substantia nigra, brainstem, and frontal networks. Vertical eye movements depend on a distributed saccadic control system.*
+*Figure. PSP can affect the midbrain, STN, globus pallidus, substantia nigra, brainstem, and frontal networks.*
 
 ---
 
-## 1. Why do falls happen early?
+## 1. PSP is also a parkinsonian syndrome
 
-In typical Parkinson's disease, recurrent falls and marked postural instability often become more prominent later.
+Patients with PSP can show bradykinesia, rigidity, gait impairment, and postural instability.
 
-In PSP, repeated falls can occur relatively early, often with a tendency to fall backward.
+That is why early PSP can initially be mistaken for Parkinson's disease.
 
-This is not simply a problem of weak legs. Brainstem and axial postural-control networks that generate protective and righting responses are affected.
+As time passes, however, clues that are less typical of Parkinson's disease become more apparent.
 
-So early falls in PSP are better understood as **failure of postural reflex and axial motor control networks**.
+Important examples include early recurrent falls, vertical eye-movement impairment, stiffness of the neck and trunk, speech and swallowing difficulty, and cognitive or behavioral change.
 
-## 2. Axial rigidity can dominate
+## 2. Why do falls happen early?
 
-In Parkinson's disease, limb rigidity may be the most obvious feature early on.
+In typical Parkinson's disease, marked postural instability and recurrent falls usually become more prominent after the disease has progressed for some time.
 
-In PSP, rigidity of the **neck and trunk** can be especially prominent. Turning, correcting posture, and recovering from instability may become difficult.
+In PSP, falls can appear relatively early, often with a tendency to fall backward.
 
-Early axial rigidity together with recurrent falls is an important clue that the syndrome may not be typical Parkinson's disease.
+This is not simply because the legs are weak. Brainstem and postural-control circuits that maintain balance and respond to sudden shifts in posture can be affected.
 
-## 3. The eye-movement clue starts before complete gaze palsy
+So falls in PSP are better understood as a problem of **postural reflexes and axial motor-control networks**, not simple muscle weakness.
 
-PSP is famous for **vertical supranuclear gaze palsy**, but complete gaze restriction does not have to be present at the beginning.
+## 3. Why are the trunk and neck so rigid?
 
-An earlier sign can be **slowing of vertical saccades** — the eyes still move up and down, but the rapid movement becomes abnormally slow.
+In Parkinson's disease, rigidity of the arms or legs may be especially obvious.
 
-As the disease progresses, this can evolve into more obvious vertical gaze limitation.
+In PSP, rigidity of the **axial region** — the neck and trunk — can be more prominent.
 
-Looking down is especially important for stairs, thresholds, obstacles, reading, and eating. Eye-movement dysfunction can therefore contribute directly to disability and falls.
+The neck stiffens, turning the trunk becomes difficult, and changing posture is harder.
 
-## 4. Why is it called supranuclear?
+This axial rigidity worsens gait and balance.
 
-Voluntary saccades depend on a network that includes the frontal eye fields, superior colliculus, basal ganglia, cerebellum, and midbrain/brainstem ocular-motor structures.
+The patient may feel not merely slow, but as if **the whole body moves as a single rigid block**.
 
-Early in PSP, voluntary eye movements can be impaired while reflexive movements driven by the **vestibulo-ocular reflex (VOR)** remain relatively better preserved.
+## 4. The most characteristic clue — vertical eye-movement impairment
 
-That difference is what the term **supranuclear** refers to. Later in the disease, reflexive movements can also become impaired.
+The best-known feature of PSP is **impairment of vertical eye movements**.
 
-## 5. The pathology is a 4-repeat tauopathy
+Looking downward can become particularly difficult.
 
-PSP is a classic **4-repeat tauopathy (4R tau)**.
+That matters because we look down constantly while walking and eating — at stairs, thresholds, floor obstacles, shoes, and a plate of food.
 
-Tau is normally a microtubule-associated protein. In PSP, abnormal tau aggregates in neurons and glial cells.
+When downward gaze becomes impaired, stairs become less secure, eating becomes more awkward, and obstacles on the floor are harder to avoid.
 
-Characteristic pathological findings include **tufted astrocytes**, neuronal **globose neurofibrillary tangles**, and oligodendroglial **coiled bodies**.
+Eye-movement dysfunction can therefore directly increase the risk of falls.
 
-PSP is therefore not simply neuronal loss in one nucleus. It is a distributed tauopathy affecting several cell types and networks.
+## 5. Why is it called supranuclear palsy?
 
-## 6. Which structures are affected?
+The eye muscles themselves are not primarily paralyzed, and the cranial nerve nuclei that move the eyes are not necessarily the first structures to fail completely.
 
-Important regions include the midbrain, STN, GPi, substantia nigra, brainstem, and frontal connections.
+The problem lies in the higher control circuits above them.
 
-That distribution helps explain the phenotype:
+Voluntary rapid eye movements, or **saccades**, depend on these higher networks.
 
-- midbrain/brainstem → eye-movement and postural-control problems
-- basal ganglia → bradykinesia and rigidity
-- frontal networks → executive and behavioral changes
+A patient may have difficulty voluntarily looking downward while certain reflexive eye movements remain relatively better preserved.
 
-The clinical picture is shaped not only by which protein is abnormal, but by **where the pathology is distributed**.
+That distinction is why the term **supranuclear** is used.
 
-## 7. Speech and swallowing can become important early
+## 6. Eye movement is also a motor circuit
 
-Speech may become slow, strained, reduced, or difficult to articulate.
+Moving the eyes is the result of a neural network just as complex as moving the arms and legs.
 
-Swallowing impairment can also become clinically important relatively early, increasing the risk of **aspiration**.
+The frontal eye fields, superior colliculus, brainstem ocular-motor centers, basal ganglia, and cerebellum all participate.
 
-Parkinson's disease can also affect speech and swallowing, but early prominent axial, bulbar, and ocular-motor features should raise concern for atypical parkinsonism.
+In PSP, involvement of the midbrain and brainstem disrupts this network.
 
-## 8. Frontal symptoms matter too
+This helps move us beyond the idea that parkinsonian disorders are diseases only of the arms and legs.
 
-PSP can involve **executive dysfunction**, apathy, reduced initiation, difficulty shifting mental set, and behavioral change.
+Eye movement is also part of the brain's motor network.
 
-This means PSP should not be thought of only as a disorder of gaze and posture. Frontal-subcortical networks are part of the disease as well.
+## 7. The pathological core is tau, not α-synuclein
 
-## 9. Why is the levodopa response often limited?
+Here PSP differs fundamentally from MSA.
 
-PSP affects much more than nigrostriatal dopamine neurons.
+In MSA, α-synuclein is central to the pathology.
 
-STN, pallidal, brainstem, and frontal circuits may all be involved, so replacing dopamine cannot restore the whole network.
+In PSP, the key protein is **tau**, so PSP belongs to the **tauopathies**.
 
-The levodopa response is therefore often less dramatic or less sustained than in typical Parkinson's disease.
+Tau normally helps stabilize microtubules inside neurons. Microtubules are important for intracellular transport and structural support.
 
-But PSP is heterogeneous. **PSP-parkinsonism (PSP-P)** can initially look quite similar to Parkinson's disease and may show asymmetry and partial levodopa responsiveness.
+When tau becomes abnormally modified and aggregated, it can lose its normal function and accumulate as pathological deposits.
 
-## 10. PSP does not have one face
+## 8. What kind of tau pathology occurs in PSP?
 
-The classic phenotype is **PSP-Richardson syndrome**, with early falls, slowed vertical saccades or gaze palsy, axial rigidity, and cognitive-behavioral change.
+PSP is a classic **4-repeat tauopathy**.
 
-Other phenotypes can begin with parkinsonism, speech-language problems, frontal symptoms, or gait freezing.
+That means tau isoforms containing four repeat domains are predominantly involved.
 
-So the absence of complete gaze palsy early on does not exclude PSP.
+Pathology can occur not only in neurons but also in astrocytes and oligodendrocytes.
 
-## 11. What can MRI show?
+One characteristic finding is the **tufted astrocyte**, in which tau accumulates in astrocytes in a distinctive pattern.
 
-MRI may show midbrain atrophy.
+This is one of the classic pathological features of PSP.
 
-The sagittal **hummingbird (or penguin) sign** and axial **morning glory sign** are well-known supportive findings.
+## 9. Which regions are mainly affected?
 
-But they are not definitive and may be absent early. Imaging should support, not replace, the clinical pattern and longitudinal course.
+Several brain regions can be involved in PSP.
 
-## 12. Why is DBS not routine treatment?
+Important areas include the midbrain, subthalamic nucleus (STN), globus pallidus, substantia nigra, and multiple brainstem nuclei.
 
-PSP affects widespread motor, ocular-motor, postural, brainstem, and frontal systems, and levodopa responsiveness is often limited.
+Midbrain and brainstem involvement contributes to eye-movement, posture, gait, and swallowing problems.
 
-Stimulating one basal ganglia target therefore cannot correct the full syndrome.
+Basal ganglia involvement contributes to parkinsonian bradykinesia and rigidity.
 
-DBS targets have been studied experimentally, but **DBS is not established as standard treatment for PSP**.
+PSP is therefore easier to understand when both the basal ganglia and the brainstem are considered together.
+
+## 10. If the STN is affected, why does parkinsonism occur?
+
+The subthalamic nucleus (STN) can also be pathologically involved in PSP.
+
+This is the same structure encountered in the DBS chapter.
+
+The STN plays an important role in inhibitory basal ganglia networks and movement selection.
+
+Degeneration of this region and its surrounding circuits can further disturb motor-network balance and contribute to bradykinesia, rigidity, and axial symptoms.
+
+But because PSP is not simply a dopamine-deficiency disorder like typical Parkinson's disease, levodopa responsiveness is often limited.
+
+## 11. Why is the levodopa response often weak?
+
+In Parkinson's disease, even as nigral dopamine neurons are lost, the striatum and downstream circuitry can remain relatively functional for a considerable period.
+
+That allows levodopa replacement to produce a strong response.
+
+In PSP, not only the substantia nigra but also the STN, pallidum, brainstem, and frontal-connected networks can be affected.
+
+Replacing dopamine alone therefore cannot correct the entire problem.
+
+Even when some levodopa response is present, it is often less dramatic or less sustained than in typical Parkinson's disease.
+
+## 12. Why is tremor often less prominent?
+
+Rest tremor can be a major symptom in typical Parkinson's disease.
+
+In PSP, tremor is often not the dominant feature.
+
+Instead, axial rigidity, gait dysfunction, postural instability, and eye-movement impairment may stand out more strongly.
+
+This difference can be understood as a difference in which neural networks are most heavily affected.
+
+In PSP, widespread degeneration of brainstem and postural-control systems is often more important than a simple nigrostriatal dopamine deficit.
+
+## 13. Speech and swallowing can be affected early
+
+Speech in PSP can become slow and unclear.
+
+The voice may change, and the rhythm of speech may become abnormal.
+
+Swallowing difficulty can also appear relatively early.
+
+This is not simply because the muscles of the mouth and pharynx are weak. Brainstem and corticobulbar networks that coordinate the complex sequence of speaking and swallowing can be affected.
+
+As dysphagia worsens, the risk of aspiration rises.
+
+That makes **swallowing, nutrition, and aspiration prevention** important clinical goals in PSP.
+
+## 14. Cognitive and behavioral changes also matter
+
+PSP can affect functions associated with the frontal lobes.
+
+Examples include apathy, slowing of behavior, executive dysfunction, difficulty shifting attention, and changes in social judgment.
+
+This is not simply a matter of losing motivation because the disease is severe.
+
+The circuits connecting the frontal lobes and basal ganglia can themselves be affected.
+
+PSP is therefore both a movement disorder and a **frontal-basal ganglia network disorder**.
+
+## 15. What can imaging show?
+
+MRI can show findings that support PSP.
+
+Midbrain atrophy is one of the best-known features.
+
+On sagittal MRI, the atrophic midbrain can produce the **hummingbird sign** or **penguin sign**.
+
+On axial images, the altered midbrain contour has also been described as the **morning glory sign**.
+
+These findings may be subtle or absent early, however.
+
+Imaging should therefore be interpreted together with the clinical pattern rather than used as a stand-alone diagnosis.
+
+## 16. PSP does not have only one clinical face
+
+PSP was once thought of mainly as one classic syndrome.
+
+We now recognize several clinical phenotypes.
+
+The classic form is **PSP-Richardson syndrome**, characterized by early falls, vertical eye-movement impairment, axial rigidity, and cognitive-behavioral change.
+
+Some patients, however, initially look much more like Parkinson's disease. This form is often called **PSP-parkinsonism**.
+
+In such patients, asymmetry and some levodopa responsiveness may be present early, making the distinction from Parkinson's disease more difficult.
+
+## 17. Why is DBS generally not a good option?
+
+PSP affects not only basal ganglia structures such as the STN and GPi but also the brainstem, ocular-motor circuits, postural-control systems, and frontal networks.
+
+Modulating one key motor node therefore cannot correct the entire disorder in the way it sometimes can in Parkinson's disease.
+
+Levodopa responsiveness is also often limited.
+
+For these reasons, typical PSP is generally not considered a good indication for DBS.
+
+This again illustrates that **DBS treats reversible dysfunction in particular circuits, not parkinsonism as a symptom label by itself.**
 
 ---
 
-## Looking at PSP through pathology
+# Looking at PSP through pathology
 
-MSA is an α-synucleinopathy. PSP is a **4R tauopathy**.
+In MSA, α-synuclein accumulates predominantly in oligodendrocytes.
 
-The same outward label of “parkinsonism” can therefore come from completely different molecular pathology and completely different network distribution.
+In PSP, tau accumulates in neurons and glial cells.
 
----
+So although both disorders can look slow, rigid, and parkinsonian from the outside, the underlying pathological protein is different from the beginning.
 
-## Understanding PSP makes Parkinson's disease easier to see
+MSA is a **synucleinopathy**; PSP is a **tauopathy**.
 
-Typical Parkinson's disease often begins asymmetrically and responds well to levodopa. Marked early falls and vertical ocular-motor dysfunction are not typical early features.
-
-> With parkinsonism, what appears first — and in what order the rest follows — can be as important as the symptoms themselves.
+Those pathological differences help determine which cells and circuits fail first and which symptoms move to the foreground.
 
 ---
 
-**Appendix 3 in one line:** PSP is a 4-repeat tauopathy affecting neurons and glia across midbrain, basal ganglia, brainstem, and frontal networks, so slowed vertical saccades or vertical gaze palsy, early falls, axial rigidity, speech-swallowing problems, and frontal dysfunction can accompany parkinsonism.
+# Understanding PSP makes Parkinson's disease easier to see
+
+Compared with PSP, the characteristic features of Parkinson's disease become clearer.
+
+Parkinson's disease often begins asymmetrically and responds relatively well to levodopa.
+
+Marked early falls and vertical eye-movement impairment are not typical early features.
+
+In PSP, early falls, axial rigidity, vertical ocular-motor dysfunction, and earlier gait or swallowing problems may be more prominent.
+
+So even when two disorders share “parkinsonian symptoms,” **which symptom appears first and in what sequence the disease unfolds** can be crucial for distinguishing them.
+
+---
+
+## Appendix 3 in one line
+
+**Progressive supranuclear palsy (PSP) is a 4-repeat tauopathy in which tau accumulates in neurons and glial cells across the midbrain, basal ganglia, brainstem, and frontal networks, so parkinsonian bradykinesia and rigidity can occur together with early falls, axial rigidity, and vertical eye-movement impairment.**
