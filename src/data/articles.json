@@ -173,5 +173,26 @@
     "title": "몸으로 배우는 신경해부학 6부 — 이상운동증은 어떻게 만들어지는가",
     "summary": "도파민이 부족한 병에서 왜 몸은 오히려 너무 많이 움직이는가. 도파민 신호의 반복적인 출렁임이 기저핵 회로를 과민하게 재편하는 과정을 따라갑니다.",
     "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part7",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 7부 — 떨림은 왜 또 다른 회로인가",
+    "summary": "파킨슨병의 안정시 떨림은 기저핵에서 시작된 불안정한 신호가 소뇌-시상-운동피질 회로와 만나 비정상적인 진동 네트워크를 만들면서 나타나는 증상입니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part8",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 8부 — 운동만의 병이 아니다",
+    "summary": "잠, 장, 소변, 혈압, 기분, 생각까지. 파킨슨병은 자율신경·수면·감정·인지 등 여러 신경 네트워크의 변화가 함께 만들어 내는 전신적 신경계 질환입니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part9",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 9부 — DBS는 어디를 자극하는가",
+    "summary": "STN·GPi·VIM — 각 표적이 어떤 회로를 조절하는지, 왜 같은 DBS라도 표적에 따라 효과가 다른지를 회로 관점에서 따라갑니다.",
+    "status": "published"
   }
 ]
