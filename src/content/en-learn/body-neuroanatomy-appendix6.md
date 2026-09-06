@@ -20,199 +20,480 @@ related:
 
 ## — What Helps Tell Them Apart?
 
-Parkinson's disease, multiple system atrophy (MSA), progressive supranuclear palsy (PSP), corticobasal syndrome (CBS), and dementia with Lewy bodies (DLB) can all produce slowness, rigidity, gait difficulty, and sometimes tremor.
+So far, we have looked at Parkinson's disease together with
 
-But underneath that shared surface, they differ in **pathology, cell type, anatomical distribution, circuit failure, and the order in which symptoms appear**.
+multiple system atrophy (MSA),
 
-The central question is not simply “Does this patient have parkinsonian symptoms?”
+progressive supranuclear palsy (PSP),
 
-It is: **which symptom appeared first, which circuit seems to be failing, and how does the pattern evolve over time?**
+corticobasal syndrome (CBS),
+
+and dementia with Lewy bodies (DLB).
+
+On the surface, they can all look similar.
+
+Movement becomes slow.
+
+The body becomes rigid.
+
+Walking becomes difficult.
+
+Tremor may appear in some cases.
+
+That is why they can be difficult to distinguish early on.
+
+But when we look more closely, each disorder differs in
+
+**its pathological protein,**
+
+**the circuits it mainly affects,**
+
+and **the order in which symptoms appear.**
+
+So the important question is not simply
+
+“Are parkinsonian symptoms present?”
+
+but rather
+
+**which symptom appeared first, and which circuit seems to have failed first?**
 
 ---
 
 <img src="/yakhyo-home/images/atlas/parkinsonism_comparison_en.svg" alt="Comparison of Parkinson's disease, MSA, PSP, CBS, and DLB across pathology, early features, levodopa response, and DBS relevance" loading="lazy" />
 
-*Figure. The five syndromes compared side by side. Timing and levodopa response are among the most useful clinical clues.*
+*Figure. Parkinson's disease, MSA, PSP, CBS, and DLB compared side by side. Timing and levodopa response are among the most useful clinical clues.*
 
 ---
 
-## 1. Start with the levodopa response
+## 1. First, look at the levodopa response
 
-Typical Parkinson's disease usually shows a relatively clear response to levodopa. Bradykinesia and rigidity improve, and some tremor may improve as well.
+One of the most important features of Parkinson's disease is a **relatively good response to levodopa**.
 
-As the disease progresses, wearing-off, ON-OFF fluctuations, and dyskinesia can appear.
+Bradykinesia,
 
-MSA, PSP, and CBS usually show a more limited response, although meaningful partial responses can occur in subsets of patients.
+rigidity,
 
-DLB parkinsonism may respond to levodopa, but treatment can be complicated by hallucinations or confusion.
+and some tremor
 
-The first question is therefore:
+can improve clearly.
+
+As the disease progresses,
+
+wearing-off,
+
+ON-OFF fluctuations,
+
+and dyskinesia
+
+may appear.
+
+By contrast, levodopa response is generally more limited in MSA, PSP, and CBS.
+
+Some patients may show an early response, but a clear and sustained response like that often seen in Parkinson's disease is less common.
+
+In DLB, parkinsonism may improve to some extent with levodopa, but medication adjustment can be more complicated because cognition and hallucinations also need to be considered.
+
+So the first question is:
 
 **“How clearly does levodopa work, and how long does the benefit last?”**
 
-## 2. How did the disease begin?
+---
+
+## 2. Second, look at how the disease began
 
 Parkinson's disease often begins **asymmetrically**.
 
-CBS can also be strongly asymmetric, but cortical signs such as apraxia, cortical sensory loss, or alien limb phenomena accompany the parkinsonism.
+One hand may become slow first,
 
-PSP often brings axial symptoms and postural instability to the foreground early.
+one arm may lose its normal swing,
 
-MSA may present early with autonomic failure or cerebellar dysfunction.
+or one leg may become uncomfortable first.
 
-DLB may bring cognitive fluctuations and visual hallucinations into the picture at or near the onset of parkinsonism.
+CBS can also begin very asymmetrically.
 
-## 3. Were falls early?
+But in CBS, the important point is that the asymmetric parkinsonism is accompanied by cortical signs such as
 
-Falls can occur in all of these disorders eventually.
+apraxia,
 
-What matters is **when** they appear.
+cortical sensory loss,
 
-Very early recurrent falls, especially backward falls together with axial rigidity and impaired postural reflexes, are an important clue for PSP.
+or alien limb phenomena.
 
-## 4. Look at the eyes
+PSP may bring axial symptoms and balance problems to the foreground relatively early.
 
-Vertical eye movements are extremely useful clinically.
+MSA may bring autonomic dysfunction or cerebellar symptoms early alongside parkinsonism.
 
-In PSP, **slowed vertical saccades** or **vertical supranuclear gaze palsy** can become prominent.
-
-Marked vertical ocular-motor dysfunction early in the course is not typical of ordinary Parkinson's disease.
-
-## 5. Look at the autonomic nervous system
-
-Orthostatic hypotension, urinary symptoms, constipation, sexual dysfunction, and sweating abnormalities can occur in Parkinson's disease.
-
-But in MSA, severe autonomic failure often appears **earlier and more prominently**.
-
-Early severe orthostatic hypotension, urinary retention, or rapidly progressive bladder dysfunction should push MSA higher on the differential.
-
-## 6. Look for cerebellar signs
-
-Prominent **cerebellar ataxia** points away from typical Parkinson's disease and toward MSA-C.
-
-A wide-based gait, limb dysmetria, poor coordination, and cerebellar dysarthria are particularly important.
-
-## 7. Look for cortical signs
-
-CBS is distinguished by cortical features such as **apraxia, cortical sensory loss, alien limb phenomena, myoclonus, and language dysfunction**.
-
-Parkinson's disease can make a hand slow.
-
-CBS can make the hand slow **and disrupt the motor plan for how to use it**.
-
-## 8. Look at the timing of cognition and hallucinations
-
-DLB often presents with **cognitive fluctuations, recurrent well-formed visual hallucinations, REM sleep behavior disorder, and parkinsonism**.
-
-When dementia precedes parkinsonism or begins around the same time, DLB is favored clinically. The traditional one-year rule remains a research convention for distinguishing DLB from Parkinson's disease dementia.
+DLB may bring cognitive fluctuations and hallucinations into the picture very early together with motor symptoms.
 
 ---
 
-## Comparing pathology and network emphasis
+## 3. Third, look for early falls
 
-| Disorder | Main pathology | Characteristic cell/pathology | Networks or regions often emphasized |
-|---|---|---|---|
-| Parkinson's disease | α-synuclein | Neuronal Lewy bodies/neurites | Nigrostriatal motor system, later broader networks |
-| MSA | α-synuclein | Oligodendroglial GCI | Striatonigral, olivopontocerebellar, autonomic |
-| PSP | 4R tau | Tufted astrocytes, tangles, coiled bodies | Midbrain, brainstem, basal ganglia, frontal networks |
-| CBS/CBD | Often 4R tau in CBD | Astrocytic plaques, threads, ballooned neurons | Frontoparietal cortex, white matter, basal ganglia |
-| DLB | α-synuclein | Neuronal Lewy bodies/neurites | Limbic, cortical, attention, perception networks |
+Falls can also occur in Parkinson's disease as the disease progresses.
 
-CBS is a **clinical syndrome**, so its underlying pathology is not always CBD; PSP and Alzheimer disease pathology can also produce a CBS phenotype.
+But **recurrent falls very early in the course** should raise concern for atypical parkinsonism.
 
----
+Early falls are especially important in PSP.
 
-## A practical clinical comparison
+A tendency to fall backward,
 
-| Feature | Parkinson's disease | MSA | PSP | CBS | DLB |
-|---|---|---|---|---|---|
-| Asymmetric onset | Common | Possible | Less typical in classic PSP-RS | Very common | Possible |
-| Levodopa response | Usually good | Often limited, some respond | Often limited, PSP-P may respond | Usually limited | Some response |
-| Severe early autonomic failure | Usually not dominant | **Key clue** | Possible | Not typical | Possible |
-| Early recurrent falls | Usually later | Possible | **Key clue** | Possible | Possible |
-| Vertical ocular-motor dysfunction | Not typical early | Not typical | **Key clue** | Uncommon | Not typical |
-| Cerebellar ataxia | Not typical early | **MSA-C** | Uncommon | Not typical | Not typical |
-| Apraxia/cortical sensory loss | Not typical early | Not typical | Can occur in variants | **Key clue** | Not typical |
-| Early hallucinations/cognitive fluctuations | Not typical | Not typical | Possible | Possible | **Key clue** |
+axial rigidity,
 
-This table is not a diagnostic algorithm. It is a map of typical patterns. Real patients overlap.
+and early impairment of postural reflexes
+
+may appear together.
+
+So the combination
+
+**parkinsonism + early recurrent falls**
+
+is a strong clue toward PSP.
 
 ---
 
-## DBS also reveals the difference
+## 4. Fourth, look at the eyes
 
-In Parkinson's disease, levodopa-responsive motor circuits can remain functionally modifiable even after years of disease. That is why STN or GPi DBS can be highly effective in selected patients.
+Eye movements are extremely important when distinguishing parkinsonian syndromes.
 
-In MSA, PSP, and CBS, degeneration extends across multiple networks. Stimulating one motor node cannot restore widespread autonomic, cerebellar, ocular-motor, cortical, or frontal dysfunction.
+In PSP, **vertical eye-movement impairment**, especially difficulty looking downward, is characteristic.
 
-These disorders are therefore **not standard DBS indications** in the way typical Parkinson's disease is.
+Rapid downward saccades may become slow or restricted.
 
-DBS treats a modifiable circuit state, not simply anything that “looks parkinsonian.”
+Eye-movement abnormalities can also occur in Parkinson's disease, but clear vertical gaze impairment early in the disease is not typical.
 
----
+So the simple question
 
-## In the end, timing matters most
+**“Can the eyes move up and down normally?”**
 
-The most important word running through this appendix is **timing**.
-
-A symptom by itself is rarely enough.
-
-We need to know when it started, what appeared first, how quickly the syndrome progressed, and how it responded to medication.
-
-- Falls happen in many disorders, but **early** falls point more toward PSP.
-- Autonomic symptoms happen in several disorders, but **severe early** autonomic failure points more toward MSA.
-- Cognitive impairment happens in several disorders, but dementia beginning **before or near the onset of parkinsonism** points toward DLB.
-- Apraxia can appear later in several diseases, but early severe asymmetric parkinsonism plus apraxia points toward CBS.
-
-The order tells us something about which network is failing first.
+can be surprisingly useful.
 
 ---
 
-## What would I ask when I see a patient with parkinsonism?
+## 5. Fifth, look at the autonomic nervous system
 
-I would no longer stop at “Do you have tremor?”
+Orthostatic hypotension,
 
-I would ask:
+urinary dysfunction,
 
-- When did the slowness begin?
-- Did it start on one side?
-- How much does levodopa improve it?
-- Were falls frequent from early on?
-- Are rapid up-and-down eye movements difficult?
-- Did orthostatic dizziness or urinary dysfunction become severe early?
-- Are there clear cerebellar signs?
-- Is there apraxia — difficulty knowing how to use one hand despite adequate strength?
-- When did hallucinations and cognitive changes begin?
-- Was there REM sleep behavior disorder before the motor syndrome?
+sexual dysfunction,
 
-Placed in chronological order, these answers often reveal the direction of the disease more clearly than one isolated examination finding.
+and sweating abnormalities
 
----
+can also occur in Parkinson's disease.
 
-## Studying atypical parkinsonism makes Parkinson's disease clearer
+But in MSA these problems may appear **earlier and more severely**.
 
-MSA shows why autonomic failure can be much more central in one α-synucleinopathy than another.
+In particular,
 
-PSP shows why early postural instability and ocular-motor dysfunction change the diagnostic picture.
+severe early orthostatic hypotension,
 
-CBS shows the difference between simple slowness and a failure of cortical motor planning.
+rapidly progressive urinary dysfunction,
 
-DLB shows that Lewy body disease can place cognition, perception, and sleep at the foreground rather than movement.
+or large post-void residual or urinary retention
 
-By comparing these diseases, typical Parkinson's disease becomes easier to see.
+along with parkinsonism should raise suspicion for MSA.
+
+What matters more than the mere presence of autonomic symptoms is
+
+**how early and how severe they are.**
 
 ---
 
-## In the end, the name matters less than the circuit
+## 6. Sixth, look for cerebellar signs
 
-Parkinson's disease, MSA, PSP, CBS, and DLB have different names.
+The main motor problem in Parkinson's disease lies in the basal ganglia motor circuits.
 
-Yet the patient may first report the same things: “I'm slow,” “I'm stiff,” “Walking is hard.”
+In MSA-C, by contrast, cerebellar involvement can be prominent.
 
-What separates the diseases is **which protein is abnormal, which cell is affected, which network fails first, and in what sequence the failure spreads.**
+The gait may become wide-based,
 
-> **The disease names differ, but symptoms come from circuits.**
+the body may sway,
+
+the hand may miss its target,
+
+and speech may become slurred.
+
+So if parkinsonism is accompanied by
+
+**clear cerebellar ataxia,**
+
+MSA-C becomes an important consideration.
+
+Prominent cerebellar signs early in typical Parkinson's disease are not expected.
 
 ---
 
-**Appendix 6 in one line:** Distinguishing Parkinson's disease from atypical parkinsonism depends on the pattern over time — levodopa response, progression speed, and the sequence of falls, autonomic, ocular-motor, cerebellar, cortical, and cognitive features — rather than on any single symptom.
+## 7. Seventh, look for cortical signs
+
+Cortical signs are especially important when considering CBS.
+
+These may include
+
+apraxia,
+
+cortical sensory loss,
+
+alien limb phenomena,
+
+myoclonus,
+
+and nonfluent language impairment.
+
+In Parkinson's disease, a hand may become slow.
+
+In CBS,
+
+**the motor plan for how to use the hand itself can break down.**
+
+That difference is very important.
+
+---
+
+## 8. Eighth, look at the timing of cognition and hallucinations
+
+In DLB,
+
+cognitive fluctuations,
+
+recurrent well-formed visual hallucinations,
+
+and REM sleep behavior disorder
+
+may appear relatively early.
+
+Cognitive impairment and hallucinations can also appear later in Parkinson's disease.
+
+So the key is the **time relationship**.
+
+If cognitive impairment appears before parkinsonism, at about the same time, or becomes clearly established within one year after motor symptoms begin,
+
+DLB is considered clinically.
+
+If Parkinson's disease has been clearly established for years before dementia develops,
+
+the diagnosis is generally Parkinson's disease dementia, or PDD.
+
+---
+
+## 9. Comparing the pathological proteins makes the differences clearer
+
+Pathologically, the contrast becomes even sharper.
+
+### Parkinson's disease
+
+The key protein is **α-synuclein**.
+
+It accumulates mainly in neurons, forming Lewy bodies and Lewy neurites.
+
+### MSA
+
+Here too, **α-synuclein** is central.
+
+But it accumulates predominantly in **oligodendrocytes**, forming glial cytoplasmic inclusions.
+
+### PSP
+
+The key pathology is **4-repeat tau**.
+
+A characteristic finding is the tufted astrocyte.
+
+### CBD
+
+CBD is also a **4-repeat tauopathy**.
+
+Astrocytic plaques and ballooned neurons are more characteristic findings.
+
+### DLB
+
+DLB returns to **α-synuclein** pathology.
+
+Neuronal Lewy pathology can extend widely into limbic and cortical regions.
+
+So disorders that all look like parkinsonism can differ completely in both pathological protein and the cell type affected.
+
+---
+
+## 10. A one-glance comparison
+
+| Disorder | Main pathology | Early pattern | Levodopa response | Characteristic clue |
+| --- | --- | --- | --- | --- |
+| Parkinson's disease | α-synuclein, neurons | Asymmetric bradykinesia, rigidity, tremor | Usually good | Motor fluctuations, dyskinesia |
+| MSA | α-synuclein, oligodendrocytes | Parkinsonism + autonomic or cerebellar symptoms | Limited | Severe early autonomic failure, cerebellar ataxia |
+| PSP | 4R tau | Axial rigidity, early falls | Limited | Vertical eye-movement impairment |
+| CBS | Often 4R tau | Markedly asymmetric parkinsonism | Limited | Apraxia, cortical sensory loss, alien limb |
+| DLB | α-synuclein, neurons | Cognitive fluctuation + parkinsonism | Some response | Visual hallucinations, RBD, early cognitive impairment |
+
+This table is not meant to establish a diagnosis.
+
+It is more like a map showing the typical direction of each disorder.
+
+Real patients can show overlapping features.
+
+---
+
+## 11. DBS also shows why the distinction matters
+
+In Parkinson's disease,
+
+there are levodopa-responsive motor symptoms,
+
+and substantial portions of the STN-GPi motor circuit remain functionally modifiable,
+
+so DBS can be very helpful in appropriately selected patients.
+
+In MSA, PSP, and CBS,
+
+multiple structures and networks undergo broader degeneration.
+
+Stimulating one nucleus is therefore unlikely to improve the full syndrome.
+
+That is why DBS generally has a limited role in atypical parkinsonian syndromes.
+
+This again shows an important principle.
+
+DBS does not treat
+
+**anything that merely looks parkinsonian.**
+
+It treats
+
+**a specific circuit state that remains functionally modifiable.**
+
+---
+
+## 12. In the end, time is the most important clue
+
+The word that runs through this entire appendix is
+
+**time.**
+
+It is not enough to ask which symptoms are present.
+
+We also need to know
+
+when they began,
+
+what appeared first,
+
+how quickly the disease progressed,
+
+and how it responded to medication.
+
+For example,
+
+falls can occur in many disorders.
+
+But when they occur **early**, PSP moves higher on the list.
+
+Autonomic symptoms can occur in several disorders.
+
+But when they are **very severe early**, MSA becomes more likely.
+
+Cognitive impairment can occur in several disorders.
+
+But when it appears **at nearly the same time as the motor syndrome**, DLB becomes more likely.
+
+The sequence of symptoms reveals something about the nature of the disease.
+
+---
+
+# What would I ask when I see a patient with parkinsonism?
+
+If I were evaluating a patient with parkinsonism, I would no longer ask only
+
+“Do you have tremor?”
+
+The following questions may be more important.
+
+When did the slowness begin?
+
+Did it begin on one side?
+
+How much does levodopa improve the symptoms?
+
+Were falls frequent from early on?
+
+Is looking downward uncomfortable or difficult?
+
+Did orthostatic dizziness or urinary dysfunction become severe early?
+
+Are there cerebellar signs in addition to slowness?
+
+Is there apraxia — difficulty knowing how to use one hand despite adequate strength?
+
+When did hallucinations and cognitive changes begin?
+
+Was REM sleep behavior disorder present?
+
+If the answers to these questions are placed in chronological order,
+
+the direction of the disease gradually becomes clearer.
+
+---
+
+# Looking back at Parkinson's disease after studying parkinsonian syndromes
+
+When I began this appendix,
+
+I thought that understanding parkinsonian syndromes would help me understand Parkinson's disease more clearly.
+
+It did.
+
+MSA shows that autonomic symptoms can occur in Parkinson's disease too,
+
+but also why they are not usually the central feature early in typical Parkinson's disease.
+
+PSP shows why postural instability in Parkinson's disease usually becomes prominent later.
+
+CBS shows that bradykinesia in Parkinson's disease is very different from cortical apraxia.
+
+DLB shows that Parkinson's disease ultimately does not remain confined to motor circuits alone.
+
+By comparing these other disorders,
+
+the shape of Parkinson's disease itself becomes clearer.
+
+---
+
+# In the end, the circuit matters more than the name
+
+Parkinson's disease,
+
+MSA,
+
+PSP,
+
+CBS,
+
+DLB.
+
+The names are different.
+
+But patients may initially describe similar things:
+
+“I'm slow.”
+
+“Walking is difficult.”
+
+“My body is stiff.”
+
+What creates the difference is
+
+which protein accumulates,
+
+which cell is affected first,
+
+which circuit fails first,
+
+and in what sequence those changes progress.
+
+In the end, we return to neuroanatomy.
+
+**The disease names differ, but symptoms come from circuits.**
+
+---
+
+## Appendix 6 in one line
+
+**The key to distinguishing Parkinson's disease from atypical parkinsonian syndromes is not one symptom, but the overall pattern over time — levodopa response, disease progression, and the sequence in which early falls, autonomic, ocular-motor, cerebellar, cortical, and cognitive features appear.**
