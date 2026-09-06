@@ -1,7 +1,7 @@
 ---
 title: Neuroanatomy Through the Body, Part 7 — Why Is Tremor a Different Circuit?
-description: Parkinsonian rest tremor is not simply the result of a dopamine shortage. It is a symptom that emerges when an unstable signal starting in the basal ganglia meets the cerebellum-thalamus-motor cortex circuit and forms an abnormal oscillatory network.
-lead: Bradykinesia and rigidity can be explained by the basal ganglia circuit. Tremor is a little different — it has to be seen as a whole oscillatory network.
+description: Parkinsonian rest tremor is not simply the result of dopamine deficiency. It can be understood as an abnormal oscillatory network in which unstable basal ganglia activity interacts with the cerebellum, thalamus, and motor cortex.
+lead: Bradykinesia and rigidity are often explained through basal ganglia circuitry. Tremor is different — the whole oscillatory network matters.
 order: 37
 related:
   - label: Neuroanatomy Through the Body, Part 6 — How Does Dyskinesia Develop?
@@ -9,104 +9,238 @@ related:
     note: How tremor and dyskinesia differ
   - label: Neuroanatomy Through the Body, Part 5 — Does the Cerebellum Create Movement, or Refine It?
     href: /en/learn/body-neuroanatomy-part5/
-    note: Why the cerebellum is involved in the tremor circuit
+    note: Why the cerebellum participates in the tremor circuit
   - label: Neuroanatomy Through the Body, Part 9 — Where Does DBS Stimulate?
     href: /en/learn/body-neuroanatomy-part9/
-    note: Why the VIM is targeted within the tremor circuit
+    note: Why tremor circuitry helps explain DBS targets
 ---
 
 # Part 7. Why Is Tremor a Different Circuit?
 
-## — Inside a body that has become slow, why does the hand keep shaking rhythmically?
+## — Inside a slow body, why does the hand shake rhythmically?
 
-Parkinson's disease is a disease in which movement slows down. Actions become smaller, the body stiffens, and the first step won't come.
+Parkinson's disease is a disease of slowed movement.
 
-And yet, at the same time, in some patients the hand keeps shaking without stopping.
+Movements become smaller, the body becomes stiff, and the first step can be hard to start.
 
-It's a disease of diminished movement — so why is there, on one side, far too little movement, and on the other, an unwanted movement that keeps repeating?
+Yet at the same time, some patients have a hand that keeps trembling.
 
-Having watched Parkinsonian tremor for a long time, I have felt that it cannot be explained by the single sentence, "It's a symptom that occurs because dopamine is lacking."
+If this is a disease in which movement decreases, why can one part of the body move too little while another shows repeated unwanted movement?
 
-Bradykinesia and rigidity are relatively easy to explain as changes in the basal ganglia circuit. Tremor is a little different. In particular, Parkinson's disease's characteristic rest tremor is more naturally understood not as a problem of the basal ganglia alone, but as **an oscillatory circuit that the basal ganglia, thalamus, motor cortex, and cerebellum create together**.
+Having lived with and observed Parkinsonian tremor for many years, I have felt that the single sentence **“it happens because dopamine is low”** does not explain enough.
+
+Bradykinesia and rigidity are relatively easy to explain through changes in basal ganglia circuitry.
+
+Tremor is somewhat different.
+
+The characteristic Parkinsonian rest tremor is more naturally understood not as a problem of the basal ganglia alone, but as **an oscillatory circuit created by the basal ganglia, thalamus, motor cortex, and cerebellum together**.
 
 ---
 
-<img src="/yakhyo-home/images/atlas/fig_tremor_network_en.svg" alt="Parkinsonian tremor oscillatory network — the abnormal synchronization circuit running from basal ganglia through thalamus, cerebellum, and motor cortex" loading="lazy" />
+<img src="/yakhyo-home/images/atlas/fig_tremor_network_en.svg" alt="Parkinsonian tremor oscillatory network involving the basal ganglia, thalamus, cerebellum, and motor cortex" loading="lazy" />
 
-*Figure. The oscillatory network of Parkinsonian tremor. An abnormal synchronized signal from the basal ganglia (STN, GPi) travels through the thalamus and reaches the cerebellum and motor cortex, producing a regular tremor. Stress and tension can amplify this circuit.*
+*Figure. Parkinsonian tremor as an oscillatory network. Abnormal synchronized activity in basal ganglia circuits interacts with thalamic, cerebellar, and cortical activity to produce rhythmic tremor. Stress and arousal can amplify the network.*
 
 ---
 
-## 1. Parkinsonian tremor moves differently from the other symptoms
+## 1. Tremor does not move in parallel with the other symptoms
 
-The main motor symptoms of Parkinson's disease are commonly described as four: bradykinesia, rigidity, rest tremor, and postural instability.
+The major motor features of Parkinson's disease are commonly described as bradykinesia, rigidity, rest tremor, and postural instability.
 
-But in practice, tremor does not move in lockstep with the other symptoms. There are patients with severe bradykinesia who have almost no tremor. Conversely, there are patients whose gait is relatively fine while their hand tremor is very severe.
+But in real patients, tremor does not always track the other symptoms.
 
-After taking medication, the body's slowness may improve while the tremor remains, or the opposite may happen — the tremor may be the first to lessen. This means that tremor does not arise through exactly the same mechanism as bradykinesia or rigidity.
+One person can have severe bradykinesia and almost no tremor.
 
-## 2. Why does rest tremor show up more when the body is still?
+Another can walk relatively well but have a very prominent hand tremor.
 
-The typical tremor of Parkinson's disease appears when the body is at rest. With the hand resting on the knee, the fingers or wrist shake rhythmically. But when reaching out or trying to grasp an object, the tremor often lessens.
+After medication, slowness may improve while tremor remains, or tremor may improve first.
 
-While a movement is being carried out, the motor cortex, cerebellum, and sensory feedback circuits are actively engaged. Conversely, in the absence of movement, a particular oscillatory circuit may become relatively more apparent.
+This suggests that tremor is not generated by exactly the same mechanism as bradykinesia or rigidity.
 
-In other words, tremor is not simply a matter of muscles trembling from weakness — it is closer to **a rhythmic activity that the brain circuit generates on its own**.
+## 2. Why is rest tremor most visible at rest?
+
+The classic Parkinsonian tremor often appears when the hand is resting.
+
+When the hand is placed on the lap, the fingers or wrist may shake rhythmically.
+
+When the patient reaches for an object or starts a voluntary movement, the tremor may lessen.
+
+This is **rest tremor**.
+
+In real patients, postural or action tremor may coexist as well.
+
+During voluntary movement, the motor cortex, cerebellum, and sensory feedback systems are actively engaged.
+
+When the body is still, a particular oscillatory network may become relatively more visible.
+
+So tremor is not simply weak muscle shaking. It is closer to **a rhythmic activity generated by brain circuitry itself**.
 
 ## 3. Tremor is oscillation
 
-The key concept for understanding tremor is **oscillation**.
+The key concept is **oscillation**.
 
-Neurons do not act independently, one by one. Many neurons are connected to one another, and at times they fire together in a certain rhythm. Rhythm exists even in a normal brain. But when abnormal synchronization arises in a particular circuit, that rhythm can emerge as an actual muscle movement.
+Neurons do not work independently one by one.
 
-So the issue is not simply whether neurons fire more or less. What matters is that **many neurons begin firing repeatedly in the same beat**.
+Large groups of neurons are connected and can fire together in rhythmic patterns.
 
-## 4. Where the basal ganglia and cerebellum meet
+Rhythms also exist in the normal brain.
 
-One of the leading ideas explaining Parkinsonian tremor is that the basal ganglia circuit initiates the tremor, while the cerebellum-thalamus-cortex circuit sustains or amplifies it.
+But when abnormal synchronization develops in a particular network, that rhythm can be expressed as movement of the muscles.
 
-Put very simply, it looks like this.
+Parkinsonian tremor can be understood in this way.
 
-> An unstable signal starts in the basal ganglia
-> → it is relayed through the thalamus to the motor cortex
-> → the cerebellar circuit joins this rhythm
-> → the rhythmic output of the motor cortex is carried to the muscles
-> → a regular tremor appears in the hand or arm
+The important question is not simply whether neurons fire more or less, but whether **many neurons begin firing repeatedly in the same beat**.
 
-The real brain is far more complex than this, but the important point in understanding tremor is **not to see it as a problem of a single region alone**.
+## 4. The basal ganglia may help initiate the tremor
 
-## 5. Why does stress make tremor worse?
+As dopamine neurons in the substantia nigra are lost, the balance of the striatum and basal ganglia changes.
 
-Parkinson's patients often find that tremor worsens when they are tense or anxious. Tremor can grow larger when seeing a doctor, standing in front of people, concentrating, or feeling emotionally tense.
+The direct and indirect pathways shift, and the activity of the STN and GPi changes as well.
 
-This shows that the tremor circuit is not only a matter of the motor system. The limbic system, prefrontal cortex, and autonomic nervous system — all involved in emotion and attention — also influence the basal ganglia and thalamic circuits.
+These circuit changes are central to bradykinesia and rigidity.
 
-For the patient, this is not "a tremor you can stop by deciding to." Rather, the more tense one becomes, the more overall brain arousal rises, and the tremor circuit can become more easily activated as well.
+The basal ganglia also appear to play an important role in tremor.
 
-## 6. Tremor also responds differently to medication
+Rather than producing the entire tremor by themselves, they may help **initiate an unstable signal that is then transmitted into other circuits**.
 
-Bradykinesia and rigidity often respond relatively well to levodopa. But tremor shows large differences in response from patient to patient. Some tremor can remain substantially even when the medication's effect is otherwise adequate.
+## 5. The cerebellum also participates
 
-This is further evidence that the tremor circuit is not determined solely by striatal dopamine levels. Once an oscillatory circuit has formed, multiple elements — the thalamus, cerebellum, motor cortex, and sensory feedback — are involved together.
+It is difficult to discuss tremor without the cerebellum.
 
-## 7. Tremor and dyskinesia are different
+The cerebellum normally corrects movement error and adjusts timing.
 
-On the surface, both appear as the body moving. So patients and caregivers can confuse tremor with dyskinesia. But the two differ in the character of the movement.
+That is highly useful in normal movement.
 
-Tremor has a relatively **regular, repetitive rhythm**. Dyskinesia, by contrast, more often involves the trunk or limbs moving in a flowing, writhing, or irregular way.
+But when rhythmic abnormal activity enters the system, the cerebellum can also become entrained by that rhythm.
 
-The mechanisms differ too. Dyskinesia is mainly shaped by repeated dopaminergic stimulation and hypersensitivity changes in the striatal circuit. Tremor is shaped more by the **oscillatory network** formed between the basal ganglia and the cerebellum-thalamus-cortex circuit.
+The **cerebellum → thalamus → motor cortex** pathway may contribute to maintaining and expressing the tremor.
+
+So Parkinsonian tremor is best understood through the interaction between **basal ganglia and cerebellar circuits**.
+
+## 6. Two circuits meet
+
+One useful model is that basal ganglia circuitry helps trigger the tremor while the cerebellum-thalamus-cortex circuit helps sustain or amplify it.
+
+In simplified form:
+
+**An unstable signal begins in the basal ganglia.**
+
+↓
+
+**It is relayed through the thalamus toward the motor cortex.**
+
+↓
+
+**The cerebellar circuit joins the rhythm.**
+
+↓
+
+**Rhythmic motor cortical output reaches the muscles.**
+
+↓
+
+**A regular tremor appears in the hand or arm.**
+
+The real brain is much more complex, but the important point is **not to reduce tremor to a single anatomical site**.
+
+## 7. Why does stress make tremor worse?
+
+Many people with Parkinson's disease notice that tremor becomes stronger with tension or anxiety.
+
+It may worsen when seeing a doctor, speaking in front of others, concentrating, or becoming emotionally tense.
+
+This shows that the tremor network is not isolated from emotion and arousal.
+
+The limbic system, prefrontal cortex, and autonomic nervous system can all influence basal ganglia and thalamic activity.
+
+So tremor can vary with emotional state.
+
+It is not a tremor that can simply be stopped by willpower.
+
+As arousal rises, the tremor network may become easier to activate.
+
+## 8. Why can one hand tremble more while walking?
+
+Parkinson's disease often begins asymmetrically.
+
+Tremor also commonly begins in one hand first.
+
+During walking, one arm may swing less naturally while the fingers or wrist on that side tremble more prominently.
+
+This reflects the fact that nigrostriatal degeneration and basal ganglia circuit changes do not necessarily begin equally on both sides.
+
+So tremor can also emerge asymmetrically.
+
+## 9. Tremor responds differently to medication
+
+Bradykinesia and rigidity often respond relatively well to levodopa.
+
+Tremor response is more variable.
+
+Some tremors respond very well.
+
+Others remain prominent even when the medication effect is otherwise good.
+
+This is another clue that tremor is not determined by striatal dopamine concentration alone.
+
+Dopamine clearly matters, but the established oscillatory network also involves the thalamus, cerebellum, motor cortex, and sensory feedback systems.
+
+## 10. Tremor and dyskinesia are different
+
+Both can look like “too much movement,” so patients and caregivers may confuse them.
+
+But the movement pattern is different.
+
+Tremor is relatively **regular and rhythmic**.
+
+Dyskinesia is often flowing, writhing, twisting, or irregular.
+
+The mechanisms differ as well.
+
+Dyskinesia is strongly related to repeated dopaminergic stimulation and hypersensitive striatal plasticity.
+
+Tremor is more closely related to an **oscillatory network** spanning the basal ganglia and the cerebellum-thalamus-cortex system.
+
+## 11. This is where DBS targets begin to make sense
+
+This leads naturally to the next question.
+
+If tremor is an oscillatory network, could we reduce tremor by modulating an important node in that network?
+
+This is one way to understand DBS.
+
+DBS may target basal ganglia structures such as the STN or GPi, and in selected situations may target thalamic regions closely linked to tremor circuitry.
+
+DBS is not simply a treatment that “puts electricity into the brain to make the body move.”
+
+It is better understood as a treatment that **changes the pattern of abnormally synchronized neural activity**.
+
+Once that is clear, the logic behind target selection becomes much easier to understand.
 
 ---
 
-## Understanding tremor through the body
+# Tremor, understood through the body
 
-Living with Parkinson's disease for a long time, I have come to feel that, even within the same day, the symptoms move differently from one another. The body may be stiff while the tremor is severe. The body may have loosened a little while the tremor still remains. Tension can suddenly make the tremor larger.
+Living with Parkinson's disease for a long time, I have noticed that symptoms do not always move together even within the same day.
 
-I now see tremor a little differently. Tremor is not simply the muscles shaking. It may be the result of an unstable signal, starting in the basal ganglia, creating a single rhythm as it passes back and forth through the thalamus, cerebellum, and motor cortex.
+The body can be stiff while tremor is severe.
 
-> Parkinsonian tremor arises from the same disease as bradykinesia and rigidity, but it is a symptom expressed through a somewhat different circuit.
+The body can loosen somewhat while tremor remains.
+
+Tension can suddenly make tremor larger.
+
+That makes it difficult to think of Parkinson's disease only as “a disease in which dopamine falls and the body becomes slow.”
+
+I now see tremor differently.
+
+Tremor is not simply the muscle shaking.
+
+It may be the result of an unstable signal beginning in the basal ganglia and becoming a rhythm as it circulates through the thalamus, cerebellum, and motor cortex.
+
+So Parkinsonian tremor arises from the same disease as bradykinesia and rigidity, but **it is expressed through a somewhat different circuit**.
 
 ---
 
-**Part 7 in one line:** Parkinsonian tremor can be understood not simply as the result of a dopamine shortage, but as a symptom that emerges when an unstable signal starting in the basal ganglia meets the cerebellum-thalamus-motor cortex circuit and forms an abnormal oscillatory network.
+## Part 7 in one line
+
+**Parkinsonian tremor can be understood not simply as the result of dopamine deficiency, but as a symptom that emerges when unstable basal ganglia activity interacts with the cerebellum-thalamus-motor cortex network and forms an abnormal oscillatory circuit.**
