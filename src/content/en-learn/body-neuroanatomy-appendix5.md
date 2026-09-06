@@ -7,7 +7,7 @@ related:
   - label: Neuroanatomy Through the Body, Appendix 2 — Multiple System Atrophy (MSA)
     href: /en/learn/body-neuroanatomy-appendix2/
     note: The same α-synuclein, accumulating in different cells, produces MSA
-  - label: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism: What Helps Tell Them Apart?
+  - label: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix6/
     note: The key points for distinguishing DLB from Parkinson's disease
   - label: Neuroanatomy Through the Body, Part 8 — Parkinson's Disease Is Not Only a Movement Disorder

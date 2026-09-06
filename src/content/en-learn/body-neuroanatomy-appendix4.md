@@ -4,10 +4,10 @@ description: Corticobasal syndrome (CBS) is a clinical syndrome in which asymmet
 lead: Why won't one side of the body move the way I intend? When the cortex and basal ganglia break down together, the blueprint for movement itself collapses.
 order: 43
 related:
-  - label: Neuroanatomy Through the Body, Appendix 1 — Parkinson's Disease and Parkinsonism, What Is the Difference?
+  - label: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix1/
     note: The big picture of parkinsonism
-  - label: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism, What Helps Tell Them Apart?
+  - label: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix6/
     note: The key points that help tell CBS and Parkinson's disease apart
   - label: Neuroanatomy Through the Body, Part 5 — Does the Cerebellum Create Movement, or Refine It?

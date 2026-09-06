@@ -1,10 +1,10 @@
 ---
-title: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism: What Helps Tell Them Apart?
+title: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
 description: The key to telling Parkinson's disease apart from atypical parkinsonism is not any single symptom, but looking together at the response to levodopa, the speed of disease progression, and the order in which early falls, autonomic symptoms, eye-movement abnormalities, cerebellar signs, cortical signs, and cognitive symptoms appear.
 lead: They may look similar on the surface, but which symptom appeared first is what tells them apart.
 order: 45
 related:
-  - label: Neuroanatomy Through the Body, Appendix 1 — Parkinson's Disease and Parkinsonism: What Is the Difference?
+  - label: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix1/
     note: The big picture of parkinsonism
   - label: Neuroanatomy Through the Body, Part 9 — Where Does DBS Stimulate?

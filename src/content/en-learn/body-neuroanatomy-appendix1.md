@@ -1,5 +1,5 @@
 ---
-title: Neuroanatomy Through the Body, Appendix 1 — Parkinson's Disease and Parkinsonism: What Is the Difference?
+title: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
 description: Parkinson's disease is one specific neurodegenerative disease, while parkinsonism is an umbrella term for the range of diseases and conditions — Parkinson's disease among them — that produce parkinsonian symptoms such as bradykinesia, rigidity, and tremor.
 lead: They look alike, but they are not the same disease. Parkinson's disease is a form of parkinsonism, but not all parkinsonism is Parkinson's disease.
 order: 40
@@ -7,7 +7,7 @@ related:
   - label: Neuroanatomy Through the Body, Appendix 2 — Multiple System Atrophy (MSA)
     href: /en/learn/body-neuroanatomy-appendix2/
     note: Why the autonomic and motor systems break down together
-  - label: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism: What Helps Tell Them Apart?
+  - label: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix6/
     note: The key comparison points for telling five diseases apart
   - label: Neuroanatomy Through the Body, Part 9 — Where Does DBS Stimulate?

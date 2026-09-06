@@ -4,10 +4,10 @@ description: Progressive Supranuclear Palsy (PSP) is a 4-repeat tauopathy in whi
 lead: Why do the eyes and posture fail first? When the midbrain and brainstem are involved, symptoms quite different from bradykinesia and rigidity come to the fore.
 order: 42
 related:
-  - label: Neuroanatomy Through the Body, Appendix 1 — Parkinson's Disease and Parkinsonism, What Is the Difference?
+  - label: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix1/
     note: The big picture of parkinsonism
-  - label: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism, What Helps Tell Them Apart?
+  - label: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix6/
     note: The key points for distinguishing PSP from Parkinson's disease
   - label: Neuroanatomy Through the Body, Part 9 — Where Does DBS Stimulate?

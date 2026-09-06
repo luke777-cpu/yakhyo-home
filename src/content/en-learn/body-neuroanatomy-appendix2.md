@@ -4,10 +4,10 @@ description: Multiple system atrophy (MSA) is an α-synucleinopathy in which α-
 lead: The same α-synuclein, so why does the autonomic nervous system fail first? Which cell it accumulates in changes everything.
 order: 41
 related:
-  - label: Neuroanatomy Through the Body, Appendix 1 — Parkinson's Disease and Parkinsonism, What Is the Difference?
+  - label: Neuroanatomy Through the Body, Appendix 1 — What Is the Difference Between Parkinson's Disease and Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix1/
     note: The big picture of parkinsonism
-  - label: Neuroanatomy Through the Body, Appendix 6 — Parkinson's Disease vs. Atypical Parkinsonism, What Helps Tell Them Apart?
+  - label: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
     href: /en/learn/body-neuroanatomy-appendix6/
     note: The key points for distinguishing MSA from Parkinson's disease
   - label: Neuroanatomy Through the Body, Part 8 — Parkinson's Disease Is Not Only a Movement Disorder
