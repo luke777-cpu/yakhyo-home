@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1780 1020" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">Comparing Parkinsonism Syndromes — Pathology, Involvement, and Key Distinguishing Features</title>
+  <desc id="desc">A five-column comparison table of Parkinson's disease, MSA, PSP, CBS, and DLB across pathological protein, onset pattern, levodopa response, distinctive clue, and DBS response, with a callout noting that symptom order of onset plus levodopa response are the key to differentiation.</desc>
+  <rect width="1780" height="1020" rx="28" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="890" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#111827">Comparing Parkinsonism Syndromes — Pathology, Involvement, and Key Distinguishing Features</text>
+
+  <!-- Column header pills -->
+  <rect x="16" y="75" width="338" height="90" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="185" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="#1e3a8a">Parkinson's Disease</text>
+
+  <rect x="368" y="75" width="338" height="90" rx="18" fill="#fee2e2" stroke="#7f1d1d" stroke-width="2.5"/>
+  <text x="537" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="#7f1d1d">MSA</text>
+
+  <rect x="720" y="75" width="338" height="90" rx="18" fill="#fef3c7" stroke="#92400e" stroke-width="2.5"/>
+  <text x="889" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="#78350f">PSP</text>
+
+  <rect x="1072" y="75" width="338" height="90" rx="18" fill="#ede9fe" stroke="#312e81" stroke-width="2.5"/>
+  <text x="1241" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="#312e81">CBS</text>
+
+  <rect x="1424" y="75" width="340" height="90" rx="18" fill="#dcfce7" stroke="#14532d" stroke-width="2.5"/>
+  <text x="1594" y="128" text-anchor="middle" font-size="22" font-weight="700" fill="#14532d">DLB</text>
+
+  <!-- Table backdrop -->
+  <clipPath id="tableClip">
+    <rect x="16" y="195" width="1748" height="695" rx="16"/>
+  </clipPath>
+  <rect x="16" y="195" width="1748" height="695" rx="16" fill="#fffdf7"/>
+  <g clip-path="url(#tableClip)">
+    <rect x="16" y="195" width="1748" height="139" fill="#f5f4ef"/>
+    <rect x="16" y="334" width="1748" height="139" fill="#ffffff"/>
+    <rect x="16" y="473" width="1748" height="139" fill="#f5f4ef"/>
+    <rect x="16" y="612" width="1748" height="139" fill="#ffffff"/>
+    <rect x="16" y="751" width="1748" height="139" fill="#f5f4ef"/>
+    <line x1="16" y1="334" x2="1764" y2="334" stroke="#e5e7eb" stroke-width="1"/>
+    <line x1="16" y1="473" x2="1764" y2="473" stroke="#e5e7eb" stroke-width="1"/>
+    <line x1="16" y1="612" x2="1764" y2="612" stroke="#e5e7eb" stroke-width="1"/>
+    <line x1="16" y1="751" x2="1764" y2="751" stroke="#e5e7eb" stroke-width="1"/>
+  </g>
+  <rect x="16" y="195" width="1748" height="695" rx="16" fill="none" stroke="#e7e2d0" stroke-width="1.5"/>
+
+  <!-- Row 1: Pathological protein (center y = 264.5) -->
+  <text x="40" y="270" font-size="16" font-weight="600" fill="#374151">Pathological protein</text>
+  <text x="185" y="266" text-anchor="middle" font-size="15" fill="#2563eb">α-syn (neurons)</text>
+  <text x="537" y="257" text-anchor="middle" font-size="15" fill="#2563eb">α-syn<tspan x="537" dy="18">(oligodendrocytes)</tspan></text>
+  <text x="889" y="270" text-anchor="middle" font-size="15" fill="#92400e">4R tau</text>
+  <text x="1241" y="270" text-anchor="middle" font-size="15" fill="#92400e">4R tau</text>
+  <text x="1594" y="266" text-anchor="middle" font-size="15" fill="#2563eb">α-syn (neurons)</text>
+
+  <!-- Row 2: Onset (center y = 403.5) -->
+  <text x="40" y="409" font-size="16" font-weight="600" fill="#374151">Onset</text>
+  <text x="185" y="396" text-anchor="middle" font-size="15" fill="#1f2937">Asymmetric bradykinesia<tspan x="185" dy="18">&amp; rigidity</tspan></text>
+  <text x="537" y="396" text-anchor="middle" font-size="15" fill="#1f2937">Parkinsonism +<tspan x="537" dy="18">autonomic failure</tspan></text>
+  <text x="889" y="396" text-anchor="middle" font-size="15" fill="#1f2937">Axial rigidity,<tspan x="889" dy="18">recurrent falls</tspan></text>
+  <text x="1241" y="396" text-anchor="middle" font-size="15" fill="#1f2937">Asymmetric cortical +<tspan x="1241" dy="18">basal ganglia</tspan></text>
+  <text x="1594" y="396" text-anchor="middle" font-size="15" fill="#1f2937">Cognitive fluctuation,<tspan x="1594" dy="18">hallucinations</tspan></text>
+
+  <!-- Row 3: Levodopa response (center y = 542.5) -->
+  <text x="40" y="548" font-size="16" font-weight="600" fill="#374151">Levodopa response</text>
+  <text x="185" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#16a34a">Good</text>
+  <text x="537" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="889" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="1241" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="1594" y="548" text-anchor="middle" font-size="17" font-weight="700" fill="#d97706">Partial</text>
+
+  <!-- Row 4: Distinctive clue (center y = 681.5) -->
+  <text x="40" y="687" font-size="16" font-weight="600" fill="#374151">Distinctive clue</text>
+  <text x="185" y="674" text-anchor="middle" font-size="15" fill="#1e40af">Motor fluctuations,<tspan x="185" dy="18">dyskinesia</tspan></text>
+  <text x="537" y="674" text-anchor="middle" font-size="15" fill="#991b1b">Severe early<tspan x="537" dy="18">autonomic failure</tspan></text>
+  <text x="889" y="687" text-anchor="middle" font-size="15" fill="#92400e">Vertical gaze palsy</text>
+  <text x="1241" y="674" text-anchor="middle" font-size="15" fill="#3730a3">Apraxia,<tspan x="1241" dy="18">alien limb</tspan></text>
+  <text x="1594" y="674" text-anchor="middle" font-size="15" fill="#166534">REM sleep<tspan x="1594" dy="18">behavior disorder</tspan></text>
+
+  <!-- Row 5: DBS response (center y = 820.5) -->
+  <text x="40" y="826" font-size="16" font-weight="600" fill="#374151">DBS response</text>
+  <text x="185" y="826" text-anchor="middle" font-size="17" font-weight="700" fill="#0d9488">Excellent</text>
+  <text x="537" y="826" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="889" y="826" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="1241" y="826" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+  <text x="1594" y="826" text-anchor="middle" font-size="17" font-weight="700" fill="#dc2626">Limited</text>
+
+  <!-- Callout -->
+  <rect x="480" y="925" width="820" height="55" rx="14" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="890" y="959" text-anchor="middle" font-size="17" font-weight="600" fill="#78350f">Key to differentiation: which symptom appeared first, and how well levodopa works</text>
+</svg>
