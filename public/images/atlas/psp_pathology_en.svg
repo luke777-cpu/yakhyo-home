@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1620 780" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">Progressive Supranuclear Palsy (PSP) — Affected Structures, Symptoms, and Vertical Gaze Palsy</title>
+  <desc id="desc">Educational diagram in two panels. Left panel: a top-to-bottom flowchart showing how PSP pathology spreads from the frontal lobe to the STN/globus pallidus/substantia nigra and midbrain, converging on the brainstem and then spinal cord/cerebellum connections, with a note that 4-repeat tau pathology affects both neurons and glial cells. Right panel: a vertical chain from the frontal eye field through the superior colliculus and brainstem gaze centers to the midbrain vertical saccade circuit (damaged in PSP), then to the extraocular muscles (whose nuclei are relatively spared) and finally eye movement, with a footnote explaining that supranuclear damage above the nucleus impairs voluntary vertical saccades.</desc>
+  <rect width="1620" height="780" rx="28" fill="#f8fafc"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <!-- ============ LEFT PANEL ============ -->
+  <text x="400" y="42" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">PSP — Structures Affected and Symptoms</text>
+
+  <!-- Box A: Frontal lobe -->
+  <rect x="250" y="80" width="300" height="80" rx="14" fill="#e0e7ff" stroke="#4338ca" stroke-width="2.5"/>
+  <text x="400" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="#312e81">Frontal lobe</text>
+  <text x="400" y="138" text-anchor="middle" font-size="13" fill="#3730a3">(cognitive &amp; behavioral change)</text>
+
+  <!-- Box B1: STN / globus pallidus / substantia nigra -->
+  <rect x="40" y="230" width="340" height="100" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="210" y="270" text-anchor="middle" font-size="14.5" font-weight="700" fill="#7f1d1d">STN · globus pallidus ·</text>
+  <text x="210" y="290" text-anchor="middle" font-size="14.5" font-weight="700" fill="#7f1d1d">substantia nigra</text>
+  <text x="210" y="312" text-anchor="middle" font-size="13" fill="#b91c1c">(bradykinesia, rigidity)</text>
+
+  <!-- Box B2: Midbrain -->
+  <rect x="420" y="230" width="340" height="100" rx="14" fill="#fde9c8" stroke="#92400e" stroke-width="2.5"/>
+  <text x="590" y="278" text-anchor="middle" font-size="16" font-weight="700" fill="#78350f">Midbrain</text>
+  <text x="590" y="302" text-anchor="middle" font-size="13" fill="#92400e">(↓ vertical eye movement)</text>
+
+  <!-- Box C: Brainstem -->
+  <rect x="210" y="380" width="380" height="90" rx="14" fill="#ffe4e0" stroke="#9a3412" stroke-width="2.5"/>
+  <text x="400" y="418" text-anchor="middle" font-size="16" font-weight="700" fill="#7c2d12">Brainstem</text>
+  <text x="400" y="442" text-anchor="middle" font-size="13" fill="#9a3412">(postural control, swallowing)</text>
+
+  <!-- Box D: Spinal cord / cerebellum connections -->
+  <rect x="210" y="520" width="380" height="90" rx="14" fill="#d1fae5" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="400" y="572" text-anchor="middle" font-size="15" font-weight="700" fill="#115e59">Spinal cord · cerebellum connections</text>
+
+  <!-- Box E: 4-repeat tau caption -->
+  <rect x="170" y="650" width="460" height="70" rx="12" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <text x="400" y="678" text-anchor="middle" font-size="13.5" font-weight="700" fill="#713f12">4-repeat tau (tauopathy)</text>
+  <text x="400" y="700" text-anchor="middle" font-size="12.5" fill="#854d0e">→ affects neurons and glial cells together</text>
+
+  <!-- Arrows: left panel -->
+  <path d="M 400 160 L 216 228" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 400 160 L 584 228" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 216 330 L 328 378" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 584 330 L 472 378" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 400 470 L 400 518" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ RIGHT PANEL ============ -->
+  <text x="1220" y="42" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">Vertical Eye Movement — Why PSP Impairs Looking Down</text>
+
+  <!-- R1: Frontal eye field -->
+  <rect x="1020" y="80" width="400" height="90" rx="14" fill="#e0e7ff" stroke="#4338ca" stroke-width="2.5"/>
+  <text x="1220" y="120" text-anchor="middle" font-size="16" font-weight="700" fill="#312e81">Frontal eye field</text>
+  <text x="1220" y="144" text-anchor="middle" font-size="13" fill="#3730a3">(motor intention)</text>
+
+  <!-- R2: Superior colliculus + brainstem gaze centers -->
+  <rect x="1020" y="210" width="400" height="90" rx="14" fill="#fde9c8" stroke="#92400e" stroke-width="2.5"/>
+  <text x="1220" y="250" text-anchor="middle" font-size="16" font-weight="700" fill="#78350f">Superior colliculus</text>
+  <text x="1220" y="274" text-anchor="middle" font-size="13" fill="#92400e">+ brainstem gaze centers</text>
+
+  <!-- R3: Midbrain vertical saccade circuit (emphasized) -->
+  <rect x="1020" y="340" width="400" height="100" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="3.5"/>
+  <text x="1220" y="382" text-anchor="middle" font-size="15.5" font-weight="700" fill="#7f1d1d">Midbrain vertical saccade circuit</text>
+  <text x="1220" y="408" text-anchor="middle" font-size="15" font-weight="700" fill="#b91c1c">★ damaged in PSP</text>
+
+  <!-- R4: Extraocular muscles -->
+  <rect x="1020" y="480" width="400" height="90" rx="14" fill="#d1fae5" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="1220" y="518" text-anchor="middle" font-size="15" font-weight="700" fill="#115e59">Extraocular muscles</text>
+  <text x="1220" y="542" text-anchor="middle" font-size="12" fill="#0f766e">← the nuclei themselves are relatively spared</text>
+
+  <!-- R5: Eye movement -->
+  <rect x="1020" y="610" width="400" height="80" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="1220" y="657" text-anchor="middle" font-size="16" font-weight="700" fill="#374151">Eye movement</text>
+
+  <!-- Arrows: right panel -->
+  <path d="M 1220 170 L 1220 208" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 1220 300 L 1220 338" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 1220 440 L 1220 478" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <path d="M 1220 570 L 1220 608" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Footnote -->
+  <text x="1220" y="714" text-anchor="middle" font-size="14" font-weight="700" fill="#b91c1c">Supranuclear: damage above the nucleus</text>
+  <line x1="1122" y1="720" x2="1318" y2="720" stroke="#b91c1c" stroke-width="2"/>
+  <text x="1220" y="738" text-anchor="middle" font-size="13" fill="#b91c1c">→ impaired voluntary vertical saccades</text>
+</svg>
