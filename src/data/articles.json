@@ -194,5 +194,47 @@
     "title": "몸으로 배우는 신경해부학 9부 — DBS는 어디를 자극하는가",
     "summary": "STN·GPi·VIM — 각 표적이 어떤 회로를 조절하는지, 왜 같은 DBS라도 표적에 따라 효과가 다른지를 회로 관점에서 따라갑니다.",
     "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix1",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 1장 — 파킨슨병과 파킨슨증후군은 무엇이 다른가",
+    "summary": "파킨슨병은 하나의 특정 질환이고, 파킨슨증후군은 비슷한 운동증상을 보이는 여러 상태를 묶어 부르는 말입니다. 두 용어의 차이를 이해하면 파킨슨병 자체도 훨씬 선명하게 보입니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix2",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 2장 — 다계통위축증(MSA)",
+    "summary": "같은 α-synuclein이라도 희소돌기아교세포에 쌓이면 자율신경·소뇌·뇌간까지 여러 계통이 함께 무너지는 다계통위축증이 됩니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix3",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 3장 — 진행성핵상마비(PSP)",
+    "summary": "4-repeat tau가 중뇌·기저핵·뇌간을 침범하면서 초기 낙상, 축성 경직, 수직안구운동장애가 나타나는 PSP를 회로 관점에서 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix4",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 4장 — 피질기저핵증후군(CBS)",
+    "summary": "실행증·alien limb·피질감각장애가 한쪽 팔다리에 나타나는 CBS — 피질과 기저핵이 함께 망가지면 움직임의 설계도 자체가 무너집니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix5",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 5장 — 루이소체치매(DLB)",
+    "summary": "같은 α-synuclein이 피질·변연계까지 일찍 퍼지면 인지 변동, 환시, REM수면행동장애가 파킨슨증과 함께 나타납니다. 파킨슨병 치매와의 구분에는 1년 규칙이 중요합니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-appendix6",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 부록 6장 — 무엇을 보면 구별되는가",
+    "summary": "레보도파 반응, 초기 낙상, 안구운동, 자율신경, 소뇌, 피질 증상, 인지·환시의 시기 — 8가지 질문으로 다섯 질환을 한눈에 비교합니다.",
+    "status": "published"
   }
 ]
