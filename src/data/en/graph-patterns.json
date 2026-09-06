@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "normal-rise",
+    "title": "A Basic Rise",
+    "curve": "p-normal-rise",
+    "summary": "Rises gently after a dose, holds for a while, then comes back down.",
+    "status": "published"
+  },
+  {
+    "slug": "delayed-rise",
+    "title": "A Delayed Rise",
+    "curve": "p-delayed-rise",
+    "summary": "The point where the curve starts to rise is pushed later.",
+    "status": "published"
+  },
+  {
+    "slug": "incomplete-on",
+    "title": "A Rise That Doesn't Reach as High",
+    "curve": "p-incomplete",
+    "summary": "It rises, but the peak stays low.",
+    "status": "published"
+  },
+  {
+    "slug": "on-failure",
+    "title": "Almost No Change",
+    "curve": "p-failure",
+    "summary": "The curve barely moves even after the dose.",
+    "status": "published"
+  },
+  {
+    "slug": "high-peak",
+    "title": "A High Peak",
+    "curve": "p-high-peak",
+    "summary": "Rises steeply in a short time and peaks high.",
+    "status": "published"
+  },
+  {
+    "slug": "fast-fall",
+    "title": "A Fast Drop",
+    "curve": "p-fast-fall",
+    "summary": "Comes down steeply even though the peak looks similar.",
+    "status": "published"
+  },
+  {
+    "slug": "wearing-off",
+    "title": "A Shorter Held Stretch",
+    "curve": "p-wearing-off",
+    "summary": "The dosing interval stays the same, but each held stretch gets shorter and shorter.",
+    "status": "published"
+  },
+  {
+    "slug": "after-dyskinesia",
+    "title": "Around the Peak, and the Descent After It",
+    "curve": "p-dyskinesia",
+    "summary": "A wide, high stretch appears near the peak, followed by the way down.",
+    "status": "published"
+  },
+  {
+    "slug": "afternoon-fail",
+    "title": "No Second Rise in the Afternoon",
+    "curve": "p-afternoon",
+    "summary": "Rises with the morning dose, but stays low with the afternoon dose.",
+    "status": "published"
+  },
+  {
+    "slug": "whole-day",
+    "title": "A Whole Day, Repeated",
+    "curve": "p-whole-day",
+    "summary": "The rise and fall that only shows up when you look at the whole day at once.",
+    "status": "published"
+  },
+  {
+    "slug": "same-drug-two-days",
+    "title": "Same Medication, a Different Curve on a Different Day",
+    "curve": "p-two-days",
+    "summary": "Overlaying two days on the same dose to see exactly what was different.",
+    "status": "published"
+  }
+]

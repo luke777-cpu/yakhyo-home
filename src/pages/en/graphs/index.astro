@@ -1,0 +1,59 @@
+---
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../components/PageHead.astro';
+import DayCurve from '../../../components/DayCurve.astro';
+import Callout from '../../../components/Callout.astro';
+import { url } from '../../../lib/url';
+import { EN_GRAPH_LABELS, enCurve, describeEn } from '../../../lib/en';
+import patterns from '../../../data/en/graph-patterns.json';
+import type { CurveData } from '../../../lib/curve';
+
+const curves = import.meta.glob<{ default: CurveData }>('../../../data/curves/*.json', { eager: true });
+const items = patterns.map((p) => {
+  const raw = curves[`../../../data/curves/${p.curve}.json`]?.default;
+  return { ...p, data: raw ? enCurve(raw) : undefined };
+});
+---
+<EnBaseLayout
+  title="Reading Graphs"
+  description="What to look at in a day's curve — where it rises, how high the peak goes, how steep the fall is, and the pattern that repeats across a whole day."
+  koPath="/graphs/"
+>
+  <PageHead
+    crumb="Reading graphs"
+    title="Where to Look in the Curve"
+    lead="The same day can show different things depending on where you look. Below are shapes that come up often in real records."
+  />
+
+  <div class="container">
+    <Callout tone="plain" class="prose-width">
+      <p>
+        Every curve here is an illustration generated for teaching. It does not represent the response to
+        any particular medication or dose, and no shape is meant to be read as good or bad. Where a dotted
+        line appears, it is a reference curve shown only for comparison.
+      </p>
+    </Callout>
+
+    <div class="grid grid--3" style="margin-top: var(--sp-12)">
+      {items.map((p) => {
+        const ready = p.status === 'published';
+        const Tag = ready ? 'a' : 'article';
+        return (
+          <Tag class={`card ${ready ? '' : 'card--pending'}`} href={ready ? url(`/en/graphs/${p.slug}/`) : undefined}>
+            {p.data && (
+              <DayCurve curve={p.data} variant="mini" bare title={`${p.title} — example curve`} desc={describeEn(p.data)} labels={EN_GRAPH_LABELS} />
+            )}
+            <h2 class="card__title" style="margin-top: var(--sp-3)">{p.title}</h2>
+            <p class="card__desc">{p.summary}</p>
+            {!ready && <p class="card__foot"><span class="badge">In preparation</span></p>}
+          </Tag>
+        );
+      })}
+    </div>
+
+    <p class="section__lead" style="font-size: var(--fs-sm); margin-top: var(--sp-8)">
+      Each article is organized the same way — graph, then a short explanation, then what is worth
+      recording. The remaining shapes are still in preparation.
+    </p>
+  </div>
+</EnBaseLayout>

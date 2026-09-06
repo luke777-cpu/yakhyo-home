@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import TocList from '../../../components/TocList.astro';
 import { url } from '../../../lib/url';
 
 const entries = (await getCollection('enLearn')).sort((a, b) => a.data.order - b.data.order);
@@ -17,6 +18,31 @@ const series = [
     match: (id: string) => id.startsWith('body-neuroanatomy'),
   },
 ];
+
+// 연재가 아닌 실용 교육 글의 분류 — 한국어 learn-categories.json 의 class / graph-reading /
+// questions 세 항목을 그대로 옮긴 것. 글 목록은 category 프론트매터로 걸러낸다.
+const categories = [
+  {
+    slug: 'class',
+    title: '3-Minute Medication Class',
+    summary: 'Short notes on concepts related to medication fluctuation, one at a time.',
+  },
+  {
+    slug: 'graph-reading',
+    title: 'Reading real graphs',
+    summary: 'Reading curves drawn from real records, together.',
+  },
+  {
+    slug: 'questions',
+    title: 'User questions',
+    summary: 'Questions that came up often while recording, worked through here.',
+  },
+].map((c) => ({
+  ...c,
+  items: entries
+    .filter((e) => e.data.category === c.slug)
+    .map((e) => ({ title: e.data.title, summary: e.data.description, href: url(`/en/learn/${e.id}/`) })),
+}));
 ---
 <EnBaseLayout title="Learn" description="Long-form articles on Parkinson's medication response and the motor circuits, written from lived experience." koPath="/learn/">
   <div class="container">
@@ -42,6 +68,16 @@ const series = [
           </section>
         );
       })}
+
+      {categories.map((c) => c.items.length > 0 && (
+        <section id={c.slug} style="margin-top: var(--sp-16, 4rem); scroll-margin-top: var(--sp-16, 4rem)">
+          <h2 class="section__title">{c.title}</h2>
+          <p class="section__lead">{c.summary}</p>
+          <div style="margin-top: var(--sp-6, 1.5rem)">
+            <TocList items={c.items} numbered={false} />
+          </div>
+        </section>
+      ))}
     </div>
   </div>
 </EnBaseLayout>

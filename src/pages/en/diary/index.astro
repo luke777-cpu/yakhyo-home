@@ -1,0 +1,95 @@
+---
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../components/PageHead.astro';
+import TocList from '../../../components/TocList.astro';
+import Callout from '../../../components/Callout.astro';
+import Button from '../../../components/Button.astro';
+import DayCurve from '../../../components/DayCurve.astro';
+import { url } from '../../../lib/url';
+import { EN_SITE, EN_GRAPH_LABELS, enCurve, describeEn } from '../../../lib/en';
+import topics from '../../../data/en/diary-topics.json';
+import singleDose from '../../../data/curves/single-dose.json';
+import type { CurveData } from '../../../lib/curve';
+
+const items = topics.map((t) => ({
+  title: t.title,
+  summary: t.summary,
+  href: url(`/en/diary/${t.slug}/`),
+  status: t.status as 'published' | 'preparing',
+}));
+
+const curve = enCurve(singleDose as CurveData);
+---
+<EnBaseLayout
+  title={EN_SITE.name}
+  description="Medication Diary is an app for recording how Parkinson's medication response changes across the day, as a curve. Here is what it records, and how that becomes a graph."
+  koPath="/diary/"
+>
+  <PageHead
+    crumb={EN_SITE.name}
+    title={`What Is ${EN_SITE.name}?`}
+    lead="Medication Diary records how your medication response changes over the course of a day. Instead of choosing between two states, it records how well you are moving right now, and lets that record become a curve."
+  />
+
+  <div class="container">
+    <div class="prose">
+      <h2>What it records</h2>
+      <p>
+        A record has three parts. <strong>Output</strong> — how well the body is moving right now.
+        <strong>Medication</strong> — what was taken, and when. <strong>Events</strong> — things like meals,
+        activity, or dyskinesia that can affect the curve.
+      </p>
+      <p>
+        Once the three sit on the same timeline, what's left isn't scattered notes — it's the shape of a day.
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-12); max-width: 820px">
+      <DayCurve
+        curve={curve}
+        variant="full"
+        title="An example of how records become a curve"
+        desc={describeEn(curve)}
+        caption="The dose time (triangle) and the output records are combined into one picture. This is an illustration generated for teaching."
+        labels={EN_GRAPH_LABELS}
+      />
+    </div>
+
+    <div class="prose" style="margin-top: var(--sp-16)">
+      <h2>Why not just two states</h2>
+      <p>
+        Recording medication response as simply "on" or "off" erases the wide stretch in between. Whether
+        the curve is still rising, has risen but stays lower than usual, or is on its way down — all three
+        collapse into one. Most of what a clinic visit actually needs lives in that stretch.
+      </p>
+      <p>
+        So instead of asking you to choose a state, Medication Diary asks you to record a degree. You can
+        keep recording even in a moment where it's hard to say which side you're on.
+      </p>
+
+      <h2>Where records are kept</h2>
+      <p>
+        Records stay on the device you use. This website does not receive or store them. Export and
+        restore are built in for when you switch devices or reset one.
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">Read in order</h2>
+      <p class="section__lead">If this is your first time, reading from the top works well.</p>
+      <div style="margin-top: var(--sp-8)">
+        <TocList items={items} />
+      </div>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <Callout>
+        <p class="callout__title">Want to try it first</p>
+        <p>You can open it in a browser, no install needed.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/en/start/')}>Get started</Button>
+        </p>
+      </Callout>
+    </div>
+  </div>
+</EnBaseLayout>

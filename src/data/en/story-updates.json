@@ -1,0 +1,6 @@
+{
+  "_readme": "Update log for the English /en/story/ page. Add new items to the front of the array. Mirrors src/data/story-updates.json.",
+  "items": [
+    { "date": "2026-08", "title": "Started the first version of the official website", "body": "Separate from the Medication Diary app, I started building a site to explain medication fluctuation and how to read the graphs." }
+  ]
+}
