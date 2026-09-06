@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1650 830" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">Non-Motor Symptoms of Parkinson's Disease — Circuits Involved</title>
+  <desc id="desc">Educational diagram listing ten non-motor symptoms of Parkinson's disease — REM sleep behavior disorder, reduced sense of smell, constipation and slowed gut motility, orthostatic hypotension, bladder dysfunction, pain and fatigue, depression and anxiety, reduced cognition and attention, impulse control problems, and visual hallucinations — each linked by an arrow to the brain circuit or system thought to be involved, alongside a callout box listing the neurotransmitters implicated: dopamine, serotonin, noradrenaline, acetylcholine, and glutamate.</desc>
+  <rect width="1650" height="830" rx="28" fill="#f8fafc"/>
+
+  <defs>
+    <marker id="rowArrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <text x="825" y="46" text-anchor="middle" font-size="24" font-weight="700" fill="#111827">Non-Motor Symptoms of Parkinson's Disease — Circuits Involved</text>
+
+  <!-- Row 1: Sleep -->
+  <rect x="40" y="92" width="600" height="50" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="340" y="122" text-anchor="middle" font-size="15" font-weight="600" fill="#1e3a8a">Sleep (REM sleep behavior disorder)</text>
+  <line x1="644" y1="117" x2="694" y2="117" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="122" font-size="15" fill="#334155">Brainstem sleep circuits</text>
+
+  <!-- Row 2: Olfaction -->
+  <rect x="40" y="166" width="600" height="50" rx="10" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <text x="340" y="196" text-anchor="middle" font-size="15" font-weight="600" fill="#065f46">Reduced sense of smell</text>
+  <line x1="644" y1="191" x2="694" y2="191" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="196" font-size="15" fill="#334155">Olfactory system (can precede motor symptoms)</text>
+
+  <!-- Row 3: Constipation -->
+  <rect x="40" y="240" width="600" height="50" rx="10" fill="#fde2d3" stroke="#9a3412" stroke-width="2"/>
+  <text x="340" y="270" text-anchor="middle" font-size="15" font-weight="600" fill="#7c2d12">Constipation · slowed gut motility</text>
+  <line x1="644" y1="265" x2="694" y2="265" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="270" font-size="15" fill="#334155">Autonomic &amp; enteric nervous system</text>
+
+  <!-- Row 4: Orthostatic hypotension -->
+  <rect x="40" y="314" width="600" height="50" rx="10" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+  <text x="340" y="344" text-anchor="middle" font-size="15" font-weight="600" fill="#9a3412">Orthostatic hypotension</text>
+  <line x1="644" y1="339" x2="694" y2="339" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="344" font-size="15" fill="#334155">Autonomic nervous system (sympathetic)</text>
+
+  <!-- Row 5: Bladder dysfunction -->
+  <rect x="40" y="388" width="600" height="50" rx="10" fill="#e0e7ff" stroke="#4338ca" stroke-width="2"/>
+  <text x="340" y="418" text-anchor="middle" font-size="15" font-weight="600" fill="#312e81">Bladder dysfunction</text>
+  <line x1="644" y1="413" x2="694" y2="413" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="418" font-size="15" fill="#334155">Basal ganglia · brainstem · autonomic</text>
+
+  <!-- Row 6: Pain / fatigue -->
+  <rect x="40" y="462" width="600" height="50" rx="10" fill="#e7e5e0" stroke="#57534e" stroke-width="2"/>
+  <text x="340" y="492" text-anchor="middle" font-size="15" font-weight="600" fill="#44403c">Pain · fatigue</text>
+  <line x1="644" y1="487" x2="694" y2="487" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="492" font-size="15" fill="#334155">Central pain circuits · multiple systems</text>
+
+  <!-- Row 7: Depression / anxiety -->
+  <rect x="40" y="536" width="600" height="50" rx="10" fill="#fce7f3" stroke="#9f1239" stroke-width="2"/>
+  <text x="340" y="566" text-anchor="middle" font-size="15" font-weight="600" fill="#831843">Depression · anxiety</text>
+  <line x1="644" y1="561" x2="694" y2="561" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="566" font-size="15" fill="#334155">Limbic system · serotonin · noradrenaline</text>
+
+  <!-- Row 8: Cognition -->
+  <rect x="40" y="610" width="600" height="50" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="340" y="640" text-anchor="middle" font-size="15" font-weight="600" fill="#14532d">Reduced cognition · attention</text>
+  <line x1="644" y1="635" x2="694" y2="635" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="640" font-size="15" fill="#334155">Prefrontal–basal ganglia cognitive circuit</text>
+
+  <!-- Row 9: Impulse control -->
+  <rect x="40" y="684" width="600" height="50" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="340" y="714" text-anchor="middle" font-size="15" font-weight="600" fill="#78350f">Impulse control problems</text>
+  <line x1="644" y1="709" x2="694" y2="709" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="714" font-size="15" fill="#334155">Dopamine reward circuit (VTA → frontal lobe)</text>
+
+  <!-- Row 10: Visual hallucinations -->
+  <rect x="40" y="758" width="600" height="50" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="340" y="788" text-anchor="middle" font-size="15" font-weight="600" fill="#7f1d1d">Visual hallucinations</text>
+  <line x1="644" y1="783" x2="694" y2="783" stroke="#475569" stroke-width="2" marker-end="url(#rowArrow)"/>
+  <text x="708" y="788" font-size="15" fill="#334155">Visual cortex · acetylcholine · sleep systems</text>
+
+  <!-- Callout: Neurotransmitters involved -->
+  <rect x="1080" y="520" width="500" height="230" rx="18" fill="#e7e5e0" stroke="#57534e" stroke-width="2"/>
+  <text x="1330" y="558" text-anchor="middle" font-size="17" font-weight="700" fill="#292524">Neurotransmitters involved</text>
+  <text x="1330" y="592" text-anchor="middle" font-size="15" fill="#44403c">• Dopamine</text>
+  <text x="1330" y="622" text-anchor="middle" font-size="15" fill="#44403c">• Serotonin</text>
+  <text x="1330" y="652" text-anchor="middle" font-size="15" fill="#44403c">• Noradrenaline</text>
+  <text x="1330" y="682" text-anchor="middle" font-size="15" fill="#44403c">• Acetylcholine</text>
+  <text x="1330" y="712" text-anchor="middle" font-size="15" fill="#44403c">• Glutamate</text>
+</svg>

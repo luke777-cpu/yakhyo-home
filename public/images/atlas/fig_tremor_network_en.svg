@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 800" role="img" aria-labelledby="title desc" font-family="Arial, Helvetica, sans-serif">
+  <title id="title">Parkinson's Tremor — The Oscillatory Network Circuit</title>
+  <desc id="desc">Educational diagram showing Parkinsonian tremor as a distributed oscillatory network rather than a basal-ganglia-only problem: loss of nigral dopamine destabilizes the STN-GPi circuit, which relays an abnormal rhythm to the thalamus (including VIM); the cerebellum also joins this rhythm; stress and tension amplify the oscillation via a separate pathway into the thalamus; the thalamus and cerebellum both drive rhythmic output from the motor cortex; and the motor cortex output produces a regular 4-6 Hz tremor in muscle. A callout notes that tremor is more prominent at rest and decreases during voluntary movement.</desc>
+
+  <rect width="1480" height="800" rx="28" fill="#f8fafc"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="740" y="42" text-anchor="middle" font-size="26" font-weight="700" fill="#111827">Parkinson's Tremor — The Oscillatory Network Circuit</text>
+
+  <!-- Top-left: dopamine loss -->
+  <rect x="515" y="95" width="440" height="115" rx="14" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="735" y="145" text-anchor="middle" font-size="17" font-weight="600" fill="#7f1d1d">Loss of nigral dopamine</text>
+  <text x="735" y="173" text-anchor="middle" font-size="17" font-weight="600" fill="#7f1d1d">→ basal ganglia circuit imbalance</text>
+
+  <!-- Top-right: stress -->
+  <rect x="1075" y="125" width="345" height="115" rx="14" fill="#fef3c7" stroke="#ca8a04" stroke-width="2.5"/>
+  <text x="1247" y="175" text-anchor="middle" font-size="17" font-weight="600" fill="#854d0e">Stress · tension</text>
+  <text x="1247" y="203" text-anchor="middle" font-size="17" font-weight="600" fill="#854d0e">→ amplifies tremor</text>
+
+  <!-- Middle row -->
+  <rect x="95" y="300" width="350" height="115" rx="14" fill="#ffedd5" stroke="#c2410c" stroke-width="2.5"/>
+  <text x="270" y="352" text-anchor="middle" font-size="17" font-weight="600" fill="#7c2d12">STN · GPi</text>
+  <text x="270" y="380" text-anchor="middle" font-size="15" fill="#7c2d12">(abnormal synchronization)</text>
+
+  <rect x="570" y="300" width="325" height="115" rx="14" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+  <text x="732" y="352" text-anchor="middle" font-size="17" font-weight="600" fill="#0c4a6e">Thalamus</text>
+  <text x="732" y="380" text-anchor="middle" font-size="15" fill="#0c4a6e">(incl. VIM)</text>
+
+  <rect x="1030" y="300" width="325" height="115" rx="14" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="1192" y="352" text-anchor="middle" font-size="17" font-weight="600" fill="#134e4a">Cerebellum</text>
+  <text x="1192" y="380" text-anchor="middle" font-size="15" fill="#134e4a">(joins the rhythm)</text>
+
+  <!-- Motor cortex -->
+  <rect x="558" y="505" width="353" height="112" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+  <text x="734" y="555" text-anchor="middle" font-size="17" font-weight="600" fill="#4c1d95">Motor cortex</text>
+  <text x="734" y="583" text-anchor="middle" font-size="15" fill="#4c1d95">(rhythmic output)</text>
+
+  <!-- Muscle -->
+  <rect x="515" y="670" width="440" height="95" rx="14" fill="#e7e5e4" stroke="#78716c" stroke-width="2.5"/>
+  <text x="735" y="712" text-anchor="middle" font-size="17" font-weight="600" fill="#44403c">Muscle → regular tremor</text>
+  <text x="735" y="740" text-anchor="middle" font-size="15" fill="#44403c">(4-6 Hz)</text>
+
+  <!-- Legend / callout -->
+  <rect x="40" y="615" width="215" height="62" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.75"/>
+  <text x="52" y="638" font-size="13" fill="#1e3a8a">At rest: tremor ↑</text>
+  <text x="52" y="658" font-size="13" fill="#1e3a8a">During movement: tremor ↓</text>
+
+  <!-- Arrows -->
+  <!-- Dopamine loss -> STN/GPi (unstable signal) -->
+  <path d="M 570,210 C 480,240 370,262 305,297" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="430" y="255" font-size="14" fill="#475569">unstable signal</text>
+
+  <!-- STN/GPi -> Thalamus (relay) -->
+  <path d="M 445,357 L 566,357" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="470" y="345" font-size="14" fill="#475569">relay</text>
+
+  <!-- Cerebellum -> Thalamus (joins rhythm) -->
+  <path d="M 1030,357 L 899,357" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="925" y="345" font-size="14" fill="#475569">joins rhythm</text>
+
+  <!-- Stress -> Thalamus (dashed gold) -->
+  <path d="M 1150,240 C 1050,270 945,286 855,297" fill="none" stroke="#ca8a04" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#arrowGold)"/>
+
+  <!-- Thalamus -> Motor cortex -->
+  <path d="M 715,415 C 717,448 720,478 722,503" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Cerebellum -> Motor cortex -->
+  <path d="M 1140,415 C 1040,462 940,482 895,503" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Motor cortex -> Muscle -->
+  <path d="M 735,617 L 735,667" fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+</svg>

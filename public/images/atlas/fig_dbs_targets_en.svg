@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1780 830" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+  <title id="title">DBS Targets — Circuit Position and Comparison</title>
+  <desc id="desc">Left: a simplified basal ganglia circuit diagram showing where the three main deep brain stimulation targets — STN, GPi, and VIM — sit among the cerebral cortex, striatum, thalamus, cerebellum, GPe, and substantia nigra (SNr/SNc). Right: a comparison table rating how well STN, GPi, and VIM DBS address bradykinesia/rigidity, tremor, motor fluctuations, dyskinesia, and medication reduction.</desc>
+  <rect width="1780" height="830" rx="28" fill="#f8fafc"/>
+
+  <defs>
+    <marker id="gray-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- ===================== LEFT PANEL ===================== -->
+  <text x="440" y="42" text-anchor="middle" font-size="24" font-weight="700" fill="#111827">DBS Targets — Position in the Circuit</text>
+
+  <!-- Arrows (drawn first, under boxes) -->
+  <g stroke="#94a3b8" stroke-width="2.5" fill="none" marker-end="url(#gray-arrow)">
+    <!-- Cortex -> Striatum -->
+    <path d="M 380,178 L 220,258"/>
+    <!-- Cortex -> Thalamus -->
+    <path d="M 440,178 L 440,258"/>
+    <!-- Cerebellum -> Thalamus -->
+    <path d="M 608,305 L 544,305"/>
+    <!-- Striatum -> GPe -->
+    <path d="M 185,350 L 185,413"/>
+    <!-- Striatum -> STN -->
+    <path d="M 255,350 L 375,413"/>
+    <!-- Thalamus -> STN -->
+    <path d="M 405,350 L 450,413"/>
+    <!-- Thalamus -> GPi -->
+    <path d="M 480,350 L 605,413"/>
+    <!-- GPe -> STN -->
+    <path d="M 282,462 L 338,462"/>
+    <!-- STN -> GPi -->
+    <path d="M 502,462 L 558,462"/>
+    <!-- SNr/SNc -> STN -->
+    <path d="M 425,580 L 405,512"/>
+    <!-- SNr/SNc -> GPi -->
+    <path d="M 535,580 L 630,512"/>
+  </g>
+
+  <!-- Cerebral cortex -->
+  <rect x="320" y="90" width="240" height="88" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="440" y="128" text-anchor="middle" font-size="16" font-weight="700" fill="#1e3a8a">Cerebral cortex</text>
+  <text x="440" y="150" text-anchor="middle" font-size="13" fill="#1e3a8a">(motor/sensory)</text>
+
+  <!-- Striatum -->
+  <rect x="90" y="260" width="190" height="90" rx="14" fill="#ecfccb" stroke="#65a30d" stroke-width="2.5"/>
+  <text x="185" y="312" text-anchor="middle" font-size="16" font-weight="700" fill="#3f6212">Striatum</text>
+
+  <!-- Thalamus -->
+  <rect x="340" y="260" width="200" height="90" rx="14" fill="#ede9fe" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="440" y="300" text-anchor="middle" font-size="16" font-weight="700" fill="#4c1d95">Thalamus</text>
+  <text x="440" y="324" text-anchor="middle" font-size="15" font-weight="700" fill="#4c1d95">★ VIM</text>
+
+  <!-- Cerebellum -->
+  <rect x="610" y="260" width="180" height="90" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2.5"/>
+  <text x="700" y="312" text-anchor="middle" font-size="16" font-weight="700" fill="#115e59">Cerebellum</text>
+
+  <!-- GPe -->
+  <rect x="90" y="415" width="190" height="95" rx="14" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2.5"/>
+  <text x="185" y="470" text-anchor="middle" font-size="16" font-weight="700" fill="#4b5563">GPe</text>
+
+  <!-- STN -->
+  <rect x="340" y="415" width="160" height="95" rx="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="420" y="470" text-anchor="middle" font-size="16" font-weight="700" fill="#7f1d1d">STN ★</text>
+
+  <!-- GPi -->
+  <rect x="560" y="415" width="190" height="95" rx="14" fill="#ffedd5" stroke="#b45309" stroke-width="2.5"/>
+  <text x="655" y="470" text-anchor="middle" font-size="16" font-weight="700" fill="#7c2d12">GPi ★</text>
+
+  <!-- SNr / SNc -->
+  <rect x="350" y="580" width="260" height="100" rx="14" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.5"/>
+  <text x="480" y="622" text-anchor="middle" font-size="16" font-weight="700" fill="#713f12">SNr / SNc</text>
+  <text x="480" y="646" text-anchor="middle" font-size="13" fill="#713f12">(substantia nigra)</text>
+
+  <!-- Legend -->
+  <rect x="20" y="756" width="240" height="44" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="140" y="784" text-anchor="middle" font-size="14" fill="#334155">★ = Main DBS target</text>
+
+  <!-- ===================== RIGHT PANEL ===================== -->
+  <text x="1325" y="42" text-anchor="middle" font-size="24" font-weight="700" fill="#111827">Comparing STN, GPi, and VIM</text>
+
+  <!-- Column headers -->
+  <rect x="925" y="70" width="255" height="95" rx="16" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="1052" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#7f1d1d">STN</text>
+
+  <rect x="1197" y="70" width="255" height="95" rx="16" fill="#ffedd5" stroke="#b45309" stroke-width="2.5"/>
+  <text x="1325" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#7c2d12">GPi</text>
+
+  <rect x="1470" y="70" width="255" height="95" rx="16" fill="#ede9fe" stroke="#4c1d95" stroke-width="2.5"/>
+  <text x="1598" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#4c1d95">VIM</text>
+
+  <!-- Rating pill helper colors:
+       Excellent = teal (#0d9488 / #ccfbf1 / #0f766e)
+       Good      = blue (#3b82f6 / #dbeafe / #1e40af)
+       Limited   = tan  (#d97706 / #fef3c7 / #92400e)
+       None      = red  (#ef4444 / #fee2e2 / #b91c1c) -->
+
+  <!-- Row 1: Bradykinesia · rigidity -->
+  <text x="900" y="237" text-anchor="end" font-size="15" fill="#1f2937">Bradykinesia · rigidity</text>
+  <rect x="962" y="206" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1052" y="238" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+  <rect x="1235" y="206" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1325" y="238" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+  <rect x="1508" y="206" width="180" height="52" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="1598" y="238" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">Limited</text>
+
+  <!-- Row 2: Tremor -->
+  <text x="900" y="321" text-anchor="end" font-size="15" fill="#1f2937">Tremor</text>
+  <rect x="962" y="290" width="180" height="52" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1052" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">Good</text>
+  <rect x="1235" y="290" width="180" height="52" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1325" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">Good</text>
+  <rect x="1508" y="290" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1598" y="322" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+
+  <!-- Row 3: Motor fluctuations -->
+  <text x="900" y="405" text-anchor="end" font-size="15" fill="#1f2937">Motor fluctuations</text>
+  <rect x="962" y="374" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1052" y="406" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+  <rect x="1235" y="374" width="180" height="52" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1325" y="406" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">Good</text>
+  <rect x="1508" y="374" width="180" height="52" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="1598" y="406" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">Limited</text>
+
+  <!-- Row 4: Dyskinesia -->
+  <text x="900" y="489" text-anchor="end" font-size="15" fill="#1f2937">Dyskinesia</text>
+  <rect x="962" y="458" width="180" height="52" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1052" y="490" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">Good</text>
+  <rect x="1235" y="458" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1325" y="490" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+  <rect x="1508" y="458" width="180" height="52" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="1598" y="490" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">Limited</text>
+
+  <!-- Row 5: Medication reduction -->
+  <text x="900" y="573" text-anchor="end" font-size="15" fill="#1f2937">Medication reduction</text>
+  <rect x="962" y="542" width="180" height="52" rx="14" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+  <text x="1052" y="574" text-anchor="middle" font-size="14" font-weight="700" fill="#0f766e">Excellent</text>
+  <rect x="1235" y="542" width="180" height="52" rx="14" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <text x="1325" y="574" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">Good</text>
+  <rect x="1508" y="542" width="180" height="52" rx="14" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+  <text x="1598" y="574" text-anchor="middle" font-size="14" font-weight="700" fill="#b91c1c">None</text>
+
+  <!-- Footnote -->
+  <line x1="910" y1="650" x2="1740" y2="650" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="1325" y="690" text-anchor="middle" font-size="13" font-style="italic" fill="#6b7280">※ Individual variation exists. Target selection considers symptoms, age, cognition, and more.</text>
+</svg>
