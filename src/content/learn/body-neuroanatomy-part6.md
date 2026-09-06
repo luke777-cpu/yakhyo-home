@@ -39,7 +39,7 @@ related:
 
 ---
 
-![정상 vs 파킨슨 도파민 파동 비교, 그리고 이상운동증 발생 위치](/images/atlas/fig7_dyskinesia.png)
+<img src="/yakhyo-home/images/atlas/fig7_dyskinesia.png" alt="정상 vs 파킨슨 도파민 파동 비교, 그리고 이상운동증 발생 위치" loading="lazy" />
 
 *그림 2. (왼쪽) 정상 vs 파킨슨: 도파민 파동의 차이. (오른쪽) 이상운동증이 약효 곡선의 어느 위치에서 발생하는가*
 

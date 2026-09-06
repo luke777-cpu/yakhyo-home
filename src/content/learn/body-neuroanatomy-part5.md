@@ -39,7 +39,7 @@ related:
 
 ---
 
-![기저핵 vs 소뇌 역할 비교, 그리고 파킨슨병에서의 우회로 전략](/images/atlas/fig6_cerebellum.png)
+<img src="/yakhyo-home/images/atlas/fig6_cerebellum.png" alt="기저핵 vs 소뇌 역할 비교, 그리고 파킨슨병에서의 우회로 전략" loading="lazy" />
 
 *그림 1. 기저핵(문을 여는 회로)과 소뇌(움직임 교정자)의 역할 비교, 그리고 파킨슨병에서의 우회로 전략*
 
