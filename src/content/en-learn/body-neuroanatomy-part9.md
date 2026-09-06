@@ -1,7 +1,7 @@
 ---
 title: Neuroanatomy Through the Body, Part 9 — Where Does DBS Stimulate?
-description: DBS is not a treatment that substitutes for missing dopamine. It delivers electrical stimulation to key points in the neural circuit — STN, GPi, VIM — to retune the activity pattern of a network that has become abnormally rigid and synchronized in Parkinson's disease.
-lead: It is not electricity forced into the brain to make the body move. It is a different rhythm introduced into a motor circuit that has locked onto one side.
+description: DBS is not a treatment that replaces dopamine or stops Parkinson's disease. It stimulates key nodes such as the STN, GPi, and VIM to retune abnormal firing patterns and network synchronization, mainly improving levodopa-responsive motor symptoms.
+lead: It is not electricity forced into the brain to make the body move. It is a different rhythm introduced into a motor circuit that has become pathologically locked.
 order: 39
 related:
   - label: Neuroanatomy Through the Body, Part 7 — Why Is Tremor a Different Circuit?
@@ -17,88 +17,128 @@ related:
 
 # Part 9. Where Does DBS Stimulate?
 
-## — Why can electrical stimulation deep in the brain make the body move again?
+## — Why can electrical stimulation deep in the brain improve movement?
 
-Study Parkinson's disease treatment long enough, and you eventually meet the name DBS.
+Study Parkinson's disease treatment long enough, and you eventually meet the name **DBS: Deep Brain Stimulation**.
 
-**Deep Brain Stimulation.** As the name says, it is a treatment that places electrodes deep in the brain and delivers electrical stimulation there.
+It places electrodes deep in the brain and delivers electrical stimulation there.
 
-I think that to understand DBS, we first have to see Parkinson's disease again as **a disease of the circuit**. DBS is not a treatment that revives dead dopamine neurons. It is not a treatment that manufactures the dopamine that has been lost. Instead, it is closer to a treatment that changes the activity pattern of a neural circuit that has become abnormally rigid and synchronized in Parkinson's disease.
+To understand DBS, I think we first have to see Parkinson's disease as **a disorder of circuits**.
 
----
+DBS does not revive dead dopamine neurons. It does not manufacture missing dopamine. It does not stop the underlying neurodegenerative process.
 
-<img src="/yakhyo-home/images/atlas/fig_dbs_targets_en.svg" alt="Position of DBS targets STN, GPi, and VIM within the basal ganglia circuit, and a comparison of their effects" loading="lazy" />
-
-*Figure. (Left) Position of the major DBS targets (STN, GPi, VIM) within the basal ganglia circuit. (Right) A comparison of the three targets' effects by symptom. Target selection is decided by weighing symptoms, age, cognition, and more, together.*
+Instead, it changes the activity pattern of a neural network that has become abnormally rigid and synchronized.
 
 ---
 
-## 1. Back to the basal ganglia circuit again
+<img src="/yakhyo-home/images/atlas/fig_dbs_targets_en.svg" alt="Position of DBS targets STN, GPi, and VIM within the motor circuit and comparison of their clinical roles" loading="lazy" />
 
-In Parkinson's disease, as dopamine becomes scarce, the balance of the basal ganglia breaks down. As a result, the basal ganglia's final output tilts toward excessively inhibiting the thalamus, and the movement-promoting signal that rises to the motor cortex is reduced. That is why the body slows and stiffens.
-
-## 2. In Parkinson's disease, the circuit becomes rigid
-
-Normal basal ganglia neural activity is considerably flexible. But in Parkinson's disease, abnormal synchronization at particular frequencies increases. In particular, excessive synchronization of **beta-band activity**, especially in circuits related to the STN, has been studied in relation to motor symptoms such as bradykinesia and rigidity.
-
-> In a normal brain, each instrument plays freely, adapting to the moment. In Parkinson's disease, several instruments become excessively locked to a single beat. When everyone moves to the same beat, it actually becomes harder to start a new movement.
-
-## 3. DBS is a treatment that breaks a faulty rhythm
-
-The first time you hear about DBS, a thought like this can come to mind: "Is this a treatment that stimulates an underactive area with electricity to activate it?"
-
-But in Parkinson's disease, the STN is, if anything, overactive or abnormally synchronized. How high-frequency electrical stimulation works is not yet fully explained by a single mechanism, but what matters is that, as a result, **it disrupts and retunes the pathological firing pattern and the abnormal network synchronization**.
-
-Rather than seeing DBS simply as an ON/OFF switch, it becomes easier to understand if you think of it as **a treatment that breaks a faulty rhythm**.
-
-## 4. STN — a regulator in the middle of the circuit
-
-The STN (subthalamic nucleus) is a very small structure, but it holds an important position in the basal ganglia circuit. It plays a key role especially in the indirect pathway and the hyperdirect pathway.
-
-In Parkinson's disease, the STN acts to strongly activate the GPi. The GPi inhibits the thalamus. When this circuit becomes excessively strong, the gate of movement closes too far.
-
-STN DBS regulates this abnormal circuit activity. As a result, the motor circuit running to the thalamus and motor cortex can operate in a more normal pattern. One important feature of STN DBS is that in many patients, it **can reduce the dose of dopaminergic medication**.
-
-## 5. GPi — the basal ganglia's exit
-
-The GPi (globus pallidus internus) is one of the basal ganglia's main **output** structures. The inhibitory signal leaving the GPi goes to the thalamus. It works something like the gateway through which the result computed by the basal ganglia is finally delivered to the thalamus.
-
-If the STN is an important regulator in the middle of the circuit, the GPi is closer to the final exit. GPi DBS directly regulates the abnormal output pattern that the basal ganglia sends to the thalamus. In particular, GPi DBS is known for an important advantage: **it directly suppresses dyskinesia**.
-
-## 6. VIM — the gateway of the tremor circuit
-
-In Part 7, I described Parkinsonian tremor as running through a cerebellum–thalamus–cortex circuit. The thalamus's VIM (ventral intermediate nucleus) is closely tied to this tremor circuit, so stimulating the VIM can reduce tremor very effectively.
-
-But there is an important limitation. VIM DBS is mainly effective for tremor, and it does not adequately treat other core motor symptoms of Parkinson's disease such as bradykinesia, rigidity, and motor fluctuations. It becomes a meaningful option **for a particular group of patients in whom tremor is what most disrupts quality of life**.
-
-## 7. Which is better, STN or GPi?
-
-There is no single correct answer here. Looking at overall motor benefit alone, it is difficult to say that either one is absolutely superior for every patient.
-
-Still, it can be considered in terms of treatment goals. The STN can be an important option when, along with improving motor symptoms, **substantially reducing medication dose** matters. The GPi can be an attractive option when, along with improving motor symptoms, **dyskinesia itself needs to be actively controlled**.
-
-But this is not a simple formula. Age, cognitive function, psychiatric symptoms, speech, gait, medication response, dyskinesia, and the patient's own treatment goals all need to be considered together. In other words, choosing a DBS target, too, is **a decision that looks at the whole patient, not just the circuit**.
-
-## 8. The goal of DBS
-
-I think the most realistic way to see the goal of DBS is like this.
-
-It is not to create the best possible ON. It is not to eliminate the disease. It is to reduce the deep OFF periods that disrupt the day, severe motor fluctuations, medication-resistant tremor, and dyskinesia, so as to **widen the good, usable time**.
-
-> Rather than creating a brief perfect moment at 100 points during the day, reducing the deep valleys that fall to 20 points and sustaining a good-enough state of 70 to 80 points for longer may matter more in actual daily life.
+*Figure. The major DBS targets — STN, GPi, and VIM — sit at different points in the motor network. Target choice depends on symptoms, medication response, cognition, psychiatric status, gait, speech, age, and treatment goals.*
 
 ---
 
-## DBS understood through the body
+## 1. Back to the basal ganglia circuit
 
-For a long time, as I took medication and watched my body change, I thought of Parkinson's disease as a matter of dopamine concentration. When the medication rises, I move. When the medication falls, I cannot move.
+Motor information travels from cortex through the striatum and STN, converges on output structures such as the GPi, and returns through the thalamus to motor cortex.
 
-But studying neuroanatomy again, one more layer began to come into view. What medication changes is, in the end, also the **circuit**. And what DBS changes is also the circuit. Only the method differs. Medication uses chemical signals; DBS uses electrical stimulation.
+In Parkinson's disease, dopamine loss changes the balance of this network. Basal ganglia output can become excessively inhibitory toward the thalamus, reducing movement-promoting drive back to cortex.
 
-> DBS is not electricity forced into the brain to make the body move. It is closer to introducing a different rhythm into a motor circuit that has become excessively locked to one side because of Parkinson's disease.
+That is one reason movement becomes slow and rigid.
 
-Where to stimulate comes back, in the end, to the question of **which circuit, producing which symptom, we want to change**. And that is why DBS looks different to me after studying neuroanatomy.
+## 2. The rhythm of the network also changes
+
+Parkinson's disease is not only a matter of too much or too little activity in one nucleus.
+
+Neural populations can become abnormally synchronized. In particular, excessive **beta-band synchronization** in STN-related networks has been studied in relation to bradykinesia and rigidity.
+
+> In a healthy orchestra, each instrument can change with the moment. In Parkinson's disease, too many instruments become locked to the same beat, making it harder to start a new pattern.
+
+## 3. DBS is not simply turning neurons on or off
+
+High-frequency DBS has complex effects.
+
+It can influence local cell bodies, passing **axons**, incoming **afferent** fibers, outgoing **efferent** pathways, and wider connected networks.
+
+No single mechanism explains everything, but a central idea is that DBS **disrupts and reorganizes pathological firing patterns and abnormal synchronization**.
+
+That is why I find it more useful to think of DBS as a treatment that **breaks a faulty rhythm and retunes information flow**, rather than as a simple electrical ON/OFF switch.
+
+## 4. STN — a regulator within the circuit
+
+The **subthalamic nucleus (STN)** is small, but it is strategically placed in the indirect and hyperdirect pathways.
+
+In Parkinson's disease, abnormal STN activity can contribute to excessive GPi output and thalamic inhibition.
+
+STN DBS can improve bradykinesia, rigidity, tremor, and motor fluctuations in appropriately selected patients.
+
+A practical advantage is that STN DBS often allows **reduction of dopaminergic medication**, although the degree varies from person to person.
+
+## 5. GPi — a major output node
+
+The **globus pallidus internus (GPi)** is one of the main output structures of the basal ganglia.
+
+GPi DBS directly modifies the abnormal output pattern being sent toward the thalamus.
+
+It can improve motor symptoms and is especially valuable when **dyskinesia itself is a major treatment problem**.
+
+Neither STN nor GPi is automatically “better.” Target choice depends on what problem matters most in that individual patient.
+
+## 6. VIM — a gateway in the tremor circuit
+
+The **ventral intermediate nucleus (VIM)** of the thalamus is closely linked to the cerebellar-thalamic-cortical tremor network.
+
+VIM DBS can reduce tremor very effectively.
+
+Its limitation is that it is mainly a tremor treatment. It usually does not address bradykinesia, rigidity, or motor fluctuations as broadly as STN or GPi stimulation.
+
+## 7. Who is most likely to benefit from DBS?
+
+One of the most useful clinical principles is this:
+
+**motor symptoms that respond well to levodopa often respond well to DBS.**
+
+A patient who moves well during medication ON but becomes profoundly slow or rigid during OFF may have a large reversible circuit component that DBS can help stabilize.
+
+Preoperative assessment therefore looks at more than disease duration. It considers **levodopa responsiveness, motor fluctuations, dyskinesia, tremor, age, cognition, psychiatric symptoms, gait, speech, and the patient's own goals.**
+
+## 8. What DBS often does not fix well
+
+DBS is powerful, but it is not a treatment for every symptom of Parkinson's disease.
+
+Symptoms that are poorly responsive to levodopa — particularly advanced **axial gait dysfunction, balance problems, speech, and swallowing difficulties** — may also respond less well to DBS.
+
+Cognitive decline, hallucinations, and autonomic symptoms are not solved by stimulating a motor target.
+
+This matters because a patient can have excellent control of one motor circuit while the disease continues to affect other networks.
+
+That is why DBS should not be understood as a cure.
+
+## 9. The goal is not the highest peak — it is a wider usable day
+
+I think the most realistic goal of DBS is not to create the perfect ON state.
+
+It is to reduce deep OFF periods, severe fluctuations, disabling tremor, and dyskinesia so that the patient has **more usable good time across the day**.
+
+> A brief 100-point moment may matter less in daily life than avoiding a drop to 20 and sustaining 70–80 for much longer.
+
+Another advantage of DBS is that stimulation remains **adjustable** after surgery. Contacts, amplitude, frequency, and pulse width can be changed as symptoms evolve.
 
 ---
 
-**Part 9 in one line:** DBS is not a treatment that substitutes for missing dopamine. It delivers electrical stimulation to key points in the neural circuit — STN, GPi, VIM — to retune the activity pattern of a network that has become abnormally rigid and synchronized in Parkinson's disease.
+## DBS understood through my own body
+
+For years, medication made Parkinson's disease feel like a problem of dopamine concentration: medication rises, I move; medication falls, I stop.
+
+Studying neuroanatomy again added another layer.
+
+Medication changes the **circuit** through chemical signaling. DBS changes the **circuit** through electrical stimulation.
+
+> DBS is not electricity forced into the brain to make the body move. It is closer to introducing a different rhythm into a motor network that has become pathologically locked.
+
+Where to stimulate therefore comes back to a basic question: **which circuit is producing the symptom we most need to change?**
+
+And understanding what DBS cannot change is just as important as understanding what it can.
+
+---
+
+**Part 9 in one line:** DBS does not replace dopamine or halt Parkinson's disease; it stimulates key nodes such as STN, GPi, and VIM to retune pathological network activity, mainly widening the good time produced by levodopa-responsive motor circuits.
