@@ -1,0 +1,137 @@
+---
+import EnBaseLayout from '../../layouts/EnBaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import Button from '../../components/Button.astro';
+import Callout from '../../components/Callout.astro';
+import { url } from '../../lib/url';
+import links from '../../data/links.json';
+
+const features = [
+  {
+    title: 'Home screen recording widget',
+    detail: 'Adjust the current output value by ±10, choose whether it is rising, holding, or falling, and log it — without opening the app.',
+  },
+  {
+    title: 'Quick-record widget',
+    detail: 'Start a temporary record, or jump straight to symptoms, daily life, a note on how you feel right now, or rating a moment — right from the home screen.',
+  },
+  {
+    title: 'More reliable backup and PDF export',
+    detail: 'Improved how reliably JSON backups and PDF reports save to the Download folder on Android.',
+  },
+  {
+    title: "Widget records feed into the app",
+    detail: "Anything logged from a widget carries over into today's record and graph the next time you open the app.",
+  },
+];
+
+const installSteps = [
+  'Update the Medication Diary app to the latest version, then open it once.',
+  'Press and hold an empty spot on your phone’s home screen.',
+  'Tap "Widgets," then find "Parkinson’s Medication Record."',
+  'Choose either the "Medication Record" or "Medication Quick Record" widget and add it to your home screen.',
+  'If needed, press and hold the widget to adjust its position and size.',
+];
+
+const useSteps = [
+  {
+    title: 'Adjust the output value',
+    detail: 'Use the -10 / +10 buttons on the recording widget to match the current output value. This step alone does not yet save the record.',
+  },
+  {
+    title: 'Choose a direction',
+    detail: 'Pick whichever is closest to how things feel right now: ↑ rising / = holding / ↓ falling.',
+  },
+  {
+    title: 'Confirm the record',
+    detail: 'Tapping "Record" saves the current output value and direction as a pending record. Opening the app afterward folds it into today’s record.',
+  },
+  {
+    title: 'Use quick record',
+    detail: 'The separate quick-record widget saves a temporary record instantly, or jumps straight to the symptoms, daily life, note, or rating screens in the app.',
+  },
+];
+---
+<EnBaseLayout
+  title="2.17.0 Update · Home Screen Widget Guide"
+  description="What changed in Medication Diary 2.17.0, and how to install and use the Android home screen widgets."
+  koPath="/update-2-17-0/"
+>
+  <PageHead
+    crumb="Update"
+    title="2.17.0 · Record Right from the Home Screen"
+    lead="The August 27, 2026 update adds two Android home screen widgets, plus more reliable backup and PDF export."
+  />
+
+  <div class="container">
+    <div class="btn-row" style="margin-bottom: var(--sp-12)">
+      {links.playStore && <Button href={links.playStore} external externalLabel="(opens in a new window)" block>Update on Google Play</Button>}
+      <Button href={url('/en/start/')} variant="secondary" block>See how to get started</Button>
+    </div>
+
+    <Callout tone="plain">
+      <p><strong>Widgets do not appear on the home screen automatically after the app updates.</strong> Add one yourself, following the steps below.</p>
+    </Callout>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">This version</p>
+      <h2 class="section__title">What's new in 2.17.0</h2>
+      <div class="grid grid--2" style="margin-top: var(--sp-6)">
+        {features.map((item) => (
+          <article class="card">
+            <h3 class="card__title">{item.title}</h3>
+            <p class="card__desc">{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">Install</p>
+      <h2 class="section__title">Add a widget to your home screen</h2>
+      <ol class="checklist" style="margin-top: var(--sp-6)">
+        {installSteps.map((step) => (
+          <li><strong>{step}</strong></li>
+        ))}
+      </ol>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <p class="card__eyebrow">Use</p>
+      <h2 class="section__title">How to use the recording widget</h2>
+      <ol class="checklist" style="margin-top: var(--sp-6)">
+        {useSteps.map((step) => (
+          <li>
+            <strong>{step.title}</strong>
+            <span>{step.detail}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section style="margin-top: var(--sp-16)">
+      <h2 class="section__title">What the two widgets do</h2>
+      <div class="grid grid--2" style="margin-top: var(--sp-6)">
+        <article class="card">
+          <p class="card__eyebrow">Medication Record</p>
+          <h3 class="card__title">Log output and direction quickly</h3>
+          <p class="card__desc">The current output value, ±10 adjustment, Record button, Open App, and rising/holding/falling all in one place.</p>
+        </article>
+        <article class="card">
+          <p class="card__eyebrow">Medication Quick Record</p>
+          <h3 class="card__title">Jump straight to symptoms, daily life, or a note</h3>
+          <p class="card__desc">A temporary record saves instantly, while symptoms, daily life, a note on how you feel right now, and rating a moment each open directly to that screen in the app.</p>
+        </article>
+      </div>
+    </section>
+
+    <section style="margin-top: var(--sp-16); margin-bottom: var(--sp-16)">
+      <h2 class="section__title">If the widget doesn't show up</h2>
+      <div class="prose" style="margin-top: var(--sp-6)">
+        <p>First check that the app is updated to the latest version on the Play Store, open it once, then check the home screen widget list again.</p>
+        <p>If a widget from before the update is still there, try removing just that old widget and adding it again. <strong>To keep your records safe, we don't recommend deleting the app itself as a troubleshooting step.</strong></p>
+        <p>Widgets are an Android feature. Depending on your phone's manufacturer and home screen settings, the widget-adding screen may look slightly different.</p>
+      </div>
+    </section>
+  </div>
+</EnBaseLayout>

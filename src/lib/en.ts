@@ -33,13 +33,14 @@ export const EN_CURVE_NOTICE =
 export const EN_GA_NOTICE =
   'This site may use anonymized visit statistics to understand how it is used. It does not send personal medication or health records for analytics purposes.';
 
-/** 한국어 nav.json과 같은 순서 — 아직 영문판이 없는 이야기/질문게시판만 뺐다. */
+/** 한국어 nav.json과 같은 순서 — 동적 기능인 질문게시판만 뺐다. */
 export const EN_NAV = [
   { href: '/en/', label: 'Home' },
   { href: '/en/diary/', label: 'Medication Diary' },
   { href: '/en/terms/', label: 'Words for the ups and downs' },
   { href: '/en/graphs/', label: 'Reading graphs' },
   { href: '/en/learn/', label: 'Learn' },
+  { href: '/en/story/', label: 'Story' },
   { href: '/en/start/', label: 'Getting started' },
 ] as const;
 

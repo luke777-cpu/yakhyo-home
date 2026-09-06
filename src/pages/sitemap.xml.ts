@@ -44,6 +44,8 @@ export const GET: APIRoute = async ({ site }) => {
     '/en/start/',
     '/en/diary/',
     '/en/graphs/',
+    '/en/story/',
+    '/en/update-2-17-0/',
     ...enTerms.map((t) => `/en/terms/${t.id}/`),
     ...enLearn.map((t) => `/en/learn/${t.id}/`),
     ...Object.keys(enSeries).map((key) => `/en/learn/series/${key}/`),

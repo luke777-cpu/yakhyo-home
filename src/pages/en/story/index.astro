@@ -1,0 +1,85 @@
+---
+import EnBaseLayout from '../../../layouts/EnBaseLayout.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Callout from '../../../components/Callout.astro';
+import { url } from '../../../lib/url';
+import updates from '../../../data/en/story-updates.json';
+---
+<EnBaseLayout
+  title="Why I Built This"
+  description="Why Medication Diary was built, what principles shaped how it records, and where it goes from here."
+  koPath="/story/"
+>
+  <PageHead
+    crumb="Story"
+    title="Why I Built This"
+    lead="Medication Diary started from one difficulty I kept running into in the exam room — putting a day's changes into words turns out to be far harder than it sounds."
+  />
+
+  <div class="container">
+    <div class="prose">
+      <h2>What is hard to put into words</h2>
+      <p>
+        "How have you been lately?" is not an easy question to answer precisely.
+        What stays in memory is usually the hardest moment and the best moment, and everything in between
+        blurs. The interval between the time a dose was taken and the time the body changed is exactly the
+        kind of information that memory holds onto worst — and it's exactly the information that matters most.
+      </p>
+      <p>
+        A record changes the story. Even describing the same day, "the afternoon is hard" and "the curve
+        doesn't rise as high after the third dose anymore" carry completely different amounts of information.
+      </p>
+
+      <h2>Principles behind the record</h2>
+      <p>
+        There are a few things I tried to hold onto while building Medication Diary.
+      </p>
+      <ul>
+        <li><strong>Don't force a judgment.</strong> Instead of making you choose between "on" and "off," it asks only how things are right now, by degree.</li>
+        <li><strong>Don't make the interpretation for you.</strong> The app doesn't decide what to do based on your records. Decisions about medication type, dose, and timing belong with your treating clinician.</li>
+        <li><strong>Records stay yours.</strong> Records stay on your device, and you can export them at any time.</li>
+        <li><strong>Don't invent what isn't there.</strong> The app never shows a curve or a prediction that isn't backed by an actual record.</li>
+      </ul>
+
+      <h2>What this website does</h2>
+      <p>
+        The app alone wasn't enough. The same two comments kept coming back — looking at a graph and not
+        knowing what to look at, and hearing a word in the clinic and not knowing what it meant.
+      </p>
+      <p>
+        This site exists to fill that gap. It defines the terms used to describe medication fluctuation,
+        explains what to look for in a curve with illustrations, and covers how to bring your records into
+        a clinic visit.
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">Update log</h2>
+      <ol class="timeline" style="margin-top: var(--sp-6)" aria-label="Update log">
+        {updates.items.map((u) => (
+          <li class="timeline__item">
+            <span class="timeline__time">{u.date}</span>
+            <span class="timeline__label">
+              {u.title}
+              <span class="timeline__note">{u.body}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <Callout tone="plain">
+        <p class="callout__title">What's next</p>
+        <p>
+          I plan to fill in the remaining articles in Words for the Ups and Downs and Reading Graphs, and
+          to publish a summary of user questions and survey results. Analysis features built on top of your
+          records will come gradually, starting with what has been confirmed to be reproducible.
+        </p>
+        <p style="margin-top: var(--sp-4)">
+          <a class="link-arrow" href={url('/en/terms/')}>Words for the ups and downs →</a>
+        </p>
+      </Callout>
+    </div>
+  </div>
+</EnBaseLayout>
