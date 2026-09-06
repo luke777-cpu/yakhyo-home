@@ -145,5 +145,33 @@
     "title": "몸으로 배우는 신경해부학 2부 — 기저핵, 움직임을 선택하는 시스템",
     "summary": "미상핵·조가비핵·담창구·시상하핵·흑질을 아틀라스와 회로도로 따라가며, 첫발과 서동이 왜 생기는지 연결합니다.",
     "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part3",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 3부 — 직접경로와 간접경로",
+    "summary": "기저핵의 두 경로가 어떻게 움직임을 켜고 끄는지, 그리고 파킨슨병에서 이 균형이 어떻게 무너지는지를 회로 관점에서 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part4",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 4부 — 왜 발이 바닥에 붙는가",
+    "summary": "파킨슨병의 보행동결(Freezing of Gait)은 근력 문제가 아니라 보행을 시작하는 회로의 순간적 정지입니다. 외부 단서가 왜 발을 다시 움직이게 하는지를 회로 관점에서 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part5",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 5부 — 소뇌는 운동을 만드는가, 다듬는가",
+    "summary": "소뇌는 움직임을 처음 만드는 기관이 아니라 교정자입니다. 파킨슨병에서 손상된 기저핵 회로를 보완하는 우회로가 어떻게 작동하는지를 따라갑니다.",
+    "status": "published"
+  },
+  {
+    "slug": "body-neuroanatomy-part6",
+    "category": "neuroanatomy",
+    "title": "몸으로 배우는 신경해부학 6부 — 이상운동증은 어떻게 만들어지는가",
+    "summary": "도파민이 부족한 병에서 왜 몸은 오히려 너무 많이 움직이는가. 도파민 신호의 반복적인 출렁임이 기저핵 회로를 과민하게 재편하는 과정을 따라갑니다.",
+    "status": "published"
   }
 ]
