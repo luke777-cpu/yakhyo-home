@@ -1,6 +1,6 @@
 ---
 title: Neuroanatomy Through the Body, Appendix 6 — What Helps Tell Parkinson's Disease Apart from Atypical Parkinsonism?
-description: The key to distinguishing Parkinson's disease from atypical parkinsonism is not one symptom, but the pattern over time: levodopa response, disease speed, early falls, autonomic dysfunction, eye-movement abnormalities, cerebellar signs, cortical signs, cognitive changes, and hallucinations.
+description: "The key to distinguishing Parkinson's disease from atypical parkinsonism is not one symptom, but the pattern over time: levodopa response, disease speed, early falls, autonomic dysfunction, eye-movement abnormalities, cerebellar signs, cortical signs, cognitive changes, and hallucinations."
 lead: These disorders can look similar at first. What appeared first — and what followed — often tells the story.
 order: 45
 related:
