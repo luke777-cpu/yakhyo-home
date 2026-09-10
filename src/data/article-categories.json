@@ -1,0 +1,11 @@
+[
+  { "slug": "life", "title": "파킨슨과 삶", "summary": "일상에서 파킨슨병과 함께 살아가며 겪는 일들." },
+  { "slug": "medication", "title": "약과 약효", "summary": "약물 반응과 약효 변동에 대한 개인적인 관찰과 생각." },
+  { "slug": "exercise", "title": "운동", "summary": "운동과 움직임에 관한 경험과 생각." },
+  { "slug": "sleep", "title": "수면", "summary": "수면과 다음날 컨디션에 관한 글." },
+  { "slug": "mind", "title": "마음", "summary": "심리적으로 겪는 변화와 생각." },
+  { "slug": "research", "title": "연구", "summary": "파킨슨병 관련 연구에 대한 해설." },
+  { "slug": "paper-reading", "title": "논문 읽기", "summary": "논문을 읽고 정리한 요약." },
+  { "slug": "guest", "title": "기고", "summary": "다른 필자가 보내온 글." },
+  { "slug": "etc", "title": "기타", "summary": "위 분류에 들어가지 않는 글." }
+]
