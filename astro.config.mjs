@@ -23,6 +23,7 @@ export default defineConfig({
 
   markdown: {
     processor: unified(),
+    remarkRehype: { allowDangerousHtml: true },
     shikiConfig: {
       theme: 'github-light',
       wrap: true,
