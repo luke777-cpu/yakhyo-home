@@ -9,13 +9,22 @@ import Icon from '../components/Icon.astro';
 import { url } from '../lib/url';
 import { SITE } from '../lib/site';
 
+import { getCollection } from 'astro:content';
 import dayTypical from '../data/curves/day-typical.json';
 import singleDose from '../data/curves/single-dose.json';
 import symptoms from '../data/symptoms.json';
 import concepts from '../data/concepts.json';
 import videos from '../data/videos.json';
 import series from '../data/series.json';
+import articleCategories from '../data/article-categories.json';
+import { TYPE_LABELS } from '../lib/articles';
 import type { CurveData } from '../lib/curve';
+
+const recentArticles = (await getCollection('articles'))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
+  .slice(0, 6);
+const articleCategoryTitle = new Map(articleCategories.map((c) => [c.slug, c.title]));
 
 const conceptBySlug = new Map(concepts.map((c) => [c.slug, c]));
 const homeConcepts = ['on', 'off', 'delayed-on', 'incomplete-on', 'wearing-off', 'dyskinesia']
@@ -59,6 +68,31 @@ const timeline = [
         title="하루 동안 오르내리는 출력 변화의 예시"
         caption="교육을 위해 만든 예시 곡선입니다. 실제 곡선은 사람마다 다릅니다."
       />
+    </div>
+  </div>
+
+  <!-- 3영역 진입 — 처음 온 사람이 5초 안에 "배울 수 있다 / 글을 읽을 수 있다 / 약효 기록을 볼 수 있다"를
+       파악하도록 히어로 바로 아래에 둔다. -->
+  <div class="container" style="margin-top: var(--sp-10); margin-bottom: var(--sp-10)">
+    <div class="grid grid--3">
+      <a class="card" href={url('/learn/')}>
+        <p class="card__eyebrow">📘 배우기</p>
+        <h2 class="card__title">배움터</h2>
+        <p class="card__desc">파킨슨 약효를 이해하기 위한 기초부터 실제 차트 해석까지.</p>
+        <p class="card__foot">배움터 보기 →</p>
+      </a>
+      <a class="card" href={url('/articles/')}>
+        <p class="card__eyebrow">📝 글 읽기</p>
+        <h2 class="card__title">글</h2>
+        <p class="card__desc">환자의 경험, 생각, 관찰, 논문 요약과 다양한 필자의 글.</p>
+        <p class="card__foot">글 전체 보기 →</p>
+      </a>
+      <a class="card" href={url('/records/')}>
+        <p class="card__eyebrow">📈 기록</p>
+        <h2 class="card__title">약효 기록</h2>
+        <p class="card__desc">기록이 무엇으로 이루어지고, 어떤 모양의 그래프가 되는지.</p>
+        <p class="card__foot">약효 기록 보기 →</p>
+      </a>
     </div>
   </div>
 
@@ -164,7 +198,7 @@ const timeline = [
       </p>
     </div>
     <p style="margin-top: var(--sp-8)">
-      <a class="link-arrow" href={url('/diary/')}>약효일지 자세히 보기 <Icon name="arrow-right" size={18} /></a>
+      <a class="link-arrow" href={url('/records/')}>약효 기록 보기 <Icon name="arrow-right" size={18} /></a>
     </p>
   </Section>
 
@@ -216,6 +250,27 @@ const timeline = [
         <p class="card__foot">신경해부학 강좌 보기 →</p>
       </a>
     </div>
+  </Section>
+
+  <!-- 7.5 — 최근 글 -->
+  <Section sunken eyebrow="글" title="최근 글">
+    {recentArticles.length > 0 ? (
+      <div class="grid grid--3">
+        {recentArticles.map((a) => (
+          <a class="card" href={url(`/articles/${a.id}/`)}>
+            <p class="card__eyebrow">{articleCategoryTitle.get(a.data.category) ?? a.data.category} · {TYPE_LABELS[a.data.type]}</p>
+            <h3 class="card__title">{a.data.title}</h3>
+            <p class="card__desc">{a.data.summary}</p>
+            <p class="card__foot">{a.data.author.name} · {a.data.date}</p>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="section__lead">곧 첫 글을 준비하고 있습니다.</p>
+    )}
+    <p style="margin-top: var(--sp-8)">
+      <a class="link-arrow" href={url('/articles/')}>글 전체 보기 <Icon name="arrow-right" size={18} /></a>
+    </p>
   </Section>
 
   <!-- 8 — YouTube : 올라온 영상이 있을 때만 카드로 보여준다.
