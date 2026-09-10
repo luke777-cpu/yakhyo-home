@@ -5,8 +5,7 @@ summary: 아침에는 ON을 만들고, 점심에는 바닥을 지키고, 저녁�
 type: experience
 category: medication
 author:
-  name: 박영래
-  role: 파킨슨병 환자·의사
+  name: 비공개
 date: !!str 2026-09-10
 tags:
   - 파킨슨병
