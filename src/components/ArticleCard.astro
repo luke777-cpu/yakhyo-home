@@ -1,0 +1,23 @@
+---
+/**
+ * "글" 게시판(/articles/) 목록 카드.
+ * TocList는 저자·날짜·유형 배지를 담지 못해 새로 만들었다.
+ */
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  authorName: string;
+  date: string;
+  categoryLabel: string;
+  typeLabel: string;
+  featured?: boolean;
+}
+const { title, summary, href, authorName, date, categoryLabel, typeLabel, featured = false } = Astro.props;
+---
+<a class={`card ${featured ? 'card--featured' : ''}`} href={href}>
+  <p class="card__eyebrow">{categoryLabel} · {typeLabel}</p>
+  <h3 class="card__title">{title}</h3>
+  <p class="card__desc">{summary}</p>
+  <p class="card__foot">{authorName} · {date}</p>
+</a>

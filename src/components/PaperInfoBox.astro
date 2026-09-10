@@ -1,0 +1,31 @@
+---
+/** 논문 요약(type: paper-summary) 글 상단의 출처 정보박스. */
+import Callout from './Callout.astro';
+
+interface Props {
+  journal?: string;
+  year?: number;
+  paperAuthors: string[];
+  paperType?: string;
+  doi?: string;
+  externalUrl?: string;
+  summary: string;
+}
+const { journal, year, paperAuthors, paperType, doi, externalUrl, summary } = Astro.props;
+const sourceHref = doi ? `https://doi.org/${doi}` : externalUrl;
+---
+<Callout tone="plain" title="논문 정보">
+  <dl class="paperbox__meta">
+    {journal && (<><dt>저널</dt><dd>{journal}</dd></>)}
+    {year && (<><dt>발표년도</dt><dd>{year}</dd></>)}
+    {paperAuthors.length > 0 && (<><dt>저자</dt><dd>{paperAuthors.join(', ')}</dd></>)}
+    {paperType && (<><dt>논문 유형</dt><dd>{paperType}</dd></>)}
+    {sourceHref && (
+      <>
+        <dt>원문</dt>
+        <dd><a href={sourceHref} rel="noopener" target="_blank">{doi ? `DOI: ${doi}` : '원문 보기'}<span class="sr-only">(새 창)</span></a></dd>
+      </>
+    )}
+  </dl>
+  <p class="paperbox__summary">{summary}</p>
+</Callout>

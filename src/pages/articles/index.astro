@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import categories from '../../data/article-categories.json';
+import { TYPE_LABELS } from '../../lib/articles';
+import { url } from '../../lib/url';
+
+const entries = (await getCollection('articles'))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+
+const categoryTitle = new Map(categories.map((c) => [c.slug, c.title]));
+const cardProps = (e: (typeof entries)[number]) => ({
+  title: e.data.title,
+  summary: e.data.summary,
+  href: url(`/articles/${e.id}/`),
+  authorName: e.data.author.name,
+  date: e.data.date,
+  categoryLabel: categoryTitle.get(e.data.category) ?? e.data.category,
+  typeLabel: TYPE_LABELS[e.data.type],
+});
+
+const featured = entries.filter((e) => e.data.featured);
+const rest = entries.filter((e) => !e.data.featured);
+---
+<BaseLayout
+  title="글"
+  description="파킨슨을 살아가며 보고, 배우고, 생각한 것들 — 환자의 경험, 논문 요약, 칼럼과 다양한 필자의 글을 모읍니다."
+>
+  <PageHead crumb="글" title="글과 기록" lead="파킨슨을 살아가며 보고, 배우고, 생각한 것들." />
+
+  <div class="container">
+    {entries.length === 0 ? (
+      <div class="prose">
+        <p>
+          곧 첫 글을 준비하고 있습니다. 그 사이 <a href={url('/learn/')}>배움터</a>에서 약리학·신경해부학 연재를
+          먼저 읽어 보시거나, <a href={url('/story/')}>이 홈페이지를 왜 만들었는지</a> 읽어 보실 수 있습니다.
+        </p>
+      </div>
+    ) : (
+      <>
+        {featured.length > 0 && (
+          <section style="margin-bottom: var(--sp-12)">
+            <h2 class="section__title">주목할 글</h2>
+            <div class="grid grid--2" style="margin-top: var(--sp-6)">
+              {featured.map((e) => <ArticleCard {...cardProps(e)} featured />)}
+            </div>
+          </section>
+        )}
+        <div class="grid grid--3">
+          {rest.map((e) => <ArticleCard {...cardProps(e)} />)}
+        </div>
+      </>
+    )}
+  </div>
+</BaseLayout>
