@@ -9,22 +9,26 @@ import { url } from '../lib/url';
  * 여기 목록을 보는 편이 어떤 페이지가 있는지 알기 쉽다.
  */
 export const GET: APIRoute = async ({ site }) => {
-  const [concepts, graphs, diary, learn, enTerms, enLearn, enGraphs, enDiary] = await Promise.all([
+  const [concepts, graphs, diary, learn, articles, enTerms, enLearn, enGraphs, enDiary] = await Promise.all([
     getCollection('understand'),
     getCollection('graphs'),
     getCollection('diary'),
     getCollection('learn'),
+    getCollection('articles'),
     getCollection('enTerms'),
     getCollection('enLearn'),
     getCollection('enGraphs'),
     getCollection('enDiary'),
   ]);
+  const publishedArticles = articles.filter((a) => !a.data.draft);
   const paths = [
     '/',
     '/diary/',
     '/understand/',
     '/graphs/',
     '/learn/',
+    '/articles/',
+    '/records/',
     '/story/',
     '/start/',
     // 게시판은 목록만 넣는다. 로그인·닉네임 설정·글 상세(?id=)는
@@ -34,6 +38,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...concepts.map((c) => `/understand/${c.id}/`),
     ...graphs.map((g) => `/graphs/${g.id}/`),
     ...learn.map((l) => `/learn/${l.id}/`),
+    ...publishedArticles.map((a) => `/articles/${a.id}/`),
     '/learn/map/',
     ...Object.keys(series).map((key) => `/learn/series/${key}/`),
     // 영문 섹션

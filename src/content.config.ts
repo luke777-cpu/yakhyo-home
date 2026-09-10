@@ -217,4 +217,42 @@ const enDiary = defineCollection({
   }),
 });
 
-export const collections = { understand, graphs, diary, learn, enTerms, enLearn, enGraphs, enDiary };
+/**
+ * "글" 게시판 (/articles/) — 운영자·기고자의 에세이, 경험, 논문 요약, 칼럼 등
+ * 강좌형이 아닌 자유 형식 글. 강좌(learn)와 달리 발행형 콘텐츠라 order 대신
+ * date 내림차순으로 정렬한다.
+ *
+ * paper-summary 타입일 때만 쓰는 필드(journal/year/paperAuthors/paperType/doi/
+ * externalUrl)는 다른 type에서는 비워 둔다 — 기존 스키마들과 같은 "분기 없는
+ * 평평한 z.object" 관례를 따른다.
+ *
+ * draft: true인 글은 목록·상세 라우트·sitemap 어디에도 나타나지 않는다.
+ */
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** 카드에 보이는 한 줄 요약 */
+    summary: z.string(),
+    type: z.enum(['essay', 'experience', 'research', 'paper-summary', 'column', 'guest', 'observation']),
+    /** src/data/article-categories.json 의 slug */
+    category: z.string(),
+    author: z.object({ name: z.string(), role: z.string().optional() }),
+    date: z.string(),
+    updated: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+    /** 논문 유형(type: paper-summary)일 때만 채운다 */
+    journal: z.string().optional(),
+    year: z.number().optional(),
+    paperAuthors: z.array(z.string()).default([]),
+    paperType: z.string().optional(),
+    doi: z.string().optional(),
+    externalUrl: z.string().optional(),
+    related,
+  }),
+});
+
+export const collections = { understand, graphs, diary, learn, articles, enTerms, enLearn, enGraphs, enDiary };

@@ -1,0 +1,101 @@
+---
+/**
+ * "글"(/articles/) 게시판의 공통 틀.
+ * learn/understand/graphs/diary 네 레이아웃과 같은 골격(PageHead → 본문 →
+ * RelatedContent → CTA)을 따르되, 이 컬렉션은 구조화된 체크리스트보다 산문이
+ * 중심이라 본문 마크다운이 차지하는 비중이 훨씬 크다.
+ *
+ * paper-summary 타입일 때만 PaperInfoBox를 본문 위에 얹는다.
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import Callout from '../components/Callout.astro';
+import RelatedContent from '../components/RelatedContent.astro';
+import PaperInfoBox from '../components/PaperInfoBox.astro';
+import ContentNotice from '../components/ContentNotice.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+
+interface Props {
+  data: {
+    title: string;
+    description: string;
+    summary: string;
+    type: 'essay' | 'experience' | 'research' | 'paper-summary' | 'column' | 'guest' | 'observation';
+    author: { name: string; role?: string };
+    date: string;
+    tags: string[];
+    journal?: string;
+    year?: number;
+    paperAuthors: string[];
+    paperType?: string;
+    doi?: string;
+    externalUrl?: string;
+    related: { label: string; href: string | null; note?: string }[];
+  };
+  categoryTitle: string;
+  typeLabel: string;
+  readingMinutes: number;
+}
+
+const { data, categoryTitle, typeLabel, readingMinutes } = Astro.props;
+const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
+const noticeType = data.type === 'paper-summary' || data.type === 'research' ? 'paper' : 'personal';
+---
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogType="article"
+  articlePublishedTime={`${data.date}T00:00:00+09:00`}
+  articleAuthor={data.author.name}
+>
+  <PageHead crumb={`글 · ${categoryTitle}`} crumbHref={url('/articles/')} title={data.title} lead={data.summary}>
+    <p class="article__meta">
+      <span>{data.author.name}{data.author.role ? ` · ${data.author.role}` : ''}</span>
+      <span aria-hidden="true">·</span>
+      <span>{data.date}</span>
+      <span aria-hidden="true">·</span>
+      <span>{readingMinutes}분</span>
+      <span aria-hidden="true">·</span>
+      <span class="badge badge--soft">{typeLabel}</span>
+    </p>
+  </PageHead>
+
+  <div class="container">
+    {data.type === 'paper-summary' && (
+      <PaperInfoBox
+        journal={data.journal}
+        year={data.year}
+        paperAuthors={data.paperAuthors}
+        paperType={data.paperType}
+        doi={data.doi}
+        externalUrl={data.externalUrl}
+        summary={data.summary}
+      />
+    )}
+
+    <div class="prose" style="margin-top: var(--sp-8)">
+      <slot />
+    </div>
+
+    {data.tags.length > 0 && (
+      <ul class="tag-list" style="margin-top: var(--sp-8)">
+        {data.tags.map((t) => <li class="badge">{t}</li>)}
+      </ul>
+    )}
+
+    <ContentNotice type={noticeType} />
+
+    {related.length > 0 && <RelatedContent items={related} />}
+
+    <section class="concept__section" aria-labelledby="s-cta">
+      <h2 id="s-cta" class="sr-only">약효일지 시작하기</h2>
+      <Callout tone="plain">
+        <p>기록에서 시작된 글입니다. 나의 하루도 같은 방식으로 남겨 보세요.</p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/start/')}>약효일지 시작하기</Button>
+        </p>
+      </Callout>
+    </section>
+  </div>
+</BaseLayout>

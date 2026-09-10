@@ -271,6 +271,9 @@ a.card:hover { border-color: var(--c-primary-border); }
 /* 준비 중인 항목 — 링크가 아니라 상태 표시 */
 .card--pending { background: transparent; border-style: dashed; }
 .card--pending .card__title { color: var(--c-text-2); }
+
+/* "글" 게시판에서 눈에 띄게 둘 글 */
+.card--featured { border: 2px solid var(--c-primary-border); }
 .badge {
   display: inline-block;
   flex: none;
@@ -284,6 +287,31 @@ a.card:hover { border-color: var(--c-primary-border); }
   border: 1px solid var(--c-line);
 }
 .badge--soft { background: var(--c-primary-soft); color: var(--c-primary); border-color: var(--c-primary-border); }
+
+/* "글" 상세 페이지 상단 메타 줄(저자·날짜·유형) */
+.article__meta {
+  margin-top: var(--sp-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--c-text-2);
+  font-size: var(--fs-caption);
+}
+
+.tag-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+/* 논문 요약 글의 출처 정보박스 (PaperInfoBox) */
+.paperbox__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+.paperbox__meta dt { color: var(--c-text-3); }
+.paperbox__meta dd { color: var(--c-text); }
+.paperbox__summary { margin-top: var(--sp-4); font-weight: 500; }
 
 /* 목록형 링크 (증상 찾기 등) — 카드 남용을 피하기 위한 가벼운 형태 */
 .rowlink {

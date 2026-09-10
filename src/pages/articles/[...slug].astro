@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import categories from '../../data/article-categories.json';
+import { TYPE_LABELS, estimateReadingMinutes } from '../../lib/articles';
+
+export async function getStaticPaths() {
+  // draft 글은 정적 경로 자체를 만들지 않는다 — URL을 알아도 접근할 수 없다.
+  const entries = (await getCollection('articles')).filter((e) => !e.data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const category = categories.find((c) => c.slug === entry.data.category);
+if (!category) {
+  throw new Error(`src/data/article-categories.json 에 없는 카테고리 "${entry.data.category}" (${entry.id})`);
+}
+---
+<ArticleLayout
+  data={entry.data}
+  categoryTitle={category.title}
+  typeLabel={TYPE_LABELS[entry.data.type]}
+  readingMinutes={estimateReadingMinutes(entry.body)}
+>
+  <Content />
+</ArticleLayout>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc" font-family="Arial, 'Noto Sans KR', 'Malgun Gothic', sans-serif">
+<title id="title">2026년 9월 7일 — 하루 출력 변화 대표 기록</title>
+<desc id="desc">개인 약효일지에 기록된 체감 출력을 시각화한 그림. 06:00 서방형과 07:20 즉방형 뒤 08:36경 아침 ON 형성, 11:54 서방형 복용 뒤 점심 무렵 낮은 출력을 의도적으로 유지, 오후 4~6시 사이 가장 변동이 큰 하강, 17:40 복용 뒤 약 35분 만인 18:15경 저녁 ON 형성. 혈중 레보도파 농도나 연속 임상 측정값이 아니라 개인 기록을 바탕으로 정리한 대표 패턴이다.</desc>
+<rect width="960" height="600" rx="28" fill="#f8fafc"/>
+<text x="480" y="44" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">9월 7일 하루 출력 변화 — 대표 기록</text>
+<text x="480" y="68" text-anchor="middle" font-size="13" fill="#475569">아침에는 ON을 만들고, 점심엔 낮은 출력을 지키고, 저녁엔 기다렸다가 다시 ON을 만든 하루</text>
+
+<!-- 경미한 이상운동 구간 (오전 상승 뒤 잠깐) -->
+<rect x="310.63" y="120" width="76.62" height="320" fill="#fee2e2" opacity="0.6"/>
+<text x="349" y="138" text-anchor="middle" font-size="11" font-weight="700" fill="#991b1b">이상운동증 경미</text>
+
+<!-- 오후 OFF로 내려가는 구간 -->
+<rect x="618.13" y="120" width="59.79" height="320" fill="#e2e8f0" opacity="0.9"/>
+<text x="648" y="138" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">OFF</text>
+
+<!-- 축 -->
+<line x1="80" y1="120" x2="80" y2="440" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="80" y1="440" x2="900" y2="440" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="80" y1="440" x2="900" y2="440" stroke="#e2e8f0" stroke-width="1"/><text x="72" y="444" text-anchor="end" font-size="11" fill="#64748b">0</text>
+<line x1="80" y1="360" x2="900" y2="360" stroke="#e2e8f0" stroke-width="1"/><text x="72" y="364" text-anchor="end" font-size="11" fill="#64748b">25</text>
+<line x1="80" y1="280" x2="900" y2="280" stroke="#e2e8f0" stroke-width="1"/><text x="72" y="284" text-anchor="end" font-size="11" fill="#64748b">50</text>
+<line x1="80" y1="200" x2="900" y2="200" stroke="#e2e8f0" stroke-width="1"/><text x="72" y="204" text-anchor="end" font-size="11" fill="#64748b">75</text>
+<line x1="80" y1="120" x2="900" y2="120" stroke="#e2e8f0" stroke-width="1"/><text x="72" y="124" text-anchor="end" font-size="11" fill="#64748b">100</text>
+
+<text x="80" y="460" text-anchor="middle" font-size="11" fill="#64748b">06:00</text>
+<text x="182.5" y="460" text-anchor="middle" font-size="11" fill="#64748b">08:00</text>
+<text x="285" y="460" text-anchor="middle" font-size="11" fill="#64748b">10:00</text>
+<text x="387.5" y="460" text-anchor="middle" font-size="11" fill="#64748b">12:00</text>
+<text x="490" y="460" text-anchor="middle" font-size="11" fill="#64748b">14:00</text>
+<text x="592.5" y="460" text-anchor="middle" font-size="11" fill="#64748b">16:00</text>
+<text x="695" y="460" text-anchor="middle" font-size="11" fill="#64748b">18:00</text>
+<text x="797.5" y="460" text-anchor="middle" font-size="11" fill="#64748b">20:00</text>
+<text x="900" y="460" text-anchor="middle" font-size="11" fill="#64748b">22:00</text>
+
+<!-- 출력 곡선 아래 영역 채움 -->
+<polygon points="80.00,440 80.00,392.0 97.08,395.2 114.17,392.0 131.25,388.8 148.33,385.6 165.42,369.6 182.50,328.0 199.58,254.4 208.13,209.6 213.25,184.0 233.75,158.4 259.38,148.8 285.00,155.2 310.63,171.2 336.25,196.8 361.88,222.4 377.25,235.2 387.50,248.0 413.13,286.4 438.75,312.0 464.38,324.8 490.00,318.4 515.63,299.2 541.25,289.6 566.88,296.0 592.50,312.0 618.13,334.4 643.75,356.8 669.38,379.2 677.92,385.6 686.46,376.0 695.00,350.4 703.54,296.0 707.81,222.4 720.63,190.4 746.25,177.6 771.88,196.8 797.50,241.6 823.13,292.8 848.75,337.6 874.38,369.6 900.00,388.8 900.00,440" fill="#1f6b62" opacity="0.08"/>
+
+<!-- 출력 곡선 -->
+<polyline points="80.00,392.0 97.08,395.2 114.17,392.0 131.25,388.8 148.33,385.6 165.42,369.6 182.50,328.0 199.58,254.4 208.13,209.6 213.25,184.0 233.75,158.4 259.38,148.8 285.00,155.2 310.63,171.2 336.25,196.8 361.88,222.4 377.25,235.2 387.50,248.0 413.13,286.4 438.75,312.0 464.38,324.8 490.00,318.4 515.63,299.2 541.25,289.6 566.88,296.0 592.50,312.0 618.13,334.4 643.75,356.8 669.38,379.2 677.92,385.6 686.46,376.0 695.00,350.4 703.54,296.0 707.81,222.4 720.63,190.4 746.25,177.6 771.88,196.8 797.50,241.6 823.13,292.8 848.75,337.6 874.38,369.6 900.00,388.8" fill="none" stroke="#1f6b62" stroke-width="3" stroke-linejoin="round"/>
+
+<!-- 주요 지점 표시 -->
+<circle cx="213.25" cy="184.0" r="4" fill="#1f6b62"/>
+<circle cx="259.38" cy="148.8" r="4" fill="#1f6b62"/>
+<circle cx="669.38" cy="379.2" r="4" fill="#1f6b62"/>
+<circle cx="707.81" cy="222.4" r="4" fill="#1f6b62"/>
+<circle cx="746.25" cy="177.6" r="4" fill="#1f6b62"/>
+
+<!-- 주석: 아침 ON -->
+<text x="213" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#1f6b62">08:36 ON</text>
+<!-- 주석: 저녁 rescue -->
+<text x="707" y="234" text-anchor="start" font-size="12" font-weight="700" fill="#1f6b62">18:15 ON · 약 35분</text>
+<!-- 주석: 저녁 산책 -->
+<text x="746" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1f6b62">저녁 ON · 산책</text>
+
+<!-- 복용 마커: 06:00 서방형+배경약 -->
+<line x1="80" y1="440" x2="80" y2="428" stroke="#9d5d2a" stroke-width="2"/><polygon points="74,442 86,442 80,430" fill="#9d5d2a"/>
+<text x="80" y="476" text-anchor="middle" font-size="11" fill="#9d5d2a">서방형 100</text>
+<text x="80" y="490" text-anchor="middle" font-size="11" fill="#9d5d2a">+배경약</text>
+
+<!-- 복용 마커: 07:20 즉방형 75 -->
+<line x1="148.33" y1="440" x2="148.33" y2="428" stroke="#9d5d2a" stroke-width="2"/><polygon points="142.33,442 154.33,442 148.33,430" fill="#9d5d2a"/>
+<text x="148" y="476" text-anchor="middle" font-size="11" fill="#9d5d2a">즉방형 75</text>
+
+<!-- 복용 마커: 11:54 서방형+아질렉트 -->
+<line x1="377.25" y1="440" x2="377.25" y2="428" stroke="#9d5d2a" stroke-width="2"/><polygon points="371.25,442 383.25,442 377.25,430" fill="#9d5d2a"/>
+<text x="377" y="476" text-anchor="middle" font-size="11" fill="#9d5d2a">서방형 100</text>
+<text x="377" y="490" text-anchor="middle" font-size="11" fill="#9d5d2a">+아질렉트</text>
+
+<!-- 복용 마커: 17:40 서방형+아만타딘+확산정 -->
+<line x1="677.92" y1="440" x2="677.92" y2="428" stroke="#9d5d2a" stroke-width="2"/><polygon points="671.92,442 683.92,442 677.92,430" fill="#9d5d2a"/>
+<text x="678" y="476" text-anchor="middle" font-size="11" fill="#9d5d2a">서방형+아만타딘</text>
+<text x="678" y="490" text-anchor="middle" font-size="11" fill="#9d5d2a">+확산정 100</text>
+
+<!-- 범례 -->
+<g transform="translate(80,522)">
+  <line x1="0" y1="8" x2="36" y2="8" stroke="#1f6b62" stroke-width="3"/><circle cx="18" cy="8" r="3" fill="#1f6b62"/><text x="44" y="12" font-size="12" fill="#333">체감 출력 (0~100, 기록)</text>
+  <line x1="260" y1="2" x2="260" y2="14" stroke="#9d5d2a" stroke-width="2"/><polygon points="254,16 266,16 260,4" fill="#9d5d2a"/><text x="272" y="12" font-size="12" fill="#333">약 복용 시점</text>
+  <rect x="440" y="1" width="14" height="14" rx="2" fill="#fee2e2"/><text x="460" y="12" font-size="12" fill="#333">이상운동증 경미</text>
+  <rect x="600" y="1" width="14" height="14" rx="2" fill="#e2e8f0"/><text x="620" y="12" font-size="12" fill="#333">OFF</text>
+</g>
+
+<text x="480" y="576" text-anchor="middle" font-size="11" fill="#888">개인 약효일지에 기록된 체감 출력을 정리한 그림입니다(n=1). 혈중 레보도파 농도나 연속적인 임상 측정값이 아니며, 특정 처방을 권하는 자료가 아닙니다.</text>
+</svg>

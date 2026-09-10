@@ -1,0 +1,108 @@
+---
+/**
+ * "약효 기록" 랜딩 페이지.
+ *
+ * 이 저장소에는 날짜별 실제 출력 기록 데이터가 없다 (diary 컬렉션은 앱
+ * 사용법 안내이고, curve 데이터는 전부 "교육을 위해 만든 예시"다). 그래서 이
+ * 페이지는 실제 기록을 보여주는 화면이 아니라, 기록이 무엇으로 이루어지고
+ * 어떤 모양의 그래프가 되는지 소개한 뒤 기존 /diary/, /graphs/ 콘텐츠로
+ * 안내하는 랜딩 페이지다. 새 콘텐츠를 복제하지 않는다.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import DayCurve from '../../components/DayCurve.astro';
+import Callout from '../../components/Callout.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import { url } from '../../lib/url';
+import diaryTopics from '../../data/diary-topics.json';
+import graphPatterns from '../../data/graph-patterns.json';
+import singleDose from '../../data/curves/single-dose.json';
+import type { CurveData } from '../../lib/curve';
+
+const quickDiaryLinks = ['output', 'medication', 'events'].map((slug) => diaryTopics.find((t) => t.slug === slug)).filter(Boolean) as typeof diaryTopics;
+const quickGraphLinks = ['normal-rise', 'wearing-off', 'same-drug-two-days'].map((slug) => graphPatterns.find((p) => p.slug === slug)).filter(Boolean) as typeof graphPatterns;
+---
+<BaseLayout
+  title="약효 기록"
+  description="약효일지 앱에 남기는 기록이 무엇으로 이루어지는지, 그리고 그 기록이 어떤 모양의 그래프가 되는지 소개합니다."
+>
+  <PageHead
+    crumb="약효 기록"
+    title="약효 기록"
+    lead="약효일지 앱에 남기는 기록이 무엇으로 이루어지는지, 그리고 그 기록이 어떤 모양의 그래프가 되는지 소개합니다."
+  />
+
+  <div class="container">
+    <div class="prose">
+      <h2>무엇을 기록하나</h2>
+      <p>
+        기록은 세 가지로 이루어집니다. <strong>출력</strong> — 지금 몸이 어느 정도로 움직이는가.
+        <strong>약</strong> — 무엇을 언제 먹었는가. <strong>이벤트</strong> — 식사, 활동, 이상운동처럼
+        곡선에 영향을 줄 수 있는 일. 세 가지가 같은 시간축 위에 놓이면 하루의 형태가 남습니다.
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-8); max-width: 820px">
+      <DayCurve
+        curve={singleDose as CurveData}
+        variant="full"
+        title="기록이 곡선이 되는 방식의 예시"
+        caption="교육을 위해 만든 예시 곡선입니다. 날짜별로 남긴 기록을 보여주는 것이 아닙니다."
+      />
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">기록은 이렇게 남깁니다</h2>
+      <p class="section__lead">출력·약·이벤트를 실제로 어떻게 남기는지는 사용법 안내에 정리했습니다.</p>
+      <ul class="rowlink-list" style="margin-top: var(--sp-6)">
+        {quickDiaryLinks.map((t) => (
+          <li>
+            <a class="rowlink" href={url(`/diary/${t.slug}/`)}>
+              <span class="rowlink__text">{t.title}<span class="rowlink__hint">{t.summary}</span></span>
+              <Icon name="arrow-right" size={18} class="rowlink__arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top: var(--sp-6)">
+        <a class="link-arrow" href={url('/diary/')}>약효일지 사용법 전체 보기 <Icon name="arrow-right" size={18} /></a>
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <h2 class="section__title">기록이 쌓이면 나타나는 모양들</h2>
+      <p class="section__lead">
+        기록이 며칠 쌓이면 하루의 곡선에서 반복되는 모양이 보이기 시작합니다. 아래는 자주 나타나는 모양을
+        예시 곡선으로 정리한 글입니다.
+      </p>
+      <ul class="rowlink-list" style="margin-top: var(--sp-6)">
+        {quickGraphLinks.map((p) => (
+          <li>
+            <a class="rowlink" href={url(`/graphs/${p.slug}/`)}>
+              <span class="rowlink__text">{p.title}<span class="rowlink__hint">{p.summary}</span></span>
+              <Icon name="arrow-right" size={18} class="rowlink__arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top: var(--sp-6)">
+        <a class="link-arrow" href={url('/graphs/')}>그래프 읽기 전체 보기 <Icon name="arrow-right" size={18} /></a>
+      </p>
+    </div>
+
+    <div style="margin-top: var(--sp-16)">
+      <Callout tone="plain">
+        <p class="callout__title">지금 확인할 수 있는 것</p>
+        <p>
+          이 홈페이지에서는 날짜별 기록을 직접 열람하는 기능은 아직 없습니다. 기록은 각자의
+          기기에 설치된 약효일지 앱에서 확인하고 내보낼 수 있습니다. 이 페이지의 그래프는 모두 설명을
+          위해 만든 예시이며, 날짜별 기록을 대신 보여주는 것이 아닙니다.
+        </p>
+        <p style="margin-top: var(--sp-6)">
+          <Button href={url('/start/')}>약효일지 시작하기</Button>
+        </p>
+      </Callout>
+    </div>
+  </div>
+</BaseLayout>
