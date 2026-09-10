@@ -11,13 +11,14 @@ interface Props {
   date: string;
   categoryLabel: string;
   typeLabel: string;
+  readingMinutes: number;
   featured?: boolean;
 }
-const { title, summary, href, authorName, date, categoryLabel, typeLabel, featured = false } = Astro.props;
+const { title, summary, href, authorName, date, categoryLabel, typeLabel, readingMinutes, featured = false } = Astro.props;
 ---
 <a class={`card ${featured ? 'card--featured' : ''}`} href={href}>
   <p class="card__eyebrow">{categoryLabel} · {typeLabel}</p>
   <h3 class="card__title">{title}</h3>
   <p class="card__desc">{summary}</p>
-  <p class="card__foot">{authorName} · {date}</p>
+  <p class="card__foot">{authorName} · {date} · {readingMinutes}분</p>
 </a>

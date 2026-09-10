@@ -22,9 +22,14 @@ interface Props {
   description: string;
   /** 제목 뒤에 사이트 이름을 붙이지 않을 때 (홈) */
   bareTitle?: boolean;
+  /** "글"(/articles/) 상세 페이지에서만 'article'로 넘긴다. 기본은 'website'. */
+  ogType?: 'website' | 'article';
+  /** ogType이 'article'일 때만 쓰는 og:article:* 메타. */
+  articlePublishedTime?: string;
+  articleAuthor?: string;
 }
 
-const { title, description, bareTitle = false } = Astro.props;
+const { title, description, bareTitle = false, ogType = 'website', articlePublishedTime, articleAuthor } = Astro.props;
 
 const pageTitle = bareTitle ? title : `${title} — ${SITE.name}`;
 const origin = Astro.site ?? 'https://example.com';
@@ -43,7 +48,7 @@ const ogImage = new URL(url('/images/og/default.png'), origin).toString();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content={SITE.locale} />
     <meta property="og:title" content={pageTitle} />
@@ -53,6 +58,8 @@ const ogImage = new URL(url('/images/og/default.png'), origin).toString();
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="약효일지 — 파킨슨 약효 변화를 하루의 곡선으로 기록합니다. 하루 동안 네 번 오르내리는 예시 곡선." />
+    {ogType === 'article' && articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+    {ogType === 'article' && articleAuthor && <meta property="article:author" content={articleAuthor} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
 

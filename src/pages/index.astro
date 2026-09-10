@@ -6,6 +6,7 @@ import Button from '../components/Button.astro';
 import Timeline from '../components/Timeline.astro';
 import VideoCard from '../components/VideoCard.astro';
 import Icon from '../components/Icon.astro';
+import ArticleCard from '../components/ArticleCard.astro';
 import { url } from '../lib/url';
 import { SITE } from '../lib/site';
 
@@ -17,14 +18,24 @@ import concepts from '../data/concepts.json';
 import videos from '../data/videos.json';
 import series from '../data/series.json';
 import articleCategories from '../data/article-categories.json';
-import { TYPE_LABELS } from '../lib/articles';
+import { TYPE_LABELS, estimateReadingMinutes } from '../lib/articles';
 import type { CurveData } from '../lib/curve';
 
+const articleCategoryTitle = new Map(articleCategories.map((c) => [c.slug, c.title]));
 const recentArticles = (await getCollection('articles'))
   .filter((e) => !e.data.draft)
   .sort((a, b) => (a.data.date < b.data.date ? 1 : -1))
-  .slice(0, 6);
-const articleCategoryTitle = new Map(articleCategories.map((c) => [c.slug, c.title]));
+  .slice(0, 6)
+  .map((e) => ({
+    title: e.data.title,
+    summary: e.data.summary,
+    href: url(`/articles/${e.id}/`),
+    authorName: e.data.author.name,
+    date: e.data.date,
+    categoryLabel: articleCategoryTitle.get(e.data.category) ?? e.data.category,
+    typeLabel: TYPE_LABELS[e.data.type],
+    readingMinutes: estimateReadingMinutes(e.body),
+  }));
 
 const conceptBySlug = new Map(concepts.map((c) => [c.slug, c]));
 const homeConcepts = ['on', 'off', 'delayed-on', 'incomplete-on', 'wearing-off', 'dyskinesia']
@@ -256,14 +267,7 @@ const timeline = [
   <Section sunken eyebrow="글" title="최근 글">
     {recentArticles.length > 0 ? (
       <div class="grid grid--3">
-        {recentArticles.map((a) => (
-          <a class="card" href={url(`/articles/${a.id}/`)}>
-            <p class="card__eyebrow">{articleCategoryTitle.get(a.data.category) ?? a.data.category} · {TYPE_LABELS[a.data.type]}</p>
-            <h3 class="card__title">{a.data.title}</h3>
-            <p class="card__desc">{a.data.summary}</p>
-            <p class="card__foot">{a.data.author.name} · {a.data.date}</p>
-          </a>
-        ))}
+        {recentArticles.map((a) => <ArticleCard {...a} />)}
       </div>
     ) : (
       <p class="section__lead">곧 첫 글을 준비하고 있습니다.</p>

@@ -35,18 +35,27 @@ interface Props {
   };
   categoryTitle: string;
   typeLabel: string;
+  readingMinutes: number;
 }
 
-const { data, categoryTitle, typeLabel } = Astro.props;
+const { data, categoryTitle, typeLabel, readingMinutes } = Astro.props;
 const related = data.related.map((r) => ({ ...r, href: r.href ? url(r.href) : null }));
 const noticeType = data.type === 'paper-summary' || data.type === 'research' ? 'paper' : 'personal';
 ---
-<BaseLayout title={data.title} description={data.description}>
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogType="article"
+  articlePublishedTime={`${data.date}T00:00:00+09:00`}
+  articleAuthor={data.author.name}
+>
   <PageHead crumb={`글 · ${categoryTitle}`} crumbHref={url('/articles/')} title={data.title} lead={data.summary}>
     <p class="article__meta">
       <span>{data.author.name}{data.author.role ? ` · ${data.author.role}` : ''}</span>
       <span aria-hidden="true">·</span>
       <span>{data.date}</span>
+      <span aria-hidden="true">·</span>
+      <span>{readingMinutes}분</span>
       <span aria-hidden="true">·</span>
       <span class="badge badge--soft">{typeLabel}</span>
     </p>

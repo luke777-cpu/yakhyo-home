@@ -8,3 +8,9 @@ export const TYPE_LABELS: Record<string, string> = {
   guest: '기고',
   observation: '관찰 기록',
 };
+
+/** 한글 본문 기준 분당 500자 어림으로 예상 읽기시간을 추정한다. 최소 1분. */
+export function estimateReadingMinutes(markdown: string | undefined): number {
+  const plain = (markdown ?? '').replace(/[#>*_`~\-]/g, '').replace(/\s+/g, '');
+  return Math.max(1, Math.round(plain.length / 500));
+}
