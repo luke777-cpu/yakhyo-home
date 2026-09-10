@@ -1,18 +1,31 @@
 ---
+/**
+ * 파킨슨 배움터 — /learn/ 을 "배우는 곳"의 허브로 재구성한다.
+ *
+ * 기존 understand(용어)·graphs(그래프 모양)·learn(실용 글+연재) 컬렉션은
+ * 옮기거나 복제하지 않는다. 이 페이지는 손으로 관리하는 목록 JSON
+ * (concepts.json, graph-patterns.json, articles.json, learn-categories.json,
+ * series.json)을 참조해 "차트 읽기", "출력 개념" 같은 카테고리로 다시
+ * 묶어서 보여줄 뿐이다 — /learn/map/index.astro가 쓰는 것과 같은 패턴.
+ */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHead from '../../components/PageHead.astro';
 import Section from '../../components/Section.astro';
 import VideoCard from '../../components/VideoCard.astro';
 import TocList from '../../components/TocList.astro';
+import DayCurve from '../../components/DayCurve.astro';
+import Icon from '../../components/Icon.astro';
 import categories from '../../data/learn-categories.json';
 import articles from '../../data/articles.json';
+import concepts from '../../data/concepts.json';
+import graphPatterns from '../../data/graph-patterns.json';
 import videos from '../../data/videos.json';
 import series from '../../data/series.json';
 import { url } from '../../lib/url';
+import type { CurveData } from '../../lib/curve';
 
 // 글이 없는데 published로 표시된 항목이 있으면 빌드를 멈춘다.
-// 눌리는 링크가 빈 페이지로 이어지는 상태를 만들지 않기 위한 장치다.
 const written = new Set((await getCollection('learn')).map((e) => e.id));
 const missing = articles.filter((a) => a.status === 'published' && !written.has(a.slug));
 if (missing.length > 0) {
@@ -35,20 +48,59 @@ const byCategory = categories
       })),
   }))
   .filter((c) => c.items.length > 0);
+
+// 출력 개념의 대표 글. learn 컬렉션에 이미 있는 output-scale을 그대로 재사용한다
+// — output-scale.md는 "정도는 개인 내부 비교"라는 입장이 이미 뚜렷해서, 별도의
+// 절대 수치표를 새로 써서 얹지 않는다.
+const outputConcept = articles.find((a) => a.slug === 'output-scale');
+
+// 차트 읽기 미리보기 — /graphs/ 컬렉션에서 대표 3편만 예시 곡선과 함께 보여준다.
+const curves = import.meta.glob<{ default: CurveData }>('../../data/curves/*.json', { eager: true });
+const chartPreview = ['normal-rise', 'incomplete-on', 'wearing-off']
+  .map((slug) => graphPatterns.find((p) => p.slug === slug))
+  .filter(Boolean)
+  .map((p) => ({ ...p!, data: curves[`../../data/curves/${p!.curve}.json`]?.default }));
 ---
 <BaseLayout
-  title="배우기"
-  description="3분 약효교실, 실제 그래프 읽기, 사용자 질문, 파킨슨 약리학, 신경해부학 — 약효 변동을 이해하는 데 필요한 배경 지식을 모았습니다."
+  title="파킨슨 배움터"
+  description="약을 외우기보다, 몸에서 일어나는 변화를 이해합니다. 출력 개념, ON/OFF, 차트 읽기부터 약리학·신경해부학 연재까지 배경 지식을 모았습니다."
 >
   <PageHead
-    crumb="배우기"
-    title="배우기"
-    lead="약효 변동을 이해하는 데 필요한 내용을 주제별로 모읍니다. 짧게 읽는 글과 영상이 함께 올라갑니다."
+    crumb="배움터"
+    title="파킨슨 배움터"
+    lead="약을 외우기보다, 몸에서 일어나는 변화를 이해합니다."
   />
 
   <div class="container">
-    <!-- 빠른 진입 — 긴 목록을 내려가기 전에 먼저 큰 구조를 고를 수 있게 한다 -->
-    <div class="grid grid--3">
+    <!-- 처음이라면 — 가장 먼저 볼 세 가지 -->
+    <section aria-labelledby="s-start">
+      <h2 id="s-start" class="section__title">처음이라면</h2>
+      <ul class="rowlink-list" style="margin-top: var(--sp-6)">
+        {outputConcept && (
+          <li>
+            <a class="rowlink" href={url(`/learn/${outputConcept.slug}/`)}>
+              <span class="rowlink__text">출력(Output) 개념<span class="rowlink__hint">{outputConcept.summary}</span></span>
+              <Icon name="arrow-right" size={18} class="rowlink__arrow" />
+            </a>
+          </li>
+        )}
+        <li>
+          <a class="rowlink" href={url('/understand/')}>
+            <span class="rowlink__text">ON/OFF 이해하기<span class="rowlink__hint">진료실에서 오가는 말들이 그래프의 어디를 가리키는지</span></span>
+            <Icon name="arrow-right" size={18} class="rowlink__arrow" />
+          </a>
+        </li>
+        <li>
+          <a class="rowlink" href={url('/graphs/')}>
+            <span class="rowlink__text">차트 읽기 입문<span class="rowlink__hint">하루 곡선에서 무엇을 먼저 볼지</span></span>
+            <Icon name="arrow-right" size={18} class="rowlink__arrow" />
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 빠른 진입 -->
+    <div class="grid grid--3" style="margin-top: var(--sp-16)">
       <a class="card" href={url('/learn/map/')} data-gtag-event="course_card_click" data-gtag-course-name="learning_map">
         <p class="card__eyebrow">전체 구조</p>
         <h2 class="card__title">학습지도</h2>
@@ -66,6 +118,25 @@ const byCategory = categories
       </a>
     </div>
 
+    <!-- 차트 읽기 — 새 컬렉션을 만들지 않고 기존 graphs 컬렉션을 카테고리로 노출 -->
+    <section id="chart-reading" style="margin-top: var(--sp-16); scroll-margin-top: var(--sp-16)">
+      <h2 class="section__title">차트 읽기</h2>
+      <p class="section__lead">그래프의 높이보다 흐름을 읽습니다. 하루 곡선에서 자주 나타나는 모양들입니다.</p>
+      <div class="grid grid--3" style="margin-top: var(--sp-6)">
+        {chartPreview.map((p) => (
+          <a class="card" href={url(`/graphs/${p.slug}/`)}>
+            {p.data && <DayCurve curve={p.data} variant="mini" bare title={`${p.title} — 예시 곡선`} />}
+            <h3 class="card__title" style="margin-top: var(--sp-3)">{p.title}</h3>
+            <p class="card__desc">{p.summary}</p>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top: var(--sp-6)">
+        <a class="link-arrow" href={url('/graphs/')}>차트 읽기 전체 보기 <Icon name="arrow-right" size={18} /></a>
+      </p>
+    </section>
+
+    <!-- 기초 다지기 — 기존 learn 카테고리(3분 약효교실 / 실제 그래프 읽기 / 사용자 질문) -->
     {byCategory.map((c) => (
       <section id={c.slug} style="margin-top: var(--sp-16); scroll-margin-top: var(--sp-16)">
         <h2 class="section__title">{c.title}</h2>
