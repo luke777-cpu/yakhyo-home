@@ -1,0 +1,100 @@
+---
+/**
+ * 공개 방문 카운터.
+ * 같은 브라우저에서는 한국 날짜 기준 하루 한 번만 증가한다.
+ * Supabase URL과 publishable key는 공개 클라이언트 식별자이며,
+ * 테이블 직접 접근은 차단하고 제한된 RPC만 허용한다.
+ */
+const SUPABASE_URL = 'https://xpvffvecdjwkldohuuyl.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QWptpKPoqMPtNzYGU_VHDQ_OhPhd8Ca';
+---
+
+<p
+  class="visitor-counter"
+  data-yakhyo-visitor-counter
+  data-supabase-url={SUPABASE_URL}
+  data-supabase-key={SUPABASE_PUBLISHABLE_KEY}
+  aria-live="polite"
+>
+  오늘 방문 <strong data-today-visits>–</strong>
+  <span aria-hidden="true">·</span>
+  전체 방문 <strong data-total-visits>–</strong>
+</p>
+
+<script>
+  function seoulDateKey() {
+    return new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date());
+  }
+
+  function formatCount(value: unknown) {
+    return new Intl.NumberFormat('ko-KR').format(Number(value) || 0);
+  }
+
+  async function loadVisitorStats() {
+    const root = document.querySelector<HTMLElement>('[data-yakhyo-visitor-counter]');
+    if (!root) return;
+
+    const today = root.querySelector<HTMLElement>('[data-today-visits]');
+    const total = root.querySelector<HTMLElement>('[data-total-visits]');
+    const supabaseUrl = root.dataset.supabaseUrl;
+    const key = root.dataset.supabaseKey;
+    if (!today || !total || !supabaseUrl || !key) return;
+
+    const storageKey = 'yakhyo-home-last-visit';
+    const dateKey = seoulDateKey();
+    let increment = true;
+
+    try {
+      increment = localStorage.getItem(storageKey) !== dateKey;
+    } catch {
+      // 저장소가 막힌 브라우저에서는 현재 접속을 방문으로 집계한다.
+    }
+
+    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/yakhyo_visit_stats`, {
+      method: 'POST',
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ p_increment: increment }),
+    });
+
+    if (!response.ok) throw new Error(`visitor counter: ${response.status}`);
+
+    const data = await response.json();
+    const stats = Array.isArray(data) ? data[0] : data;
+    today.textContent = formatCount(stats?.today_visits);
+    total.textContent = formatCount(stats?.total_visits);
+
+    if (increment) {
+      try {
+        localStorage.setItem(storageKey, dateKey);
+      } catch {
+        // 숫자 표시는 유지하고 저장 오류만 무시한다.
+      }
+    }
+  }
+
+  loadVisitorStats().catch((error) => {
+    console.warn('[visitor-counter] 방문자 수를 불러오지 못했습니다.', error);
+  });
+</script>
+
+<style>
+  .visitor-counter {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .visitor-counter strong {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+</style>
